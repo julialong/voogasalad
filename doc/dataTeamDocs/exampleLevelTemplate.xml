@@ -1,0 +1,17 @@
+<game>
+	<level></level>
+	<items>
+		<enemies>
+			<goombas>
+				<goomba>
+					<xPosition></xPosition>
+					<yPostition></yPostition>
+				</goomba>
+			</goombas>
+		</enemies>
+
+		<bricks>
+		</bricks>
+	</items>
+
+</game>

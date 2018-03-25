@@ -1,0 +1,18 @@
+<properties>
+	<lives></lives>
+	<!-- standard values in template -->
+</properties>
+
+<preferences>
+	<keyBindings>
+		<jump></jump>
+		<right></right>
+	</keyBindings>
+</preferences>
+
+<interactions>
+	<enemy>
+		<sound></sound>
+		<removeItem>true<removeItem>
+	</enemy>
+</interactions>
