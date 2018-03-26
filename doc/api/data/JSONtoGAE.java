@@ -8,6 +8,12 @@ public interface JSONtoGAE {
 	 * and those objects will be updated to contain their relevant information like position or ID. 
 	 */
 	
+	void loadExisting(String gameName);
+	/*
+	 * GAE calls this method if a user chooses to begin editing an existing game. This will locate the existing game folder 
+	 * based on the game name and call the passToGAE method in order to create the appropriate map of levels to existing objects.
+	 */
+	
 	Map<Level, List<FileObjects>> passToGAE();
 	/*
 	 * This method will return the map of settings/levels to the list of objects/properties of that level. 
