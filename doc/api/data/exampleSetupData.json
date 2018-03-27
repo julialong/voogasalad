@@ -1,0 +1,41 @@
+{
+	"playerProperties": {
+		"lives": "3",
+		"points": "0"
+	},
+
+	"preferences": {
+		"keyBindings": {
+			"jump": "space",
+			"right": "rightArrow",
+			"left": "leftArrow",
+			"crouch": "shift",
+			"attack": "1",
+			"interact": "E"
+		},
+		"screeSize": "windowed",
+		"resolution": "1920x1080"
+	},
+
+	"interactions": {
+		"enemy": {
+			"sound": "argh.mp3",
+			"removeItem": "false",
+			"loseLife": "true",
+			"solid": "true",
+			"hasHealth": "true"
+		},
+		"brick": {
+			"sound": "null",
+			"removeItem": "false",
+			"loseLife": "false",
+			"solid": "true"
+		},
+		"coin": {
+			"sound": "ding.mp3",
+			"gainPoints": "1",
+			"removeItem": "true",
+			"solid": "false"
+		}
+	}
+}
