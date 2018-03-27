@@ -21,11 +21,13 @@ Authors:
 	* setWeapon();
 	* useWeapon();
 	* setInteraction();
+	* setBehavior();
 * GameObject
 	* move();
 	* setMovementType();
 	* setHealth();
 	* setInteraction();
+	* setBehavior();
 * PowerUp
 	* setDuration();
 	* setInteraction();
