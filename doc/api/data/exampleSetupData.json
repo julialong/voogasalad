@@ -1,7 +1,7 @@
 {
 	"playerProperties": {
-		"lives": "3",
-		"points": "0"
+		"lives": 3,
+		"points": 0
 	},
 
 	"preferences": {
@@ -23,7 +23,8 @@
 			"removeItem": "false",
 			"loseLife": "true",
 			"solid": "true",
-			"hasHealth": "true"
+			"hasHealth": "true",
+			"gainPoints": 5
 		},
 		"brick": {
 			"sound": "null",
@@ -33,7 +34,7 @@
 		},
 		"coin": {
 			"sound": "ding.mp3",
-			"gainPoints": "1",
+			"gainPoints": 1,
 			"removeItem": "true",
 			"solid": "false"
 		}
