@@ -32,8 +32,8 @@ DATA TEAM MEETING
 			* editedLists is List<List<item>>. addedItems, changedItems, removedItems
 			* GAE calls this in passItemstoData()
 			* implemented based on add, change, or remove
-		* load()
-			* GAE calls Write.load(gameName)
+		* loadNew()
+			* GAE calls Write.loadNew(gameName)
 				* if folder gameName exists, go into it and export for editing
 				* if golder gameName does not exist, make folder, set up defaults/templates, export for editing
 
@@ -48,6 +48,10 @@ DATA TEAM MEETING
 						* aGoomba.yPos = y;
 						* newLevel.enemies.add(aGoomba);
 			* itemsInFile is List<List<Items>>, each list is Enemies, Bricks, Coins, etc. according to classes GAE wrote
+	* load()
+			* GAE calls Write.load(gameName)
+				* if folder gameName exists, go into it and export for editing
+				* if golder gameName does not exist, make folder, set up defaults/templates, export for editing
 
 * JSON > GE/GP
 	* same as JSON > GAE, just with whatever objects GE/GP uses
