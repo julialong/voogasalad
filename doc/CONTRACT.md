@@ -29,11 +29,11 @@ CONTRACT
 * Distribution of responsibilities
 	* Groups of 2 (or 3) people will work on each "section" of the project
 	    * Game authoring environment
-	    		* Julia Long
-	    		* Michael Acker
-	    		* Judi Sanchez
+	    	* Julia Long
+	    	* Michael Acker
+	    	* Judi Sanchez
 	    * Game data
-	    		* Belanie Nagiel
+	    	* Belanie Nagiel
 	   		* Maya Messinger
 		* Game engine
 			* Marcus Oertle
