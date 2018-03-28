@@ -1,3 +1,8 @@
+package api.gae;
+
+import java.io.File;
+import java.io.IOException;
+
 /**
  * The GameCreator interface provides the methods needed for the features necessary in creating
  * a game
