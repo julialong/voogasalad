@@ -1,5 +1,8 @@
-package voogasalad_supersaladsquad;
-
+/**
+ * 
+ * @author Judi Sanchez
+ *
+ */
 public interface CreatorView {
 
 	/**

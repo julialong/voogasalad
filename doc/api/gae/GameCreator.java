@@ -2,7 +2,7 @@
  * The GameCreator interface provides the methods needed for the features necessary in creating
  * a game
  *
- * @author julialong, michaelacker, judithsanchez
+ * @author julialong, judithsanchez
  */
 public interface GameCreator {
 
@@ -26,13 +26,4 @@ public interface GameCreator {
      */
     public abstract void loadLevel(File level) throws IOException;
 
-    /**
-     * Adds a new element to the scene at the specified location
-     * @param newElement is the element (either default or user-defined) to be added
-     * @param xPosition is the x position where the element is placed
-     * @param yPosition is the y position where the element is placed
-     */
-    public abstract void addElement(AuthoredElement newElement, double xPosition, double yPosition);
-
-    
 }
