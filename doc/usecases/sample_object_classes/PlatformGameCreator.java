@@ -1,5 +1,6 @@
 package usecases.sample_object_classes;
 
+import api.data.GAEtoJSON;
 import api.gae.GameCreator;
 
 import java.io.File;
@@ -7,10 +8,16 @@ import java.io.IOException;
 
 public class PlatformGameCreator implements GameCreator{
 
+    GAEtoJSON myDataManager;
+
+    public PlatformGameCreator(GAEtoJSON dataManager) {
+        myDataManager = dataManager;
+    }
 
     @Override
-    public void saveGame(String filePath) throws IOException {
-
+    public void saveGame() {
+        // TODO: change to real map
+        myDataManager.update(null);
     }
 
     @Override
