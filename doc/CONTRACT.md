@@ -34,7 +34,7 @@ CONTRACT
 	    	* Judi Sanchez
 	    * Game data
 	    	* Belanie Nagiel
-	    	* Maya Messinger
+	   		* Maya Messinger
 		* Game engine
 			* Marcus Oertle
 	        * Robert Gitau
