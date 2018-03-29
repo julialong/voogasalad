@@ -39,4 +39,10 @@ public interface GAEtoJSON	{
 		// JSONtoGAE.loadExisting(gameName);
 
 	// private boolean gameExists(String gameName);
+
+	/**
+	 * Method that allows for changes to be reverted to last saved version of game, if user decides to entirely scrap their updats
+	 * @param gameName		name of game to load past save of
+	 */
+	List<Object> revertChanges(String gameName);
 }

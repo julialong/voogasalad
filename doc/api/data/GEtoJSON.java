@@ -1,3 +1,5 @@
+package api.data;
+
 import java.util.Map;
 import java.util.List;
 
