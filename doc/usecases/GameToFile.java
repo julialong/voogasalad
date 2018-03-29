@@ -20,7 +20,7 @@ public class GameToFile {
     // saves the game through the game creator
     void saveGame() {
         // myGameCreator.saveGame() will then call the update
-        // method in GAEtoJSO to save the file to the database
+        // method in GAEtoJSON to save the file to the database
         myGameCreator.saveGame();
     }
 
