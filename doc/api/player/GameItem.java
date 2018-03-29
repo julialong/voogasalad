@@ -1,7 +1,10 @@
 /**
  * Represents each individual item within the GameChooser visual display
+ * This inheritance hierarchy will extend the Node class because each
+ * GameItem will represent a clickable item that the user selects to
+ * move to a game.
  */
-public interface GameItem{
+public interface GameItem extends Node{
 
     /**
      * Constructing a GameItem with a specific dataPath which
