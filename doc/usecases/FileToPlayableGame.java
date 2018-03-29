@@ -1,6 +1,7 @@
 package usecases;
 
 import api.data.JSONtoObject;
+import api.player.*;
 
 public class FileToPlayableGame {
 	
@@ -10,7 +11,9 @@ public class FileToPlayableGame {
 	 * Game Engine
 	 */
 	JSONtoObject myGameLoader;
-	
+
+	GameChooser myChooser;
+
 	/**
 	 * Given a choice of game, calls the load existing function in the
 	 * game loader which returns a list of game objects that the game
@@ -25,4 +28,11 @@ public class FileToPlayableGame {
 		return myGameLoader.loadExisting(gameName);
 	}
 
+	public void useCase(){
+	    myChooser.displayChoices();
+	    myChooser.addChoice(new GameItem("New Game"));
+	    //TODO: Add what is taking in the List<Object> returned by loadGameForPlay
+	    loadGameForPlay(myChooser.sendToGame());
+
+    }
 }
