@@ -35,4 +35,5 @@ public interface CreatorView {
 	public void openNewWindow();
 	
 	
+	
 }

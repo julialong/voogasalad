@@ -1,5 +1,8 @@
+package api.data;
+
 import java.util.Map;
 import java.util.List;
+import api.data.JSONtoGAE
 
 /**
  * From information given to this class from GAE, parses GAE classes and objects into data to push to database
@@ -28,7 +31,7 @@ public interface GAEtoJSON	{
 	 * GAE calls when user starts editing a game. Makes a new game folder (with template items) if game does not already exist (checks name)
 	 * @param gameName	name of game to make
 	 */
-	public void loadNewGame(String gameName)	{
+	default void loadNewGame(String gameName)	{
 		if (!gameExists(gameName))	{
 			// make new folder called gameName
 			// add template files to game folder

@@ -1,3 +1,8 @@
+package api.gae;
+
+import java.io.File;
+import java.io.IOException;
+
 /**
  * The GameCreator interface provides the methods needed for the features necessary in creating
  * a game
@@ -8,9 +13,8 @@ public interface GameCreator {
 
     /**
      * Saves the current state of the edited game through the appropriate class in GameData
-     * @throws IOException when saving the game causes an IOException
      */
-    public abstract void saveGame(String filePath) throws IOException;
+    public abstract void saveGame();
 
     /**
      * Loads a current game to the editor to be further modified
@@ -22,8 +26,14 @@ public interface GameCreator {
     /**
      * Loads a current level to the editor to be further modified
      * @param level is the file containing the level to be loaded
-     * @throws IOException when loading the game causes an IOException
+     * @throws IOException when loading the level causes an IOException
      */
     public abstract void loadLevel(File level) throws IOException;
+    
+    /**
+     * This method allows the user to create a new element with custom 
+     * attributes and images
+     */
+    public abstract void createNewAuthoredElement();
 
 }

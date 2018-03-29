@@ -1,3 +1,5 @@
+package api.gae;
+
 /**
  * The AuthoredElement interface is implemented by every element that
  * can be inserted into the GameCreator environment
@@ -22,9 +24,11 @@ public interface AuthoredElement {
     public abstract void uploadImage(String fileName);
 
     /**
-     * Adds the current element to the GameCreator grid
+     *  Adds the current element to the GameCreator grid
+     * @param xPosition is the initial x position of the element on the grid
+     * @param yPosition is the initial y position of the element on the grid
      */
-    public abstract void addToGrid();
+    public abstract void addToGrid(double xPosition, double yPosition);
 
     /**
      * Modifies the current element's position on the GameCreator grid
