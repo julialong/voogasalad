@@ -12,11 +12,10 @@ public interface GEtoJSON	{
 	 * @param level			name of level to save
 	 * @param itemsInLevel	List (potentially list of lists of different types of objects) if items in level to save stats of
 	 */
-	public void saveData(Object level, List itemsInLevel)	{
-		for (List items:itemsInLevel)	{
-			for (Object item:items)	{
-				// push item and its info to database
-			}
-		}
-	}
+	void saveData(Object level, List itemsInLevel);
+		// for (List items:itemsInLevel)	{
+		// 	for (Object item:items)	{
+		// 		// push item and its info to database
+		// 	}
+		// }
 }
