@@ -1,3 +1,5 @@
+package api.player;
+
 /**
  * This interface represents the HUD component of the GameView.
  * The components of the HUD will be a series of DisplayComponents

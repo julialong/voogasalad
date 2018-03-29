@@ -1,3 +1,5 @@
+package api.player;
+
 /**
  * This interface represents each component in the HUD.
  * They will be able to be updated universally during the
