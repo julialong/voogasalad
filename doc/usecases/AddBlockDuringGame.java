@@ -9,6 +9,7 @@ import usecases.sample_object_classes.PlatformGameCreator;
 
 public class AddBlockDuringGame {
 	GameCreator myGameCreator;
+	GamePlayer myGamePlayer;
 	GameView myGameView;
 	EngineManager myEngineManager;
 	GAEtoJSON myGAEToJson;
@@ -27,6 +28,11 @@ public class AddBlockDuringGame {
 		myGameCreator.saveGame();
 
 		// myGameCreator.close();
+
+		myJSONToObj.loadLevel(myGameLevel.toString());
+
+		// reloads level from objects passed by myJSONToOjb.loadLevel()
+		myGamePlayer.reload();
 	}
 
 
