@@ -1,4 +1,14 @@
 package usecases;
+import api.engine.Enemy;
+import api.engine.Behavior;
+import api.engine.Weapon;
+import api.engine.Interaction;
+import api.engine.Movement;
+import api.engine.Enemy;
+import api.engine.NoWeapon;
+import api.engine.HarmPlayer;
+import api.engine.Grounded;
+import api.engine.ChasePlayer;
 // Use Case: User defines an enemy that can chase the player.
 public class CreateEnemy {
 	private Enemy myEnemy;
