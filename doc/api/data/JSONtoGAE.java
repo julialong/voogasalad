@@ -1,4 +1,4 @@
-package voogasalad_supersaladsquad;
+package api.data;
 
 public interface JSONtoGAE {
 	/*

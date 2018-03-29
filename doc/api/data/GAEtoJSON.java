@@ -1,5 +1,8 @@
+package api.data;
+
 import java.util.Map;
 import java.util.List;
+import api.data.JSONtoGAE
 
 /**
  * From information given to this class from GAE, parses GAE classes and objects into data to push to database
