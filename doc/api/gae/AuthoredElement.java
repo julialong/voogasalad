@@ -1,3 +1,5 @@
+package api.gae;
+
 /**
  * The AuthoredElement interface is implemented by every element that
  * can be inserted into the GameCreator environment
