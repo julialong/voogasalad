@@ -1,5 +1,7 @@
 package api.data;
 
+import java.util.List;
+
 public interface JSONtoObject {
 	/*
 	 * Objects of this type will read through the JSON files for the settings and levels of a game
