@@ -1,3 +1,5 @@
+package api.gae;
+
 /**
  * The Attribute interface is implemented by the characteristics added to
  * different Element objects
