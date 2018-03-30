@@ -1,3 +1,5 @@
+package api.player;
+
 /**
  * Represents each individual item within the GameChooser visual display
  * This inheritance hierarchy will extend the Node class because each

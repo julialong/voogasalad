@@ -8,7 +8,8 @@ import java.io.IOException;
 
 public class PlatformGameCreator implements GameCreator{
 
-    GAEtoJSON myDataManager;
+    private GAEtoJSON myDataManager;
+
 
     public PlatformGameCreator(GAEtoJSON dataManager) {
         myDataManager = dataManager;
