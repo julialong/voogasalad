@@ -25,7 +25,7 @@ public class FileToPlayableGame {
 	 */
 	List<Object> loadGameForPlay(String gameName)
 	{
-		return myGameLoader.loadExisting(gameName);
+		return myGameLoader.loadGame(gameName);
 	}
 
 	public void useCase(){
