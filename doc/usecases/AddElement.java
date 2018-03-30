@@ -32,5 +32,18 @@ public class AddElement {
 	private String getElementType(String ID) {
 		//This will be accomplished by checking the element's properties file, but in this case, it is assumed that the type is SampleBlock.
 		return "SampleBlock";
+
+//Alternate, possibly complementary approach using the Level interface. 
+/*
+ * Adds elements to a level.
+ */
+public class AddElement {
+	public AddElement(Level level, GameObject object) {
+		level.addObject(object);
+	}
+	
+	public AddElement(Level level, List<GameObject> objects){
+		level.setObjects(objects);
+>>>>>>> master
 	}
 }

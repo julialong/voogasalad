@@ -7,6 +7,7 @@ public class SampleBlock implements AuthoredElement {
 	private int myGridY;
 	private String myID;
 	//Has a bunch of defined properties as well, but only x and y positions on grid are relevant to individual construction
+	//This is just a placeholder class to allow the AddElement class to compile.
 	
 	public SampleBlock(int gridX, int gridY, String ID) {
 		myGridX = gridX;
