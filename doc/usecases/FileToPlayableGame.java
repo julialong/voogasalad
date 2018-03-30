@@ -33,7 +33,6 @@ public class FileToPlayableGame {
 	public void useCase(){
 	    myChooser.displayChoices();
 	    myChooser.addChoice(new GameItem("New Game"));
-	    //TODO: Add what is taking in the List<Object> returned by loadGameForPlay
 	    List<Object> gameList = loadGameForPlay(myChooser.sendToGame());
 		level.setObjects(gameList);
     }
