@@ -13,6 +13,8 @@ public class FileToPlayableGame {
 	JSONtoObject myGameLoader;
 
 	GameChooser myChooser;
+	
+	Level level;
 
 	/**
 	 * Given a choice of game, calls the load existing function in the
@@ -31,8 +33,7 @@ public class FileToPlayableGame {
 	public void useCase(){
 	    myChooser.displayChoices();
 	    myChooser.addChoice(new GameItem("New Game"));
-	    //TODO: Add what is taking in the List<Object> returned by loadGameForPlay
-	    loadGameForPlay(myChooser.sendToGame());
-
+	    List<Object> gameList = loadGameForPlay(myChooser.sendToGame());
+		level.setObjects(gameList);
     }
 }
