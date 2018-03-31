@@ -1,8 +1,8 @@
 package authoring_environment;
 
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -14,7 +14,7 @@ public class EditorWindow implements CreatorView {
 
     private Stage myStage;
     private Scene myScene;
-    private BorderPane root;
+    private Pane myRoot;
 
     public EditorWindow(Stage stage) {
         myStage = stage;
@@ -23,7 +23,6 @@ public class EditorWindow implements CreatorView {
 
     @Override
     public void updateGrid() {
-
     }
 
     @Override
@@ -47,9 +46,9 @@ public class EditorWindow implements CreatorView {
 
 
     private void setupNewWindow() {
-        root = new BorderPane();
+        myRoot = new BorderPane();
         // TODO: read these from Resource file
-        myScene = new Scene(root);
+        myScene = new Scene(myRoot);
         myStage.setMaximized(true);
         // TODO: add Toolbars
 
