@@ -16,7 +16,7 @@ public class EditorMain extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new EditorWindow();
+        new EditorWindow(primaryStage);
     }
 
     /**
