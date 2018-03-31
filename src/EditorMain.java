@@ -1,3 +1,5 @@
+import authoring_environment.CreatorView;
+import authoring_environment.EditorWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,7 +16,7 @@ public class EditorMain extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        new EditorWindow();
     }
 
     /**
