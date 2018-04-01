@@ -32,6 +32,9 @@ public class CreateEnemy {
 		return new ChasePlayer();
 	}
 	private Enemy createEnemy(Movement movement, Behavior behavior, Weapon weapon, int HP, Intearaction interaction){
+		myGameCreator = new GameCreator();
+		myGameCreator.createNewElement("ENEMY");
+		
 		// this: 
 		Enemy enemy = new Enemy(movement, behavior, weapon, HP, interaction);
 		// or this:
