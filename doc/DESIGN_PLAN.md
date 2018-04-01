@@ -37,6 +37,15 @@ This is the screen that the user sees when they open the game player app. If the
 After the user selects a game to play they will move to screen two. This is where they play the game using the keys and mouse in the way specified in the GAE. They can also interact with the Game Player through the Game Player buttons in the menubar.
 
 ### Game Authoring Environment
+<kbd>
+  <img src="https://i.imgur.com/UV7DXG5.jpg">
+</kbd>
+
+This screen represents a preliminary version of the primary workspace of the Game Authoring Environment. First, a game is loaded or a new game is created. Within the game, the user may choose or create a stage to work on. Stages are organized in the interface in the bottom right corner. Here, the stage called "Level 2" is selected, so the map for the "level 2" stage is displayed in the large main panel with the grid, the map editiing area. Stages may be linked together, allowing the user to choose how a transition from one stage to another occurs, and organized within the panel as the user wishes. 
+
+In the top right is the game element editor. There are many fundamental types of game elements, such as characters, enemies, weapons, projectiles, terrain blocks, etc. Each fundamental element type may represent many customizable elements whose properties, including images, behaviors, and parameters, may be selected by the user upon creation. In the game element editor, the drop-down menu allows the user to select an element type. All existing elements of that type are then displayed in the panel below. The user may also create a new element of the selected type, which would appear in the panel upon its creation. To add a game element to the stage, the user simply clicks its image in the panel and drags it to the desired spot in the stage editor's grid. An element may be multi-dimensional. Here, each of the example Minecraft blocks, which represent terrain blocks, are 1x1. However, the Pikachu sprite, which represents a player character, is 1x2, so its ear pokes into the next grid space above it. When the user has finished editing, a stage or full game may be saved at any time by pressing the save buttons.
+
+This example is far from complete; the area between the element and stage panels will likely be full of various buttons which have not yet been ironed out. The four headings at the top, which would each feature sub-menus, are also not finalized. Finally, every time the user creates a new game, game element, or stage, a unique pop-up menu (unique for every element type) featuring a vast array of cusomization options will appear, and the layout of these menus has not been designed, as the full scope of element types and parameters is not yet finalized. Despite these missing details, however, this picture should provide a very faithful representation of the core design and functionality of the finished product.
 
 ## Design Details
 
