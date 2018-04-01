@@ -1,3 +1,5 @@
+package api.engine;
+
 /**
  * Defines the logic for enemies, moving entities that usually deal damage or
  * otherwise actively obstruct the player, and how they interact with the game
