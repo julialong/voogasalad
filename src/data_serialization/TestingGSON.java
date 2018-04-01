@@ -5,7 +5,7 @@ import com.google.gson.*;
 public class TestingGSON {
 	
 	public static void main(String[] args) {
-		Gson gson = new GsonBuilder().create();
+		Gson gson = new Gson();
 //		gson.toJson("Hello", System.out);
 //		gson.toJson(123, System.out);
 		

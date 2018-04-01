@@ -1,6 +1,7 @@
 package data_serialization;
 
-public class SampleObject {
+
+public class SampleObject{
 	
 	private int ID;
 	private int added;
