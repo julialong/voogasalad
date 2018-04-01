@@ -1,5 +1,3 @@
-package api.engine;
-
 /**
  * Defines GameObjects, objects that players and/or enemies can interact with, but usually don't actively try to hurt the player
  */

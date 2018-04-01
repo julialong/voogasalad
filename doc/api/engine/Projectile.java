@@ -1,5 +1,3 @@
-package api.engine;
-
 /**
  * Interface for projectile type classes that can be utilized by projectile weapons
  * @author Marcus
