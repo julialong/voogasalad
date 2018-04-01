@@ -13,10 +13,10 @@ public interface MenuBar {
 	public Node getNode();
 
 	/**
-	 * Adds a button b to the menubar object
+	 * Adds a buttons b to the menubar object
 	 * 
 	 * @param b 
-	 * 			the button to add to the menubar
+	 * 			the buttons to add to the menubar
 	 */
 	public void addButton(GamePlayerButton b);
 }

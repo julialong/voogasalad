@@ -36,4 +36,11 @@ public interface AuthoredElement {
      * @param yPosition is the new y position
      */
     public abstract void move(double xPosition, double yPosition);
+    
+    /**
+     * Gets the class type for an element from its data file
+     * @param ID
+     * @return String representation of class type
+     */
+    public abstract String getType(String ID);
 }

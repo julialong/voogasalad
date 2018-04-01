@@ -1,4 +1,4 @@
-package api.engine
+package api.engine;
 
 public interface Behavior {
 	/**
