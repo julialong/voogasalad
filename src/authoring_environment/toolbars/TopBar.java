@@ -1,7 +1,9 @@
 package authoring_environment.toolbars;
 
+import authoring_environment.toolbars.buttons.InsertButton;
 import authoring_environment.toolbars.buttons.LoadButton;
 import authoring_environment.toolbars.buttons.SaveButton;
+import authoring_environment.toolbars.buttons.SettingsButton;
 import javafx.scene.control.ToolBar;
 
 /**
@@ -10,6 +12,7 @@ import javafx.scene.control.ToolBar;
  * object, or modifying the general settings of the game.
  *
  * @author julialong
+ * Date started: March 31 18
  */
 public class TopBar extends ToolBar{
 
@@ -26,6 +29,8 @@ public class TopBar extends ToolBar{
      */
     private void addButtons() {
         this.getItems().addAll( new LoadButton(),
-                                new SaveButton());
+                                new SaveButton(),
+                                new InsertButton(),
+                                new SettingsButton());
     }
 }

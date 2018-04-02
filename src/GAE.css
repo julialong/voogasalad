@@ -1,0 +1,5 @@
+.side-pane {
+    -fx-vgap: 100;
+    -fx-alignment: top-center;
+    -fx-padding: 25;
+}
