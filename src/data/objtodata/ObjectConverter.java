@@ -10,6 +10,7 @@ import data.objtodata.Serializer;
  * Class that converts objects in a game authoring environment or game engine to JSON data objects
  */
 public class ObjectConverter implements GAEtoJSON, GEtoJSON	{
+	Serializer ser = new Serializer();
 
 	public void update(Map<Level, List<List<GameObject>>> changes)	{
 		for (Level aLevel:changes.keySet())	{

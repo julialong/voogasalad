@@ -1,25 +1,17 @@
 package data.objtodata;
 
 public class ExampleObject {  
-    String name;
-    String email;
-    int age;
-    boolean isDeveloper;
+    String type;
+    int health;
+    boolean attacks;
 
-    public ExampleObject(String n, String e, int a, boolean i)	{
-    	name = n;
-    	email = e;
-    	age = a;
-    	isDeveloper = i;
+    public ExampleObject()	{
+    	this("enemy", 2, true);
+    }
+
+    public ExampleObject(String type, int health, boolean attacks)	{
+    	this.type = type;
+    	this.health = health;
+    	this.attacks = attacks;
     }
 }
-
-// public class ExampleObject	{
-//     int id;
-//     public Class myClass = this.getClass();
-//     private boolean canRemove = false;
-
-//     public ExampleObject(int id)	{
-//         this.id = id;
-//     }
-// }
