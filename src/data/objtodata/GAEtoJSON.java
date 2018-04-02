@@ -12,7 +12,7 @@ public interface GAEtoJSON	{
 	 * Data passed are levels or settings (corresponding to files), and a list of the items per file to update
 	 * @param changes	editedItems is List<List<item>>. editedItems contains List<item> addedItems, List<item> changedItems, List<item> removedItems
 	 */
-	void update(Map<Level, List<List>> changes);
+	void update(Map<Level, List<List<GameObject>>> changes);
 		// for (Object file:filesToEdit)	{
 		// 	for (Object added:editedItems.get(0))	{
 		// 		// add new item to database
