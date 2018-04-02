@@ -1,37 +1,56 @@
 package data_serialization;
 
 import java.io.File;
-
+/**
+ * @author Belanie Nagiel
+ * 
+ * Class that facilitates addition and removal of items in the levels of a game.
+ * Creates appropriate folders and files based on whether the game exists or 
+ * not and connects to the GameFile object.
+ *
+ */
 public class GameFileWriter {
-	
-	public String gameName;
+
 	public String gameDirectory;
 	public GameFile gameToEdit;
 	
-	public GameFileWriter(String game) 
+	/**
+	 * Class Constructor.
+	 * Creates or loads the appropriate GameFile object for a game. 
+	 * 
+	 * @param gameName
+	 */
+	public GameFileWriter(String gameName) 
 	{
-		gameName = game;
-		gameDirectory = "./data/gameData/" + game;
-	}
-	
-	public void newGame()
-	{
-		File gameFolder = new File(gameDirectory);
-		gameFolder.mkdir();
+		gameDirectory = "./data/gameData/" + gameName;
 		loadGame();
 	}
 	
-	public void loadGame()
+	/**
+	 * Creates the GameFile object for the given Game
+	 */
+	private void loadGame()
 	{
-		gameToEdit = new GameFile(gameName);
+		File gameFolder = new File(gameDirectory);
+		if (!gameFolder.exists() && !gameFolder.isDirectory())
+		{
+			gameFolder.mkdir();
+		}
+		gameToEdit = new GameFile(gameDirectory);
 	}
 	
+	/**
+	 * Adds the string info to the json file for a particular level.
+	 * 
+	 * @param level Level to be edited
+	 * @param updateInfo JSON information to be added
+	 */
 	public void addToLevel(int level, String updateInfo)
 	{
 		gameToEdit.writeToLevel(1, updateInfo);
 	}
 	
-	public void removeFromLevel(String gameName, int level, String updateInfo)
+	public void removeFromLevel(int level, String updateInfo)
 	{
 	}
 	

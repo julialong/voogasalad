@@ -19,9 +19,7 @@ public class TestingGSON {
 //		System.out.println(test.add(17));	
 		
 		GameFileWriter f = new GameFileWriter("sampleGame");
-//		f.newGame("sampleGame");
 		
-		f.update("sampleGame", 1, sample);
 	}
 
 }
