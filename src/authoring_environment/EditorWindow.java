@@ -13,6 +13,7 @@ import javafx.stage.Stage;
  * EditorWindow implements the CreatorView interface and manages the UI of the
  * editing environment
  *
+<<<<<<< HEAD
  * @author julialong 
  * Date started: March 30 18
  * @author Judi Sanchez 
