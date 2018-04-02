@@ -5,27 +5,28 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
-public class ScrollingGrid {
+/**
+ * 
+ * @author Judi Sanchez
+ * Date Started: April 1 2018
+ */
+public class ScrollingGrid extends ScrollPane {
 	// TODO: Change this based on level size
 	private static final int NUMBER_OF_ROWS = 50;
 	private static final int NUMBER_OF_COLUMNS = 60;
-	// TODO: Get this from resource file
-	private static final double SCROLL_PANE_WIDTH = 900;
-	private static final double SCROLL_PANE_HEIGHT = 800;
-
+	
 	private GridPane gridpane;
 	private ScrollPane scrollpane;
 
 	public ScrollingGrid() {
 		gridpane = new GridPane();
 		scrollpane = new ScrollPane(gridpane);
-		scrollpane.setMaxWidth(SCROLL_PANE_WIDTH);
-		scrollpane.setMaxHeight(SCROLL_PANE_HEIGHT);
 		makeGrid();
 
 	}
 
 	private void makeGrid() {
+		//TODO: Change it so that a grid is created when a new level is created
 		gridpane.setGridLinesVisible(true);
 		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
 			gridpane.getRowConstraints().add(new RowConstraints(25));
