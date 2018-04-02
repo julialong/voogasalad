@@ -12,6 +12,7 @@ import javafx.scene.control.ToolBar;
  * object, or modifying the general settings of the game.
  *
  * @author julialong
+ * Date started: March 31 18
  */
 public class TopBar extends ToolBar{
 

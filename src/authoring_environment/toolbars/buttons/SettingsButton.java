@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
  * to manipulate the settings for the game.
  *
  * @author julialong
+ * Date started: April 01 18
  */
 public class SettingsButton extends Button{
 

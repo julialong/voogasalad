@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
  * to choose whether they would like to load a game or level for editing
  *
  * @author julialong
+ * Date started: April 01 18
  */
 public class LoadButton extends MenuButton {
 

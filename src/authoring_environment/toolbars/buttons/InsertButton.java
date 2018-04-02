@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
  * to choose to insert a level, splash screen, or object.
  *
  * @author julialong
+ * Date started: April 01 18
  */
 public class InsertButton extends MenuButton {
 

@@ -1,14 +1,18 @@
 package authoring_environment;
 
+import authoring_environment.toolbars.RightBar;
 import authoring_environment.toolbars.TopBar;
 import javafx.scene.Scene;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
  * EditorWindow implements the CreatorView interface and manages the UI of the editing environment
  *
  * @author julialong
+ * Date started: March 30 18
  */
 public class EditorWindow implements CreatorView {
 
@@ -22,6 +26,7 @@ public class EditorWindow implements CreatorView {
      */
     public EditorWindow(Stage stage) {
         myStage = stage;
+
         openNewWindow();
     }
 
@@ -75,11 +80,20 @@ public class EditorWindow implements CreatorView {
     private void setupNewWindow() {
         myRoot = new BorderPane();
         myScene = new Scene(myRoot);
+        myScene.getStylesheets().add("GAE.css");
         myStage.setMaximized(true);
 
         myRoot.setTop(new TopBar());
+        myRoot.setRight(setRightBar());
+
         // TODO: add right side toolbar
 
         // TODO: add Grid
+    }
+
+    private VBox setRightBar() {
+        VBox rightBar = new RightBar();
+        rightBar.getStyleClass().add("side-pane");
+        return rightBar;
     }
 }
