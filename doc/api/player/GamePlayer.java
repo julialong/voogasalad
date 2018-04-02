@@ -1,7 +1,7 @@
 package api.player;
 
 /**
- * Main application for the GamePlayer module. Within the GamePlayer
+ * EditorMain application for the GamePlayer module. Within the GamePlayer
  * is the MenuBar and the GameView.
  */
 public interface GamePlayer{
