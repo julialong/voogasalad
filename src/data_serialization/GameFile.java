@@ -1,8 +1,10 @@
 package data_serialization;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 
 /**
  * @author Belanie Nagiel
@@ -65,5 +67,10 @@ public class GameFile {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void removeFromLevel(int levelNumber, String jsonToRemove)
+	{
+		
 	}
 }

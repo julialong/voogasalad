@@ -45,12 +45,12 @@ public class GameFileWriter {
 	 * @param level Level to be edited
 	 * @param updateInfo JSON information to be added
 	 */
-	public void addToLevel(int level, String updateInfo)
+	public void add(int level, String updateInfo)
 	{
-		gameToEdit.writeToLevel(1, updateInfo);
+		gameToEdit.writeToLevel(level, updateInfo);
 	}
 	
-	public void removeFromLevel(int level, String updateInfo)
+	public void remove(int level, String updateInfo)
 	{
 	}
 	
