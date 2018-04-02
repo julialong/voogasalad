@@ -81,5 +81,7 @@ public class EditorWindow implements CreatorView {
         // TODO: add right side toolbar
 
         // TODO: add Grid
+        ScrollingGrid grid = new ScrollingGrid();
+        myRoot.setLeft(grid.getScrollingGridPane());
     }
 }
