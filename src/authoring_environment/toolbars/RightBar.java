@@ -1,6 +1,7 @@
 package authoring_environment.toolbars;
 
 import authoring_environment.toolbars.buttons.AddElementButton;
+import authoring_environment.toolbars.buttons.AddLevelButton;
 import authoring_environment.toolbars.labels.SideLabel;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -35,6 +36,7 @@ public class RightBar extends SplitPane{
         splitPanes();
         addLabels();
         addButtons();
+        addScrollScreens();
     }
 
     private void splitPanes() {
@@ -53,6 +55,9 @@ public class RightBar extends SplitPane{
         Button elementButton = new AddElementButton();
         elementButton.setLayoutY(50);
         elementPane.getChildren().add(elementButton);
+        Button levelButton = new AddLevelButton();
+        levelButton.setLayoutY(50);
+        levelPane.getChildren().add(levelButton);
     }
 
     private void addScrollScreens() {
