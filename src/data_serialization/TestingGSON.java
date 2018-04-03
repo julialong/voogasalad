@@ -18,9 +18,13 @@ public class TestingGSON {
 //		
 //		System.out.println(test.add(17));	
 		
-		GameFileWriter f = new GameFileWriter("sampleGame");
+//		GameFileWriter f = new GameFileWriter("sampleGame");
 //		f.add(1, " \"1\": " + sample + ",\n");
-		f.remove(1, "\"1\"");
+//		f.remove(1, "\"1\"");
+		
+		GameFileReader f = new GameFileReader("sampleGame");
+		f.loadGame();
+		
 		
 	}
 
