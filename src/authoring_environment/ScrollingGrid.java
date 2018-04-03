@@ -6,7 +6,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 /**
- * 
+ * This class is a ScrollingPane that contains the grid that represents the placement 
+ * of objects in each level of the created game
  * @author Judi Sanchez
  * Date Started: April 1 2018
  */
@@ -18,6 +19,9 @@ public class ScrollingGrid extends ScrollPane {
 	private GridPane gridpane;
 	private ScrollPane scrollpane;
 
+	/**
+	 * This constructor creates a new ScrollPane that holds a GridPane
+	 */
 	public ScrollingGrid() {
 		gridpane = new GridPane();
 		scrollpane = new ScrollPane(gridpane);
@@ -37,6 +41,9 @@ public class ScrollingGrid extends ScrollPane {
 
 	}
 
+	/**
+	 * @return the ScrollPane 
+	 */
 	public ScrollPane getScrollingGridPane() {
 		return scrollpane;
 	}
