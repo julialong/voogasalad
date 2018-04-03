@@ -1,10 +1,10 @@
 {"data.objtodata.ExampleObject":[
-{"id":15,"health":1,"attacks":true},
-{"id":45,"health":1,"attacks":true}
+{"id":10,"health":1,"attacks":true},
+{"id":61,"health":1,"attacks":true}
 ],"data.objtodata.ExampleObject3":[
-{"id":58,"health":3,"attacks":true},
-{"id":8,"health":3,"attacks":true}
+{"id":47,"health":3,"attacks":true},
+{"id":0,"health":3,"attacks":true}
 ],"data.objtodata.ExampleObject2":[
-{"id":81,"health":2,"attacks":true},
-{"id":51,"health":2,"attacks":true}
+{"id":64,"health":2,"attacks":true},
+{"id":85,"health":2,"attacks":true}
 ]}

@@ -10,6 +10,8 @@ import java.util.Map;
 
 public class Tester	{
 	private static Serializer ser = new Serializer();
+	private static List<Object> objsToWrite = new ArrayList<>();
+	private static Map<String, List<Object>> objsOrganized = new HashMap<>();
 
 	private static String curlyBracketOpen = "{";
 	private static String curlyBracketClose = "}";
@@ -18,56 +20,82 @@ public class Tester	{
 	private static String colon = ":";
 	private static String comma = ",";
 	private static String quote = "\"";
+	private static String writeErrorStatement = "Could not write to file";
 
 	public static void main(String[] args)	{
-		List<Object> objsToWrite = new ArrayList<>();
-		Map<String, List<Object>> objsOrganized = new HashMap<>();
-
-		objsToWrite.add(new ExampleObject());
-		objsToWrite.add(new ExampleObject2());
-		objsToWrite.add(new ExampleObject());
-		objsToWrite.add(new ExampleObject2());
-		objsToWrite.add(new ExampleObject3());
-		objsToWrite.add(new ExampleObject3());
+		makeDummyObjects();
 
 		try	{
 			FileWriter fw = new FileWriter("./data/testJson.json");
 			
-			fw.write(curlyBracketOpen);
-
-			for (Object obj:objsToWrite)	{
-				String oc = obj.getClass().getName();
-
-				if (!objsOrganized.containsKey(oc))	{
-					objsOrganized.put(oc, new ArrayList<Object>());
-				}
-				objsOrganized.get(oc).add(obj);
-			}
+			startFile(fw);
 
 			int entryIndex = 0;
 			for (Map.Entry entry:objsOrganized.entrySet())	{
 				String aClass = (String)entry.getKey();
 				List<Object> classObjects = (List)entry.getValue();
 
-				fw.write(quote + aClass + quote + colon + bracketOpen);
-				fw.write(System.lineSeparator());
-
-				for (Object classObject:classObjects)	{
-					fw.write(ser.serialize(classObject));
-					checkWriteComma(fw, classObjects.indexOf(classObject), classObjects.size());
-					fw.write(System.lineSeparator());
-				}
-
-				fw.write(bracketClose);
-				checkWriteComma(fw, entryIndex, objsOrganized.entrySet().size());
+				startArray(fw, aClass);
+				writeArray(fw, classObjects);
+				closeArray(fw, entryIndex, objsOrganized.entrySet().size());
 				entryIndex++;
 			}
 
-			fw.write(curlyBracketClose);
-			fw.close();
+			endFile(fw);
 		}
 		catch (IOException e)	{
-			System.out.println("Could not write to file");
+			error(e);
+		}
+	}
+
+	private static void makeDummyObjects()	{
+		objsToWrite.add(new ExampleObject());
+		objsToWrite.add(new ExampleObject2());
+		objsToWrite.add(new ExampleObject());
+		objsToWrite.add(new ExampleObject2());
+		objsToWrite.add(new ExampleObject3());
+		objsToWrite.add(new ExampleObject3());
+
+		for (Object obj:objsToWrite)	{
+			String oc = obj.getClass().getName();
+
+			if (!objsOrganized.containsKey(oc))	{
+				objsOrganized.put(oc, new ArrayList<Object>());
+			}
+			objsOrganized.get(oc).add(obj);
+		}
+	}
+
+	private static void startArray(FileWriter fw, String title)	{
+		try	{
+			fw.write(quote + title + quote + colon + bracketOpen);
+			fw.write(System.lineSeparator());
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	private static void closeArray(FileWriter fw, int entryIndex, int mapSize)	{
+		try	{
+			fw.write(bracketClose);
+			checkWriteComma(fw, entryIndex, mapSize);
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	private static void writeArray(FileWriter fw, List toWrite)	{
+		try	{
+			for (Object obj:toWrite)	{
+				fw.write(ser.serialize(obj));
+				checkWriteComma(fw, toWrite.indexOf(obj), toWrite.size());
+				fw.write(System.lineSeparator());
+			}
+		}
+		catch (IOException e)	{
+			error(e);
 		}
 	}
 
@@ -77,8 +105,31 @@ public class Tester	{
 				fw.write(comma);
 			}
 			catch (IOException e)	{
-				System.out.println("Could not write to file");
+				error(e);
 			}
 		}
+	}
+
+	private static void startFile(FileWriter fw)	{
+		try	{
+			fw.write(curlyBracketOpen);
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	private static void endFile(FileWriter fw)	{
+		try	{
+			fw.write(curlyBracketClose);
+			fw.close();
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	private static void error(IOException e)	{
+		System.out.println("Could not write to file");
 	}
 }
