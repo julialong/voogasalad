@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 public class Serializer	{
 	private static Gson gson = new Gson();
 
-	protected void serialize(Object obj)	{
-        System.out.println(gson.toJson(obj));
+	protected String serialize(Object obj)	{
+        return gson.toJson(obj);
 	}
 }

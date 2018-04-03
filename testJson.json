@@ -1,0 +1,6 @@
+{"enemy":[
+{"id":40,"type":"enemy","health":2,"attacks":true},
+{"id":31,"type":"enemy","health":2,"attacks":true},
+{"id":67,"type":"enemy","health":2,"attacks":true}
+]
+}

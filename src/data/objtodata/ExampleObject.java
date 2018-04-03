@@ -1,6 +1,10 @@
 package data.objtodata;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ExampleObject {  
+	int id;
     String type;
     int health;
     boolean attacks;
@@ -10,6 +14,7 @@ public class ExampleObject {
     }
 
     public ExampleObject(String type, int health, boolean attacks)	{
+    	this.id = (int)(Math.random() * 100);
     	this.type = type;
     	this.health = health;
     	this.attacks = attacks;
