@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
  */
 public class AddElementButton extends Button {
 
-    private static final String ADD_ELEMENT= "Add Game Element";
+    private static final String ADD_ELEMENT= "Create new element";
 
     /**
      * Creates a simple add element button.
