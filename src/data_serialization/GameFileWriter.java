@@ -52,6 +52,7 @@ public class GameFileWriter {
 	
 	public void remove(int level, String updateInfo)
 	{
+		gameToEdit.removeFromLevel(1, updateInfo);
 	}
 	
 }

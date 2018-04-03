@@ -1,10 +1,17 @@
 package data_serialization;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
+import com.google.gson.stream.JsonReader;
 
 /**
  * @author Belanie Nagiel
@@ -40,6 +47,7 @@ public class GameFile {
 		if(!newLevel.exists()) { 
 			try {
 				newLevel.createNewFile();
+				writeToLevel(levelNumber,"{\n");
 			} 
 			catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -71,6 +79,56 @@ public class GameFile {
 	
 	public void removeFromLevel(int levelNumber, String jsonToRemove)
 	{
+		File currentLevel = level(levelNumber);
+		try {
+			FileReader fr = new FileReader(currentLevel);
+			BufferedReader br = new BufferedReader(fr);
+			String line;
+			List<String> lines = new ArrayList<>();
+			while ((line = br.readLine()) != null) {
+				System.out.println(line);
+                if (line.contains(jsonToRemove))
+                    line = line.replace(line, "\n");
+                lines.add(line);
+            }
+			fr.close();
+            br.close();
+            
+            FileWriter fw = new FileWriter(currentLevel);
+            BufferedWriter out = new BufferedWriter(fw);
+            for(String s : lines)
+                 out.write(s);
+            out.flush();
+            out.close();
+            
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		try {
+//			JsonReader jsonReader = new JsonReader(new FileReader(currentLevel));
+//			jsonReader.beginObject();
+//			String name = jsonReader.nextName();
+//			System.out.println(name);
+//			jsonReader.beginObject();
+//			jsonRead.
+//			System.out.println(stuff);
+////			while(jsonReader.hasNext())
+////			{
+////				String name = jsonReader.nextName();
+////				if(name.equals("1"))
+////				{
+////					System.out.println(jsonReader.nextString());
+////				}
+////			}
+//			jsonReader.endObject();
+//			jsonReader.close();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		
 	}
 }
