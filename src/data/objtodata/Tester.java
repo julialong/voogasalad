@@ -6,8 +6,6 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.stream.JsonReader;
-
 public class Tester	{
 	private static Serializer ser = new Serializer();
 
@@ -21,15 +19,15 @@ public class Tester	{
 		objsToWrite.add(new ExampleObject());
 
 		try	{
-			FileWriter fw = new FileWriter("testJson.json");
+			FileWriter fw = new FileWriter("./data/testJson.json");
 			
 			fw.write("{");
 
 			int insertAt = 0;
 			for (ExampleObject obj:objsToWrite)	{
-				if (!objTypes.contains(obj.type))	{
-					objTypes.add(obj.type);
-					toWrite.add("\"" + obj.type + "\":[");
+				if (!objTypes.contains(obj.getClass().getName()))	{
+					objTypes.add(obj.getClass().getName());
+					toWrite.add("\"" + obj.getClass().getName() + "\":[");
 					toWrite.add("]");
 					insertAt =  + 1;
 				}
