@@ -1,11 +1,6 @@
 package serialization;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
-
-import data.objtodata.Level;
-import data_serialization.GameFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
@@ -47,7 +42,6 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		gameToEdit = retrieveGame();
 	}
 
-	@Override
 	public void update(Map<Level, List<List<GameObject>>> changes)	{
 		try	{
 			FileWriter fw = new FileWriter(gameToEdit);
@@ -58,7 +52,8 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 				List<List<GameObject>> filesToEdit = changes.get(aLevel);
 
 				int entryIndex = 0;
-				for (Map.Entry entry:sortObjects(filesToEdit.get(0)).entrySet())	{
+				Map<String, List<Object>> objsOrganized = sortObjects(filesToEdit.get(0));
+				for (Map.Entry entry:objsOrganized.entrySet())	{
 					String aClass = (String)entry.getKey();
 					List<Object> classObjects = (List)entry.getValue();
 
@@ -83,11 +78,12 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		}
 	}
 
-	@Override
 	public void saveData(Level level, List itemsInLevel)	{
 	}
 
-	@Override
+	public void loadNewGame(String gameName)	{
+	}
+
 	public List<Object> revertChanges(String gameName)	{
 		return null;
 	}
@@ -108,13 +104,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		return true;
 	}
 
-	@Override
-	public void loadNewGame(String gameName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private Map<String, List<Object>> sortObjects(List<Object> objsToWrite)	{
+	private Map<String, List<Object>> sortObjects(List<GameObject> objsToWrite)	{
 		Map<String, List<Object>> objsOrganized = new HashMap<>();	
 
 		for (Object obj:objsToWrite)	{
