@@ -6,16 +6,22 @@ package api.engine;
  */
 public interface PlayerCharacter {
 	/**
-	 * Used to move the player character, given a distance and a heading, using
+	 * Used to move the player character, given an intitial velocity, using
 	 * the internal physics engine.
 	 * 
-	 * @param distance:
-	 *            the distance the object should move
-	 * @param heading:
-	 *            the direction, in degrees, the object moves in. 0 degrees is
-	 *            straight up.
+	 * @param velocity:
+	 *            the intitial the object should move in the x direction
 	 */
-	public abstract void move(double distance, double heading);
+	public abstract void moveX(double velocity);
+	
+	/**
+	 * Used to move the player character, given an intitial velocity, using
+	 * the internal physics engine.
+	 * 
+	 * @param velocity:
+	 *            the intitial the object should move in the y direction
+	 */
+	public abstract void moveY(double velocity);
 
 	/**
 	 * Defines how the player moves, namely the player's base speed and weight.
