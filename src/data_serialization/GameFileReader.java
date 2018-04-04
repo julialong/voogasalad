@@ -22,13 +22,12 @@ public class GameFileReader implements JSONtoObject {
 	private String gameDirectory;
 	private File currentGame;
 	private File currentLevel;
-	private Map<String,Class<?>> objectTypes = new HashMap<>();
+	private Map<String,Class<?>> objectTypes;
 	private Deserializer deserializer;
 	
 	public GameFileReader()
 	{
-//		objectTypes.put("ExampleObject", ExampleObject.class);
-//		objectTypes.put("SampleObject", SampleObject.class);
+		objectTypes= new HashMap<>();
 		createObjectToClassMap();
 		deserializer = new Deserializer();
 	}
@@ -48,19 +47,12 @@ public class GameFileReader implements JSONtoObject {
 				e.printStackTrace();
 			}
 		}
-//		Enumeration<String> keys = language.getKeys();
-//		while(keys.hasMoreElements())
-//		{
-//			String key = keys.nextElement();
-//			map.put(key, Pattern.compile(language.getString(key), Pattern.CASE_INSENSITIVE));
-//		}
-		
 	}
 	
 	private void retrieveCurrentGame(String gameName)
 	{
 		gameDirectory = "./data/gameData/" + gameName;
-		currentGame = new File("./data/gameData/testJson.json"); 
+		currentGame = new File(gameDirectory); 
 	}
 	
 	private void retrieveLevel(String gameName, String level)
@@ -70,12 +62,26 @@ public class GameFileReader implements JSONtoObject {
 	}
 	
 	@Override
-	public List<Object> loadGame(String gameName) {
+	public Map<String, List<Object>> loadCompleteGame(String gameName) {
+		Map<String, List<Object>> completeGame = new HashMap<>();
 		retrieveCurrentGame(gameName);
+		int fileCount = currentGame.list().length;
+		completeGame.put("Settings", loadSettings(gameName));
+		for(int i = 1; i < fileCount; i++)
+		{
+			completeGame.put(Integer.toString(i), loadLevel(gameName, i));
+		}
+		return completeGame;
+	}
+	
+	@Override
+	public List<Object> loadLevel(String gameName, int levelNumber) {
+		retrieveLevel(gameName, Integer.toString(levelNumber));
 		List<Object> gameObjects = new ArrayList<Object>();
-		try {
+		try 
+		{
 			JsonParser jsonParser = new JsonParser();
-			JsonElement jelement = jsonParser.parse(new FileReader(currentGame));
+			JsonElement jelement = jsonParser.parse(new FileReader(currentLevel));
 			JsonObject  jobject = jelement.getAsJsonObject();
 			for(String objectType: objectTypes.keySet())
 			{
@@ -94,6 +100,13 @@ public class GameFileReader implements JSONtoObject {
 		}
 		return gameObjects;
 	}
+
+
+	@Override
+	public List<Object> loadSettings(String gameName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
@@ -102,20 +115,6 @@ public class GameFileReader implements JSONtoObject {
 	    Object converted = deserializer.deserialize(j.toString(), objectTypes.get(objectType));
 	    System.out.println(converted); 
 		return converted;
-	}
-
-	@Override
-	public List<Object> loadLevel(String gameName, String levelName) {
-		retrieveLevel(gameName, levelName);
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public List<Object> loadSettings(String gameName) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
 

@@ -33,7 +33,7 @@ public class TestingGSON {
 //		f.remove(1, "\"1\"");
 		
 		GameFileReader f = new GameFileReader();
-		f.loadGame("sampleGame");
+//		f.loadGame("sampleGame");
 		
 		
 	}
