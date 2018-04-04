@@ -9,7 +9,7 @@ import java.io.File;
  * not and connects to the GameFile object.
  *
  */
-public class GameFileWriter {
+public class GameFileWriter implements GAEtoJSON, GEtoJSON {
 
 	public String gameDirectory;
 	public GameFile gameToEdit;
@@ -20,39 +20,47 @@ public class GameFileWriter {
 	 * 
 	 * @param gameName
 	 */
-	public GameFileWriter(String gameName) 
-	{
+	public GameFileWriter(String gameName)	{
 		gameDirectory = "./data/gameData/" + gameName;
-		loadGame();
+		gameToEdit = loadGame();
+	}
+
+	public void update(Map<Level, List<List<GameObject>>> changes)	{
+		for (Level aLevel:changes.keySet())	{
+			List<List<GameObject>> filesToEdit = changes.get(aLevel);
+
+			for (GameObject added:filesToEdit.get(0))	{
+				// add new item to database
+			}
+			for (GameObject changed:filesToEdit.get(1))	{
+				// find item in database by id, update it with new properties
+			}
+			for (GameObject removed:filesToEdit.get(2))	{
+				// find item in database by id, remove it from database
+			}
+		}
+	}
+
+	public void saveData(Level level, List itemsInLevel)	{
+	}
+
+	public List<Object> revertChanges(String gameName)	{
+		return null;
 	}
 	
-	/**
-	 * Creates the GameFile object for the given Game
-	 */
-	private void loadGame()
-	{
+	private GameFile retrieveGame()	{
 		File gameFolder = new File(gameDirectory);
-		if (!gameFolder.exists() && !gameFolder.isDirectory())
+		if (!gameExists(gameFolder))
 		{
 			gameFolder.mkdir();
 		}
-		gameToEdit = new GameFile(gameDirectory);
+		return new GameFile(gameDirectory);
 	}
-	
-	/**
-	 * Adds the string info to the json file for a particular level.
-	 * 
-	 * @param level Level to be edited
-	 * @param updateInfo JSON information to be added
-	 */
-	public void add(int level, String updateInfo)
-	{
-		gameToEdit.writeToLevel(level, updateInfo);
+
+	private boolean gameExists(File gameFolder)	{
+		if (!gameFolder.exists() && !gameFolder.isDirectory())	{
+			return false;
+		}
+		return true;
 	}
-	
-	public void remove(int level, String updateInfo)
-	{
-		gameToEdit.removeFromLevel(1, updateInfo);
-	}
-	
 }
