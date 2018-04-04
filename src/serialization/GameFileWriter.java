@@ -1,10 +1,11 @@
-package data_serialization;
+package serialization;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import data.objtodata.Level;
+import data_serialization.GameFile;
 /**
  * @author Belanie Nagiel
  * 

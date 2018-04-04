@@ -3,9 +3,9 @@ package data.objtodata;
 import java.util.Map;
 import java.util.List;
 
-import data_serialization.GAEtoJSON;
-import data_serialization.GEtoJSON;
-import data_serialization.Serializer;
+import serialization.GAEtoJSON;
+import serialization.GEtoJSON;
+import serialization.Serializer;
 
 /**
  * @author Maya Messinger

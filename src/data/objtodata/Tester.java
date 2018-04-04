@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import data_serialization.Serializer;
+import serialization.Serializer;
 
 public class Tester	{
 	private static Serializer ser = new Serializer();

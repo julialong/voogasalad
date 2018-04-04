@@ -1,4 +1,4 @@
-package data_serialization;
+package serialization;
 
 import java.util.Map;
 
