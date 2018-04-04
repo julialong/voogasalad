@@ -7,15 +7,15 @@ package api.player;
 public interface GamePlayerButton {
 
 	/**
-	 * Gets the value of the user button. Is a string if the user has clicked the
-	 * button, null otherwise
+	 * Gets the value of the user buttons. Is a string if the user has clicked the
+	 * buttons, null otherwise
 	 *
-	 * @return the value stored in the button if it has been clicked
+	 * @return the value stored in the buttons if it has been clicked
 	 */
 	public String getCommandFromButton();
 
 	/*
-	 * Sets the button value back to null after its value has been taken from the
+	 * Sets the buttons value back to null after its value has been taken from the
 	 * controller.
 	 */
 	public void clearButton();

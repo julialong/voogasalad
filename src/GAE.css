@@ -1,0 +1,13 @@
+.side-pane {
+    -fx-vgap: 100;
+    -fx-alignment: top-center;
+    -fx-padding: 25;
+}
+.center-pane{
+	-fx-border-color: #000000;
+	-fx-border-width: 4;
+	-fx-alignment: top-center;
+	-fx-max-width: 900;
+	-fx-max-width: 800;
+
+}
