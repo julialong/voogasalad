@@ -9,9 +9,27 @@
 	-fx-alignment: top-center;
 }
 
-.level-creator{
+.level-top {
 	-fx-background-color: #878888;
 	-fx-padding: 30;
 	-fx-spacing: 10;
 	-fx-alignment: center;
+}
+
+.level-right {
+	-fx-background-color: rgba(219, 150, 118, 0.45);
+	-fx-padding: 20;
+	-fx-spacing: 10;
+	-fx-alignment: top-center;
+	-fx-pref-height: 600;
+	-fx-pref-width: 300;
+}
+
+.level-center {
+	-fx-background-color: #ffffff;
+	-fx-padding: 30;
+	-fx-spacing: 10;
+	-fx-alignment: center;
+	-fx-pref-height: 600;
+	-fx-pref-width: 600;
 }
