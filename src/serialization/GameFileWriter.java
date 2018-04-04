@@ -1,13 +1,11 @@
 package serialization;
 
 import java.io.File;
-<<<<<<< HEAD:src/serialization/GameFileWriter.java
 import java.util.List;
 import java.util.Map;
 
 import data.objtodata.Level;
 import data_serialization.GameFile;
-=======
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
@@ -15,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
->>>>>>> 9a90579e3bd1faf8fb7a38776d1cb1cb918d8dea:src/data_serialization/GameFileWriter.java
 /**
  * @author Belanie Nagiel
  * 
@@ -111,15 +108,12 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		return true;
 	}
 
-<<<<<<< HEAD:src/serialization/GameFileWriter.java
-
 	@Override
 	public void loadNewGame(String gameName) {
 		// TODO Auto-generated method stub
 		
 	}
 
-=======
 	private Map<String, List<Object>> sortObjects(List<Object> objsToWrite)	{
 		Map<String, List<Object>> objsOrganized = new HashMap<>();	
 
@@ -201,5 +195,4 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private void error(IOException e)	{
 		System.out.println("Could not write to file");
 	}
->>>>>>> 9a90579e3bd1faf8fb7a38776d1cb1cb918d8dea:src/data_serialization/GameFileWriter.java
 }
