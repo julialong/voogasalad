@@ -1,4 +1,4 @@
-package data.objtodata;
+package serialization;
 
 public interface Level	{
 }
