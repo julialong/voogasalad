@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import data.objtodata.Level;
 import data_serialization.GameFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -114,7 +113,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		
 	}
 
-	private Map<String, List<Object>> sortObjects(List<Object> objsToWrite)	{
+	private Map<String, List<Object>> sortObjects(List<GameObject> objsToWrite)	{
 		Map<String, List<Object>> objsOrganized = new HashMap<>();	
 
 		for (Object obj:objsToWrite)	{
