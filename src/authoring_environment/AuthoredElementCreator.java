@@ -31,6 +31,7 @@ public class AuthoredElementCreator {
 		URL url= uri.toURL();
 		//Image test = new Image(file.getPath());
 		Image image = new Image(url.toString());
+		GameEntity element = new GameEntity(image);
 		
 	}
 	
