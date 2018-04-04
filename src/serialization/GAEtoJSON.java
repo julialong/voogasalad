@@ -26,20 +26,6 @@ public interface GAEtoJSON	{
 		// }
 
 	/**
-	 * GAE calls when user starts editing a game. Makes a new game folder (with template items) if game does not already exist (checks name)
-	 * @param gameName	name of game to make
-	 */
-	void loadNewGame(String gameName);
-		// if (!gameExists(gameName))	{
-		// 	// make new folder called gameName
-		// 	// add template files to game folder
-		// }
-
-		// JSONtoGAE.loadExisting(gameName);
-
-	// private boolean gameExists(String gameName);
-
-	/**
 	 * Method that allows for changes to be reverted to last saved version of game, if user decides to entirely scrap their updats
 	 * @param gameName		name of game to load past save of
 	 */

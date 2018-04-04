@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 /**
+ * @author Maya messinger
  * @author Belanie Nagiel
- * 
+ * Started: 3 Apr 18
  * Class that facilitates addition and removal of items in the levels of a game.
  * Creates appropriate folders and files based on whether the game exists or 
  * not and connects to the GameFile object.
- *
  */
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static String curlyBracketOpen = "{";
@@ -27,14 +28,13 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static String writeErrorStatement = "Could not write to file";
 
 	private String gameDirectory;
-	private File gameToEdit;
+	private File gameDirectoryFile;
 	private Serializer ser = new Serializer();
 	private List<Object> objsToWrite = new ArrayList<>();
 
 	/**
 	 * Class Constructor.
-	 * Creates or loads the appropriate GameFile object for a game. 
-	 * 
+	 * Creates or loads the appropriate GameFile object for a game.
 	 * @param gameName
 	 */
 	public GameFileWriter(String gameName)	{
@@ -42,14 +42,18 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		gameToEdit = retrieveGame();
 	}
 
+	/**
+	 * Iterates through all levels and items in levels passed and updates gameToEdit file to reflect adds, removals, changes
+	 * @param changes	editedItems is List<List<item>>. editedItems contains List<item> addedItems, List<item> changedItems, List<item> removedItems
+	 */
+	@Override
 	public void update(Map<Level, List<List<GameObject>>> changes)	{
 		try	{
-			FileWriter fw = new FileWriter(gameToEdit);
-			
-			startFile(fw);
-
 			for (Level aLevel:changes.keySet())	{
+				FileWriter fw = new FileWriter(getLevel(1));	// get number from level
 				List<List<GameObject>> filesToEdit = changes.get(aLevel);
+			
+				startFile(fw);
 
 				changetoWrite(fw, filesToEdit.get(1), filesToEdit.get(2), filesToEdit.get(0));
 				removetoWrite(fw, filesToEdit.get(2));
@@ -63,12 +67,20 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		}
 	}
 
+	/**
+	 * Saves state of level being played, for use with checkpoints
+	 * @param level			name of level to save
+	 * @param itemsInLevel	List (potentially list of lists of different types of objects) if items in level to save stats of
+	 */
+	@Override
 	public void saveData(Level level, List itemsInLevel)	{
 	}
 
-	public void loadNewGame(String gameName)	{
-	}
-
+	/**
+	 * Cancels any edits made to a game since last save
+	 * @param gameName	naem fo game to chancel changes to
+	 */
+	@Override
 	public List<Object> revertChanges(String gameName)	{
 		return null;
 	}
@@ -87,6 +99,28 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Accesses the game level file and creates it if necessary.
+	 * 
+	 * @param levelNumber
+	 * @return the level JSON file
+	 */
+	public File getLevel(int levelNumber)
+	{
+		File newLevel = new File(gameDirectory + "Level_" + Integer.toString(levelNumber) + ".json");
+		if(!newLevel.exists()) { 
+			try {
+				newLevel.createNewFile();
+				writeToLevel(levelNumber,"{\n");
+			} 
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return newLevel;
 	}
 
 	private Map<String, List<Object>> sortObjects(List<GameObject> objsToWrite)	{
