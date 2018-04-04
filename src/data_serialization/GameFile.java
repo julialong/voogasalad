@@ -106,29 +106,5 @@ public class GameFile {
 			e.printStackTrace();
 		}
 		
-//		try {
-//			JsonReader jsonReader = new JsonReader(new FileReader(currentLevel));
-//			jsonReader.beginObject();
-//			String name = jsonReader.nextName();
-//			System.out.println(name);
-//			jsonReader.beginObject();
-//			jsonRead.
-//			System.out.println(stuff);
-////			while(jsonReader.hasNext())
-////			{
-////				String name = jsonReader.nextName();
-////				if(name.equals("1"))
-////				{
-////					System.out.println(jsonReader.nextString());
-////				}
-////			}
-//			jsonReader.endObject();
-//			jsonReader.close();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
 	}
 }
