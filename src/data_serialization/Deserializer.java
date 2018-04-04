@@ -14,7 +14,5 @@ public class Deserializer {
 	public Object deserialize(String json, Class<?> objectClass)
 	{
 		return gson.fromJson(json, objectClass);
-	}
-	
-	
+	}	
 }
