@@ -27,7 +27,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static String writeErrorStatement = "Could not write to file";
 
 	private String gameDirectory;
-	private GameFile gameToEdit;
+	private File gameToEdit;
 	private Serializer ser = new Serializer();
 	private List<Object> objsToWrite = new ArrayList<>();
 
@@ -51,24 +51,9 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 			for (Level aLevel:changes.keySet())	{
 				List<List<GameObject>> filesToEdit = changes.get(aLevel);
 
-				int entryIndex = 0;
-				Map<String, List<Object>> objsOrganized = sortObjects(filesToEdit.get(0));
-				for (Map.Entry entry:objsOrganized.entrySet())	{
-					String aClass = (String)entry.getKey();
-					List<Object> classObjects = (List)entry.getValue();
-
-					startArray(fw, aClass);
-					writeArray(fw, classObjects);
-					closeArray(fw, entryIndex, objsOrganized.entrySet().size());
-					entryIndex++;
-				}
-
-				for (GameObject changed:filesToEdit.get(1))	{
-					// find item in database by id, update it with new properties
-				}
-				for (GameObject removed:filesToEdit.get(2))	{
-					// find item in database by id, remove it from database
-				}
+				changetoWrite(fw, filesToEdit.get(1), filesToEdit.get(2), filesToEdit.get(0));
+				removetoWrite(fw, filesToEdit.get(2));
+				addtoWrite(fw, filesToEdit.get(0));
 			}
 
 			endFile(fw);
@@ -88,13 +73,13 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		return null;
 	}
 	
-	private GameFile retrieveGame()	{
+	private File retrieveGame()	{
 		File gameFolder = new File(gameDirectory);
 		if (!gameExists(gameFolder))
 		{
 			gameFolder.mkdir();
 		}
-		return new GameFile(gameDirectory);
+		return gameFolder;
 	}
 
 	private boolean gameExists(File gameFolder)	{
@@ -117,6 +102,39 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		}
 
 		return objsOrganized;
+	}
+
+	private void changetoWrite(FileWriter fw, List<GameObject> items, List<GameObject> toRemove, List<GameObject> toAdd)	{
+		for (GameObject item:items)	{
+			removetoWrite(fw, item, toRemove);
+			toAdd.add(item);
+		}
+	}
+
+	private void removetoWrite(FileWriter fw, List<GameObject> items)	{
+		for (GameObject item:items)	{
+			// find item by id
+			// remove item
+		}
+	}
+
+	private void removetoWrite(FileWriter fw, GameObject item, List<GameObject> toRemove)	{
+		// find item by id
+		// remove
+	}
+
+	private void addtoWrite(FileWriter fw, List<GameObject> items)	{
+		int entryIndex = 0;
+		Map<String, List<Object>> objsOrganized = sortObjects(items);
+		for (Map.Entry entry:objsOrganized.entrySet())	{
+			String aClass = (String)entry.getKey();
+			List<Object> classObjects = (List)entry.getValue();
+
+			startArray(fw, aClass);
+			writeArray(fw, classObjects);
+			closeArray(fw, entryIndex, objsOrganized.entrySet().size());
+			entryIndex++;
+		}
 	}
 
 	private void startArray(FileWriter fw, String title)	{
