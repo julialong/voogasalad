@@ -17,8 +17,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
-import data.objtodata.ExampleObject;
-
 public class GameFileReader implements JSONtoObject {
 
 	private String gameDirectory;
