@@ -108,7 +108,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		Map<String, List<Object>> objsOrganized = new HashMap<>();	
 
 		for (Object obj:objsToWrite)	{
-			String oc = obj.getClass().getName();
+			String oc = obj.getClass().getSimpleName();
 
 			if (!objsOrganized.containsKey(oc))	{
 				objsOrganized.put(oc, new ArrayList<Object>());
