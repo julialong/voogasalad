@@ -22,8 +22,8 @@ public class TestingGSON {
 //		f.add(1, " \"1\": " + sample + ",\n");
 //		f.remove(1, "\"1\"");
 		
-		GameFileReader f = new GameFileReader("sampleGame");
-		f.loadGame();
+		GameFileReader f = new GameFileReader();
+		f.loadGame("sampleGame");
 		
 		
 	}
