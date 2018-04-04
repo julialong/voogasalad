@@ -3,9 +3,12 @@ package data_serialization;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -18,23 +21,48 @@ import data.objtodata.ExampleObject;
 
 public class GameFileReader implements JSONtoObject {
 
-	public String gameDirectory;
-	public File currentGame;
-	public File currentLevel;
-	public Map<String,Class<?>> objectTypes = new HashMap<>();
-	public Deserializer deserializer;
+	private String gameDirectory;
+	private File currentGame;
+	private File currentLevel;
+	private Map<String,Class<?>> objectTypes = new HashMap<>();
+	private Deserializer deserializer;
 	
 	public GameFileReader()
 	{
-		objectTypes.put("ExampleObject", ExampleObject.class);
-		objectTypes.put("SampleObject", SampleObject.class);
+//		objectTypes.put("ExampleObject", ExampleObject.class);
+//		objectTypes.put("SampleObject", SampleObject.class);
+		createObjectToClassMap();
 		deserializer = new Deserializer();
+	}
+	
+	private void createObjectToClassMap()
+	{
+		ResourceBundle gameObjects = ResourceBundle.getBundle("data_serialization/gameObjects");
+		Enumeration<String> objectNames = gameObjects.getKeys();
+		while(objectNames.hasMoreElements())
+		{
+			String objectName = objectNames.nextElement();
+			try {
+				Class<?> objectClass = Class.forName(gameObjects.getString(objectName));
+				objectTypes.put(objectName, objectClass);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+//		Enumeration<String> keys = language.getKeys();
+//		while(keys.hasMoreElements())
+//		{
+//			String key = keys.nextElement();
+//			map.put(key, Pattern.compile(language.getString(key), Pattern.CASE_INSENSITIVE));
+//		}
+		
 	}
 	
 	private void retrieveCurrentGame(String gameName)
 	{
 		gameDirectory = "./data/gameData/" + gameName;
-		currentGame = new File("testJson.json"); 
+		currentGame = new File("./data/gameData/testJson.json"); 
 	}
 	
 	private void retrieveLevel(String gameName, String level)

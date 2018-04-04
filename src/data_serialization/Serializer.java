@@ -1,4 +1,4 @@
-package data.objtodata;
+package data_serialization;
 
 import com.google.gson.Gson;
 

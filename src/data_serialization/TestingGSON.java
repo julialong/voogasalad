@@ -14,7 +14,17 @@ public class TestingGSON {
 		
 //		System.out.println(sample);
 		
-//		SampleObject test = gson.fromJson(sample, SampleObject.class);
+//		try {
+//			Object test = gson.fromJson(sample, Class.forName("data_serialization.SampleObject"));
+//			System.out.println(test);
+//		} catch (JsonSyntaxException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 //		
 //		System.out.println(test.add(17));	
 		

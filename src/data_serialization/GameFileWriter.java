@@ -1,6 +1,10 @@
 package data_serialization;
 
 import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import data.objtodata.Level;
 /**
  * @author Belanie Nagiel
  * 
@@ -25,6 +29,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON {
 		gameToEdit = loadGame();
 	}
 
+	@Override
 	public void update(Map<Level, List<List<GameObject>>> changes)	{
 		for (Level aLevel:changes.keySet())	{
 			List<List<GameObject>> filesToEdit = changes.get(aLevel);
@@ -41,9 +46,11 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON {
 		}
 	}
 
+	@Override
 	public void saveData(Level level, List itemsInLevel)	{
 	}
 
+	@Override
 	public List<Object> revertChanges(String gameName)	{
 		return null;
 	}
@@ -63,4 +70,12 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON {
 		}
 		return true;
 	}
+
+
+	@Override
+	public void loadNewGame(String gameName) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
