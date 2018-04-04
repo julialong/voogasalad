@@ -1,3 +1,5 @@
+package authoring_environment;
+
 /**
  * 
  * @author Judi Sanchez
@@ -26,13 +28,13 @@ public interface CreatorView {
 	 * Opens an editor to change the atributes of a specific AuthoredElement
 	 * @param elem is the AuthoredElement for which an editor window will be opened
 	 */
-	public void openAttributeEditor(AuthoredElement elem);
+	void openAttributeEditor(AuthoredElement elem);
 	
 	/**
 	 * Opens a new window to allow for multi-window editing 
 	 * of the same level or different levels of the game
 	 */
-	public void openNewWindow();
+	void openNewWindow();
 	
 	
 	
