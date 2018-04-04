@@ -29,5 +29,7 @@ public interface GameCreator {
      * @throws IOException when loading the level causes an IOException
      */
     public abstract void loadLevel(File level) throws IOException;
+    
+    public abstract createNewElement(String type);
 
 }
