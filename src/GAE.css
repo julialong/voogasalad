@@ -7,7 +7,11 @@
 	-fx-border-color: #000000;
 	-fx-border-width: 4;
 	-fx-alignment: top-center;
-	-fx-max-width: 900;
-	-fx-max-width: 800;
+}
 
+.level-creator{
+	-fx-background-color: #878888;
+	-fx-padding: 30;
+	-fx-spacing: 10;
+	-fx-alignment: center;
 }

@@ -1,4 +1,4 @@
-package authoring_environment.toolbars.buttons;
+package authoring_environment.toolbars.buttons.creator_view_buttons;
 
 import authoring_environment.editor_windows.LevelCreator;
 import javafx.scene.control.MenuButton;

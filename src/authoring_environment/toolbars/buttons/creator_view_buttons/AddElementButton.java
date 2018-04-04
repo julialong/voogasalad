@@ -1,4 +1,4 @@
-package authoring_environment.toolbars.buttons;
+package authoring_environment.toolbars.buttons.creator_view_buttons;
 
 import javafx.scene.control.Button;
 

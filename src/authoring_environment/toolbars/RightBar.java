@@ -1,7 +1,7 @@
 package authoring_environment.toolbars;
 
-import authoring_environment.toolbars.buttons.AddElementButton;
-import authoring_environment.toolbars.buttons.AddLevelButton;
+import authoring_environment.toolbars.buttons.creator_view_buttons.AddElementButton;
+import authoring_environment.toolbars.buttons.creator_view_buttons.AddLevelButton;
 import authoring_environment.toolbars.labels.SideLabel;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 /**
  * The right pane manages adding various elements and dealing with the structure of levels
