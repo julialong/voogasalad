@@ -20,6 +20,7 @@
 	-fx-background-color: rgba(219, 150, 118, 0.45);
 	-fx-padding: 20;
 	-fx-spacing: 10;
+	-fx-vgap: 10;
 	-fx-alignment: top-center;
 	-fx-pref-height: 600;
 	-fx-pref-width: 300;

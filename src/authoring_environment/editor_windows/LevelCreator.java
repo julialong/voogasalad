@@ -2,9 +2,12 @@ package authoring_environment.editor_windows;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -24,11 +27,13 @@ public class LevelCreator {
     private BorderPane myRoot;
     // private Level newLevel;
 
-    File selectedImageFile;
+    private File selectedImageFile;
 
     private static final String LEVEL_NAME = "Level name";
     private static final String SET_NAME = "Set name";
     private static final String UPLOAD_BACKGROUND_IMAGE = "Upload background image";
+    private static final String CHOOSE_FILE = "Choose file";
+    private static final String CHOOSE_COLOR = "Choose background color";
 
     /**
      * Creates and launches a new LevelCreator window
@@ -62,6 +67,7 @@ public class LevelCreator {
         HBox box = new HBox();
         box.getStyleClass().add("level-top");
         Label instruction = new Label(LEVEL_NAME);
+        instruction.setFont(new Font(15));
         box.getChildren().add(instruction);
         TextField name = new TextField();
         box.getChildren().add(name);
@@ -69,11 +75,11 @@ public class LevelCreator {
         return box;
     }
 
-    private HBox createRight() {
-        HBox box = new HBox();
+    private VBox createRight() {
+        VBox box = new VBox();
         box.getStyleClass().add("level-right");
-        Button uploadImageButton = createUploadImageButton();
-        box.getChildren().add(uploadImageButton);
+        createUploadImageButton(box);
+        createBackgroundColorPicker(box);
         return box;
     }
 
@@ -88,23 +94,42 @@ public class LevelCreator {
         Button submitButton = new Button(SET_NAME);
         submitButton.setOnAction(e -> {
             box.getChildren().removeAll(name,submitButton,instruction);
-            box.getChildren().add(new Text(name.getText()));
+            Text levelName = new Text(name.getText());
+            levelName.setFont(new Font(20));
+            box.getChildren().add(levelName);
             // TODO: assign the text as the Level object name
             // newLevel.setName(name.getText());
         });
         box.getChildren().add(submitButton);
     }
 
-    private Button createUploadImageButton() {
-        Button backgroundImage = new Button(UPLOAD_BACKGROUND_IMAGE);
+    private void createUploadImageButton(Pane pane) {
+        Button backgroundImage = new Button(CHOOSE_FILE);
         backgroundImage.setOnAction(e -> {
             FileChooser imageChooser = new FileChooser();
             imageChooser.getExtensionFilters().add(
                     new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
             selectedImageFile =  imageChooser.showOpenDialog(myStage);
             // TODO: set Level background to file
+            // TODO: update level view
         });
-        return backgroundImage;
+        Text uploadImage = new Text(UPLOAD_BACKGROUND_IMAGE);
+        uploadImage.setFont(new Font(15));
+        pane.getChildren().add(uploadImage);
+        pane.getChildren().add(backgroundImage);
+    }
+
+    private void createBackgroundColorPicker(Pane pane) {
+        ColorPicker colorPicker = new ColorPicker();
+        colorPicker.setOnAction(e -> {
+            Color chosenColor = colorPicker.getValue();
+            // TODO: set Level background color to chosenColor
+            // TODO: update level view
+        });
+        Text chooseColor = new Text(CHOOSE_COLOR);
+        chooseColor.setFont(new Font(15));
+        pane.getChildren().add(chooseColor);
+        pane.getChildren().add(colorPicker);
     }
 
 }
