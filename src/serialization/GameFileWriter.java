@@ -52,7 +52,8 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 				List<List<GameObject>> filesToEdit = changes.get(aLevel);
 
 				int entryIndex = 0;
-				for (Map.Entry entry:sortObjects(filesToEdit.get(0)).entrySet())	{
+				Map<String, List<Object>> objsOrganized = sortObjects(filesToEdit.get(0));
+				for (Map.Entry entry:objsOrganized.entrySet())	{
 					String aClass = (String)entry.getKey();
 					List<Object> classObjects = (List)entry.getValue();
 
@@ -80,6 +81,9 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	public void saveData(Level level, List itemsInLevel)	{
 	}
 
+	public void loadNewGame(String gameName)	{
+	}
+
 	public List<Object> revertChanges(String gameName)	{
 		return null;
 	}
@@ -100,7 +104,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		return true;
 	}
 
-	private Map<String, List<Object>> sortObjects(List<Object> objsToWrite)	{
+	private Map<String, List<Object>> sortObjects(List<GameObject> objsToWrite)	{
 		Map<String, List<Object>> objsOrganized = new HashMap<>();	
 
 		for (Object obj:objsToWrite)	{
