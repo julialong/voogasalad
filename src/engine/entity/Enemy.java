@@ -1,11 +1,13 @@
-package api.engine;
+package engine.entity;
 
+import engine.behavior.Behavior;
+import engine.weapon.Weapon;
 /**
- * Defines the logic for enemies, moving entities that usually deal damage or
- * otherwise actively obstruct the player, and how they interact with the game
- * world.
+ * Defines entities that generally serve to harm or impede a player.
+ * @author Robert Gitau and Marcus Oertle
+ *
  */
-public interface Enemy {
+public abstract class Enemy implements GameEntity {
 	/**
 	 * Defines how the enemy behaves with regard to the player (ie chases the
 	 * player)

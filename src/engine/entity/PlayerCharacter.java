@@ -1,10 +1,14 @@
-package api.engine;
+package engine.entity;
+
+import engine.powerup.PowerUp;
+import engine.weapon.Weapon;
 
 /**
- * Defines the logic for how the character controlled by the Player moves and
- * interacts with the game-world around it.
+ * Abstract Class defining behavior specific to entities that generally move based on input.
+ * @author Robert Gitau and Marcus Oertle
+ *
  */
-public abstract class PlayerCharacter {
+public abstract class PlayerCharacter implements GameEntity{
 	/**
 	 * Sets the player's weapon, which implements the Weapon interface.
 	 * 
