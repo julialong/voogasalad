@@ -12,7 +12,6 @@ USE CASES
 * Load and edit a previously saved game file 
 * Add a default game element with default properties to the game environment
 * Make a quick clone of a previously created game element to add to the game environment
-* Set overall game parameters such as animation speed
 * Determine how transitions from one level to the next will be achieved
 * Create a splash screen/ home page/ rules page for a game
 
