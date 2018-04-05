@@ -1,9 +1,9 @@
 package authoring_environment.toolbars;
 
-import authoring_environment.toolbars.buttons.InsertButton;
-import authoring_environment.toolbars.buttons.LoadButton;
-import authoring_environment.toolbars.buttons.SaveButton;
-import authoring_environment.toolbars.buttons.SettingsButton;
+import authoring_environment.toolbars.buttons.creator_view_buttons.InsertButton;
+import authoring_environment.toolbars.buttons.creator_view_buttons.LoadButton;
+import authoring_environment.toolbars.buttons.creator_view_buttons.SaveButton;
+import authoring_environment.toolbars.buttons.creator_view_buttons.SettingsButton;
 import javafx.scene.control.ToolBar;
 
 /**
