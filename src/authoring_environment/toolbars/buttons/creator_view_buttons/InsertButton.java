@@ -1,5 +1,6 @@
-package authoring_environment.toolbars.buttons;
+package authoring_environment.toolbars.buttons.creator_view_buttons;
 
+import authoring_environment.editor_windows.LevelCreator;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
@@ -29,8 +30,7 @@ public class InsertButton extends MenuButton {
 
     private MenuItem createLevelItem() {
         MenuItem levelItem = new MenuItem(LEVEL);
-        // TODO: open level creator when menu item is clicked
-        // gameItem.setOnAction(e -> new LevelCreator());
+        levelItem.setOnAction(e -> new LevelCreator());
         return levelItem;
     }
 
