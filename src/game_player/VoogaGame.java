@@ -1,8 +1,10 @@
 package game_player;
 
 import game_player_api.GameItem;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -24,6 +26,7 @@ public class VoogaGame implements GameItem  {
         gameName = dataPath;
         gameDescription = dataPath;
         gameAccessPath = dataPath;
+        setScreenBounds(gameApplication);
     }
 
     /**
@@ -48,6 +51,19 @@ public class VoogaGame implements GameItem  {
         gameApplication.setTitle(gameName);
         gameApplication.show();
     }
+
+    /**
+     * Makes the application take up the entire window of the computer.
+     * @param primaryStage
+     */
+    private void setScreenBounds(Stage primaryStage) {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX(primaryScreenBounds.getMinX());
+        primaryStage.setY(primaryScreenBounds.getMinY());
+        primaryStage.setWidth(primaryScreenBounds.getWidth());
+        primaryStage.setHeight(primaryScreenBounds.getHeight());
+    }
+
 
     /**
      * Alters toString method to return a properly formatted

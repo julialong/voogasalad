@@ -68,10 +68,14 @@ public class VoogaChooser implements GameChooser {
      */
     private void setListener(ListView<GameItem> gameChoices) {
         gameChoices.setOnMouseClicked(event -> {
-            GameItem game = gameChoices.getSelectionModel().getSelectedItem();
-            game.setUpGame();
-            Stage currentStage = (Stage) myView.getScene().getWindow();
-            currentStage.close();
+            try{
+                GameItem game = gameChoices.getSelectionModel().getSelectedItem();
+                game.setUpGame();
+                myView.getStyleClass().add("styleSheet.css");
+                Stage currentStage = (Stage) myView.getScene().getWindow();
+                currentStage.close();
+            }
+            catch(NullPointerException e){}
         });
     }
 }

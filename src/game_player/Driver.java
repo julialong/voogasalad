@@ -37,11 +37,10 @@ public class Driver extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		//setScreenBounds(primaryStage);
 		createChooser();
 		Scene scene = new Scene(gameChooser.displayChoices());
 		//TODO: uncomment once we create the style sheet
-		//scene.getStylesheets().add("styleSheet.css");
+		scene.getStylesheets().add("styleSheet.css");
 		primaryStage.setScene(scene);
 		primaryStage.setTitle(TITLE);
 		primaryStage.show();
