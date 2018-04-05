@@ -2,13 +2,17 @@ package game_player;
 
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 
-import javax.swing.border.Border;
 import java.util.List;
 
 /**
@@ -18,7 +22,7 @@ import java.util.List;
  * @Author Dorian Barber
  */
 public class VoogaChooser implements GameChooser {
-    private BorderPane myView;
+    private BorderPane myView =  new BorderPane();
     private ListView<GameItem> playableGames;
 
     public VoogaChooser(List<GameItem> gamesToPlay){
@@ -26,6 +30,7 @@ public class VoogaChooser implements GameChooser {
         ObservableList<GameItem> gameItems = FXCollections.observableArrayList(gamesToPlay);
         playableGames.setItems(gameItems);
         myView.setCenter(playableGames);
+        setListener(playableGames);
     }
 
     /**
@@ -42,7 +47,7 @@ public class VoogaChooser implements GameChooser {
      * user can choose. Choosing a game will prompt the sendToGame method
      */
     @Override
-    public Node displayChoices() {
+    public BorderPane displayChoices() {
         return myView;
     }
 
@@ -54,5 +59,19 @@ public class VoogaChooser implements GameChooser {
     @Override
     public void addChoice(String gameName) {
 
+    }
+
+
+    /**
+     * Sets the listener to wait for the user to click a viable game to play.
+     * Once the user selects a game to play the application closes.
+     */
+    private void setListener(ListView<GameItem> gameChoices) {
+        gameChoices.setOnMouseClicked(event -> {
+            GameItem game = gameChoices.getSelectionModel().getSelectedItem();
+            game.setUpGame();
+            Stage currentStage = (Stage) myView.getScene().getWindow();
+            currentStage.close();
+        });
     }
 }

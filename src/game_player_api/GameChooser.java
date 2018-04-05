@@ -1,6 +1,7 @@
 package game_player_api;
 
-import javafx.scene.Node;
+import javafx.scene.layout.BorderPane;
+
 
 /**
  * The interface for letting the user choose a developed game.
@@ -21,7 +22,7 @@ public interface GameChooser {
      * This will represent the extensive list of developed games that the
      * user can choose. Choosing a game will prompt the sendToGame method
      */
-    public Node displayChoices();
+    public BorderPane displayChoices();
 
     /**
      * Adds the @param gameName to the list of available games to choose.

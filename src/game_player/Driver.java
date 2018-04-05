@@ -3,6 +3,8 @@
  */
 package game_player;
 
+import game_player_api.GameChooser;
+import game_player_api.GameItem;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -13,6 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Main Driver for running the Game Player application
  *
@@ -22,6 +27,7 @@ public class Driver extends Application {
 	
 	private VController myController;
 	private VView myView;
+	private GameChooser gameChooser;
 	
 	
 	private static final String TITLE = "GAME PLAYER";
@@ -31,11 +37,9 @@ public class Driver extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		setScreenBounds(primaryStage);
-
-		myView = new VView();
-		myController = new VController(myView);
-		Scene scene = new Scene(myView);
+		//setScreenBounds(primaryStage);
+		createChooser();
+		Scene scene = new Scene(gameChooser.displayChoices());
 		//TODO: uncomment once we create the style sheet
 		//scene.getStylesheets().add("styleSheet.css");
 		primaryStage.setScene(scene);
@@ -43,17 +47,14 @@ public class Driver extends Application {
 		primaryStage.show();
 	}
 
-
-	/**
-	 * Makes the application take up the entire window of the computer.
-	 * @param primaryStage
-	 */
-	private void setScreenBounds(Stage primaryStage) {
-		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		primaryStage.setX(primaryScreenBounds.getMinX());
-		primaryStage.setY(primaryScreenBounds.getMinY());
-		primaryStage.setWidth(primaryScreenBounds.getWidth());
-		primaryStage.setHeight(primaryScreenBounds.getHeight());
+	private void createChooser(){
+		List<GameItem> list = new ArrayList<>();
+		String[] gameNames = {"Mario", "Yoshi", "Marth", "Sammus"};
+		for(String game : gameNames){
+			GameItem newGame = new VoogaGame(game);
+			list.add(newGame);
+		}
+		gameChooser = new VoogaChooser(list);
 	}
 
 	/**
