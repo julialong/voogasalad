@@ -17,6 +17,11 @@ public class VView extends BorderPane{
 		setViewTop();
 		setMiddle();
 	}
+
+	public VView(String name){
+		this();
+		System.out.println(name);
+	}
 	
 	private void createGView() {
 		// TODO Auto-generated method stub

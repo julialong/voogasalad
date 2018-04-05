@@ -1,0 +1,15 @@
+.list-cell {
+    -fx-background-color: linear-gradient(#ADF0F8 0%, #A3F1FA 25%, #94EFF9 75%, #90EEF9 100%);
+    -fx-border-width: 2;
+    -fx-border-color: #436b89;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+}
+
+.list-cell:empty {
+    -fx-opacity: 0;
+}
