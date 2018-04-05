@@ -13,6 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * Main Driver for running the Game Player application
+ *
+ * @author Dorian Barber, Kelley Scroggs
+ */
 public class Driver extends Application {
 	
 	private VController myController;
@@ -27,36 +32,17 @@ public class Driver extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		setScreenBounds(primaryStage);
-		myController = new VController();
+
 		myView = new VView();
+		myController = new VController(myView);
 		Scene scene = new Scene(myView);
-		addUserInputFinders(scene);
 		//TODO: uncomment once we create the style sheet
 		//scene.getStylesheets().add("styleSheet.css");
 		primaryStage.setScene(scene);
 		primaryStage.setTitle(TITLE);
 		primaryStage.show();
-		
 	}
-	
-	private void addUserInputFinders(Scene scene) {
-		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-			if(key.getCode()==KeyCode.A) {
-				//pass controller the input
-				myController.passKeyInput(key.getCode());
-				//get result from controller
-				myView.updateView();
-				//update the view with output from the controller
-			}
-		});
-		
-		scene.addEventFilter(MouseEvent.MOUSE_CLICKED, (click) -> {
-			if (click.getButton() == MouseButton.PRIMARY) {
-				myController.passMouseInput(click.getButton());
-				myView.updateView();
-			}
-		});
-	}
+
 
 	/**
 	 * Makes the application take up the entire window of the computer.
