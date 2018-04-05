@@ -1,11 +1,8 @@
 package serialization;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,18 +15,8 @@ import java.util.Map;
  * not and connects to the GameFile object.
  */
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
-	private static String curlyBracketOpen = "{";
-	private static String curlyBracketClose = "}";
-	private static String bracketOpen = "[";
-	private static String bracketClose = "]";
-	private static String colon = ":";
-	private static String comma = ",";
-	private static String quote = "\"";
-	private static String writeErrorStatement = "Could not write to file";
-
 	private String gameDirectory;
 	private File gameDirectoryFile;
-	private Serializer ser = new Serializer();
 	private List<Object> objsToWrite = new ArrayList<>();
 
 	/**
@@ -66,6 +53,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	/**
 	 * Cancels any edits made to a game since last save
 	 * @param level	name of level to chancel changes to
+	 * @return	List of objects in level from JSON file of level
 	 */
 	@Override
 	public List<Object> revertChanges(Level level)	{
@@ -89,11 +77,6 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		return true;
 	}
 
-	/**
-	 * Accesses the game level file and creates it if necessary.
-	 * @param levelNumber
-	 * @return the level JSON file
-	 */
 	private File getLevel(Level level)	{
 		File newLevel = new File(gameDirectory + level.toString() + ".json");
 

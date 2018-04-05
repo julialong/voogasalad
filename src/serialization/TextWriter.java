@@ -10,6 +10,17 @@ import java.util.List;
 import java.util.Map;
 
 public class TextWriter	{
+	private static String curlyBracketOpen = "{";
+	private static String curlyBracketClose = "}";
+	private static String bracketOpen = "[";
+	private static String bracketClose = "]";
+	private static String colon = ":";
+	private static String comma = ",";
+	private static String quote = "\"";
+	private static String writeErrorStatement = "Could not write to file";
+
+	private Serializer ser = new Serializer();
+
 	public TextWriter(File level, List itemsInLevel)	{
 		try	{
 			FileWriter fw = new FileWriter(level);	// get number from level
