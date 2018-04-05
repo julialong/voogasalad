@@ -1,5 +1,3 @@
-package api.engine;
-
 /**
  * Interface for PowerUp type classes that can be utilized by the PlayerCharacter
  * @author Marcus
