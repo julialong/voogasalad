@@ -4,7 +4,8 @@
         "backgroundImage": "data/images/bg"
         },
     "enemies":{
-        "goomba": {
+        "ID#": {
+            "enemyType": "goomba",
             "xPosition": 0,
             "yPosition": 0,
             "collisionReaction": "lose life",
