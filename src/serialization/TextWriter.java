@@ -9,6 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Maya Messinger
+ * Started 5 Apr 17
+ * Class that copletely encapsulates file writing
+ */
 public class TextWriter	{
 	private static String curlyBracketOpen = "{";
 	private static String curlyBracketClose = "}";
@@ -21,7 +26,17 @@ public class TextWriter	{
 
 	private Serializer ser = new Serializer();
 
+	/**
+	 * @author Maya Messinger
+	 * Constructor for class. Calls the writing, so making a new TextWriter writes to a file
+	 * @param level			File of level to write
+	 * @param itemsInLevel	items to serialize and write
+	 */
 	public TextWriter(File level, List itemsInLevel)	{
+		callWrite(level, itemsInLevel);
+	}
+
+	private void callWrite(level, itemsInLevel)	{
 		try	{
 			FileWriter fw = new FileWriter(level);	// get number from level
 		
