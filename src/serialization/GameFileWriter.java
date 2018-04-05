@@ -42,7 +42,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	public GameFileWriter(String gameName)	{
 		gameDirectory = "./data/gameData/" + gameName;
-		gameToEdit = retrieveGame();
+		gameDirectoryFile = retrieveGame();
 	}
 
 	/**
@@ -61,9 +61,9 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 				changetoWrite(fw, filesToEdit.get(1), filesToEdit.get(2), filesToEdit.get(0));
 				removetoWrite(fw, filesToEdit.get(2));
 				addtoWrite(fw, filesToEdit.get(0));
-			}
 
-			endFile(fw);
+				endFile(fw);
+			}
 		}
 		catch (IOException e)	{
 			error(e);
@@ -124,6 +124,26 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 			}
 		}
 		return newLevel;
+	}
+
+	/**
+	 * Adds given JSON information the the level file.
+	 * 
+	 * @param levelNumber
+	 * @param jsonToWrite
+	 */
+	public void writeToLevel(int levelNumber, String jsonToWrite)
+	{
+		File currentLevel = getLevel(levelNumber);
+		try {
+			FileWriter levelWriter = new FileWriter(currentLevel, true);
+			levelWriter.write(jsonToWrite);
+			levelWriter.flush();
+			levelWriter.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Map<String, List<Object>> sortObjects(List<GameObject> objsToWrite)	{
