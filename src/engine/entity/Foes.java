@@ -3,7 +3,11 @@ package engine.entity;
 import engine.behavior.Behavior;
 import engine.movement.Movement;
 import engine.weapon.Weapon;
-
+/**
+ * Defines information for basic enemies in a game.
+ * @author Rob
+ *
+ */
 public class Foes extends Enemy {
 
 	@Override

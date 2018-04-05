@@ -1,14 +1,14 @@
 package engine.entity;
 
+import engine.behavior.Behavior;
 import engine.movement.Movement;
-import engine.powerup.PowerUp;
-import engine.weapon.Weapon;
 /**
- * Defines a player and its movement in and interactions with the game world.
- * @author Robert Gitau and Marcus Oertle
+ * Defines GameObjects that are blocks found in most platformers.
+ * Intended to be used for terrain and blocks that can be struck by the player to either break or grant powerups.
+ * @author Robert Gitau and Marcus Oertle.
  *
  */
-public class Player extends PlayerCharacter{
+public class Block extends GameObject{
 
 	@Override
 	public void moveX(double velocity) {
@@ -41,25 +41,7 @@ public class Player extends PlayerCharacter{
 	}
 
 	@Override
-	public void setWeapon(Weapon weapon) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void useWeapon() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addPowerUp(PowerUp power) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removePowerUp(PowerUp power) {
+	public void setBehavior(Behavior behavior) {
 		// TODO Auto-generated method stub
 		
 	}

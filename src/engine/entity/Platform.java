@@ -1,14 +1,13 @@
 package engine.entity;
 
+import engine.behavior.Behavior;
 import engine.movement.Movement;
-import engine.powerup.PowerUp;
-import engine.weapon.Weapon;
 /**
- * Defines a player and its movement in and interactions with the game world.
+ * Defines GameObjects that tend to move and/or can be jumped through and onto by other Entities.
  * @author Robert Gitau and Marcus Oertle
  *
  */
-public class Player extends PlayerCharacter{
+public class Platform extends GameObject {
 
 	@Override
 	public void moveX(double velocity) {
@@ -41,25 +40,7 @@ public class Player extends PlayerCharacter{
 	}
 
 	@Override
-	public void setWeapon(Weapon weapon) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void useWeapon() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addPowerUp(PowerUp power) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removePowerUp(PowerUp power) {
+	public void setBehavior(Behavior behavior) {
 		// TODO Auto-generated method stub
 		
 	}
