@@ -1,5 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
+import authoring_environment.editor_windows.SettingsManager;
 import javafx.scene.control.Button;
 
 /**
@@ -18,8 +19,7 @@ public class SettingsButton extends Button{
      */
     public SettingsButton() {
         super(SETTINGS);
-        // TODO: open settings manager when button is clicked
-        // this.setOnAction(e -> new SettingsManager());
+        this.setOnAction(e -> new SettingsManager());
     }
 
 }
