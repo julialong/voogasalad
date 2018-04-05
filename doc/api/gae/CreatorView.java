@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Judi Sanchez
+ *
+ */
 public interface CreatorView {
 
 	/**
@@ -28,6 +33,7 @@ public interface CreatorView {
 	 * of the same level or different levels of the game
 	 */
 	public void openNewWindow();
+	
 	
 	
 }

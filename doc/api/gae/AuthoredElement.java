@@ -24,9 +24,11 @@ public interface AuthoredElement {
     public abstract void uploadImage(String fileName);
 
     /**
-     * Adds the current element to the GameCreator grid
+     *  Adds the current element to the GameCreator grid
+     * @param xPosition is the initial x position of the element on the grid
+     * @param yPosition is the initial y position of the element on the grid
      */
-    public abstract void addToGrid();
+    public abstract void addToGrid(double xPosition, double yPosition);
 
     /**
      * Modifies the current element's position on the GameCreator grid
@@ -34,11 +36,4 @@ public interface AuthoredElement {
      * @param yPosition is the new y position
      */
     public abstract void move(double xPosition, double yPosition);
-    
-    /**
-     * Gets the class type for an element from its data file
-     * @param ID
-     * @return String representation of class type
-     */
-    public abstract String getType(String ID);
 }
