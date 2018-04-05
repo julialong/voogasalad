@@ -1,4 +1,4 @@
-package authoring_environment.toolbars.buttons;
+package authoring_environment.toolbars.buttons.creator_view_buttons;
 
 import javafx.scene.control.Button;
 
@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
  */
 public class AddElementButton extends Button {
 
-    private static final String ADD_ELEMENT= "Add Game Element";
+    private static final String ADD_ELEMENT= "Create new element";
 
     /**
      * Creates a simple add element button.
