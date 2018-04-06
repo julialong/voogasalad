@@ -29,6 +29,8 @@ public class LevelCreator {
 
     private File selectedImageFile;
 
+    private static final String CSS = "GAE.css";
+    private static final String LEVEL_CREATOR = "Level Creator";
     private static final String LEVEL_NAME = "Level name";
     private static final String SET_NAME = "Set name";
     private static final String UPLOAD_BACKGROUND_IMAGE = "Upload background image";
@@ -44,10 +46,9 @@ public class LevelCreator {
         myRoot = new BorderPane();
         addFields();
         myScene = new Scene(myRoot);
-        myScene.getStylesheets().add("GAE.css");
-
+        myScene.getStylesheets().add(CSS);
         myStage.setScene(myScene);
-        myStage.setTitle("Level Creator");
+        myStage.setTitle(LEVEL_CREATOR);
         myStage.show();
         myStage.centerOnScreen();
     }

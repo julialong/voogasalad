@@ -1,4 +1,7 @@
-package api.engine;
+package engine.level;
+
+import java.util.List;
+import engine.entity.GameObject;
 
 /**
  * The level interface is to be extended by each level class. There will likely be one level class
@@ -21,7 +24,7 @@ public interface Level {
 	/*
 	 * Returns all objects in a level
 	 */
-	public void getObjects(){}
+	public void getObjects();
 	
 	/*
 	 * Sets the ID of the level for identification purposes

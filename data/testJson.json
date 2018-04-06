@@ -1,0 +1,10 @@
+{"data.objtodata.ExampleObject":[
+{"id":10,"health":1,"attacks":true},
+{"id":61,"health":1,"attacks":true}
+],"data.objtodata.ExampleObject3":[
+{"id":47,"health":3,"attacks":true},
+{"id":0,"health":3,"attacks":true}
+],"data.objtodata.ExampleObject2":[
+{"id":64,"health":2,"attacks":true},
+{"id":85,"health":2,"attacks":true}
+]}

@@ -3,6 +3,7 @@ package authoring_environment.toolbars;
 import authoring_environment.editor_windows.ElementPicker;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddElementButton;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddLevelButton;
+import authoring_environment.toolbars.choosers.LevelChooser;
 import authoring_environment.toolbars.labels.SideLabel;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -11,6 +12,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 
 /**
  * The right pane manages adding various elements and dealing with the structure of levels
@@ -42,8 +45,10 @@ public class RightBar extends SplitPane{
 
     private void splitPanes() {
         elementPane = new Pane();
+        elementPane.getStyleClass().add("side-pane");
         this.getItems().add(elementPane);
-        levelPane = new Pane();
+        levelPane = new VBox();
+        levelPane.getStyleClass().add("side-pane");
         this.getItems().add(levelPane);
     }
 
@@ -65,7 +70,7 @@ public class RightBar extends SplitPane{
     	ElementPicker elementPicker = new ElementPicker();
     	ScrollPane pickerPane = elementPicker.getElementPane();
         elementPane.getChildren().add(pickerPane);
-        // TODO: add Level chooser here
+        //levelPane.getChildren().add(new LevelChooser(new ArrayList<Object>()));
     }
 
     
