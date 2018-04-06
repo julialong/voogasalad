@@ -1,9 +1,5 @@
 .side-pane {
-<<<<<<< HEAD
-    -fx-vgap: 30;
-=======
     -fx-vgap: 20px;
->>>>>>> master
     -fx-alignment: top-center;
 	-fx-padding: 20;
     -fx-margin: 25px;

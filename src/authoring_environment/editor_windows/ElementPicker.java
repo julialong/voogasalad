@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,7 +19,7 @@ import javafx.scene.layout.GridPane;
  */
 
 public class ElementPicker {
-	private static final int ELEMENT_SIZE = 50;
+	private static final int ELEMENT_SIZE = 40;
 	private static final int MAX_GRID_COLUMN_INDEX = 2;
 	
 	private GridPane myElementGrid;
@@ -30,6 +31,11 @@ public class ElementPicker {
 		
 		myElementGrid = new GridPane();
 		myScrollPane = new ScrollPane(myElementGrid);
+		myScrollPane.setMinHeight(300);
+		myScrollPane.setMaxWidth(200);
+		myElementGrid.setPadding(new Insets(19,19,19,19));
+		myElementGrid.setHgap(20);
+		myElementGrid.setVgap(20);
 		myElementImages = new ArrayList<ImageView>();
 		updateTypeChoice();
 		loadImages(myTypeChoice);
@@ -43,7 +49,7 @@ public class ElementPicker {
 	
 	private void loadImages(String type) {
 		File folder = new File("./data/" + type);
-		String[] imageExtensions = new String[]{".jpg", ".png"};
+		String[] imageExtensions = new String[]{".jpg", ".jpeg", ".png", ".gif"};
 		File[] imageFiles = folder.listFiles(new FilenameFilter() {
 			public boolean accept(File folder, String name) {
 				for (String extension : imageExtensions) {
@@ -55,11 +61,9 @@ public class ElementPicker {
 			}
 		});
 		for(File file : imageFiles) {
-			Image image = new Image("file:data/" + myTypeChoice + "/" + file.getName());
-			ImageView imageView = new ImageView(image);
-			imageView.setFitHeight(ELEMENT_SIZE);
-			imageView.setFitWidth(ELEMENT_SIZE);
-			myElementImages.add(imageView);
+			Image image = new Image("file:data/" + myTypeChoice + "/" + file.getName(), 40, 40, true, true);
+			PickableElement element = new PickableElement(image);
+			myElementImages.add(element);
 		}
 		
 	}
