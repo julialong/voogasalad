@@ -1,6 +1,10 @@
-package serialization;
+package data.gamefiles;
 
 import java.util.Map;
+
+import data.serialization.GameObject;
+import data.serialization.Level;
+
 import java.util.List;
 
 /**
