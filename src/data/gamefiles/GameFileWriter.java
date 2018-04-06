@@ -2,7 +2,6 @@ package data.gamefiles;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +20,6 @@ import data.serialization.TextWriter;
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private String gameDirectory;
 	private File gameDirectoryFile;
-	private List<Object> objsToWrite = new ArrayList<>();
 
 	/**
 	 * Class Constructor.

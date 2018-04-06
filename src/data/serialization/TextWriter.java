@@ -1,7 +1,6 @@
 package data.serialization;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -144,6 +143,6 @@ public class TextWriter	{
 	}
 
 	private void error(IOException e)	{
-		System.out.println("Could not write to file");
+		System.out.println(writeErrorStatement);
 	}
 }
