@@ -1,4 +1,3 @@
-import authoring_environment.CreatorView;
 import authoring_environment.EditorWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -7,7 +6,8 @@ import javafx.stage.Stage;
  * This class is the entry point to the Graphic Authoring Environment and
  * launches the necessary classes to start game editing
  *
- * @author julialong
+ * @author Julia Long
+ * Date started: March 31 18
  */
 public class EditorMain extends Application{
 

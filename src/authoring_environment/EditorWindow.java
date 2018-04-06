@@ -4,8 +4,10 @@ import authoring_environment.toolbars.RightBar;
 import authoring_environment.toolbars.TopBar;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -13,13 +15,12 @@ import javafx.stage.Stage;
  * EditorWindow implements the CreatorView interface and manages the UI of the
  * editing environment
  *
-<<<<<<< HEAD
- * @author julialong 
+ * @author Julia Long, Judi Sanchez
  * Date started: March 30 18
- * @author Judi Sanchez 
- * Date started: April 1 18
  */
 public class EditorWindow implements CreatorView {
+
+	// List<Level> myLevels;
 
 	private Stage myStage;
 	private Scene myScene;
@@ -46,9 +47,9 @@ public class EditorWindow implements CreatorView {
 	}
 
 	/**
-	 * Updates the portion of thr grid that is currently showm on the program's
+	 * Updates the portion of the grid that is currently shown on the program's
 	 * screen. This will be accomplished with a scrollbar that has a value which
-	 * will denote the leftmost x coordindate
+	 * will denote the leftmost x coordinate
 	 * 
 	 * @param location
 	 *            The value of the leftmost coordinate on the viewable grid
@@ -59,7 +60,7 @@ public class EditorWindow implements CreatorView {
 	}
 
 	/**
-	 * Opens an editor to change the atributes of a specific AuthoredElement
+	 * Opens an editor to change the attributes of a specific AuthoredElement
 	 * 
 	 * @param elem
 	 *            is the AuthoredElement for which an editor window will be opened
@@ -95,15 +96,12 @@ public class EditorWindow implements CreatorView {
 		myRoot.setTop(new TopBar());
 		myRoot.setRight(setRightBar());
 
-		// TODO: add right side toolbar
-
-		// TODO: add Grid
-		myRoot.setLeft(setCenterGrid());
+		myRoot.setCenter(setCenterGrid());
 
 	}
 
-	private VBox setRightBar() {
-		VBox rightBar = new RightBar();
+	private SplitPane setRightBar() {
+		SplitPane rightBar = new RightBar();
 		rightBar.getStyleClass().add("side-pane");
 		return rightBar;
 	}
