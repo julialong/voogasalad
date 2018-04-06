@@ -35,3 +35,11 @@
 	-fx-pref-height: 600;
 	-fx-pref-width: 600;
 }
+
+.game-chooser {
+	-fx-background-color: #ffffff;
+	-fx-padding: 30;
+	-fx-alignment: top-center;
+	-fx-pref-height: 600;
+	-fx-pref-width: 600;
+}
