@@ -42,7 +42,7 @@ public class RightBar extends SplitPane{
     }
 
     private void splitPanes() {
-        elementPane = new Pane();
+        elementPane = new VBox();
         elementPane.getStyleClass().add("side-pane");
         this.getItems().add(elementPane);
         levelPane = new VBox();
@@ -57,10 +57,8 @@ public class RightBar extends SplitPane{
 
     private void addButtons() {
         Button elementButton = new AddElementButton();
-        elementButton.setLayoutY(50);
         elementPane.getChildren().add(elementButton);
         Button levelButton = new AddLevelButton();
-        levelButton.setLayoutY(50);
         levelPane.getChildren().add(levelButton);
     }
 

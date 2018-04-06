@@ -1,9 +1,5 @@
 package serialization;
 
-import java.util.Map;
-
-import data.objtodata.Level;
-
 import java.util.List;
 
 /**
