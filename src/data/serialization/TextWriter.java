@@ -1,4 +1,4 @@
-package serialization;
+package data.serialization;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,7 +36,7 @@ public class TextWriter	{
 		callWrite(level, itemsInLevel);
 	}
 
-	private void callWrite(level, itemsInLevel)	{
+	private void callWrite(File level, List<GameObject> itemsInLevel)	{
 		try	{
 			FileWriter fw = new FileWriter(level);	// get number from level
 		

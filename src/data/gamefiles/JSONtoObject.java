@@ -1,4 +1,4 @@
-package data_serialization;
+package data.gamefiles;
 
 import java.util.List;
 import java.util.Map;

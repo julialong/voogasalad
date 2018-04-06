@@ -1,6 +1,8 @@
-package serialization;
+package data.gamefiles;
 
 import java.util.List;
+
+import data.serialization.Level;
 
 /**
  * From information given to this class from Game Engine, parses Engine classes and objects into data to push to database to create effectively a "save game" functionality

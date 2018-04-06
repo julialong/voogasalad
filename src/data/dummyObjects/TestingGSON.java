@@ -1,22 +1,22 @@
-package data_serialization;
+package data.dummyObjects;
 
-import static org.junit.Assert.*;
+
 import com.google.gson.*;
-import org.junit.Test;
+
 
 public class TestingGSON {
 
-	@Test
-	public void TestDeserialization() {
-		SampleObject x = new SampleObject(69);
-		Gson g = new Gson();
-		String save = g.toJson(x);
-		Deserializer deserializer = new Deserializer();
-		Object y = deserializer.deserialize(save, SampleObject.class);
-		assertEquals("Test Type", x.getClass(), y.getClass());
-		SampleObject z = (SampleObject) y;
-		assertEquals("Test ID", x.add(5), z.add(5));
-	}
+//	@Test
+//	public void TestDeserialization() {
+//		SampleObject x = new SampleObject(69);
+//		Gson g = new Gson();
+//		String save = g.toJson(x);
+//		Deserializer deserializer = new Deserializer();
+//		Object y = deserializer.deserialize(save, SampleObject.class);
+//		assertEquals("Test Type", x.getClass(), y.getClass());
+//		SampleObject z = (SampleObject) y;
+//		assertEquals("Test ID", x.add(5), z.add(5));
+//	}
 
 
 	

@@ -1,10 +1,14 @@
-package serialization;
+package data.gamefiles;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import data.serialization.GameObject;
+import data.serialization.Level;
+import data.serialization.TextWriter;
 
 /**
  * @author Maya messinger

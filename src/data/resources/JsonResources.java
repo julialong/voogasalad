@@ -2,7 +2,7 @@
  * @author  Maya Messiner
  * Resource class to get string values of JSON file characters
  */
-package serializer.resources;
+package data.resources;
 
 import java.util.ResourceBundle;
 

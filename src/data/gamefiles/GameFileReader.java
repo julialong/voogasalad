@@ -1,4 +1,4 @@
-package data_serialization;
+package data.gamefiles;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,6 +16,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+
+import data.serialization.Deserializer;
 
 /**
  * @author Belanie Nagiel
@@ -52,7 +54,7 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	private void createObjectToClassMap()
 	{
-		ResourceBundle gameObjects = ResourceBundle.getBundle("data_serialization/gameObjects");
+		ResourceBundle gameObjects = ResourceBundle.getBundle("serialization.resources/gameObjects");
 		Enumeration<String> objectNames = gameObjects.getKeys();
 		while(objectNames.hasMoreElements())
 		{
