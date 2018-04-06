@@ -1,4 +1,4 @@
-package data_serialization;
+package data.serialization;
 
 import com.google.gson.Gson;
 
