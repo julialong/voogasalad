@@ -17,6 +17,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
+/**
+ * @author Belanie Nagiel
+ * 
+ * Class that facilitates the loading of games in the form of 
+ * lists of game objects. Can load an entire game as a map of levels 
+ * to game objects or can load one specific level or just the
+ * settings.
+ *
+ */
 public class GameFileReader implements JSONtoObject {
 
 	private String gameDirectory;
@@ -25,6 +34,10 @@ public class GameFileReader implements JSONtoObject {
 	private Map<String,Class<?>> objectTypes;
 	private Deserializer deserializer;
 	
+	/**
+	 * Class Constructor.
+	 * Instantiates the game object to class map and the deserializer
+	 */
 	public GameFileReader()
 	{
 		objectTypes= new HashMap<>();
@@ -32,6 +45,11 @@ public class GameFileReader implements JSONtoObject {
 		deserializer = new Deserializer();
 	}
 	
+	/**
+	 * Reads in a properties file of game objects to their appropriate classes
+	 * in order to make a map for later deserialization.
+	 * 
+	 */
 	private void createObjectToClassMap()
 	{
 		ResourceBundle gameObjects = ResourceBundle.getBundle("data_serialization/gameObjects");
@@ -49,12 +67,22 @@ public class GameFileReader implements JSONtoObject {
 		}
 	}
 	
+	/**
+	 * Sets the currentGame File object
+	 * 
+	 * @param gameName
+	 */
 	private void retrieveCurrentGame(String gameName)
 	{
 		gameDirectory = "./data/gameData/" + gameName;
 		currentGame = new File(gameDirectory); 
 	}
 	
+	/**
+	 * Sets the currentLevel File object
+	 * @param gameName
+	 * @param level
+	 */
 	private void retrieveLevel(String gameName, String level)
 	{
 		retrieveCurrentGame(gameName);
@@ -62,6 +90,13 @@ public class GameFileReader implements JSONtoObject {
 	}
 	
 	@Override
+	/**
+	 * Returns a map of levels/settings to their associated game objects based
+	 * on the gameName and the json files for that game.
+	 * 
+	 * @param gameName
+	 * @return 
+	 */
 	public Map<String, List<Object>> loadCompleteGame(String gameName) {
 		Map<String, List<Object>> completeGame = new HashMap<>();
 		retrieveCurrentGame(gameName);
@@ -75,6 +110,14 @@ public class GameFileReader implements JSONtoObject {
 	}
 	
 	@Override
+	/**
+	 * Returns the list of objects for a specific level of a game based on the JSON
+	 * file for that level.
+	 * 
+	 * @param gameName
+	 * @param levelNumber
+	 * @return
+	 */
 	public List<Object> loadLevel(String gameName, int levelNumber) {
 		retrieveLevel(gameName, Integer.toString(levelNumber));
 		List<Object> gameObjects = new ArrayList<Object>();
@@ -103,11 +146,26 @@ public class GameFileReader implements JSONtoObject {
 
 
 	@Override
+	/**
+	 * To Do: Returns the list of objects for the general game settings
+	 * 
+	 * @param gameName
+	 * @return
+	 */
 	public List<Object> loadSettings(String gameName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
+	/**
+	 * Given the JSON object that will be converted into the game object
+	 * and the type of the game object, returns the GameObject object for 
+	 * the JSON text.
+	 * 
+	 * @param toConvert
+	 * @param objectType
+	 * @return
+	 */
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
 		JsonObject j = toConvert;
