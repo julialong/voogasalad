@@ -1,4 +1,4 @@
-package data_serialization;
+package data.dummyObjects;
 
 
 public class SampleObject{
