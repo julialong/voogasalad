@@ -1,10 +1,10 @@
 package api.player;
 
 /**
- * The interface for letting the user choose a developed game.
- * This will be a visual display of GameItems that the user can
- * select from.
- */
+        * The interface for letting the user choose a developed game.
+        * This will be a visual display of GameItems that the user can
+        * select from.
+        */
 public interface GameChooser{
 
     /**
@@ -17,7 +17,7 @@ public interface GameChooser{
      * This will represent the extensive list of developed games that the
      * user can choose. Choosing a game will prompt the sendToGame method
      */
-    public void displayChoices();
+    private void displayChoices();
 
     /**
      * Adds the @param gamename to the list of available games to choose.

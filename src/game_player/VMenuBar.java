@@ -15,6 +15,7 @@ public class VMenuBar implements MenuBar{
 		// TODO Auto-generated method stub
 		HBox bar = new HBox();
 		myMenuBar = bar;
+		myMenuBar.getStyleClass().add("menubar");
 	}
 
 	@Override
