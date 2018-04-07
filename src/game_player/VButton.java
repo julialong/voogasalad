@@ -15,7 +15,7 @@ public class VButton extends Button implements GamePlayerButton {
 		super(s);
 		myCommand = s;
 		setButtonAction();
-		
+		this.getStyleClass().add("Button");
 	}
 	
 	private void setButtonAction() {

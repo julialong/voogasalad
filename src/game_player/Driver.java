@@ -38,17 +38,19 @@ public class Driver extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		createChooser();
-		Scene scene = new Scene(gameChooser.displayChoices());
-		//TODO: uncomment once we create the style sheet
-		scene.getStylesheets().add("styleSheet.css");
-		primaryStage.setScene(scene);
 		primaryStage.setTitle(TITLE);
+        primaryStage.setMinWidth(550);
+		Scene scene = new Scene(gameChooser.displayChoices());
+		scene.getStylesheets().add("styleSheet.css");
+
+		primaryStage.setScene(scene);
+
 		primaryStage.show();
 	}
 
 	private void createChooser(){
 		List<GameItem> list = new ArrayList<>();
-		String[] gameNames = {"Mario", "Yoshi", "Marth", "Sammus"};
+		String[] gameNames = {"Mario", "Yoshi", "Marth", "Sammus this name is going to be really long for the sake of testing whether or not the list view can handle text at such great lengths"};
 		for(String game : gameNames){
 			GameItem newGame = new VoogaGame(game);
 			list.add(newGame);

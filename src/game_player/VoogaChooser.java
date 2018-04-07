@@ -5,13 +5,9 @@ import game_player_api.GameItem;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.util.List;
 
@@ -25,7 +21,10 @@ public class VoogaChooser implements GameChooser {
     private BorderPane myView =  new BorderPane();
     private ListView<GameItem> playableGames;
 
+    
+
     public VoogaChooser(List<GameItem> gamesToPlay){
+        myView.setMinWidth(550);
         playableGames = new ListView<GameItem>();
         ObservableList<GameItem> gameItems = FXCollections.observableArrayList(gamesToPlay);
         playableGames.setItems(gameItems);
@@ -71,7 +70,6 @@ public class VoogaChooser implements GameChooser {
             try{
                 GameItem game = gameChoices.getSelectionModel().getSelectedItem();
                 game.setUpGame();
-                myView.getStyleClass().add("styleSheet.css");
                 Stage currentStage = (Stage) myView.getScene().getWindow();
                 currentStage.close();
             }
