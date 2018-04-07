@@ -19,6 +19,8 @@ public class BasicLevel implements Level {
     private String myName;
 
     private static final String DEFAULT = "Default";
+    private static final int DEFAULT_X_SIZE = 500;
+    private static final int DEFAULT_Y_SIZE = 500;
 
     /**
      * Creates a new basic Level.
@@ -31,6 +33,13 @@ public class BasicLevel implements Level {
         myObjects = new ArrayList<>();
         myID = 0;
         myName = DEFAULT;
+    }
+
+    /**
+     * Creates a new basic Level with no size defined.
+     */
+    public BasicLevel() {
+        this(DEFAULT_X_SIZE, DEFAULT_Y_SIZE);
     }
 
     @Override
@@ -67,4 +76,10 @@ public class BasicLevel implements Level {
     public GridPane getGrid() {
         return myGrid;
     }
+
+    @Override
+    public void setSize(double X, double Y) {
+        myGrid.setPrefSize(X, Y);
+    }
+
 }

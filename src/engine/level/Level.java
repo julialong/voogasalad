@@ -53,4 +53,12 @@ public interface Level {
 	 * @return the grid of the level
 	 */
 	GridPane getGrid();
+
+	/**
+	 * Sets the x size of the grid.
+	 * @param X is the new x size
+	 * @param Y is the new y size
+	 */
+	void setSize(double X, double Y);
+
 }
