@@ -21,8 +21,6 @@ public class VoogaChooser implements GameChooser {
     private BorderPane myView =  new BorderPane();
     private ListView<GameItem> playableGames;
 
-    
-
     public VoogaChooser(List<GameItem> gamesToPlay){
         myView.setMinWidth(550);
         playableGames = new ListView<GameItem>();

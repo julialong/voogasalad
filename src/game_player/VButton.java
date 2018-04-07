@@ -37,6 +37,4 @@ public class VButton extends Button implements GamePlayerButton {
 		// TODO Auto-generated method stub
 		
 	}
-	
-
 }
