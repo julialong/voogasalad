@@ -28,40 +28,28 @@ public class Physics {
 	/**
 	 * Apply physics to a Kinematics object
 	 * @param k - a Kinematics object
+	 * @param gravApplies - boolean determining whether to apply gravity
 	 * @return new Kinematics()
 	 */
-    public Kinematics applyPhysics(Kinematics k){
-        double yFinalVelocity = applyGravity(k.getYVelocity());
-        double xFinalVelocity = applyFriction(k);
-        return new Kinematics(xFinalVelocity, yFinalVelocity, k.getXAcceleration(), k.getYAcceleration());
-    }
-    
-    /**
-     * Applies gravity to the Kinematics object
-     * @param yVelocity
-     * @return (double) updated y velocity
-     */
-	private double applyGravity(double yVelocity){
-        return yVelocity - gravitationalConstant * TIME_STEP;
-    }
-    
-	/**
-	 * Applies pseudo-friction calculations to the Kinematics object
-	 * @param k
-	 * @return (double) updated x velocity
-	 */
-    private double applyFriction(Kinematics k) {
-    	double nextXVel = k.getXVelocity() + k.getXAcceleration()*TIME_STEP;
-    	double xFinalVelocity = nextXVel;
-        if(nextXVel > 0) {
-        	xFinalVelocity = nextXVel - k.getFrictionConstant()*TIME_STEP;
+	public Kinematics applyPhysics(Kinematics k, boolean gravApplies){
+		double xAcc = k.getXAcceleration();
+        if(k.getXVelocity() != 0){
+            xAcc -= k.getFrictionConstant();
         }
-        else if (nextXVel < 0) {
-        	xFinalVelocity = nextXVel + k.getFrictionConstant()*TIME_STEP;
-        }
-        if(((nextXVel > 0) && (xFinalVelocity < 0)) || ((nextXVel < 0) && (xFinalVelocity > 0))) {
-        	return 0;
-        }
-        return xFinalVelocity;
-    }
+		double yAcc = k.getYAcceleration();
+		if(gravApplies){
+			yAcc += -gravitationalConstant;
+		}
+		double xFinalVelocity = k.getXVelocity() + xAcc * TIME_STEP;
+		double yFinalVelocity = k.getYVelocity() + yAcc * TIME_STEP;
+		double xFinalPos = k.getX() + k.getXVelocity() * TIME_STEP + 0.5 * xAcc * TIME_STEP * TIME_STEP;
+		double yFinalPos = k.getY() + k.getYVelocity() * TIME_STEP + 0.5 * yAcc * TIME_STEP * TIME_STEP;
+		if(k.getXAcceleration() == 0){
+			if(((k.getXVelocity() > 0) && (xFinalVelocity < 0)) || ((k.getXVelocity() < 0) && (xFinalVelocity > 0))) {
+				xFinalVelocity = 0;
+				xFinalPos = k.getX();
+			}
+		}
+        return new Kinematics(xFinalPos, yFinalPos, xFinalVelocity, yFinalVelocity, k.getXAcceleration(), k.getYAcceleration());
+	}
 }
