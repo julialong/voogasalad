@@ -2,13 +2,12 @@ package data.gamefiles;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import data.serialization.GameObject;
-import data.serialization.Level;
 import data.serialization.TextWriter;
+import data.dummyObjects.Level;
+import data.dummyObjects.GameObject;
 
 /**
  * @author Maya messinger
@@ -21,7 +20,6 @@ import data.serialization.TextWriter;
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private String gameDirectory;
 	private File gameDirectoryFile;
-	private List<Object> objsToWrite = new ArrayList<>();
 
 	/**
 	 * Class Constructor.
@@ -82,7 +80,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	}
 
 	private File getLevel(Level level)	{
-		File newLevel = new File(gameDirectory + level.toString() + ".json");
+		File newLevel = new File(gameDirectory + "\\" + level.toString() + ".json");
 
 		if(!newLevel.exists())	{
 			try {

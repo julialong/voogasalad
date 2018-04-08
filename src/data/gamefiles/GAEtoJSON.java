@@ -2,8 +2,8 @@ package data.gamefiles;
 
 import java.util.Map;
 
-import data.serialization.GameObject;
-import data.serialization.Level;
+import data.dummyObjects.GameObject;
+import data.dummyObjects.Level;
 
 import java.util.List;
 
