@@ -22,7 +22,6 @@ public class LevelChoice extends HBox{
 
     /**
      * Creates a new LevelChoice object
-     * TODO: change Object to Level
      * @param level
      */
     public LevelChoice(Level level) {

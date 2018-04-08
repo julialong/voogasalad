@@ -28,7 +28,7 @@ public class LevelChooser extends VBox {
     }
 
     public int update() {
-        this.getChildren().removeAll();
+        this.getChildren().removeAll(this.getChildren());
         int i = 0;
         for (Level level : myGame.getLevels()) {
             Pane thisLevelChoice = new LevelChoice(level);
