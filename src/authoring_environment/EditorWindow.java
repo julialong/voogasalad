@@ -20,11 +20,11 @@ import javafx.stage.Stage;
  */
 public class EditorWindow implements CreatorView {
 
-	// List<Level> myLevels;
-
 	private Stage myStage;
 	private Scene myScene;
 	private BorderPane myRoot;
+
+	private AuthoredGame myGame;
 
 	/**
 	 * Creates a new EditorWindow
@@ -34,7 +34,7 @@ public class EditorWindow implements CreatorView {
 	 */
 	public EditorWindow(Stage stage) {
 		myStage = stage;
-
+		myGame = new AuthoredGame();
 		openNewWindow();
 	}
 
@@ -93,7 +93,7 @@ public class EditorWindow implements CreatorView {
 		myScene.getStylesheets().add("GAE.css");
 		myStage.setMaximized(true);
 
-		myRoot.setTop(new TopBar());
+		myRoot.setTop(new TopBar(myGame));
 		myRoot.setRight(setRightBar());
 
 		myRoot.setCenter(setCenterGrid());
@@ -101,7 +101,7 @@ public class EditorWindow implements CreatorView {
 	}
 
 	private SplitPane setRightBar() {
-		SplitPane rightBar = new RightBar();
+		SplitPane rightBar = new RightBar(myGame);
 		rightBar.getStyleClass().add("side-pane");
 		return rightBar;
 	}

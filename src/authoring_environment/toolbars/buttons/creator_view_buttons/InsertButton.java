@@ -1,5 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
+import authoring_environment.AuthoredGame;
 import authoring_environment.editor_windows.LevelCreator;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -13,6 +14,8 @@ import javafx.scene.control.MenuItem;
  */
 public class InsertButton extends MenuButton {
 
+    private AuthoredGame myGame;
+
     private static final String INSERT = "Insert";
     private static final String LEVEL = "Level";
     private static final String SPLASH_SCREEN = "Splash Screen";
@@ -21,8 +24,9 @@ public class InsertButton extends MenuButton {
     /**
      * Creates a simple Insert menu button with the appropriate drop down items
      */
-    public InsertButton() {
+    public InsertButton(AuthoredGame game) {
         super(INSERT);
+        myGame = game;
         this.getItems().addAll(createLevelItem(),
                                 createSplashItem(),
                                 createObject());
@@ -30,7 +34,7 @@ public class InsertButton extends MenuButton {
 
     private MenuItem createLevelItem() {
         MenuItem levelItem = new MenuItem(LEVEL);
-        levelItem.setOnAction(e -> new LevelCreator());
+        levelItem.setOnAction(e -> new LevelCreator(myGame));
         return levelItem;
     }
 

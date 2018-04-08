@@ -1,10 +1,12 @@
 package authoring_environment.toolbars;
 
+import authoring_environment.AuthoredGame;
 import authoring_environment.editor_windows.ElementPicker;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddElementButton;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddLevelButton;
 import authoring_environment.toolbars.choosers.LevelChooser;
 import authoring_environment.toolbars.labels.SideLabel;
+import engine.level.Level;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
@@ -28,15 +30,17 @@ public class RightBar extends SplitPane{
 
     private Pane elementPane;
     private Pane levelPane;
+    private AuthoredGame myGame;
 
     /**
      * Creates a new right toolbar with appropriate buttons and panels.
      */
-    public RightBar() {
+    public RightBar(AuthoredGame game) {
         super();
         this.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         this.setPrefWidth(PANE_WIDTH);
         this.setOrientation(Orientation.VERTICAL);
+        myGame = game;
         splitPanes();
         addLabels();
         addButtons();
@@ -60,15 +64,17 @@ public class RightBar extends SplitPane{
     private void addButtons() {
         Button elementButton = new AddElementButton();
         elementPane.getChildren().add(elementButton);
-        Button levelButton = new AddLevelButton();
+        Button levelButton = new AddLevelButton(myGame);
         levelPane.getChildren().add(levelButton);
     }
 
     private void addScrollScreens() {
+        // TODO: @MICHAEL add your element chooser here!!!
+        levelPane.getChildren().add(new LevelChooser(myGame.getLevels()));
     	ElementPicker elementPicker = new ElementPicker();
     	ScrollPane pickerPane = elementPicker.getElementPane();
         elementPane.getChildren().add(pickerPane);
-        levelPane.getChildren().add(new LevelChooser(new ArrayList<Object>()));
+        levelPane.getChildren().add(new LevelChooser(myGame.getLevels()));
     }
 
     
