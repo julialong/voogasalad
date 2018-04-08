@@ -7,6 +7,13 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 
+/**
+ * 
+ * @author Michael Acker
+ * Start Date: 4/5/2018
+ *
+ */
+
 public class GridCell extends ImageView {
 	
 	public GridCell() {
