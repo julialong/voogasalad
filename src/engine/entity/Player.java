@@ -120,14 +120,12 @@ public class Player extends PlayerCharacter{
 
 	@Override
 	public void setMaxXVelocity(double velocity) {
-		// TODO Auto-generated method stub
-		
+		maxVelocityX = velocity;
 	}
 
 	@Override
 	public void setMaxYVelocity(double velocity) {
-		// TODO Auto-generated method stub
-		
+		maxVelocityY = velocity;		
 	}
 
 }
