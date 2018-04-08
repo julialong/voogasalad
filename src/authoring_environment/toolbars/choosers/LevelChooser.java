@@ -1,5 +1,6 @@
 package authoring_environment.toolbars.choosers;
 
+import authoring_environment.AuthoredGame;
 import engine.level.Level;
 import javafx.scene.control.ScrollPane;
 
@@ -13,20 +14,25 @@ import java.util.List;
  */
 public class LevelChooser extends ScrollPane {
 
-    private List<Level> myLevels;
+    private AuthoredGame myGame;
 
     /**
      * Creates a scrollpane that allows users to choose a level to edit.
-     * @param levels is the list of levels to display
+     * @param game is the current game
      */
-    public LevelChooser(List<Level> levels) {
+    public LevelChooser(AuthoredGame game) {
         super();
-        myLevels = levels;
-        for (Level level : myLevels) {
-            // TODO: display all levels
-            this.getChildren().add(new LevelChoice(level));
-        }
+        myGame = game;
+        update();
     }
 
+    public int update() {
+        int i = 0;
+        for (Level level : myGame.getLevels()) {
+            this.getChildren().add(new LevelChoice(level));
+            i++;
+        }
+        return i;
+    }
 
 }
