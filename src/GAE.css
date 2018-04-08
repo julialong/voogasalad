@@ -10,7 +10,6 @@
 	-fx-alignment: top-center;
 }
 
-
 .level-top {
 	-fx-background-color: #878888;
 	-fx-padding: 30;
@@ -44,40 +43,3 @@
 	-fx-pref-height: 600;
 	-fx-pref-width: 600;
 }
-
-
-.combobox{
-	-fx-background-color: #0000ff;
-	-fx-alignment: left;
-	-fx-min-width:200;
-	
-}
-
-.attribute-editor{
-	-fx-background-color: #000000;
-	-fx-min-width: 500;
-	-fx-min-height: 500;
-}
-
-.attribute-pane{
-	-fx-background-color: #000000;
-	-fx-alignment: top-left;
-	-fx-min-width: 250;
-	-fx-spacing: 25;
-	-fx-padding: 25;
-}
-
-.image-pane{
-	-fx-background-color: #000000;
-	-fx-alignment: top-center;
-	-fx-min-width: 250;
-	-fx-spacing: 25;
-	-fx-padding: 25;
-}
-
-.attribute-title-pane{
-	-fx-background-color: #ffffff;
-	-fx-min-height: 50;
-}
-
-
