@@ -11,8 +11,6 @@ public class NoBehavior implements Behavior{
 
 	@Override
 	public void behave(GameEntity entity) {
-		// TODO Auto-generated method stub
-		
+		// DO NOTHING
 	}
-
 }

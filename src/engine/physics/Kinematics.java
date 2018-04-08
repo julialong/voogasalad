@@ -12,7 +12,7 @@ public class Kinematics {
 	private double yVel;
 	private double xAcc;
 	private double yAcc;
-	private double frictionConstant = 10;
+	private double frictionConstant = 0;
 	
 	/**
 	 * Constructs Kinematics object with 0 initial velocity/acceleration

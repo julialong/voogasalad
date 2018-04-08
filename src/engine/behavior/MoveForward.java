@@ -13,6 +13,7 @@ import engine.entity.Player;
 public class MoveForward implements Behavior {
 		private Action action = new MoveLeft();
 	    private Player player;
+	    
 	    public MoveForward(Player player){
 	        this.player = player;
 	    }

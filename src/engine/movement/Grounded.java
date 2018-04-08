@@ -45,12 +45,19 @@ public class Grounded implements Movement{
     public Kinematics update(Kinematics k, double xVelocityLimit, double yVelocityLimit){
         Physics p = new Physics();
     	Kinematics kFinal = p.applyPhysics(k, true);
-        if ((kFinal.getXVelocity() > xVelocityLimit) || (kFinal.getXVelocity() < -xVelocityLimit)){
+        if (kFinal.getXVelocity() > xVelocityLimit){
             kFinal.setXVelocity(xVelocityLimit);
         }
-        if ((kFinal.getYVelocity() > yVelocityLimit) || (kFinal.getYVelocity() < -yVelocityLimit)){
+        if(kFinal.getXVelocity() < -xVelocityLimit){
+        	kFinal.setXVelocity(-xVelocityLimit);
+        }
+        if (kFinal.getYVelocity() > yVelocityLimit){
             kFinal.setYVelocity(yVelocityLimit);
         }
+        if(kFinal.getYVelocity() < -yVelocityLimit){
+        	kFinal.setYVelocity(-yVelocityLimit);
+        }
+        //System.out.println("X velocity = " + kFinal.getXVelocity());
         return kFinal;
     }
 

@@ -1,24 +1,47 @@
 package engine.entity;
 
-import engine.behavior.Behavior;
-import engine.movement.Movement;
-import engine.weapon.Weapon;
+import engine.behavior.*;
+import engine.movement.*;
+import engine.physics.Kinematics;
+import engine.weapon.*;
 /**
  * Defines information for basic enemies in a game.
  * @author Rob
  *
  */
 public class Foes extends Enemy {
-	@Override
+	private Movement movementType;
+    private Kinematics kinematics;
+    private double health;
+    private Weapon weaponType;
+    private double jumpFactor;
+    private double speedFactor;
+    private Behavior behavior;
+    private double maxVelocityX;
+    private double maxVelocityY;
+    
+    public Foes() {
+        this(new Kinematics(0,0,0,0,0,0), new Player());
+    }
+    
+    public Foes(Kinematics k, Player p){
+        kinematics = k;
+        movementType = new Grounded();
+        weaponType = new NoWeapon();
+        behavior = new MoveForward(p);
+        speedFactor = 20; //arbitrary for now
+        jumpFactor = 20; // arbitrary for now
+        maxVelocityX = 20;
+        maxVelocityY = 20;
+    }
+    @Override
 	public void setMovementType(Movement movement) {
-		// TODO Auto-generated method stub
-		
+		movementType = movement;
 	}
 
 	@Override
 	public void setHealth(int HP) {
-		// TODO Auto-generated method stub
-		
+		health = HP;		
 	}
 
 	@Override
@@ -29,14 +52,12 @@ public class Foes extends Enemy {
 
 	@Override
 	public void setBehavior(Behavior behavior) {
-		// TODO Auto-generated method stub
-		
+		this.behavior = behavior;		
 	}
 
 	@Override
 	public void setWeapon(Weapon weapon) {
-		// TODO Auto-generated method stub
-		
+		weaponType = weapon;		
 	}
 
 	@Override
@@ -47,74 +68,64 @@ public class Foes extends Enemy {
 
 	@Override
 	public double getSpeedFactor() {
-		// TODO Auto-generated method stub
-		return 0;
+		return speedFactor;
 	}
 
 	@Override
 	public double[] getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+		double[] positionArray = {kinematics.getX(), kinematics.getY()};
+        return positionArray;
 	}
 
 	@Override
 	public double getJumpFactor() {
-		// TODO Auto-generated method stub
-		return 0;
+		return jumpFactor;
 	}
 
 	@Override
 	public void overridePosition(double x, double y) {
-		// TODO Auto-generated method stub
-		
+		movementType.overridePosition(kinematics,x,y);
 	}
 
 	@Override
 	public void setXVelocity(double velocity) {
-		// TODO Auto-generated method stub
-		
+        movementType.setVelocityX(kinematics, velocity);
 	}
-
-	@Override
+    
+    @Override
 	public void setYVelocity(double velocity) {
-		// TODO Auto-generated method stub
-		
+        movementType.setVelocityY(kinematics, velocity);
 	}
-
+    
 	@Override
 	public void setXAcceleration(double accel) {
-		// TODO Auto-generated method stub
-		
+        movementType.setAccelerationX(kinematics, accel);
 	}
-
-	@Override
+    
+    @Override
 	public void setYAcceleration(double accel) {
-		// TODO Auto-generated method stub
-		
+        movementType.setAccelerationY(kinematics, accel);
 	}
 
 	@Override
 	public Movement getMovementType() {
-		// TODO Auto-generated method stub
-		return null;
+		return movementType;
 	}
-
-	@Override
+    
+    @Override
 	public void setMaxXVelocity(double velocity) {
-		// TODO Auto-generated method stub
-		
+		maxVelocityX = velocity;
 	}
 
 	@Override
 	public void setMaxYVelocity(double velocity) {
-		// TODO Auto-generated method stub
+		maxVelocityY = velocity;
 		
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		behavior.behave(this);
+		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
 	}
-
 }
