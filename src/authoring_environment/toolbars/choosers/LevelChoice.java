@@ -2,10 +2,7 @@ package authoring_environment.toolbars.choosers;
 
 import engine.level.Level;
 import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -29,7 +26,7 @@ public class LevelChoice extends HBox{
         this.setPrefHeight(30);
         this.setPrefWidth(200);
         this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        // TODO: add level icon to object);
+        // TODO: add level icon to object
         Text levelName = new Text(level.getName());
         levelName.setTextAlignment(TextAlignment.CENTER);
         levelName.setFont(new Font(20));

@@ -27,9 +27,11 @@ public class LevelChooser extends VBox {
         update();
     }
 
-    public int update() {
+    /**
+     * Updates the current list of levels
+     */
+    public void update() {
         this.getChildren().removeAll(this.getChildren());
-        int i = 0;
         for (Level level : myGame.getLevels()) {
             Pane thisLevelChoice = new LevelChoice(level);
             thisLevelChoice.setOnMouseClicked(e -> {
@@ -37,9 +39,7 @@ public class LevelChooser extends VBox {
                 System.out.println("Current level: " + myGame.getCurrentLevel().getName());
             });
             this.getChildren().add(thisLevelChoice);
-            i++;
         }
-        return i;
     }
 
 }
