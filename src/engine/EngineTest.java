@@ -45,7 +45,7 @@ public class EngineTest {
 
 	public static void main(String args[]) {
 		EngineTest engineTest = new EngineTest();
-		//engineTest.EnemyMovementTest();
-		engineTest.PlayerMovementTestLR();
+		engineTest.EnemyMovementTest();
+		//engineTest.PlayerMovementTestLR();
 	}
 }
