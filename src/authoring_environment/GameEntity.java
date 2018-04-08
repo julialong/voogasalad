@@ -1,6 +1,10 @@
 package authoring_environment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -14,8 +18,11 @@ public class GameEntity implements AuthoredElement {
 	private double xLocation;
 	private double yLocation;
 	
-	public GameEntity(Image image) {
-
+	private List<String> attributes;
+	private ImageView image;
+	
+	public GameEntity() {
+		attributes = new ArrayList<String>();
 		
 	}
 
@@ -27,7 +34,7 @@ public class GameEntity implements AuthoredElement {
 
 	@Override
 	public void uploadImage(String fileName) {
-		// TODO Auto-generated method stub
+		image = new ImageView(fileName.toString());
 		
 	}
 

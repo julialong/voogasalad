@@ -17,31 +17,17 @@ import javafx.stage.Stage;
  */
 public class AuthoredElementCreator {
 	
-	private FileChooser filechooser;
-	private File file;
 	
 	/**
 	 * This constructor is called when the AddElementButton is pushed on the right-side toolbar
 	 * It creates a FileChooser for the user to select an image file from their computer files
 	 * @throws MalformedURLException
 	 */
-	public AuthoredElementCreator() throws MalformedURLException {
-		file = openFileChooser();
-		URI uri= file.toURI();
-		URL url= uri.toURL();
-		//Image test = new Image(file.getPath());
-		Image image = new Image(url.toString());
-		GameEntity element = new GameEntity(image);
-		
+	public AuthoredElementCreator() {
+		GameEntity element = new GameEntity();
+		AttributeEditor editor= new AttributeEditor(element);
+			
 	}
-	
-	private File openFileChooser() {
-		Stage fileWindow= new Stage();
-		filechooser = new FileChooser();
-		File chosenFile= filechooser.showOpenDialog(fileWindow);
-		return chosenFile;
-		
-	}
-	
+
 
 }
