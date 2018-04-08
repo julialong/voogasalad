@@ -90,7 +90,7 @@ public class GameFileReader implements JSONtoObject {
 	{
 		retrieveCurrentGame(gameName);
 //		currentLevel = new File(gameDirectory + "/" + level);
-		currentLevel = new File(gameDirectory + "/" + "data.dummyObjects.Level@1e643faf.json");
+		currentLevel = new File(gameDirectory + "/" + "Default.json");
 	}
 	
 	@Override
@@ -140,13 +140,14 @@ public class GameFileReader implements JSONtoObject {
 			JsonObject  jobject = jelement.getAsJsonObject();
 			for(String objectType: objectTypes.keySet())
 			{
-				JsonArray jarray = jobject.getAsJsonArray(objectType);
-				System.out.println(jarray);
-				for(int i = 0; i < jarray.size(); i++)
+				if(jobject.has(objectType))
 				{
-					gameObjects.add(convertToObject(jarray.get(i).getAsJsonObject(), objectType));
+					JsonArray jarray = jobject.getAsJsonArray(objectType);
+					for(int i = 0; i < jarray.size(); i++)
+					{
+						gameObjects.add(convertToObject(jarray.get(i).getAsJsonObject(), objectType));
+					}
 				}
-				
 			}	
 		}
 		catch(Exception e)
@@ -181,9 +182,7 @@ public class GameFileReader implements JSONtoObject {
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
 		JsonObject j = toConvert;
-	    System.out.println(j.toString().getClass());
 	    Object converted = deserializer.deserialize(j.toString(), objectTypes.get(objectType));
-	    System.out.println(converted); 
 		return converted;
 	}
 

@@ -56,6 +56,11 @@ public class TestingGSON {
 //
 		GameFileReader fr = new GameFileReader();
 		Map<String, List<Object>> x = fr.loadCompleteGame("TestGame");
+		for(String xx: x.keySet())
+		{
+			System.out.println(xx);
+			System.out.println(x.get(xx));
+		}
 //		System.out.print(x.keySet());
 		fr.getGameNames();
 ////		f.loadGame("sampleGame");
