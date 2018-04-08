@@ -4,6 +4,7 @@ import authoring_environment.toolbars.buttons.creator_view_buttons.AddElementBut
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddLevelButton;
 import authoring_environment.toolbars.choosers.LevelChooser;
 import authoring_environment.toolbars.labels.SideLabel;
+import engine.level.Level;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
@@ -64,8 +65,7 @@ public class RightBar extends SplitPane{
 
     private void addScrollScreens() {
         // TODO: @MICHAEL add your element chooser here!!!
-        // TODO: add Level chooser here
-        levelPane.getChildren().add(new LevelChooser(new ArrayList<Object>()));
+        levelPane.getChildren().add(new LevelChooser(new ArrayList<Level>()));
     }
 
     

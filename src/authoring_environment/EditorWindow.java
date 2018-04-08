@@ -34,7 +34,7 @@ public class EditorWindow implements CreatorView {
 	 */
 	public EditorWindow(Stage stage) {
 		myStage = stage;
-
+		myGame = new AuthoredGame();
 		openNewWindow();
 	}
 

@@ -1,5 +1,6 @@
 package authoring_environment.toolbars.choosers;
 
+import engine.level.Level;
 import javafx.scene.control.ScrollPane;
 
 import java.util.List;
@@ -12,14 +13,13 @@ import java.util.List;
  */
 public class LevelChooser extends ScrollPane {
 
-    private List<Object> myLevels;
+    private List<Level> myLevels;
 
     /**
      * Creates a scrollpane that allows users to choose a level to edit.
-     * TODO: Change Object to Level
      * @param levels is the list of levels to display
      */
-    public LevelChooser(List<Object> levels) {
+    public LevelChooser(List<Level> levels) {
         super();
         myLevels = levels;
         for (Object level : myLevels) {

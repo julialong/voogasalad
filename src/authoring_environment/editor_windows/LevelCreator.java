@@ -1,5 +1,6 @@
 package authoring_environment.editor_windows;
 
+import authoring_environment.AuthoredGame;
 import engine.level.BasicLevel;
 import engine.level.Level;
 import javafx.geometry.Insets;
@@ -30,6 +31,7 @@ public class LevelCreator {
     private Scene myScene;
     private BorderPane myRoot;
     private Level newLevel;
+    private AuthoredGame myGame;
 
     private Pane right;
     private Pane center;
@@ -49,14 +51,14 @@ public class LevelCreator {
     /**
      * Creates and launches a new LevelCreator window
      */
-    public LevelCreator() {
+    public LevelCreator(AuthoredGame game) {
         createNewLevel();
         myStage = new Stage();
         myRoot = new BorderPane();
         addFields();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
-
+        myGame = game;
         myStage.setScene(myScene);
         myStage.setTitle(LEVEL_CREATOR);
         myStage.show();
@@ -165,7 +167,7 @@ public class LevelCreator {
 
     private void createSaveButton(Pane pane) {
         Button saveButton = new Button(SAVE_LEVEL);
-        //saveButton.setOnAction(e -> );
+        saveButton.setOnAction(e -> myGame.addLevel(newLevel));
         pane.getChildren().add(saveButton);
     }
 }
