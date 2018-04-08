@@ -68,7 +68,7 @@ public class RightBar extends SplitPane{
 
     private void addScrollScreens() {
         // TODO: @MICHAEL add your element chooser here!!!
-        levelPane.getChildren().add(new LevelChooser(new ArrayList<Level>()));
+        levelPane.getChildren().add(new LevelChooser(myGame.getLevels()));
     }
 
     

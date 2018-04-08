@@ -1,7 +1,6 @@
 package authoring_environment.toolbars.choosers;
 
 import engine.level.Level;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -23,12 +22,7 @@ public class LevelChoice extends HBox{
         super();
         this.setPrefHeight(30);
         this.setPrefWidth(100);
-        // TODO: add level icon to object
-        GridPane gridCopy = level.getGrid();
-        gridCopy.setMaxHeight(30);
-        gridCopy.setMaxWidth(30);
-        this.getChildren().add(gridCopy);
-        // TODO: add level name to object
+        // TODO: add level icon to object);
         this.getChildren().add(new Text(level.getName()));
     }
 

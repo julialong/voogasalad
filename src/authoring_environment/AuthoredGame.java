@@ -56,6 +56,14 @@ public class AuthoredGame {
     }
 
     /**
+     * Gets the levels of the game
+     * @return the list of level objects
+     */
+    public List<Level> getLevels() {
+        return myLevels;
+    }
+
+    /**
      * Updates the state of the game
      */
     public void update() {
