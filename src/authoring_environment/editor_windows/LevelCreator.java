@@ -53,7 +53,6 @@ public class LevelCreator {
         addFields();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
-
         myStage.setScene(myScene);
         myStage.setTitle(LEVEL_CREATOR);
         myStage.show();

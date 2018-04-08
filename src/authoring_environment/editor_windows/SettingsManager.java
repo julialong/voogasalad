@@ -36,7 +36,4 @@ public class SettingsManager {
         myStage.show();
         myStage.centerOnScreen();
     }
-
-
-
 }
