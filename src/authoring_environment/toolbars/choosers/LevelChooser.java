@@ -4,6 +4,7 @@ import authoring_environment.AuthoredGame;
 import engine.level.Level;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 
 /**
@@ -12,7 +13,7 @@ import javafx.scene.layout.Pane;
  * @author Julia Long
  * Date started: April 04 18
  */
-public class LevelChooser extends ScrollPane {
+public class LevelChooser extends VBox {
 
     private AuthoredGame myGame;
 
@@ -27,10 +28,14 @@ public class LevelChooser extends ScrollPane {
     }
 
     public int update() {
+        this.getChildren().removeAll();
         int i = 0;
         for (Level level : myGame.getLevels()) {
             Pane thisLevelChoice = new LevelChoice(level);
-            thisLevelChoice.setOnMouseClicked(e -> myGame.setCurrentLevel(level));
+            thisLevelChoice.setOnMouseClicked(e -> {
+                myGame.setCurrentLevel(level);
+                System.out.println("Current level: " + myGame.getCurrentLevel().getName());
+            });
             this.getChildren().add(thisLevelChoice);
             i++;
         }
