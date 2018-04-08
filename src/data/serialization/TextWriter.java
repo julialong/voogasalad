@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import data.dummyObjects.GameObject;
+import engine.entity.GameEntity;
 
 /**
  * @author Maya Messinger
@@ -37,7 +37,7 @@ public class TextWriter	{
 		callWrite(level, itemsInLevel);
 	}
 
-	private void callWrite(File level, List<GameObject> itemsInLevel)	{
+	private void callWrite(File level, List<GameEntity> itemsInLevel)	{
 		try	{
 			FileWriter fw = new FileWriter(level);
 		
@@ -50,7 +50,7 @@ public class TextWriter	{
 		}
 	}
 
-	private void addtoWrite(FileWriter fw, List<GameObject> items)	{
+	private void addtoWrite(FileWriter fw, List<GameEntity> items)	{
 		int entryIndex = 0;
 		Map<String, List<Object>> objsOrganized = sortObjects(items);
 		for (Map.Entry entry:objsOrganized.entrySet())	{
@@ -64,7 +64,7 @@ public class TextWriter	{
 		}
 	}
 
-	private Map<String, List<Object>> sortObjects(List<GameObject> objsToWrite)	{
+	private Map<String, List<Object>> sortObjects(List<GameEntity> objsToWrite)	{
 		Map<String, List<Object>> objsOrganized = new HashMap<>();	
 
 		for (Object obj:objsToWrite)	{

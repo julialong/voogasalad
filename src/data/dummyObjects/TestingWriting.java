@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import data.gamefiles.GameFileWriter;
+import engine.entity.*;
+import engine.level.Level;
+import engine.level.BasicLevel;
 
 public class TestingWriting {
 	
@@ -15,20 +18,20 @@ public class TestingWriting {
 		myWriter.update(makeDummyObjects());
 	}
 
-	private static Map<Level, List<GameObject>> makeDummyObjects()	{
-		Map<Level, List<GameObject>> objsOrganized = new HashMap<>();
-		List<GameObject> objsToWrite = new ArrayList<>();
+	private static Map<Level, List<GameEntity>> makeDummyObjects()	{
+		Map<Level, List<GameEntity>> objsOrganized = new HashMap<>();
+		List<GameEntity> objsToWrite = new ArrayList<>();
 
-		objsToWrite.add(new GameObject());
-		objsToWrite.add(new GameObject2());
-		objsToWrite.add(new GameObject());
-		objsToWrite.add(new GameObject2());
-		objsToWrite.add(new GameObject3());
-		objsToWrite.add(new GameObject3());
+		objsToWrite.add(new Block());
+		objsToWrite.add(new Foes(new Player()));
+		objsToWrite.add(new Flag());
+		objsToWrite.add(new Player());
+		objsToWrite.add(new Block());
+		objsToWrite.add(new Flag());
 
-		Level one = new Level();
-		objsOrganized.put(one, new ArrayList<GameObject>());
-		for (GameObject obj:objsToWrite)	{
+		Level one = new BasicLevel();
+		objsOrganized.put(one, new ArrayList<GameEntity>());
+		for (GameEntity obj:objsToWrite)	{
 			objsOrganized.get(one).add(obj);
 		}
 
