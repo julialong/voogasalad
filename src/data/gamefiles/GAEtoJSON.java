@@ -23,4 +23,10 @@ public interface GAEtoJSON	{
 	 * @param gameName		name of game to load past save of
 	 */
 	List<Object> revertChanges(Level level);
+
+	/**
+	 * Method to rename a game (folder)
+	 * @param newName	String to rename game to	
+	 */
+	void renameGame(String newName);
 }
