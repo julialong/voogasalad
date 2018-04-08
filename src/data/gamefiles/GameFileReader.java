@@ -30,6 +30,7 @@ import data.serialization.Deserializer;
  */
 public class GameFileReader implements JSONtoObject {
 
+	private final String gameFolder = "./data/gameData";
 	private String gameDirectory;
 	private File currentGame;
 	private File currentLevel;
@@ -76,7 +77,7 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	private void retrieveCurrentGame(String gameName)
 	{
-		gameDirectory = "./data/gameData/" + gameName;
+		gameDirectory = gameFolder + "/" + gameName;
 		currentGame = new File(gameDirectory); 
 	}
 	
@@ -184,6 +185,19 @@ public class GameFileReader implements JSONtoObject {
 	    Object converted = deserializer.deserialize(j.toString(), objectTypes.get(objectType));
 	    System.out.println(converted); 
 		return converted;
+	}
+
+	@Override
+	public List<String> getGameNames() {
+		List<String> gameNames = new ArrayList<>();
+		File gamesDirectory = new File(gameFolder);
+		File[] games= gamesDirectory.listFiles();
+		for(File game: games)
+		{
+			int index = game.toString().lastIndexOf("/") + 1;
+			gameNames.add(game.toString().substring(index).trim());
+		}
+		return gameNames;
 	}
 }
 
