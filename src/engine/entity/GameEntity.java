@@ -122,4 +122,6 @@ public interface GameEntity {
 	 * @param velocity the desired maximum speed
 	 */
 	public abstract void setMaxYVelocity(double velocity);
+	
+	public abstract void update();
 }
