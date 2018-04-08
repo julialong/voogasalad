@@ -30,8 +30,10 @@ public class Player extends PlayerCharacter{
         kinematics = k;
         movementType = new Grounded();
         weaponType = new NoWeapon();
-        speedFactor = 20; //arbitrary for now
+        speedFactor = 20; //arbitrary for now, might need to be MUCH higher
         jumpFactor = 20; // arbitrary for now
+        maxVelocityX = 20; // arbitrary for now
+        maxVelocityY = 20; // arbitrary for now
     }
     
     @Override
@@ -52,27 +54,28 @@ public class Player extends PlayerCharacter{
     
     @Override
     public void overridePosition(double x, double y) {
-        movementType.overridePosition(kinematics,x,y);
+    	kinematics.setX(x);
+		kinematics.setY(y);
     }
     
     @Override
 	public void setXVelocity(double velocity) {
-        movementType.setVelocityX(kinematics, velocity);
+    	kinematics.setXVelocity(velocity);
 	}
     
     @Override
 	public void setYVelocity(double velocity) {
-        movementType.setVelocityY(kinematics, velocity);
+    	kinematics.setYVelocity(velocity);
 	}
     
 	@Override
 	public void setXAcceleration(double accel) {
-        movementType.setAccelerationX(kinematics, accel);
+		kinematics.setXAcceleration(accel);
 	}
     
     @Override
 	public void setYAcceleration(double accel) {
-        movementType.setAccelerationY(kinematics, accel);
+    	kinematics.setYAcceleration(accel);
 	}
 
 	@Override

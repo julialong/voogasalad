@@ -10,7 +10,7 @@ import engine.entity.GameEntity;
 public class JumpALot implements Behavior{
 
 	@Override
-	public void behave(GameEntity entity) {
+	public void update(GameEntity entity) {
 		// TODO Auto-generated method stub
 		
 	}

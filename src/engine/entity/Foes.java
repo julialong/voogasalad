@@ -20,8 +20,8 @@ public class Foes extends Enemy {
     private double maxVelocityX;
     private double maxVelocityY;
     
-    public Foes() {
-        this(new Kinematics(0,0,0,0,0,0), new Player());
+    public Foes(Player p) {
+        this(new Kinematics(0,0,0,0,0,0), p);
     }
     
     public Foes(Kinematics k, Player p){
@@ -29,10 +29,10 @@ public class Foes extends Enemy {
         movementType = new Grounded();
         weaponType = new NoWeapon();
         behavior = new MoveForward(p);
-        speedFactor = 20; //arbitrary for now
+        speedFactor = 500; //arbitrary for now
         jumpFactor = 20; // arbitrary for now
-        maxVelocityX = 20;
-        maxVelocityY = 20;
+        maxVelocityX = 20; // arbitrary for now
+        maxVelocityY = 20; // arbitrary for now
     }
     @Override
 	public void setMovementType(Movement movement) {
@@ -84,27 +84,28 @@ public class Foes extends Enemy {
 
 	@Override
 	public void overridePosition(double x, double y) {
-		movementType.overridePosition(kinematics,x,y);
+		kinematics.setX(x);
+		kinematics.setY(y);
 	}
 
 	@Override
 	public void setXVelocity(double velocity) {
-        movementType.setVelocityX(kinematics, velocity);
+        kinematics.setXVelocity(velocity);
 	}
     
     @Override
 	public void setYVelocity(double velocity) {
-        movementType.setVelocityY(kinematics, velocity);
+    	kinematics.setYVelocity(velocity);
 	}
     
 	@Override
 	public void setXAcceleration(double accel) {
-        movementType.setAccelerationX(kinematics, accel);
+		kinematics.setXAcceleration(accel);
 	}
     
     @Override
 	public void setYAcceleration(double accel) {
-        movementType.setAccelerationY(kinematics, accel);
+    	kinematics.setYAcceleration(accel);
 	}
 
 	@Override
@@ -125,7 +126,7 @@ public class Foes extends Enemy {
 
 	@Override
 	public void update() {
-		behavior.behave(this);
+		behavior.update(this);
 		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
 	}
 }

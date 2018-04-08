@@ -27,7 +27,7 @@ public class ChasePlayer implements Behavior{
     }
     
     @Override
-	public void behave(GameEntity entity) {
+	public void update(GameEntity entity) {
         double xPos = entity.getPosition()[0];
         double xPosPlayer = player.getPosition()[0];
         if(xPosPlayer < xPos){

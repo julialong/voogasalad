@@ -1,12 +1,17 @@
 package engine;
 
+import engine.behavior.ChasePlayer;
 import engine.entity.Foes;
+import engine.entity.Player;
 
 public class EngineTest {
 	private static int seconds = 5;
 	
 	public static void EnemyMovementTest() {
-		Foes foe = new Foes();
+		Player p = new Player();
+		p.overridePosition(-10, 0);
+		Foes foe = new Foes(p);
+		foe.setBehavior(new ChasePlayer(p));
 		for(int i = 0; i < seconds*60; i++) {
 			foe.update();
 			System.out.println(i);

@@ -9,38 +9,7 @@ import engine.physics.Physics;
  *
  */
 public class Flying implements Movement{
-
-	@Override
-	public Kinematics overridePosition(Kinematics k, double x, double y) {
-		k.setX(x);
-        k.setY(y);
-        return k;
-	}
-
-	@Override
-	public Kinematics setVelocityX(Kinematics k, double velocity) {
-        k.setXVelocity(velocity);
-        return k;
-	}
-
-	@Override
-	public Kinematics setVelocityY(Kinematics k, double velocity) {
-		k.setYVelocity(velocity);
-        return k;
-	}
-
-	@Override
-	public Kinematics setAccelerationX(Kinematics k, double accel) {
-		k.setXAcceleration(accel);
-		return k;
-	}
-
-	@Override
-	public Kinematics setAccelerationY(Kinematics k, double accel) {
-		k.setYAcceleration(accel);
-		return k;
-	}
-    
+  
     @Override
     public Kinematics update(Kinematics k, double xVelocityLimit, double yVelocityLimit){
         Physics p = new Physics();

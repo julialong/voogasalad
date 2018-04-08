@@ -10,7 +10,7 @@ import engine.entity.GameEntity;
 public class NoBehavior implements Behavior{
 
 	@Override
-	public void behave(GameEntity entity) {
+	public void update(GameEntity entity) {
 		// DO NOTHING
 	}
 }

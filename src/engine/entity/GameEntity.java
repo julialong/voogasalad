@@ -123,5 +123,8 @@ public interface GameEntity {
 	 */
 	public abstract void setMaxYVelocity(double velocity);
 	
+	/**
+	 * Updates the entity with new position/interaction paramters. Called at every time step.
+	 */
 	public abstract void update();
 }

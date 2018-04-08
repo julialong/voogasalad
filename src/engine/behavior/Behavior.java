@@ -17,5 +17,5 @@ public interface Behavior {
 	 * @param entity
 	 *            the entity that will carry out this behavior
 	 */
-	public abstract void behave(GameEntity entity);
+	public abstract void update(GameEntity entity);
 }

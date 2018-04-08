@@ -19,7 +19,7 @@ public class MoveForward implements Behavior {
 	    }
 	    
 	    @Override
-	    public void behave(GameEntity entity) {
+	    public void update(GameEntity entity) {
 	        action.execute(entity);
 	    }
 		
