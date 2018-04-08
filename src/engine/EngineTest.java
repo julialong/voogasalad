@@ -1,5 +1,11 @@
 package engine;
 
-public class EngineTest {
+import org.junit.jupiter.api.Test;
 
+public class EngineTest {
+	
+	@Test
+	public void EnemyMovementTest() {
+		
+	}
 }
