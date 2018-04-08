@@ -128,4 +128,10 @@ public class Player extends PlayerCharacter{
 		maxVelocityY = velocity;		
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

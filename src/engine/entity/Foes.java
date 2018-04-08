@@ -111,4 +111,10 @@ public class Foes extends Enemy {
 		
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
