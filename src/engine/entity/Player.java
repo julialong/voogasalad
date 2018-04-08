@@ -118,4 +118,16 @@ public class Player extends PlayerCharacter{
 		return movementType;
 	}
 
+	@Override
+	public void setMaxXVelocity(double velocity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMaxYVelocity(double velocity) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -110,4 +110,16 @@ public interface GameEntity {
 	 * @return the Entity's Movement
 	 */
 	public abstract Movement getMovementType();
+	
+	/**
+	 * Sets the maximum speed the Entity can move in the x direction
+	 * @param velocity the desired maximum speed
+	 */
+	public abstract void setMaxXVelocity(double velocity);
+	
+	/**
+	 * Sets the maximum speed the Entity can move in the x direction
+	 * @param velocity the desired maximum speed
+	 */
+	public abstract void setMaxYVelocity(double velocity);
 }

@@ -99,4 +99,16 @@ public class Foes extends Enemy {
 		return null;
 	}
 
+	@Override
+	public void setMaxXVelocity(double velocity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMaxYVelocity(double velocity) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
