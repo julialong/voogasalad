@@ -68,6 +68,11 @@ public class BasicLevel implements Level {
     }
 
     @Override
+    public String getName() {
+        return myName;
+    }
+
+    @Override
     public void updateGrid(GridPane grid) {
         myGrid = grid;
     }

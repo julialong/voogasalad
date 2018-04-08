@@ -43,6 +43,12 @@ public interface Level {
 	void setName(String name);
 
 	/**
+	 * Gets the name of the level
+	 * @return the name of the level
+	 */
+	String getName();
+
+	/**
 	 * Sets the current state of the grid for the level
 	 * @param grid is the grid to update to
 	 */

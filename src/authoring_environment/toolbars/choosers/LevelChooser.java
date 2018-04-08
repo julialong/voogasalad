@@ -22,7 +22,7 @@ public class LevelChooser extends ScrollPane {
     public LevelChooser(List<Level> levels) {
         super();
         myLevels = levels;
-        for (Object level : myLevels) {
+        for (Level level : myLevels) {
             // TODO: display all levels
             this.getChildren().add(new LevelChoice(level));
         }

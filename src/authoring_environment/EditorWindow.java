@@ -93,7 +93,7 @@ public class EditorWindow implements CreatorView {
 		myScene.getStylesheets().add("GAE.css");
 		myStage.setMaximized(true);
 
-		myRoot.setTop(new TopBar());
+		myRoot.setTop(new TopBar(myGame));
 		myRoot.setRight(setRightBar());
 
 		myRoot.setCenter(setCenterGrid());
@@ -101,7 +101,7 @@ public class EditorWindow implements CreatorView {
 	}
 
 	private SplitPane setRightBar() {
-		SplitPane rightBar = new RightBar();
+		SplitPane rightBar = new RightBar(myGame);
 		rightBar.getStyleClass().add("side-pane");
 		return rightBar;
 	}

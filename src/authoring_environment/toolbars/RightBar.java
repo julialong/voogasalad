@@ -1,5 +1,6 @@
 package authoring_environment.toolbars;
 
+import authoring_environment.AuthoredGame;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddElementButton;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddLevelButton;
 import authoring_environment.toolbars.choosers.LevelChooser;
@@ -27,15 +28,17 @@ public class RightBar extends SplitPane{
 
     private Pane elementPane;
     private Pane levelPane;
+    private AuthoredGame myGame;
 
     /**
      * Creates a new right toolbar with appropriate buttons and panels.
      */
-    public RightBar() {
+    public RightBar(AuthoredGame game) {
         super();
         this.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         this.setPrefWidth(PANE_WIDTH);
         this.setOrientation(Orientation.VERTICAL);
+        myGame = game;
         splitPanes();
         addLabels();
         addButtons();
@@ -59,7 +62,7 @@ public class RightBar extends SplitPane{
     private void addButtons() {
         Button elementButton = new AddElementButton();
         elementPane.getChildren().add(elementButton);
-        Button levelButton = new AddLevelButton();
+        Button levelButton = new AddLevelButton(myGame);
         levelPane.getChildren().add(levelButton);
     }
 
