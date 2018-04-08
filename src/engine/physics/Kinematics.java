@@ -6,34 +6,70 @@ package engine.physics;
  *
  */
 public class Kinematics {
+	private double xCor;
+	private double yCor;
 	private double xVel;
 	private double yVel;
 	private double xAcc;
 	private double yAcc;
-	private double frictionConstant = 10;
+	private double frictionConstant;
 	
 	/**
 	 * Constructs Kinematics object with 0 initial velocity/acceleration
 	 */
 	public Kinematics() {
-		xVel = 0;
-		yVel = 0;
-		xAcc = 0;
-		yAcc = 0;
+		this(0,0,0,0,0,0);
 	}
 	
 	/**
 	 * Construct Kinematics object based on given parameters
+	 * @param x - x position
+	 * @param y - y position
 	 * @param xv - x velocity
 	 * @param yv - y velocity
 	 * @param xa - x acceleration
 	 * @param ya - y acceleration
 	 */
-	public Kinematics(double xv, double yv, double xa, double ya) {
+	public Kinematics(double x, double y, double xv, double yv, double xa, double ya) {
+		xCor = x;
+		yCor = y;
 		xVel = xv;
 		yVel = yv;
 		xAcc = xa;
 		yAcc = ya;
+		frictionConstant = 0;
+	}
+	
+	/**
+	 * Returns the x coordinate
+	 * @return xCor - (double) x coordinate
+	 */
+	public double getX() {
+		return xCor;
+	}
+	
+	/**
+	 * Sets the x coordinate
+	 * @param xC - (double) x coordinate
+	 */
+	public void setX(double xC) {
+		xCor = xC;
+	}
+	
+	/**
+	 * Returns the y coordinate
+	 * @return yCor - (double) y coordinate
+	 */
+	public double getY() {
+		return yCor;
+	}
+	
+	/**
+	 * Sets the x coordinate
+	 * @param yC - (double) x coordinate
+	 */
+	public void setY(double yC) {
+		yCor = yC;
 	}
 	
 	/**
