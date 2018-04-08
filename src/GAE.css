@@ -1,7 +1,8 @@
 .side-pane {
-    -fx-vgap: 30;
+    -fx-vgap: 20px;
     -fx-alignment: top-center;
-    -fx-padding: 25;
+	-fx-padding: 20;
+    -fx-margin: 25px;
 }
 .center-pane{
 	-fx-border-color: #000000;
@@ -9,38 +10,36 @@
 	-fx-alignment: top-center;
 }
 
-
-.combobox{
-	-fx-background-color: #0000ff;
-	-fx-alignment: left;
-	-fx-min-width:200;
-	
+.level-top {
+	-fx-background-color: #878888;
+	-fx-padding: 30;
+	-fx-spacing: 10;
+	-fx-alignment: center;
 }
 
-.attribute-editor{
-	-fx-background-color: #000000;
-	-fx-min-width: 500;
-	-fx-min-height: 500;
-}
-
-.attribute-pane{
-	-fx-background-color: #000000;
-	-fx-alignment: top-left;
-	-fx-min-width: 250;
-	-fx-spacing: 25;
-	-fx-padding: 25;
-}
-
-.image-pane{
-	-fx-background-color: #000000;
+.level-right {
+	-fx-background-color: rgba(219, 150, 118, 0.45);
+	-fx-padding: 20;
+	-fx-spacing: 10;
+	-fx-vgap: 10;
 	-fx-alignment: top-center;
-	-fx-min-width: 250;
-	-fx-spacing: 25;
-	-fx-padding: 25;
+	-fx-pref-height: 600;
+	-fx-pref-width: 300;
 }
 
-.attribute-title-pane{
+.level-center {
 	-fx-background-color: #ffffff;
-	-fx-min-height: 50;
+	-fx-padding: 30;
+	-fx-spacing: 10;
+	-fx-alignment: center;
+	-fx-pref-height: 600;
+	-fx-pref-width: 600;
 }
 
+.game-chooser {
+	-fx-background-color: #ffffff;
+	-fx-padding: 30;
+	-fx-alignment: top-center;
+	-fx-pref-height: 600;
+	-fx-pref-width: 600;
+}
