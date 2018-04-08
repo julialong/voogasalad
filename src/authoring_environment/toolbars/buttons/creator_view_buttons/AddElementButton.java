@@ -1,7 +1,5 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-
-import authoring_environment.AuthoredElementCreator;
 import javafx.scene.control.Button;
 
 /**
@@ -16,16 +14,12 @@ public class AddElementButton extends Button {
     private static final String ADD_ELEMENT= "Create new element";
 
     /**
-     * Creates an upload image button
+     * Creates a simple add element button.
      */
     public AddElementButton() {
         super(ADD_ELEMENT);
         // TODO: open element editor when button is clicked
-        this.setOnAction(e -> {
-				new AuthoredElementCreator();
-        }
-       );
-	
+        // this.setOnAction(e -> new AuthoredElementCreator());
     }
 
 }
