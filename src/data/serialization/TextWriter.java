@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import data.dummyObjects.GameObject;
+import engine.entity.GameEntity;
 
 /**
  * @author Maya Messinger
@@ -16,14 +16,14 @@ import data.dummyObjects.GameObject;
  * Class that copletely encapsulates file writing
  */
 public class TextWriter	{
-	private static String curlyBracketOpen = "{";
-	private static String curlyBracketClose = "}";
-	private static String bracketOpen = "[";
-	private static String bracketClose = "]";
-	private static String colon = ":";
-	private static String comma = ",";
-	private static String quote = "\"";
-	private static String writeErrorStatement = "Could not write to file";
+	private static final String CURLYBRACKETOPEN = "{";
+	private static final String CURLYBRACKETCLOSE = "}";
+	private static final String BRACKETOPEN = "[";
+	private static final String BRACKETCLOSE = "]";
+	private static final String COLON = ":";
+	private static final String COMMA = ",";
+	private static final String QUOTE = "\"";
+	private static final String WRITEERRORSTATEMENT = "Could not write to file";
 
 	private Serializer ser = new Serializer();
 
@@ -37,7 +37,7 @@ public class TextWriter	{
 		callWrite(level, itemsInLevel);
 	}
 
-	private void callWrite(File level, List<GameObject> itemsInLevel)	{
+	private void callWrite(File level, List<GameEntity> itemsInLevel)	{
 		try	{
 			FileWriter fw = new FileWriter(level);
 		
@@ -50,7 +50,7 @@ public class TextWriter	{
 		}
 	}
 
-	private void addtoWrite(FileWriter fw, List<GameObject> items)	{
+	private void addtoWrite(FileWriter fw, List<GameEntity> items)	{
 		int entryIndex = 0;
 		Map<String, List<Object>> objsOrganized = sortObjects(items);
 		for (Map.Entry entry:objsOrganized.entrySet())	{
@@ -64,7 +64,7 @@ public class TextWriter	{
 		}
 	}
 
-	private Map<String, List<Object>> sortObjects(List<GameObject> objsToWrite)	{
+	private Map<String, List<Object>> sortObjects(List<GameEntity> objsToWrite)	{
 		Map<String, List<Object>> objsOrganized = new HashMap<>();	
 
 		for (Object obj:objsToWrite)	{
@@ -81,7 +81,7 @@ public class TextWriter	{
 
 	private void startFile(FileWriter fw)	{
 		try	{
-			fw.write(curlyBracketOpen);
+			fw.write(CURLYBRACKETOPEN);
 			fw.write(System.lineSeparator());
 		}
 		catch (IOException e)	{
@@ -91,7 +91,7 @@ public class TextWriter	{
 
 	private void startArray(FileWriter fw, String title)	{
 		try	{
-			fw.write(quote + title + quote + colon + bracketOpen);
+			fw.write(QUOTE + title + QUOTE + COLON + BRACKETOPEN);
 			fw.write(System.lineSeparator());
 		}
 		catch (IOException e)	{
@@ -101,7 +101,7 @@ public class TextWriter	{
 
 	private void closeArray(FileWriter fw, int entryIndex, int mapSize)	{
 		try	{
-			fw.write(bracketClose);
+			fw.write(BRACKETCLOSE);
 			checkWriteComma(fw, entryIndex, mapSize);
 			fw.write(System.lineSeparator());
 		}
@@ -126,7 +126,7 @@ public class TextWriter	{
 	private void checkWriteComma(FileWriter fw, int index, int size)	{
 		if (index < size - 1)	{
 			try	{
-				fw.write(comma);
+				fw.write(COMMA);
 			}
 			catch (IOException e)	{
 				error(e);
@@ -136,7 +136,7 @@ public class TextWriter	{
 
 	private void endFile(FileWriter fw)	{
 		try	{
-			fw.write(curlyBracketClose);
+			fw.write(CURLYBRACKETCLOSE);
 			fw.close();
 		}
 		catch (IOException e)	{
@@ -145,6 +145,6 @@ public class TextWriter	{
 	}
 
 	private void error(IOException e)	{
-		System.out.println(writeErrorStatement);
+		System.out.println(WRITEERRORSTATEMENT);
 	}
 }
