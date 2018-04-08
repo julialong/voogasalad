@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import data.dummyObjects.GameObject;
+
 /**
  * @author Maya Messinger
  * Started 5 Apr 17
@@ -37,7 +39,7 @@ public class TextWriter	{
 
 	private void callWrite(File level, List<GameObject> itemsInLevel)	{
 		try	{
-			FileWriter fw = new FileWriter(level);	// get number from level
+			FileWriter fw = new FileWriter(level);
 		
 			startFile(fw);
 			addtoWrite(fw, itemsInLevel);
@@ -45,6 +47,20 @@ public class TextWriter	{
 		}
 		catch (IOException e)	{
 			error(e);
+		}
+	}
+
+	private void addtoWrite(FileWriter fw, List<GameObject> items)	{
+		int entryIndex = 0;
+		Map<String, List<Object>> objsOrganized = sortObjects(items);
+		for (Map.Entry entry:objsOrganized.entrySet())	{
+			String aClass = (String)entry.getKey();
+			List<Object> classObjects = (List)entry.getValue();
+
+			startArray(fw, aClass);
+			writeArray(fw, classObjects);
+			closeArray(fw, entryIndex, objsOrganized.entrySet().size());
+			entryIndex++;
 		}
 	}
 
@@ -61,20 +77,6 @@ public class TextWriter	{
 		}
 
 		return objsOrganized;
-	}
-
-	private void addtoWrite(FileWriter fw, List<GameObject> items)	{
-		int entryIndex = 0;
-		Map<String, List<Object>> objsOrganized = sortObjects(items);
-		for (Map.Entry entry:objsOrganized.entrySet())	{
-			String aClass = (String)entry.getKey();
-			List<Object> classObjects = (List)entry.getValue();
-
-			startArray(fw, aClass);
-			writeArray(fw, classObjects);
-			closeArray(fw, entryIndex, objsOrganized.entrySet().size());
-			entryIndex++;
-		}
 	}
 
 	private void startFile(FileWriter fw)	{
