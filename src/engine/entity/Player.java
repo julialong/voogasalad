@@ -30,7 +30,7 @@ public class Player extends PlayerCharacter{
         kinematics = k;
         movementType = new Grounded();
         weaponType = new NoWeapon();
-        speedFactor = 20; //arbitrary for now, might need to be MUCH higher
+        speedFactor = 100; //arbitrary for now, might need to be MUCH higher
         jumpFactor = 20; // arbitrary for now
         maxVelocityX = 20; // arbitrary for now
         maxVelocityY = 20; // arbitrary for now
@@ -132,9 +132,12 @@ public class Player extends PlayerCharacter{
 	}
 
 	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
+	public void setFrictionConstant(double frictionConstant) {
+		kinematics.setFrictionConstant(frictionConstant);
 	}
-
+	
+	@Override
+	public void update() {
+		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
+	}
 }

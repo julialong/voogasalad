@@ -124,6 +124,12 @@ public interface GameEntity {
 	public abstract void setMaxYVelocity(double velocity);
 	
 	/**
+	 * Sets the friction constant for the entity
+	 * @param frictionConstant - the constant for friction
+	 */
+	public abstract void setFrictionConstant(double frictionConstant);
+	
+	/**
 	 * Updates the entity with new position/interaction paramters. Called at every time step.
 	 */
 	public abstract void update();

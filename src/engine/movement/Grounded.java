@@ -26,7 +26,7 @@ public class Grounded implements Movement{
         if(kFinal.getYVelocity() < -yVelocityLimit){
         	kFinal.setYVelocity(-yVelocityLimit);
         }
-        //System.out.println("X velocity = " + kFinal.getXVelocity());
+        System.out.println("X velocity = " + kFinal.getXVelocity());
         return kFinal;
     }
 

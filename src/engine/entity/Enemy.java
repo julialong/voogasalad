@@ -15,7 +15,7 @@ public abstract class Enemy implements GameEntity {
 	 * @param behavior:
 	 *            the enemies Behavior type.
 	 */
-	public abstract void setBehavior(Behavior behavior);
+	public abstract void addBehavior(Behavior behavior);
 
 	/**
 	 * Sets the enemy's weapon, which implements the Weapon interface.

@@ -105,4 +105,10 @@ public class Block extends GameObject{
 		
 	}
 
+	@Override
+	public void setFrictionConstant(double frictionConstant) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

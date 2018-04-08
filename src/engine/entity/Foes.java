@@ -1,5 +1,7 @@
 package engine.entity;
 
+import java.util.ArrayList;
+
 import engine.behavior.*;
 import engine.movement.*;
 import engine.physics.Kinematics;
@@ -16,9 +18,9 @@ public class Foes extends Enemy {
     private Weapon weaponType;
     private double jumpFactor;
     private double speedFactor;
-    private Behavior behavior;
     private double maxVelocityX;
     private double maxVelocityY;
+    private ArrayList<Behavior> behaviorList = new ArrayList<>();
     
     public Foes(Player p) {
         this(new Kinematics(0,0,0,0,0,0), p);
@@ -28,7 +30,7 @@ public class Foes extends Enemy {
         kinematics = k;
         movementType = new Grounded();
         weaponType = new NoWeapon();
-        behavior = new MoveForward(p);
+        behaviorList.add(new NoBehavior());
         speedFactor = 500; //arbitrary for now
         jumpFactor = 20; // arbitrary for now
         maxVelocityX = 20; // arbitrary for now
@@ -51,8 +53,8 @@ public class Foes extends Enemy {
 	}
 
 	@Override
-	public void setBehavior(Behavior behavior) {
-		this.behavior = behavior;		
+	public void addBehavior(Behavior behavior) {
+		behaviorList.add(behavior);	
 	}
 
 	@Override
@@ -123,10 +125,17 @@ public class Foes extends Enemy {
 		maxVelocityY = velocity;
 		
 	}
+	
+	@Override
+	public void setFrictionConstant(double frictionConstant) {
+		kinematics.setFrictionConstant(frictionConstant);
+	}
 
 	@Override
 	public void update() {
-		behavior.update(this);
+		for(Behavior behavior : behaviorList) {
+			behavior.update(this);
+		}
 		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
 	}
 }

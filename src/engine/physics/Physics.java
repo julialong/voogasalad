@@ -50,6 +50,10 @@ public class Physics {
 				xFinalPos = k.getX();
 			}
 		}
-        return new Kinematics(xFinalPos, yFinalPos, xFinalVelocity, yFinalVelocity, k.getXAcceleration(), k.getYAcceleration());
+		k.setX(xFinalPos);
+		k.setY(yFinalPos);
+		k.setXVelocity(xFinalVelocity);
+		k.setYVelocity(yFinalVelocity);
+		return k;
 	}
 }

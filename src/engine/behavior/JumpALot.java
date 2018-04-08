@@ -8,10 +8,11 @@ import engine.entity.GameEntity;
  *
  */
 public class JumpALot implements Behavior{
+	private int counter = 0;
+	private int frequency = 10;
 
 	@Override
 	public void update(GameEntity entity) {
-		// TODO Auto-generated method stub
 		
 	}
 
