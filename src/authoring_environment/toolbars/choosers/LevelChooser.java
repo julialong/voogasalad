@@ -3,6 +3,7 @@ package authoring_environment.toolbars.choosers;
 import authoring_environment.AuthoredGame;
 import engine.level.Level;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 
 
 /**
@@ -28,7 +29,9 @@ public class LevelChooser extends ScrollPane {
     public int update() {
         int i = 0;
         for (Level level : myGame.getLevels()) {
-            this.getChildren().add(new LevelChoice(level));
+            Pane thisLevelChoice = new LevelChoice(level);
+            thisLevelChoice.setOnMouseClicked(e -> myGame.setCurrentLevel(level));
+            this.getChildren().add(thisLevelChoice);
             i++;
         }
         return i;
