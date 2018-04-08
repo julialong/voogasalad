@@ -24,6 +24,7 @@ public class LevelChoice extends HBox{
         this.setPrefWidth(100);
         // TODO: add level icon to object);
         this.getChildren().add(new Text(level.getName()));
+        // this.setOnMouseClicked(e -> );
     }
 
 }
