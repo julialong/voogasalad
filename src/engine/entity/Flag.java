@@ -9,41 +9,8 @@ import engine.movement.Movement;
  *
  */
 public class Flag extends GameObject{
-
-	@Override
-	public void moveX(double velocity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void moveY(double velocity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setMovementType(Movement movement) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setHealth(int HP) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void setInteraction(Object o) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-
-	@Override
-	public void setBehavior(Behavior behavior) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

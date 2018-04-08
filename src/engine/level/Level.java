@@ -43,6 +43,12 @@ public interface Level {
 	void setName(String name);
 
 	/**
+	 * Gets the name of the level
+	 * @return the name of the level
+	 */
+	String getName();
+
+	/**
 	 * Sets the current state of the grid for the level
 	 * @param grid is the grid to update to
 	 */
@@ -53,4 +59,12 @@ public interface Level {
 	 * @return the grid of the level
 	 */
 	GridPane getGrid();
+
+	/**
+	 * Sets the x size of the grid.
+	 * @param X is the new x size
+	 * @param Y is the new y size
+	 */
+	void setSize(double X, double Y);
+
 }
