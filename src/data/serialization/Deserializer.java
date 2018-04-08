@@ -16,3 +16,4 @@ public class Deserializer {
 		return gson.fromJson(json, objectClass);
 	}	
 }
+

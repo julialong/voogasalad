@@ -62,7 +62,7 @@ public class ElementPicker {
 		});
 		for(File file : imageFiles) {
 			Image image = new Image("file:data/" + myTypeChoice + "/" + file.getName(), 40, 40, true, true);
-			PickableElement element = new PickableElement(image);
+			PickableElement element = new PickableElement(image, myTypeChoice, file.getName());
 			myElementImages.add(element);
 		}
 		
