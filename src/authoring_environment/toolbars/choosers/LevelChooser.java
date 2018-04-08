@@ -4,7 +4,6 @@ import authoring_environment.AuthoredGame;
 import engine.level.Level;
 import javafx.scene.control.ScrollPane;
 
-import java.util.List;
 
 /**
  * The level chooser allows users to select an available level to edit.
