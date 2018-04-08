@@ -17,12 +17,12 @@ import javafx.scene.input.KeyCode;
      }
      public Controls(Player player, KeyCode up, KeyCode down, KeyCode left, KeyCode right, KeyCode jump, KeyCode attac){
          this.player = player;
-         keyBindings.put(up, new MoveUp(this.player));
-         keyBindings.put(down, new MoveDown(this.player));
-         keyBindings.put(left, new MoveLeft(this.player));
-         keyBindings.put(right, new MoveRight(this.player));
-         keyBindings.put(jump, new Jump(this.player));
-         keyBindings.put(attac, new Attack(this.player));
+         keyBindings.put(up, new MoveUp());
+         keyBindings.put(down, new MoveDown());
+         keyBindings.put(left, new MoveLeft());
+         keyBindings.put(right, new MoveRight());
+         keyBindings.put(jump, new Jump());
+         keyBindings.put(attac, new Attack());
      }
      
      public void setBinding(KeyCode key, Action action){

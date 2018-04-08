@@ -9,19 +9,6 @@ import engine.movement.Movement;
  *
  */
 public class Flag extends GameObject{
-
-	@Override
-	public void moveX(double velocity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void moveY(double velocity) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void setMovementType(Movement movement) {
 		// TODO Auto-generated method stub
@@ -44,6 +31,60 @@ public class Flag extends GameObject{
 	public void setBehavior(Behavior behavior) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public double getSpeedFactor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double[] getPosition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getJumpFactor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void overridePosition(double x, double y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setXVelocity(double velocity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setYVelocity(double velocity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setXAcceleration(double accel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setYAcceleration(double accel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Movement getMovementType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

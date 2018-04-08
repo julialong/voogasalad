@@ -36,7 +36,7 @@ public class Player extends PlayerCharacter{
     
     @Override
     public double[] getPosition(){
-        double[] positionArray = {k.getX(), k.getY()};
+        double[] positionArray = {kinematics.getX(), kinematics.getY()};
         return positionArray;
     }
     
@@ -52,27 +52,27 @@ public class Player extends PlayerCharacter{
     
     @Override
     public void overridePosition(double x, double y) {
-        movementType.overridePosition(x,y)
+        movementType.overridePosition(kinematics,x,y);
     }
     
     @Override
 	public void setXVelocity(double velocity) {
-        movementType.setXVelocity(velocity);
+        movementType.setVelocityX(kinematics, velocity);
 	}
     
     @Override
 	public void setYVelocity(double velocity) {
-        movementType.setYVelocity(velocity);
+        movementType.setVelocityY(kinematics, velocity);
 	}
     
 	@Override
 	public void setXAcceleration(double accel) {
-        movementType.setXAcceleration(accel);
+        movementType.setAccelerationX(kinematics, accel);
 	}
     
     @Override
 	public void setYAcceleration(double accel) {
-        movementType.setYAcceleration(accel);
+        movementType.setAccelerationY(kinematics, accel);
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class Player extends PlayerCharacter{
 
 	@Override
 	public void useWeapon() {
-		weaponType.attack();
+		//weaponType.attack();// TODO temporary fix to compilation errors will be replaced later
 	}
 
 	@Override
@@ -111,6 +111,11 @@ public class Player extends PlayerCharacter{
 	@Override
 	public void removePowerUp(PowerUp power) {
         powerupArrayList.remove(power);
+	}
+
+	@Override
+	public Movement getMovementType() {
+		return movementType;
 	}
 
 }

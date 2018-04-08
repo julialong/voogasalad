@@ -1,6 +1,7 @@
 package engine.movement;
 
 import engine.physics.Kinematics;
+import engine.physics.Physics;
 
 /**
  * Movement implementation for entities that remain on the ground and are affected by gravity
@@ -17,31 +18,33 @@ public class Grounded implements Movement{
 	}
 
 	@Override
-	public void setVelocityX(Kinematics k, double velocity) {
+	public Kinematics setVelocityX(Kinematics k, double velocity) {
         k.setXVelocity(velocity);
         return k;
 	}
 
 	@Override
-	public void setVelocityY(Kinematics k, double velocity) {
+	public Kinematics setVelocityY(Kinematics k, double velocity) {
 		k.setYVelocity(velocity);
         return k;
 	}
 
 	@Override
-	public void setAccelerationX(Kinematics k, double accel) {
+	public Kinematics setAccelerationX(Kinematics k, double accel) {
 		k.setXAcceleration(accel);
-		
+		return k;
 	}
 
 	@Override
-	public void setAccelerationY(Kinematics k, double accel) {
+	public Kinematics setAccelerationY(Kinematics k, double accel) {
 		k.setYAcceleration(accel);
+		return k;
 	}
     
     @Override
     public Kinematics update(Kinematics k, double xVelocityLimit, double yVelocityLimit){
-        Kinematics kFinal = applyPhysics(k, true);
+        Physics p = new Physics();
+    	Kinematics kFinal = p.applyPhysics(k, true);
         if ((kFinal.getXVelocity() > xVelocityLimit) || (kFinal.getXVelocity() < -xVelocityLimit)){
             kFinal.setXVelocity(xVelocityLimit);
         }

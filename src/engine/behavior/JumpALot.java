@@ -1,5 +1,7 @@
 package engine.behavior;
 
+import engine.entity.GameEntity;
+
 /**
  * Behavior implementation that causes entity to jump as it moves
  * @author Robert Gitau and Marcus Oertle
@@ -8,7 +10,7 @@ package engine.behavior;
 public class JumpALot implements Behavior{
 
 	@Override
-	public void behave(Object target) {
+	public void behave(GameEntity entity) {
 		// TODO Auto-generated method stub
 		
 	}
