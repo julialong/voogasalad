@@ -14,11 +14,11 @@ import engine.weapon.*;
 public class Foes extends Enemy {
     private Weapon weaponType;
     
-    public Foes(Player p) {
-        this(new Kinematics(0,0,0,0,0,0), p);
+    public Foes() {
+        this(new Kinematics(0,0,0,0,0,0));
     }
     
-    public Foes(Kinematics k, Player p){
+    public Foes(Kinematics k){
         kinematics = k;
         movementType = new Grounded();
         weaponType = new NoWeapon();

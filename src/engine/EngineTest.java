@@ -12,13 +12,15 @@ public class EngineTest {
 	public void EnemyMovementTest() {
 		Player p = new Player();
 		p.overridePosition(-10, 0);
-		Foes foe = new Foes(p);
+		Foes foe = new Foes();
 		foe.addBehavior(new MoveForward(p));
 		//foe.addBehavior(new ChasePlayer(p));
 		for(int i = 0; i < seconds*60; i++) {
+			//if(i%4 == 0) p.overridePosition(p.getPosition()[0]+1, 0);
 			foe.update();
 			System.out.println(i);
-			System.out.println("X Pos = " + foe.getPosition()[0]);
+			//System.out.println("Player Pos = " + p.getPosition()[0]);
+			System.out.println("Enemy Pos = " + foe.getPosition()[0]);
 			//System.out.println("Y Pos = " + foe.getPosition()[1]);
 			System.out.println("");
 		}
