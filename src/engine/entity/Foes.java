@@ -1,39 +1,34 @@
 package engine.entity;
 
-import engine.behavior.Behavior;
-import engine.movement.Movement;
-import engine.weapon.Weapon;
+import java.util.ArrayList;
+
+import engine.behavior.*;
+import engine.movement.*;
+import engine.physics.Kinematics;
+import engine.weapon.*;
 /**
  * Defines information for basic enemies in a game.
  * @author Rob
  *
  */
 public class Foes extends Enemy {
-
-	@Override
-	public void moveX(double velocity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void moveY(double velocity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setMovementType(Movement movement) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setHealth(int HP) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    private Weapon weaponType;
+    
+    public Foes(Player p) {
+        this(new Kinematics(0,0,0,0,0,0), p);
+    }
+    
+    public Foes(Kinematics k, Player p){
+        kinematics = k;
+        movementType = new Grounded();
+        weaponType = new NoWeapon();
+        behaviorList.add(new NoBehavior());
+        speedFactor = 500; //arbitrary for now
+        jumpFactor = 20; // arbitrary for now
+        maxVelocityX = 20; // arbitrary for now
+        maxVelocityY = 20; // arbitrary for now
+    }
+   
 	@Override
 	public void setInteraction(Object o) {
 		// TODO Auto-generated method stub
@@ -41,15 +36,8 @@ public class Foes extends Enemy {
 	}
 
 	@Override
-	public void setBehavior(Behavior behavior) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void setWeapon(Weapon weapon) {
-		// TODO Auto-generated method stub
-		
+		weaponType = weapon;		
 	}
 
 	@Override
@@ -58,4 +46,11 @@ public class Foes extends Enemy {
 		
 	}
 
+	@Override
+	public void update() {
+		for(Behavior behavior : behaviorList) {
+			behavior.update(this);
+		}
+		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
+	}
 }

@@ -20,11 +20,11 @@ import javafx.stage.Stage;
  */
 public class EditorWindow implements CreatorView {
 
-	// List<Level> myLevels;
-
 	private Stage myStage;
 	private Scene myScene;
 	private BorderPane myRoot;
+
+	private AuthoredGame myGame;
 
 	/**
 	 * Creates a new EditorWindow
@@ -34,7 +34,7 @@ public class EditorWindow implements CreatorView {
 	 */
 	public EditorWindow(Stage stage) {
 		myStage = stage;
-
+		myGame = new AuthoredGame();
 		openNewWindow();
 	}
 
@@ -47,9 +47,9 @@ public class EditorWindow implements CreatorView {
 	}
 
 	/**
-	 * Updates the portion of thr grid that is currently showm on the program's
+	 * Updates the portion of the grid that is currently shown on the program's
 	 * screen. This will be accomplished with a scrollbar that has a value which
-	 * will denote the leftmost x coordindate
+	 * will denote the leftmost x coordinate
 	 * 
 	 * @param location
 	 *            The value of the leftmost coordinate on the viewable grid
@@ -60,7 +60,7 @@ public class EditorWindow implements CreatorView {
 	}
 
 	/**
-	 * Opens an editor to change the atributes of a specific AuthoredElement
+	 * Opens an editor to change the attributes of a specific AuthoredElement
 	 * 
 	 * @param elem
 	 *            is the AuthoredElement for which an editor window will be opened
@@ -93,7 +93,7 @@ public class EditorWindow implements CreatorView {
 		myScene.getStylesheets().add("GAE.css");
 		myStage.setMaximized(true);
 
-		myRoot.setTop(new TopBar());
+		myRoot.setTop(new TopBar(myGame));
 		myRoot.setRight(setRightBar());
 
 		myRoot.setCenter(setCenterGrid());
@@ -101,7 +101,7 @@ public class EditorWindow implements CreatorView {
 	}
 
 	private SplitPane setRightBar() {
-		SplitPane rightBar = new RightBar();
+		SplitPane rightBar = new RightBar(myGame);
 		rightBar.getStyleClass().add("side-pane");
 		return rightBar;
 	}

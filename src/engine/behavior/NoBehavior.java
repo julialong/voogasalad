@@ -1,5 +1,7 @@
 package engine.behavior;
 
+import engine.entity.GameEntity;
+
 /**
  * Behavior implementation that will do nothing (required since an entity must have a behavior)
  * @author Robert Gitau and Marcus Oertle
@@ -8,9 +10,7 @@ package engine.behavior;
 public class NoBehavior implements Behavior{
 
 	@Override
-	public void behave(Object target) {
-		// TODO Auto-generated method stub
-		
+	public void update(GameEntity entity) {
+		// DO NOTHING
 	}
-
 }
