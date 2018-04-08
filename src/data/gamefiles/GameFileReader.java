@@ -122,7 +122,7 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	public List<Object> loadLevel(String gameName, int levelNumber) {
 		retrieveLevel(gameName, Integer.toString(levelNumber));
-		List<Object> gameObjects = new ArrayList<Object>();
+		List<Object> gameObjects = new ArrayList<>();
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
