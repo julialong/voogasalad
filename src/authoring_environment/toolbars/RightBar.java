@@ -59,10 +59,8 @@ public class RightBar extends SplitPane{
 
     private void addButtons() {
         Button elementButton = new AddElementButton();
-        elementButton.setLayoutY(50);
         elementPane.getChildren().add(elementButton);
         Button levelButton = new AddLevelButton();
-        levelButton.setLayoutY(50);
         levelPane.getChildren().add(levelButton);
     }
 

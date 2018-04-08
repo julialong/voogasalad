@@ -1,4 +1,4 @@
-package serialization;
+package data.serialization;
 
 public interface GameObject	{
 }
