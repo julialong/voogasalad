@@ -63,10 +63,16 @@ public class LevelCreator {
         myStage.centerOnScreen();
     }
 
+    /**
+     * Creates a new level with default size.
+     */
     private void createNewLevel() {
         newLevel = new BasicLevel();
     }
 
+    /**
+     * Adds top, right, and center panes to the level creator window.
+     */
     private void addFields() {
         myRoot.setTop(createTop());
         myRoot.setRight(createRight());
@@ -126,7 +132,6 @@ public class LevelCreator {
                                                                             BackgroundRepeat.NO_REPEAT,
                                                                             BackgroundPosition.DEFAULT,
                                                                             BackgroundSize.DEFAULT)));
-            // TODO: update level view
         });
         Text uploadImage = new Text(UPLOAD_BACKGROUND_IMAGE);
         uploadImage.setFont(new Font(15));
@@ -160,6 +165,7 @@ public class LevelCreator {
 
     private void createSaveButton(Pane pane) {
         Button saveButton = new Button(SAVE_LEVEL);
+        //saveButton.setOnAction(e -> );
         pane.getChildren().add(saveButton);
     }
 }

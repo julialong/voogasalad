@@ -20,11 +20,11 @@ import javafx.stage.Stage;
  */
 public class EditorWindow implements CreatorView {
 
-	// List<Level> myLevels;
-
 	private Stage myStage;
 	private Scene myScene;
 	private BorderPane myRoot;
+
+	private AuthoredGame myGame;
 
 	/**
 	 * Creates a new EditorWindow
