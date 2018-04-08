@@ -54,7 +54,7 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	private void createObjectToClassMap()
 	{
-		ResourceBundle gameObjects = ResourceBundle.getBundle("serialization.resources/gameObjects");
+		ResourceBundle gameObjects = ResourceBundle.getBundle("data.resources/gameObjects");
 		Enumeration<String> objectNames = gameObjects.getKeys();
 		while(objectNames.hasMoreElements())
 		{
@@ -88,7 +88,8 @@ public class GameFileReader implements JSONtoObject {
 	private void retrieveLevel(String gameName, String level)
 	{
 		retrieveCurrentGame(gameName);
-		currentLevel = new File(gameDirectory + "/" + level);
+//		currentLevel = new File(gameDirectory + "/" + level);
+		currentLevel = new File(gameDirectory + "/" + "data.dummyObjects.Level@1e643faf.json");
 	}
 	
 	@Override
@@ -102,11 +103,19 @@ public class GameFileReader implements JSONtoObject {
 	public Map<String, List<Object>> loadCompleteGame(String gameName) {
 		Map<String, List<Object>> completeGame = new HashMap<>();
 		retrieveCurrentGame(gameName);
-		int fileCount = currentGame.list().length;
-		completeGame.put("Settings", loadSettings(gameName));
-		for(int i = 1; i < fileCount; i++)
+		File[] gameFiles = currentGame.listFiles();
+		int i = 1;
+		for(File gameFile: gameFiles)
 		{
-			completeGame.put(Integer.toString(i), loadLevel(gameName, i));
+			if(gameFile.toString().contains("Settings"))
+			{
+				completeGame.put("Settings", loadSettings(gameName));
+			}
+			else
+			{
+				completeGame.put(Integer.toString(i), loadLevel(gameName, i));
+				i++;
+			}
 		}
 		return completeGame;
 	}
