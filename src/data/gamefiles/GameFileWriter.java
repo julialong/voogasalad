@@ -10,7 +10,7 @@ import engine.entity.GameEntity;
 import engine.level.Level;
 
 /**
- * @author Maya messinger
+ * @author Maya Messinger
  * @author Belanie Nagiel
  * Started: 3 Apr 18
  * Class that facilitates addition and removal of items in the levels of a game.

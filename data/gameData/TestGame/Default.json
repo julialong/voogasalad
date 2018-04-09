@@ -3,7 +3,8 @@
 {"kinematics":{"xCor":0.0,"yCor":0.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"frictionConstant":0.0},"health":0,"movementType":{},"weaponType":{},"powerupArrayList":[],"speedFactor":100.0,"jumpFactor":20.0,"maxVelocityX":20.0,"maxVelocityY":20.0}
 ],
 "Foes":[
-{"weaponType":{},"movementType":{},"kinematics":{"xCor":0.0,"yCor":0.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"frictionConstant":0.0},"health":0.0,"jumpFactor":20.0,"speedFactor":500.0,"maxVelocityX":20.0,"maxVelocityY":20.0,"behaviorList":[{}]}
+{"p":{"kinematics":{"xCor":0.0,"yCor":0.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"frictionConstant":0.0},"health":0,"movementType":{},"weaponType":{},"powerupArrayList":[],"speedFactor":100.0,"jumpFactor":20.0,"maxVelocityX":20.0,"maxVelocityY":20.0},"weaponType":{},"movementType":{},"kinematics":{"xCor":0.0,"yCor":0.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"frictionConstant":0.0},"health":0.0,"jumpFactor":20.0,"speedFactor":500.0,"maxVelocityX":20.0,"maxVelocityY":20.0,"behaviorList":[{}]},
+{"p":{"kinematics":{"xCor":0.0,"yCor":0.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"frictionConstant":0.0},"health":0,"movementType":{},"weaponType":{},"powerupArrayList":[],"speedFactor":100.0,"jumpFactor":20.0,"maxVelocityX":20.0,"maxVelocityY":20.0},"weaponType":{},"movementType":{},"kinematics":{"xCor":0.0,"yCor":0.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"frictionConstant":0.0},"health":0.0,"jumpFactor":20.0,"speedFactor":500.0,"maxVelocityX":20.0,"maxVelocityY":20.0,"behaviorList":[{}]}
 ],
 "Block":[
 {"health":0.0,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"behaviorList":[]},

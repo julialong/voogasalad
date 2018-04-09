@@ -36,4 +36,6 @@ public class GameChooser {
         Text chooseText = new Text(CHOOSE);
         myRoot.getChildren().add(chooseText);
     }
+
+    
 }

@@ -22,12 +22,14 @@ public class TestingWriting {
 		Map<Level, List<GameEntity>> objsOrganized = new HashMap<>();
 		List<GameEntity> objsToWrite = new ArrayList<>();
 
+		Player p = new Player();
 		objsToWrite.add(new Block());
-		objsToWrite.add(new Foes(new Player()));
+		objsToWrite.add(new Foes(p));
 		objsToWrite.add(new Flag());
 		objsToWrite.add(new Player());
 		objsToWrite.add(new Block());
 		objsToWrite.add(new Flag());
+		objsToWrite.add(new Foes(p));
 
 		Level one = new BasicLevel();
 		objsOrganized.put(one, new ArrayList<GameEntity>());
