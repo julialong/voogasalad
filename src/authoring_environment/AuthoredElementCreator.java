@@ -1,13 +1,5 @@
 package authoring_environment;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-
-import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 /**
  * Authored Element Creator allows for the user to create a new AuthoredElement.  
@@ -19,14 +11,13 @@ public class AuthoredElementCreator {
 	
 	
 	/**
-	 * This constructor is called when the AddElementButton is pushed on the right-side toolbar
-	 * It creates a FileChooser for the user to select an image file from their computer files
-	 * @throws MalformedURLException
+	 * This constructor is called when the AddElementButton is pushed on the right-side toolbar.
+	 * It creates a new AttributeEditor for a specific gameEntity
 	 */
 	public AuthoredElementCreator() {
 		GameEntity element = new GameEntity();
-		Double id= element.getID();
-		AttributeEditor editor= new AttributeEditor(element, id);
+		Double elementID = element.getID();
+		AttributeEditor editor= new AttributeEditor(element, elementID);
 			
 	}
 

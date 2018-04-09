@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.transform.TransformerException;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,6 +14,9 @@ import javafx.scene.image.ImageView;
  * 
  * @author Judi Sanchez
  * Date started: April 3 2018
+ * This class implements the AuthoredElement interface so it contains
+ * methods to update the attributes of a custom element, upload a 
+ * custom image, and update its location on the grid
  *
  */
 public class GameEntity implements AuthoredElement {
@@ -23,6 +28,11 @@ public class GameEntity implements AuthoredElement {
 	private HashMap<String, String> attributes;
 	private ImageView image;
 	
+	/**
+	 * This constructor is the default constructor. 
+	 * It initiates attributes, which holds the current attributes
+	 * of a custom element. It also gives the element a unique ID. 
+	 */
 	public GameEntity() {
 		attributes = new HashMap<String, String>();
 		setID();
@@ -36,8 +46,12 @@ public class GameEntity implements AuthoredElement {
 	}
 
 	public void updateAttributes(HashMap<String, String> newAttributes) {
-		// TODO Auto-generated method stub
 		attributes = newAttributes;
+		try {
+			CustomElementSaver saver = new CustomElementSaver(this, elementID, newAttributes);
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -58,14 +72,15 @@ public class GameEntity implements AuthoredElement {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	private void setID() {
 		File folder = new File("./data/customElements");
 		File[] files = folder.listFiles((f, name) -> name.endsWith(".xml"));
 		elementID = files.length + 1 ; 
 	}
 	
-	public double getID() {
-		return elementID;
+	public Double getID() {
+		return elementID; 
 	}
-
+	
 }

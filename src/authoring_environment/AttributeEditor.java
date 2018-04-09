@@ -15,15 +15,16 @@ import java.util.Set;
 import javax.xml.transform.TransformerException;
 
 import authoring_environment.toolbars.buttons.AddImageButton;
+import authoring_environment.toolbars.buttons.CloseAttributeEditorButton;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import authoring_environment.CustomElementSaver;
 
 
 /**
@@ -39,7 +40,6 @@ public class AttributeEditor {
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
 	private GameEntity gameElement;
-	private Double elementID; 
 	private HashMap<String, List<String>> attributes;
 	private List<ComboBox<String>> attributeBoxes;
 	private HashMap<String, String> chosenAttributes; 
@@ -49,6 +49,8 @@ public class AttributeEditor {
 	private HBox myTitlePane;
 	private FileChooser filechooser;
 	private ImageView image;
+	private Stage window;
+	private Double elementID; 
 
 	public AttributeEditor(GameEntity element, Double id) {
 		elementID= id;
@@ -91,7 +93,7 @@ public class AttributeEditor {
 			attributeBox.getSelectionModel().select(category);
 			attributeBox.getStyleClass().add("combobox");
 			attributeBox.setOnAction(e -> {try {
-				updateAttributes(category, attributeBox.getValue());
+				updateAttribute(category, attributeBox.getValue());
 			} catch (TransformerException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -115,7 +117,7 @@ public class AttributeEditor {
 		myRoot.setRight(myImagePane);
 		myRoot.setTop(myTitlePane);
 		
-		Stage window= new Stage();
+		window= new Stage();
 		window.setScene(editor);
 		window.setTitle("Attribute Editor");
 		window.show();
@@ -127,9 +129,16 @@ public class AttributeEditor {
 			
 		}
 		
+		myAttributePane.getChildren().add(new CloseAttributeEditorButton(this));
 		myImagePane.getChildren().add(new AddImageButton(this));
+		myTitlePane.getChildren().add(new Text(" Custom Element: " + elementID.toString()));
 	}
 	
+	/**
+	 * This method opens the window that allows the user to upload an image file to be 
+	 * used as the image for a custom element 
+	 * @throws MalformedURLException
+	 */
 	public void openFileChooser() throws MalformedURLException {
 		myImagePane.getChildren().remove(image);
 		Stage fileWindow= new Stage();
@@ -145,14 +154,17 @@ public class AttributeEditor {
 		
 	}
 	
-	private void updateAttributes(String category, String chosenAttribute) throws TransformerException {
+	private void updateAttribute(String category, String chosenAttribute) throws TransformerException {
 		chosenAttributes.put(category, chosenAttribute);
-		for(String cat: chosenAttributes.keySet()) {
-			System.out.println(cat + "\n");
-			System.out.println(chosenAttributes.get(cat) + "\n");
-		}
+	}
+	
+	/**
+	 * This method triggers the gameElement updateAttributes method which saves attributes for an element
+	 * to an XML file
+	 */
+	public void saveChanges() {
 		gameElement.updateAttributes(chosenAttributes);
-		CustomElementSaver saver = new CustomElementSaver(gameElement, elementID, chosenAttributes);
+		window.close();
 	}
 	
 }

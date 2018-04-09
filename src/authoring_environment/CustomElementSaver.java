@@ -25,12 +25,21 @@ public class CustomElementSaver {
 	private Document doc;
 	private Double elementID; 
 	
+	/**
+	 * 
+	 * @param gameElment
+	 * 	This is the gameEntity object that the attributes are being saved for
+	 * @param id
+	 * 	This is the ID for the gameEnity object that is being saved
+	 * @param attributes
+	 * 	This is a map from the attribute type to the chosen attribute for a category
+	 * @throws TransformerException
+	 */
 	public CustomElementSaver(GameEntity gameElment, Double id, HashMap<String, String> attributes) throws TransformerException{
 		elementID= id;
 		try {
 			docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		doc = docBuilder.newDocument();
@@ -39,13 +48,10 @@ public class CustomElementSaver {
 	}
 	
 	private void updateAttributes(HashMap<String, String> attributes) throws TransformerException {
-		Element customElement= doc.createElement("customElement");
+		Element customElement= doc.createElement("Attributes");
 		doc.appendChild(customElement);
 		for(String attribute: attributes.keySet()) {
 			customElement.setAttribute(attribute, attributes.get(attribute));
-			//customElement.setAttributeNode(newAttr)
-			System.out.println("Attributes: " + 
-			attribute + attributes.get(attribute));
 		}
 		
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
