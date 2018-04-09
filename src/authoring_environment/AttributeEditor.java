@@ -36,7 +36,7 @@ public class AttributeEditor {
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
 	private GameEntity gameElement;
-	private HashMap<String, String> attributes;
+	private HashMap<String, List<String>> attributes;
 	private List<ComboBox<String>> attributeBoxes;
 	private BorderPane myRoot;
 	private VBox myAttributePane;
@@ -54,33 +54,36 @@ public class AttributeEditor {
 		
 	}
 
-	private HashMap<String, String> loadAttributes() {
-		HashMap<String, String> attributes = new HashMap<String, String>();
+	private HashMap<String, List<String>> loadAttributes() {
+		HashMap<String, List<String>> attributes = new HashMap<String, List<String>>();
 		ResourceBundle resources = ResourceBundle.getBundle(ATTRIBUTE_RESOURCES);
-		Enumeration<String> attributeKeys = resources.getKeys();
-		while (attributeKeys.hasMoreElements()) {
-			String key = attributeKeys.nextElement();
-			String type = resources.getString(key);
-			attributes.put(key, type);
+		Enumeration<String> attributeOptions = resources.getKeys();
+		while (attributeOptions.hasMoreElements()) {
+			String option = attributeOptions.nextElement();
+			String type = resources.getString(option);
+			if(attributes.containsKey(type)) {
+				List<String> optionList = attributes.get(type);
+				optionList.add(option);
+				attributes.put(type, optionList);
+			}
+			else {
+				List<String> optionList = new ArrayList<String>();
+				optionList.add(option);
+				attributes.put(type, optionList);
+			}
 		}
 		return attributes;
 	}
 
-	private void makeComboBoxList(HashMap<String, String> attributes) {
+	private void makeComboBoxList(HashMap<String, List<String>> attributes) {
 		attributeBoxes = new ArrayList<ComboBox<String>>();
-		Set<String> categories = new HashSet<String>(attributes.values());
+		Set<String> categories = new HashSet<String>(attributes.keySet());
 		for (String category : categories) {
-			List<String> categoryAttributes = new ArrayList<String>();
-			categoryAttributes.add(category);
-			for (String key : attributes.keySet()) {
-				if (attributes.get(key).equals(category)) {
-					categoryAttributes.add(key);
-				}
-			}
 			ComboBox<String> attributeBox = new ComboBox<String>();
-			attributeBox.getItems().addAll(categoryAttributes);
+			attributeBox.getItems().addAll(attributes.get(category));
 			attributeBox.getSelectionModel().select(category);
 			attributeBox.getStyleClass().add("combobox");
+			//attributeBox.setOnAction(e -> {gameElement.updateAttributes(category, true);});
 			attributeBoxes.add(attributeBox);
 		}
 	}
