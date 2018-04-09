@@ -22,7 +22,7 @@ public class Foes extends Enemy {
         kinematics = k;
         movementType = new Grounded();
         weaponType = new NoWeapon();
-        behaviorList.add(new NoBehavior());
+        behaviorList.add(new NoBehavior()); 
         speedFactor = 500; //arbitrary for now
         jumpFactor = 20; // arbitrary for now
         maxVelocityX = 20; // arbitrary for now

@@ -18,6 +18,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 import data.serialization.Deserializer;
+import data.serialization.NewSerializer;
 
 /**
  * @author Belanie Nagiel
@@ -35,7 +36,7 @@ public class GameFileReader implements JSONtoObject {
 	private File currentGame;
 	private File currentLevel;
 	private Map<String,Class<?>> objectTypes;
-	private Deserializer deserializer;
+	private NewSerializer deserializer; //ORIGINAL IS DESERIALIZER
 	
 	/**
 	 * Class Constructor.
@@ -45,7 +46,7 @@ public class GameFileReader implements JSONtoObject {
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
-		deserializer = new Deserializer();
+		deserializer = new NewSerializer(); //ORIGINAL IS DESERIALIZER
 	}
 	
 	/**
@@ -182,7 +183,7 @@ public class GameFileReader implements JSONtoObject {
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
 		JsonObject j = toConvert;
-	    Object converted = deserializer.deserialize(j.toString(), objectTypes.get(objectType));
+		Object converted = deserializer.deserialize(j.toString(), objectTypes.get(objectType));
 		return converted;
 	}
 
