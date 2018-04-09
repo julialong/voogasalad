@@ -1,10 +1,16 @@
 package data.dummyObjects;
 
 
+import java.util.List;
+import java.util.Map;
+
+import data.gamefiles.GameFileReader;
 import javafx.application.Application;
 
 
 public class TestingGSON {
+	
+	
 
 //	@Test
 //	public void TestDeserialization() {
@@ -20,7 +26,7 @@ public class TestingGSON {
 
 
 	
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 //		Gson gson = new Gson();
 ////		gson.toJson("Hello", System.out);
 ////		gson.toJson(123, System.out);
@@ -48,9 +54,18 @@ public class TestingGSON {
 ////		f.add(1, " \"1\": " + sample + ",\n");
 ////		f.remove(1, "\"1\"");
 //
-//		GameFileReader f = new GameFileReader();
+		GameFileReader fr = new GameFileReader();
+		Map<String, List<Object>> x = fr.loadCompleteGame("TestGame");
+		for(String xx: x.keySet())
+		{
+			System.out.println(xx);
+			System.out.println(x.get(xx));
+		}
+//		System.out.print(x.keySet());
+		fr.getGameNames();
 ////		f.loadGame("sampleGame");
 //
 //
-//	}
+		
+	}
 }
