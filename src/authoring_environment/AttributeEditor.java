@@ -38,6 +38,7 @@ public class AttributeEditor {
 	private GameEntity gameElement;
 	private HashMap<String, List<String>> attributes;
 	private List<ComboBox<String>> attributeBoxes;
+	private HashMap<String, String> chosenAttributes; 
 	private BorderPane myRoot;
 	private VBox myAttributePane;
 	private VBox myImagePane;
@@ -46,6 +47,7 @@ public class AttributeEditor {
 	private ImageView image;
 
 	public AttributeEditor(GameEntity element) {
+		chosenAttributes = new HashMap<String, String>() ;  
 		gameElement= element;
 		setUpEditorWindow();
 		attributes = loadAttributes();
@@ -83,7 +85,7 @@ public class AttributeEditor {
 			attributeBox.getItems().addAll(attributes.get(category));
 			attributeBox.getSelectionModel().select(category);
 			attributeBox.getStyleClass().add("combobox");
-			//attributeBox.setOnAction(e -> {gameElement.updateAttributes(category, true);});
+			attributeBox.setOnAction(e -> {updateAttributes(category, attributeBox.getValue());});
 			attributeBoxes.add(attributeBox);
 		}
 	}
@@ -131,6 +133,15 @@ public class AttributeEditor {
 		myImagePane.getChildren().add(image);
 		gameElement.uploadImage(url.toString());
 		
+	}
+	
+	private void updateAttributes(String category, String chosenAttribute) {
+		chosenAttributes.put(category, chosenAttribute);
+		for(String cat: chosenAttributes.keySet()) {
+			System.out.println(cat + "\n");
+			System.out.println(chosenAttributes.get(cat) + "\n");
+		}
+		gameElement.updateAttributes(chosenAttributes);
 	}
 	
 }

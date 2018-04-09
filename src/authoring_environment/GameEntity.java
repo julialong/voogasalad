@@ -1,6 +1,7 @@
 package authoring_environment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.scene.image.Image;
@@ -18,17 +19,23 @@ public class GameEntity implements AuthoredElement {
 	private double xLocation;
 	private double yLocation;
 	
-	private List<String> attributes;
+	private HashMap<String, String> attributes;
 	private ImageView image;
 	
 	public GameEntity() {
-		attributes = new ArrayList<String>();
+		attributes = new HashMap<String, String>();
 		
 	}
 
 	@Override
 	public void updateAttributes(Attribute attribute, boolean status) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateAttributes(HashMap<String, String> newAttributes) {
+		// TODO Auto-generated method stub
+		attributes = newAttributes;
 		
 	}
 

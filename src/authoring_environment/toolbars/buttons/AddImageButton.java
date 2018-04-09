@@ -7,6 +7,12 @@ import java.net.MalformedURLException;
 
 import authoring_environment.AttributeEditor;
 
+/**
+ * 
+ * @author Judi Sanchez
+ * Date started: April 8 2018
+ *
+ */
 public class AddImageButton extends Button {
 
 	public static final String UPLOAD_IMAGE = "Upload Image";
