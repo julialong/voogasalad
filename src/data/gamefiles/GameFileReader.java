@@ -183,7 +183,7 @@ public class GameFileReader implements JSONtoObject {
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
 		JsonObject j = toConvert;
-	    Object converted = deserializer.deserialize(j.toString(), objectTypes.get(objectType));
+		Object converted = deserializer.deserialize(j.toString(), objectTypes.get(objectType));
 		return converted;
 	}
 

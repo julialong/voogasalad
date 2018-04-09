@@ -83,10 +83,10 @@ public class TestingGSON {
 		objsToWrite.add(new Block());
 		objsToWrite.add(new Foes(p));
 		objsToWrite.add(new Flag());
-		objsToWrite.add(new Player());
-		objsToWrite.add(new Block());
-		objsToWrite.add(new Flag());
-		objsToWrite.add(new Foes(p));
+//		objsToWrite.add(new Player());
+//		objsToWrite.add(new Block());
+//		objsToWrite.add(new Flag());
+//		objsToWrite.add(new Foes(p));
 
 		Level one = new BasicLevel();
 		objsOrganized.put(one, new ArrayList<GameEntity>());
@@ -97,7 +97,14 @@ public class TestingGSON {
 		GameFileWriter myWriter = new GameFileWriter("NewTester");
 		myWriter.update(objsOrganized);
 		
-		NewSerializer gs = new NewSerializer();
+		GameFileReader fr = new GameFileReader();
+		Map<String, List<Object>> x = fr.loadCompleteGame("NewTester");
+		for(String xx: x.keySet())
+		{
+			System.out.println(xx);
+			System.out.println(x.get(xx));
+		}
+	
 		
 		
 	}

@@ -3,6 +3,8 @@ package data.serialization;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import engine.behavior.Behavior;
+import engine.movement.Movement;
 import engine.weapon.Weapon;
 
 public class NewSerializer {
@@ -18,6 +20,8 @@ public class NewSerializer {
 	private void addDependencies(Gson gson2) {
 		GsonBuilder builder = new GsonBuilder();
 		builder.registerTypeAdapter(Weapon.class, new InterfaceAdapter<Weapon>());
+		builder.registerTypeAdapter(Movement.class, new InterfaceAdapter<Movement>());
+		builder.registerTypeAdapter(Behavior.class, new InterfaceAdapter<Behavior>());
 		gson = builder.create();	
 	}
 	

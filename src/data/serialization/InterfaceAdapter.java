@@ -2,6 +2,7 @@ package data.serialization;
 
 import java.lang.reflect.Type;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -10,19 +11,27 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+import engine.weapon.NoWeapon;
+
 
 public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
 
 	@Override
 	public JsonElement serialize(T arg0, Type arg1, JsonSerializationContext arg2) {
+		System.out.println("here first");
 		JsonObject wrapper = new JsonObject();
 		wrapper.addProperty("type", arg0.getClass().getName());
-		wrapper.add("data", arg2.serialize(arg0));
+		System.out.println(arg0.getClass().getName());
+		System.out.println(new Gson().toJsonTree(arg0));
+		System.out.println(arg2);
+		System.out.println(arg2.serialize(arg0));
+		wrapper.add("data", new Gson().toJsonTree(arg0));
 		return wrapper;
 	}
 	
 	@Override
 	public T deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
+		System.out.println("gets here: " + arg0);
 		JsonObject wrapper = (JsonObject) arg0;
 		JsonElement typeName = get(wrapper, "type");
 		JsonElement data = get(wrapper, "data");
