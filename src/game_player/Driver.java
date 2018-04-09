@@ -49,13 +49,7 @@ public class Driver extends Application {
 	}
 
 	private void createChooser(){
-		List<GameItem> list = new ArrayList<>();
-		String[] gameNames = {"Mario", "Yoshi", "Marth", "Sammus this name is going to be really long for the sake of testing whether or not the list view can handle text at such great lengths"};
-		for(String game : gameNames){
-			GameItem newGame = new VoogaGame(game);
-			list.add(newGame);
-		}
-		gameChooser = new VoogaChooser(list);
+		gameChooser = new VoogaChooser();
 	}
 
 	/**
