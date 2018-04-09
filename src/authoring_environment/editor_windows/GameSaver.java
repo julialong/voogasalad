@@ -61,6 +61,7 @@ public class GameSaver {
 
     private void setName() {
         Pane nameBox = new HBox();
+        nameBox.getStyleClass().add("game-saver");
         fileName = new TextField("Untitled");
         nameBox.getChildren().addAll(new Text(NAME), fileName);
         myRoot.getChildren().add(nameBox);
