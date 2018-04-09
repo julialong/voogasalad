@@ -4,13 +4,13 @@ import javafx.scene.control.Button;
 
 public class zoomInButton extends Button {
 
-	private static final String ADD_ELEMENT= "Zoom In";
+	private static final String LABEL= "Zoom In";
 
     /**
      * Creates a simple add element button.
      */
-    public AddElementButton() {
-        super(ADD_ELEMENT);
+    public zoomInButton() {
+        super(LABEL);
         // TODO: open element editor when button is clicked
         // this.setOnAction(e -> new AuthoredElementCreator());
     }

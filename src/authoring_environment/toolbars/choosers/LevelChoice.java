@@ -1,8 +1,12 @@
 package authoring_environment.toolbars.choosers;
 
 import engine.level.Level;
-import javafx.scene.layout.HBox;
+import javafx.geometry.Insets;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 
 /**
@@ -15,15 +19,18 @@ public class LevelChoice extends HBox{
 
     /**
      * Creates a new LevelChoice object
-     * TODO: change Object to Level
      * @param level
      */
     public LevelChoice(Level level) {
         super();
         this.setPrefHeight(30);
-        this.setPrefWidth(100);
-        // TODO: add level icon to object);
-        this.getChildren().add(new Text(level.getName()));
+        this.setPrefWidth(200);
+        this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        // TODO: add level icon to object
+        Text levelName = new Text(level.getName());
+        levelName.setTextAlignment(TextAlignment.CENTER);
+        levelName.setFont(new Font(20));
+        this.getChildren().add(levelName);
     }
 
 }

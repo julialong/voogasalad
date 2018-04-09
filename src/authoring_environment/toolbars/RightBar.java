@@ -8,7 +8,6 @@ import authoring_environment.toolbars.buttons.creator_view_buttons.AddLevelButto
 import authoring_environment.toolbars.buttons.creator_view_buttons.DeleteGridCellButton;
 import authoring_environment.toolbars.choosers.LevelChooser;
 import authoring_environment.toolbars.labels.SideLabel;
-import engine.level.Level;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
@@ -16,8 +15,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-
-import java.util.ArrayList;
 
 /**
  * The right pane manages adding various elements and dealing with the structure of levels
@@ -34,6 +31,7 @@ public class RightBar extends SplitPane{
     private Pane levelPane;
     private AuthoredGame myGame;
     private ScrollingGrid myGrid;
+    private LevelChooser myLevelChooser;
 
     /**
      * Creates a new right toolbar with appropriate buttons and panels.
@@ -45,10 +43,15 @@ public class RightBar extends SplitPane{
         this.setOrientation(Orientation.VERTICAL);
         myGame = game;
         myGrid = grid;
+        myLevelChooser = new LevelChooser(myGame);
         splitPanes();
         addLabels();
         addButtons();
         addScrollScreens();
+    }
+
+    public void update() {
+        myLevelChooser.update();
     }
 
     private void splitPanes() {
@@ -75,13 +78,17 @@ public class RightBar extends SplitPane{
     }
 
     private void addScrollScreens() {
-        // TODO: @MICHAEL add your element chooser here!!!
-        levelPane.getChildren().add(new LevelChooser(myGame.getLevels()));
+        Button updateButton = new Button("Update levels");
+        LevelChooser levelChooser = new LevelChooser(myGame);
+        updateButton.setOnAction(e -> levelChooser.update());
+        ScrollPane levelChooserPane = new ScrollPane();
+        levelChooserPane.setContent(levelChooser);
+        levelPane.getChildren().add(updateButton);
+        levelPane.getChildren().add(levelChooserPane);
     	ElementPicker elementPicker = new ElementPicker();
     	ScrollPane pickerPane = elementPicker.getElementPane();
         elementPane.getChildren().add(pickerPane);
-        levelPane.getChildren().add(new LevelChooser(myGame.getLevels()));
+        levelPane.getChildren().add(myLevelChooser);
     }
-
     
 }

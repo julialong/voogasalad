@@ -1,5 +1,7 @@
 package engine.behavior;
 
+import engine.entity.GameEntity;
+
 /**
  * Behavior implementation that causes entity to jump between specified points
  * @author Robert Gitau and Marcus Oertle
@@ -8,7 +10,7 @@ package engine.behavior;
 public class JumpBetweenPoints implements Behavior{
 	
 	@Override
-	public void behave(Object target) {
+	public void update(GameEntity entity) {
 		// TODO Auto-generated method stub
 		
 	}

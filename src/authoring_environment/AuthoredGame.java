@@ -1,6 +1,7 @@
 package authoring_environment;
 
 import data.gamefiles.GameFileWriter;
+import engine.level.BasicLevel;
 import engine.level.Level;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class AuthoredGame {
 
     private String myName;
     private List<Level> myLevels;
+    private Level currentLevel;
     private GameFileWriter myGameWriter;
 
     private static final String DEFAULT_NAME = "Untitled_Game";
@@ -28,6 +30,7 @@ public class AuthoredGame {
     public AuthoredGame(String gameName) {
         myName = gameName;
         myLevels = new ArrayList<>();
+        currentLevel = new BasicLevel();
         myGameWriter = new GameFileWriter(myName);
     }
 
@@ -61,6 +64,22 @@ public class AuthoredGame {
      */
     public List<Level> getLevels() {
         return myLevels;
+    }
+
+    /**
+     * Sets the current level
+     * @param currentLevel is the level to set as the current level
+     */
+    public void setCurrentLevel(Level currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    /**
+     * Gets the current level
+     * @return the current level
+     */
+    public Level getCurrentLevel() {
+        return currentLevel;
     }
 
     /**
