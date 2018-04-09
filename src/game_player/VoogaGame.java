@@ -1,5 +1,6 @@
 package game_player;
 
+import data.gamefiles.JSONtoObject;
 import game_player_api.GameItem;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -20,14 +21,10 @@ public class VoogaGame extends Label implements GameItem {
     private String gameAccessPath;
     private Stage gameApplication = new Stage();
 
-    public VoogaGame(String dataPath){
+    public VoogaGame(String game){
         this.setPrefWidth(500);
         this.setWrapText(true);
-        //Some how source to the proper section where the name, description, and access paths are available.
-        //for now all relevant fields will be set to the dataPath parameter
-        gameName = dataPath;
-        gameDescription = dataPath;
-        gameAccessPath = dataPath;
+        gameName = game;
         setFutureBounds(gameApplication);
         super.setText(this.toString());
     }
@@ -77,7 +74,6 @@ public class VoogaGame extends Label implements GameItem {
      */
     @Override
     public String toString(){
-        return gameName + "\n" +
-                gameDescription;
+        return gameName;
     }
 }
