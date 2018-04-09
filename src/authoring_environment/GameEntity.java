@@ -26,7 +26,7 @@ public class GameEntity implements AuthoredElement {
 	private double yLocation;
 	
 	private HashMap<String, String> attributes;
-	private ImageView image;
+	private String imageFile;
 	
 	/**
 	 * This constructor is the default constructor. 
@@ -48,7 +48,7 @@ public class GameEntity implements AuthoredElement {
 	public void updateAttributes(HashMap<String, String> newAttributes) {
 		attributes = newAttributes;
 		try {
-			CustomElementSaver saver = new CustomElementSaver(this, elementID, newAttributes);
+			CustomElementSaver saver = new CustomElementSaver(this, elementID, newAttributes, imageFile);
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
@@ -57,7 +57,7 @@ public class GameEntity implements AuthoredElement {
 
 	@Override
 	public void uploadImage(String fileName) {
-		image = new ImageView(fileName.toString());
+		imageFile = fileName;
 		
 	}
 
