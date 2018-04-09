@@ -1,5 +1,6 @@
 package engine.level;
 
+import engine.entity.GameEntity;
 import engine.entity.GameObject;
 import javafx.scene.layout.GridPane;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class BasicLevel implements Level {
 
     private GridPane myGrid;
-    private List<GameObject> myObjects;
+    private List<GameEntity> myObjects;
     private int myID;
     private String myName;
 
@@ -43,17 +44,17 @@ public class BasicLevel implements Level {
     }
 
     @Override
-    public void setObjects(List<GameObject> objects) {
+    public void setObjects(List<GameEntity> objects) {
         myObjects = objects;
     }
 
     @Override
-    public void addObject(GameObject object) {
+    public void addObject(GameEntity object) {
         myObjects.add(object);
     }
 
     @Override
-    public List<GameObject> getObjects() {
+    public List<GameEntity> getObjects() {
         return myObjects;
     }
 
