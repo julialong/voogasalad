@@ -1,7 +1,7 @@
 package data.dummyObjects;
 
 
-import com.google.gson.*;
+import javafx.application.Application;
 
 
 public class TestingGSON {
@@ -53,5 +53,4 @@ public class TestingGSON {
 //
 //
 //	}
-
 }

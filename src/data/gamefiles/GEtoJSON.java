@@ -2,7 +2,8 @@ package data.gamefiles;
 
 import java.util.List;
 
-import data.serialization.Level;
+import engine.entity.GameEntity;
+import engine.level.Level;
 
 /**
  * From information given to this class from Game Engine, parses Engine classes and objects into data to push to database to create effectively a "save game" functionality
@@ -15,7 +16,7 @@ public interface GEtoJSON	{
 	 * @param level			name of level to save
 	 * @param itemsInLevel	List (potentially list of lists of different types of objects) if items in level to save stats of
 	 */
-	void saveData(Level level, List itemsInLevel);
+	void saveData(Level level, List<GameEntity> itemsInLevel);
 		// for (List items:itemsInLevel)	{
 		// 	for (Object item:items)	{
 		// 		// push item and its info to database
