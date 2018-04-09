@@ -20,20 +20,17 @@ import javafx.scene.paint.Color;
  * @author Judi Sanchez and Michael Acker
  * Date Started: April 1 2018
  */
-public class ScrollingGrid extends ScrollPane {
+public class ScrollingGrid extends GridPane {
 	// TODO: Change this based on level size
 	private static final int NUMBER_OF_ROWS = 20;
 	private static final int NUMBER_OF_COLUMNS = 50;
-	private static final int DEFAULT_CELL_SIZE = 100;
+	private static final int DEFAULT_CELL_SIZE = 50;
 	
-	private GridPane gridpane;
-	private ScrollPane scrollpane;
 	private int cellSize;
 	private GridCell[][] cellArray;
 
 	public ScrollingGrid() {
-		gridpane = new GridPane();
-		scrollpane = new ScrollPane(gridpane);
+		super();
 		cellSize = DEFAULT_CELL_SIZE;
 		cellArray = new GridCell[NUMBER_OF_COLUMNS][NUMBER_OF_ROWS];
 		initCells();
@@ -42,23 +39,19 @@ public class ScrollingGrid extends ScrollPane {
 	}
 
 	private void makeGrid() {
-		gridpane.getChildren().clear();
-		gridpane.getRowConstraints().clear();
-		gridpane.getColumnConstraints().clear();
+		this.getChildren().clear();
+		this.getRowConstraints().clear();
+		this.getColumnConstraints().clear();
 		//TODO: Change it so that a grid is created when a new level is created
-		//gridpane.setGridLinesVisible(true);
+		//this.setGridLinesVisible(true);
 		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
-			gridpane.getRowConstraints().add(new RowConstraints(cellSize));
+			this.getRowConstraints().add(new RowConstraints(cellSize));
 		}
 		for (int i = 0; i < NUMBER_OF_COLUMNS; i++) {
-			gridpane.getColumnConstraints().add(new ColumnConstraints(cellSize));
+			this.getColumnConstraints().add(new ColumnConstraints(cellSize));
 		}
 		addCells();
 		
-	}
-
-	public ScrollPane getScrollingGridPane() {
-		return scrollpane;
 	}
 	
 	private void addCells() {
@@ -70,7 +63,7 @@ public class ScrollingGrid extends ScrollPane {
 				cell.setMinHeight(cellSize);
 				cell.setMinWidth(cellSize);
 				cell.setStyle("-fx-border-color: black;");
-				gridpane.add(cell,j,i);
+				this.add(cell,j,i);
 			}
 		}	
 	}

@@ -109,7 +109,8 @@ public class EditorWindow implements CreatorView {
 	}
 
 	private ScrollPane setCenterGrid() {
-    	 ScrollPane centerPane= myGrid.getScrollingGridPane();
+		myGrid = new ScrollingGrid();
+    	 ScrollPane centerPane = new ScrollPane(myGrid);
     	 centerPane.getStyleClass().add("center-pane");
     	 return centerPane;
     	
