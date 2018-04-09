@@ -19,6 +19,7 @@ import engine.level.Level;
  */
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static final String NEST = "/";
+	private static final String SETTINGS = "settings";
 	private static final String EXTENSION = ".json";
 
 	private String gameDirectory;
@@ -68,7 +69,6 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 
 	/**
 	 * Method to rename a game (folder)
-	 * @param oldName	game to rename
 	 * @param newName	String to rename game to	
 	 */
 	@Override
@@ -82,7 +82,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		File gameFolder = new File(gameDirectory);
 		if (!gameExists(gameFolder))
 		{
-			gameFolder.mkdir();
+			makeNewGame(gameFolder);
 		}
 		return gameFolder;
 	}
@@ -92,6 +92,12 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 			return false;
 		}
 		return true;
+	}
+
+	private void makeNewGame(File gameFolder)	{
+		gameFolder.mkdir();
+
+		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION));
 	}
 
 	private File getLevel(Level level)	{
