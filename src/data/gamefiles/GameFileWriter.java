@@ -40,6 +40,15 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param changes	Map of Levels linked to all the items in them
 	 */
 	@Override
+	public void update(List<Level> changes)	{
+		for (Level aLevel:changes)	{
+			saveData(aLevel, aLevel.getObjects());
+		}
+	}
+
+	/**
+	 * For testing only
+	 */
 	public void update(Map<Level, List<GameEntity>> changes)	{
 		for (Level aLevel:changes.keySet())	{
 			saveData(aLevel, changes.get(aLevel));
