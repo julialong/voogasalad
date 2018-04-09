@@ -1,6 +1,9 @@
 package data.serialization;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import engine.weapon.Weapon;
 
 public class NewSerializer {
 
@@ -13,11 +16,9 @@ public class NewSerializer {
 	}
 	
 	private void addDependencies(Gson gson2) {
-//		GsonBuilder builder = new GsonBuilder();
-//		builder.registerTypeAdapter(Weapon.class, new WeaponAdapter());
-//		gson = builder.create();
-		gson = new Gson();
-		
+		GsonBuilder builder = new GsonBuilder();
+		builder.registerTypeAdapter(Weapon.class, new InterfaceAdapter<Weapon>());
+		gson = builder.create();	
 	}
 	
 	public String serialize(Object obj)	
