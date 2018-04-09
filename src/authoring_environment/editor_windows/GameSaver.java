@@ -11,6 +11,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The game saver class allows the user to save their current game.
+ *
+ * @author Julia Long
+ * Date started: April 08 18
+ */
 public class GameSaver {
 
 
@@ -27,6 +33,10 @@ public class GameSaver {
     private static final String CHOOSE = "Save your file:";
     private static final String NAME = "File name:";
 
+    /**
+     * Creates a new game saver window
+     * @param game is the current game class
+     */
     public GameSaver(AuthoredGame game) {
         myGame = game;
         myStage = new Stage();

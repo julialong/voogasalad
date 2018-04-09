@@ -1,6 +1,7 @@
 package authoring_environment;
 
 import data.gamefiles.GameFileWriter;
+import engine.entity.GameEntity;
 import engine.entity.GameObject;
 import engine.level.BasicLevel;
 import engine.level.Level;
@@ -89,11 +90,11 @@ public class AuthoredGame {
      * Updates the state of the game
      */
     public void update() {
-        //myGameWriter.update(extractObjects());
+        myGameWriter.update(extractObjects());
     }
 
-    private Map<Level, List<GameObject>> extractObjects() {
-        Map<Level, List<GameObject>> unpacked = new HashMap<>();
+    private Map<Level, List<GameEntity>> extractObjects() {
+        Map<Level, List<GameEntity>> unpacked = new HashMap<>();
         for (Level level : myLevels) {
             unpacked.put(level, level.getObjects());
         }
