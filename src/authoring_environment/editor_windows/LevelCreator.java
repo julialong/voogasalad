@@ -65,7 +65,7 @@ public class LevelCreator {
         myStage.centerOnScreen();
     }
 
-    /**
+    /**A
      * Creates a new level with default size.
      */
     private void createNewLevel() {
@@ -167,7 +167,12 @@ public class LevelCreator {
 
     private void createSaveButton(Pane pane) {
         Button saveButton = new Button(SAVE_LEVEL);
-        saveButton.setOnAction(e -> myGame.addLevel(newLevel));
+        saveButton.setOnAction(e -> {
+            myGame.addLevel(newLevel);
+            System.out.println(newLevel.getName());
+            System.out.println(myGame.getLevels().size());
+            myStage.close();
+        });
         pane.getChildren().add(saveButton);
     }
 }

@@ -9,7 +9,7 @@ public class zoomInButton extends Button {
     /**
      * Creates a simple add element button.
      */
-    public AddElementButton() {
+    public zoomInButton() {
         super(ADD_ELEMENT);
         // TODO: open element editor when button is clicked
         // this.setOnAction(e -> new AuthoredElementCreator());
