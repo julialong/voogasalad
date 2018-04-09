@@ -1,11 +1,14 @@
 package authoring_environment;
 
 import data.gamefiles.GameFileWriter;
+import engine.entity.GameObject;
 import engine.level.BasicLevel;
 import engine.level.Level;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The Authored Game class holds the current state of the game, including the current levels
@@ -86,7 +89,15 @@ public class AuthoredGame {
      * Updates the state of the game
      */
     public void update() {
-        // TODO: update myGameWriter
+        //myGameWriter.update(extractObjects());
+    }
+
+    private Map<Level, List<GameObject>> extractObjects() {
+        Map<Level, List<GameObject>> unpacked = new HashMap<>();
+        for (Level level : myLevels) {
+            unpacked.put(level, level.getObjects());
+        }
+        return unpacked;
     }
 
 }

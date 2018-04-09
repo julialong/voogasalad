@@ -43,3 +43,12 @@
 	-fx-pref-height: 600;
 	-fx-pref-width: 600;
 }
+
+.game-saver {
+	-fx-background-color: #ffffff;
+	-fx-alignment: top-center;
+	-fx-text-alignment: center;
+	-fx-padding: 30;
+	-fx-pref-height: 600;
+	-fx-pref-width: 600;
+}
