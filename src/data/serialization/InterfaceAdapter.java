@@ -24,6 +24,10 @@ import com.google.gson.JsonSerializer;
 public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
 
 	@Override
+	/**
+	 * Adds a wrapper around the Interface to indicate that it must be deserialized a different way
+	 * when read back in.
+	 */
 	public JsonElement serialize(T arg0, Type arg1, JsonSerializationContext arg2) {
 		JsonObject wrapper = new JsonObject();
 		wrapper.addProperty("type", arg0.getClass().getName());
@@ -32,6 +36,9 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 	}
 	
 	@Override
+	/**
+	 * Converts the interface object into its appropriate game entity.
+	 */
 	public T deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
 		JsonObject wrapper = (JsonObject) arg0;
 		JsonElement typeName = get(wrapper, "type");
@@ -40,6 +47,13 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 		return arg2.deserialize(data, actualType);
 	}
 
+	/**
+	 * 
+	 * Gets the type of the object based on its type name.
+	 * 
+	 * @param typeName
+	 * @return Object type
+	 */
 	private Type typeForName(JsonElement typeName) {
 		try {
             return Class.forName(typeName.getAsString());
@@ -48,6 +62,14 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
         }
 	}
 
+	/**
+	 * Returns a json element based on the Json Object and the 
+	 * string associated with the data.
+	 * 
+	 * @param wrapper
+	 * @param string
+	 * @return
+	 */
 	private JsonElement get(JsonObject wrapper, String string) {
 		JsonElement elem = wrapper.get(string);
 		if(elem == null) {

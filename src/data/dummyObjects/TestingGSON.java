@@ -8,7 +8,7 @@ import java.util.Map;
 
 import data.gamefiles.GameFileReader;
 import data.gamefiles.GameFileWriter;
-import data.serialization.NewSerializer;
+import data.serialization.Serializer;
 import engine.entity.Block;
 import engine.entity.Flag;
 import engine.entity.Foes;

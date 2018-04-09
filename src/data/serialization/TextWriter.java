@@ -26,7 +26,7 @@ public class TextWriter	{
 	private static final String WRITEERRORSTATEMENT = "Could not write to file";
 
 //	private Serializer ser = new Serializer(); THIS IS THE ORIGINAL
-	private NewSerializer ser = new NewSerializer();
+	private Serializer ser = new Serializer();
 
 	/**
 	 * @author Maya Messinger
