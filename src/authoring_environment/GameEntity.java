@@ -1,5 +1,6 @@
 package authoring_environment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ public class GameEntity implements AuthoredElement {
 	
 	public GameEntity() {
 		attributes = new HashMap<String, String>();
+		setID();
 		
 	}
 
@@ -55,6 +57,15 @@ public class GameEntity implements AuthoredElement {
 	public void move(double xPosition, double yPosition) {
 		// TODO Auto-generated method stub
 		
+	}
+	private void setID() {
+		File folder = new File("./data/customElements");
+		File[] files = folder.listFiles((f, name) -> name.endsWith(".xml"));
+		elementID = files.length + 1 ; 
+	}
+	
+	public double getID() {
+		return elementID;
 	}
 
 }
