@@ -19,7 +19,7 @@ public class AddElementButton extends Button {
     public AddElementButton() {
         super(ADD_ELEMENT);
         // TODO: open element editor when button is clicked
-       // this.setOnAction(e -> new AddAuthoredElement());
+        //this.setOnAction(e -> new AuthoredElementCreator());
     }
 
 }
