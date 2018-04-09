@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  * @author Julia Long
  * Date started: March 31 18
  */
-public class EditorMain extends Application{
+public class EditorMain extends Application {
 
     /**
      * Calls the necessary classes to open the editing environment
