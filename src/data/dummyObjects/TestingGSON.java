@@ -83,10 +83,10 @@ public class TestingGSON {
 		objsToWrite.add(new Block());
 		objsToWrite.add(new Foes(p));
 		objsToWrite.add(new Flag());
-//		objsToWrite.add(new Player());
-//		objsToWrite.add(new Block());
-//		objsToWrite.add(new Flag());
-//		objsToWrite.add(new Foes(p));
+		objsToWrite.add(new Player());
+		objsToWrite.add(new Block());
+		objsToWrite.add(new Flag());
+		objsToWrite.add(new Foes(p));
 
 		Level one = new BasicLevel();
 		objsOrganized.put(one, new ArrayList<GameEntity>());
