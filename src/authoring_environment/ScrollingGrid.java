@@ -24,7 +24,7 @@ public class ScrollingGrid extends ScrollPane {
 	// TODO: Change this based on level size
 	private static final int NUMBER_OF_ROWS = 20;
 	private static final int NUMBER_OF_COLUMNS = 50;
-	private static final int DEFAULT_CELL_SIZE = 50;
+	private static final int DEFAULT_CELL_SIZE = 100;
 	
 	private GridPane gridpane;
 	private ScrollPane scrollpane;
