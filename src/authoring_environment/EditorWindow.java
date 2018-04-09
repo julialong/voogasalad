@@ -94,7 +94,6 @@ public class EditorWindow implements CreatorView {
 		myScene.getStylesheets().add("GAE.css");
 		myStage.setMaximized(true);
 		myGrid = new ScrollingGrid();
-
 		myRoot.setTop(new TopBar(myGame));
 		myRoot.setRight(setRightBar());
 		
@@ -109,7 +108,6 @@ public class EditorWindow implements CreatorView {
 	}
 
 	private ScrollPane setCenterGrid() {
-		myGrid = new ScrollingGrid();
     	 ScrollPane centerPane = new ScrollPane(myGrid);
     	 centerPane.getStyleClass().add("center-pane");
     	 return centerPane;
