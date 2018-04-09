@@ -10,7 +10,17 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-
+/**
+ * @author Stack Overflow Post, Belanie Nagiel
+ * 
+ * This class was made with the help of the post: 
+ * https://stackoverflow.com/questions/4795349/how-to-serialize-a-class-with-an-interface/9550086#9550086 
+ * 
+ * This class helps with the serialization and deserialization of instances of interfaces. Interfaces cannot
+ * be deserialized normally because they have no constructors.
+ *
+ * @param <T> The interface that needs to be taken into account
+ */
 public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
 
 	@Override

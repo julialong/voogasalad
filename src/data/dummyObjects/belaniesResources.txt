@@ -19,3 +19,4 @@ https://www.javabrahman.com/quick-tips/how-to-count-number-of-files-in-a-directo
 https://www.geeksforgeeks.org/java-lang-string-lastindexof-method/
 https://stackoverflow.com/questions/4917326/how-to-iterate-over-the-files-of-a-certain-directory-in-java
 http://javabeginnerstutorial.com/code-base/java-rename-directory-example/
+https://stackoverflow.com/questions/4795349/how-to-serialize-a-class-with-an-interface/9550086#9550086
