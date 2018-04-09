@@ -1,8 +1,7 @@
 package engine.level;
 
+import authoring_environment.ScrollingGrid;
 import engine.entity.GameEntity;
-import engine.entity.GameObject;
-import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  */
 public class BasicLevel implements Level {
 
-    private GridPane myGrid;
+    private ScrollingGrid myGrid;
     private List<GameEntity> myObjects;
     private int myID;
     private String myName;
@@ -29,7 +28,7 @@ public class BasicLevel implements Level {
      * @param ySize is the desired y size of the grid
      */
     public BasicLevel(int xSize, int ySize) {
-        myGrid = new GridPane();
+        myGrid = new ScrollingGrid();
         myGrid.setPrefSize(xSize, ySize);
         myObjects = new ArrayList<>();
         myID = 0;
@@ -74,12 +73,12 @@ public class BasicLevel implements Level {
     }
 
     @Override
-    public void updateGrid(GridPane grid) {
+    public void updateGrid(ScrollingGrid grid) {
         myGrid = grid;
     }
 
     @Override
-    public GridPane getGrid() {
+    public ScrollingGrid getGrid() {
         return myGrid;
     }
 

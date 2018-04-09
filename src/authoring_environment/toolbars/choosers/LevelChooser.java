@@ -16,14 +16,16 @@ import javafx.scene.layout.VBox;
 public class LevelChooser extends VBox {
 
     private AuthoredGame myGame;
+    private ScrollPane myScrollPane;
 
     /**
      * Creates a scrollpane that allows users to choose a level to edit.
      * @param game is the current game
      */
-    public LevelChooser(AuthoredGame game) {
+    public LevelChooser(AuthoredGame game, ScrollPane grid) {
         super();
         myGame = game;
+        myScrollPane = grid;
         update();
     }
 
@@ -37,6 +39,7 @@ public class LevelChooser extends VBox {
             thisLevelChoice.setOnMouseClicked(e -> {
                 myGame.setCurrentLevel(level);
                 System.out.println("Current level: " + myGame.getCurrentLevel().getName());
+                myScrollPane.setContent(myGame.getCurrentLevel().getGrid());
             });
             this.getChildren().add(thisLevelChoice);
         }
