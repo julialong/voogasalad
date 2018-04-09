@@ -23,11 +23,10 @@ import java.util.List;
 public class VoogaChooser implements GameChooser {
     private BorderPane myView =  new BorderPane();
     private JSONtoObject reader = new GameFileReader();
-    private ListView<GameItem> playableGames;
+    private ListView<GameItem> playableGames = new ListView<>();
 
     public VoogaChooser(){
         myView.setMinWidth(550);
-        setListener(playableGames);
     }
 
     /**
@@ -52,6 +51,7 @@ public class VoogaChooser implements GameChooser {
             gamesToPlay.add(game);
         }
         playableGames.setItems(FXCollections.observableArrayList(gamesToPlay));
+        setListener(playableGames);
         myView.setCenter(playableGames);
         return myView;
     }
