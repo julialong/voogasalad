@@ -18,13 +18,13 @@ import java.util.Map;
  *
  * @Author Dorian Barber
  */
-public class VoogaGame extends Label implements GameItem {
+public class VoogaGameItem extends Label implements GameItem {
     private String gameName;
     private String gameDescription;
     private String gameAccessPath;
     private Stage gameApplication = new Stage();
 
-    public VoogaGame(String game){
+    public VoogaGameItem(String game){
         this.setPrefWidth(500);
         this.setWrapText(true);
         gameName = game;

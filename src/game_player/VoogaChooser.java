@@ -47,7 +47,7 @@ public class VoogaChooser implements GameChooser {
         List<String> names = reader.getGameNames();
         List<GameItem> gamesToPlay = new ArrayList<>();
         for(String gameName : names){
-            GameItem game = new VoogaGame(gameName);
+            GameItem game = new VoogaGameItem(gameName);
             gamesToPlay.add(game);
         }
         playableGames.setItems(FXCollections.observableArrayList(gamesToPlay));
