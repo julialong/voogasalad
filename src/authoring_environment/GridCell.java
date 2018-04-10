@@ -38,7 +38,8 @@ public class GridCell extends HBox {
 		this.setMaxHeight(mySize);
 		this.setMinWidth(mySize);
 		myCellView.setFitWidth(mySize);
-		myCellView.setFitWidth(mySize);
+		myCellView.setFitHeight(mySize);
+		this.setStyle("-fx-border-color: black;");
 		setupEvents();
 		selected = false;
 		myGrid = grid;

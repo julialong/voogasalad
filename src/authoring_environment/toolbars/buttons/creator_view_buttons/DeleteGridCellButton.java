@@ -5,7 +5,7 @@ import authoring_environment.ScrollingGrid;
 import authoring_environment.editor_windows.LevelCreator;
 import javafx.scene.control.Button;
 
-public class DeleteGridCellButton extends Button{
+public class DeleteGridCellButton extends Button {
 	private static final String LABEL = "Delete";
 
     /**
