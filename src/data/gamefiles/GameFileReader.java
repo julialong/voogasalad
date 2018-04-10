@@ -48,7 +48,7 @@ public class GameFileReader implements JSONtoObject {
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
-		deserializer = new Serializer(); //ORIGINAL IS DESERIALIZER
+		deserializer = new Serializer(); 
 	}
 	
 	/**
