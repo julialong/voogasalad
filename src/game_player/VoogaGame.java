@@ -1,9 +1,10 @@
 package game_player;
 
+import data.gamefiles.JSONtoObject;
 import game_player_api.GameItem;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.ListCell;
+import javafx.scene.control.Label;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -14,19 +15,18 @@ import javafx.stage.Stage;
  *
  * @Author Dorian Barber
  */
-public class VoogaGame implements GameItem  {
+public class VoogaGame extends Label implements GameItem {
     private String gameName;
     private String gameDescription;
     private String gameAccessPath;
     private Stage gameApplication = new Stage();
 
-    public VoogaGame(String dataPath){
-        //Some how source to the proper section where the name, description, and access paths are available.
-        //for now all relevant fields will be set to the dataPath parameter
-        gameName = dataPath;
-        gameDescription = dataPath;
-        gameAccessPath = dataPath;
-        setScreenBounds(gameApplication);
+    public VoogaGame(String game){
+        this.setPrefWidth(500);
+        this.setWrapText(true);
+        gameName = game;
+        setFutureBounds(gameApplication);
+        super.setText(this.toString());
     }
 
     /**
@@ -47,21 +47,24 @@ public class VoogaGame implements GameItem  {
         VView gameView = new VView(gameAccessPath);
         VController gameController = new VController(gameView);
         Scene scene = new Scene(gameView);
+        scene.getStylesheets().add("styleSheet.css");
         gameApplication.setScene(scene);
         gameApplication.setTitle(gameName);
         gameApplication.show();
     }
 
     /**
-     * Makes the application take up the entire window of the computer.
+     * Makes the game application that the user selected take up the entire window of the computer.
      * @param primaryStage
      */
-    private void setScreenBounds(Stage primaryStage) {
+    private void setFutureBounds(Stage primaryStage) {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        primaryStage.setX(primaryScreenBounds.getMinX());
-        primaryStage.setY(primaryScreenBounds.getMinY());
         primaryStage.setWidth(primaryScreenBounds.getWidth());
+        primaryStage.setMinWidth(primaryScreenBounds.getWidth());
+        primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
         primaryStage.setHeight(primaryScreenBounds.getHeight());
+        primaryStage.setMinHeight(primaryScreenBounds.getHeight());
+        primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
     }
 
 
@@ -71,7 +74,6 @@ public class VoogaGame implements GameItem  {
      */
     @Override
     public String toString(){
-        return gameName + "\n" +
-                gameDescription;
+        return gameName;
     }
 }

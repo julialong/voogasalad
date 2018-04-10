@@ -1,7 +1,7 @@
 .list-cell {
     -fx-background-color: linear-gradient(#ADF0F8 0%, #A3F1FA 25%, #94EFF9 75%, #90EEF9 100%);
     -fx-border-width: 2;
-    -fx-border-color: #436b89;
+    -fx-border-color: #8a8a8a;
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
 }
@@ -12,4 +12,20 @@
 
 .list-cell:empty {
     -fx-opacity: 0;
+}
+
+.button {
+    -fx-background-color: linear-gradient(#cbe5f8 0%, #d8ecf9 100%);
+    -fx-border-width: 2;
+    -fx-border-color: #71acd6;
+}
+
+.button:hover {
+    -fx-background-color: #71acd6;
+}
+
+.menubar {
+    -fx-background-color: linear-gradient(#d0d0d0 0%, #d7d7d7 100%);/*, #e7e7e7 85%, #efefef 100% -fx-border-insets: 1;*/
+    -fx-border-width: 2;
+    -fx-border-color: #8a8a8a;
 }

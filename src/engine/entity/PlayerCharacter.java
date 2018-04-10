@@ -9,6 +9,9 @@ import engine.weapon.Weapon;
  *
  */
 public abstract class PlayerCharacter implements GameEntity{
+	private double width;
+	private double height;
+	
 	/**
 	 * Sets the player's weapon, which implements the Weapon interface.
 	 * 
@@ -38,4 +41,24 @@ public abstract class PlayerCharacter implements GameEntity{
 	 *            the PowerUp to be removed.
 	 */
 	public abstract void removePowerUp(PowerUp power);
+	
+	@Override
+	public void setSizeX(double x) {
+		width = x;
+	}
+	
+	@Override
+	public void setSizeY(double y) {
+		height = y;
+	}
+	
+	@Override
+	public double getSizeX() {
+		return width;
+	}
+	
+	@Override
+	public double getSizeY() {
+		return height;
+	}
 }
