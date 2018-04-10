@@ -6,9 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
+import authoring_environment.ScrollingGrid;
 import data.gamefiles.GameFileReader;
 import data.gamefiles.GameFileWriter;
-import data.serialization.NewSerializer;
+import data.serialization.Serializer;
 import engine.entity.Block;
 import engine.entity.Flag;
 import engine.entity.Foes;
@@ -17,7 +20,8 @@ import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
 import javafx.application.Application;
-
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
 
 public class TestingGSON {
 	
@@ -76,36 +80,42 @@ public class TestingGSON {
 //		fr.getGameNames();
 ////		f.loadGame("sampleGame");
 		
-		Map<Level, List<GameEntity>> objsOrganized = new HashMap<>();
-		List<GameEntity> objsToWrite = new ArrayList<>();
-
-		Player p = new Player();
-		objsToWrite.add(new Block());
-		objsToWrite.add(new Foes(p));
-		objsToWrite.add(new Flag());
-		objsToWrite.add(new Player());
-		objsToWrite.add(new Block());
-		objsToWrite.add(new Flag());
-		objsToWrite.add(new Foes(p));
-
-		Level one = new BasicLevel();
-		objsOrganized.put(one, new ArrayList<GameEntity>());
-		for (GameEntity obj:objsToWrite)	{
-			objsOrganized.get(one).add(obj);
-		}
-		
-		GameFileWriter myWriter = new GameFileWriter("NewTester");
-		myWriter.update(objsOrganized);
-		
+//		Map<Level, List<GameEntity>> objsOrganized = new HashMap<>();
+//		List<GameEntity> objsToWrite = new ArrayList<>();
+//
+//		Player p = new Player();
+//		objsToWrite.add(new Block());
+//		objsToWrite.add(new Foes());
+//		objsToWrite.add(new Flag());
+//		objsToWrite.add(new Player());
+//		objsToWrite.add(new Block());
+//		objsToWrite.add(new Flag());
+//		objsToWrite.add(new Foes());
+//
+//		Level one = new BasicLevel();
+//		objsOrganized.put(one, new ArrayList<GameEntity>());
+//		for (GameEntity obj:objsToWrite)	{
+//			objsOrganized.get(one).add(obj);
+//		}
+//		
+//		GameFileWriter myWriter = new GameFileWriter("NewTester");
+//		myWriter.update(objsOrganized);
+//		
 		GameFileReader fr = new GameFileReader();
-		Map<String, List<Object>> x = fr.loadCompleteGame("NewTester");
-		for(String xx: x.keySet())
-		{
-			System.out.println(xx);
-			System.out.println(x.get(xx));
-		}
+//		Map<String, List<Object>> x = fr.loadCompleteGame("NewTester");
+//		for(String xx: x.keySet())
+//		{
+//			System.out.println(xx);
+//			System.out.println(x.get(xx));
+//		}
 	
+//		GridPane sc = new GridPane();
+//		Gson gs = new Gson();
+//		String x = gs.toJson(sc);
+//		System.out.println(x);
 		
+//		System.out.println(fr.loadSettings("NewTester"));
+		System.out.println(fr.getGameNames());
 		
 	}
 }

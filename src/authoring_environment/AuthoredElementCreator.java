@@ -15,7 +15,7 @@ public class AuthoredElementCreator {
 	 * It creates a new AttributeEditor for a specific gameEntity
 	 */
 	public AuthoredElementCreator() {
-		GameEntity element = new GameEntity();
+		GameElement element = new GameElement();
 		Double elementID = element.getID();
 		AttributeEditor editor= new AttributeEditor(element, elementID);
 			

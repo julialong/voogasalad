@@ -19,7 +19,7 @@ import javafx.scene.image.ImageView;
  * custom image, and update its location on the grid
  *
  */
-public class GameEntity implements AuthoredElement {
+public class GameElement implements AuthoredElement {
 	
 	private double elementID;
 	private double xLocation;
@@ -33,7 +33,7 @@ public class GameEntity implements AuthoredElement {
 	 * It initiates attributes, which holds the current attributes
 	 * of a custom element. It also gives the element a unique ID. 
 	 */
-	public GameEntity() {
+	public GameElement() {
 		attributes = new HashMap<String, String>();
 		setID();
 		
