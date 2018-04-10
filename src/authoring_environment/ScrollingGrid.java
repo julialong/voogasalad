@@ -27,6 +27,8 @@ public class ScrollingGrid extends GridPane {
 	private static final int DEFAULT_CELL_SIZE = 75;
 	
 	private int cellSize;
+	private int rowNumber;
+	private int columnNumber;
 	private GridCell[][] cellArray;
 
 	public ScrollingGrid() {
@@ -58,7 +60,6 @@ public class ScrollingGrid extends GridPane {
 		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
 			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
 				GridCell cell = cellArray[j][i];
-				cell.setStyle("-fx-background-color: grey;");
 				this.add(cell,j,i);
 			}
 		}	
