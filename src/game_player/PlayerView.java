@@ -1,6 +1,7 @@
 package game_player;
 
 
+import engine.level.Level;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PlayerView extends VBox{
-	private Map<String, List<Object>> gameMaterial;
+	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
 	private VoogaGameView myGameView;
 	
@@ -23,7 +24,7 @@ public class PlayerView extends VBox{
 //		setMiddle();
 //	}
 
-	public PlayerView(Map<String, List<Object>> game){
+	public PlayerView(List<Level> game){
 		super();
 		gameMaterial = game;
 		createMenuBar();
