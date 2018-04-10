@@ -30,8 +30,8 @@ public class VController {
 	 */
 	public VController(PlayerView curView){
 		view = curView;
-		addKeyInputs();
-		addMouseInputs();
+		//addKeyInputs();
+		//addMouseInputs();
 	}
 
 	/**
