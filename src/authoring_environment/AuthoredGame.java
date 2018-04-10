@@ -21,11 +21,13 @@ import java.util.Map;
 public class AuthoredGame {
 
     private String myName;
+    private String myDescription;
     private List<Level> myLevels;
     private Level currentLevel;
     private GameFileWriter myGameWriter;
 
     private static final String DEFAULT_NAME = "Untitled_Game";
+    private static final String DEFAULT_DESCRIPTION = "A basic game.";
 
     /**
      * Creates a new authored game
@@ -33,6 +35,7 @@ public class AuthoredGame {
      */
     public AuthoredGame(String gameName) {
         myName = gameName;
+        myDescription = DEFAULT_DESCRIPTION;
         myLevels = new ArrayList<>();
         currentLevel = new BasicLevel();
         myGameWriter = new GameFileWriter(myName);
@@ -52,6 +55,10 @@ public class AuthoredGame {
     public void rename(String name) {
         myName = name;
         // TODO: change name in myGameWriter
+    }
+
+    public void setDescription(String description) {
+        myDescription = description;
     }
 
     /**

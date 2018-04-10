@@ -92,3 +92,8 @@
 	-fx-pref-height: 600;
 	-fx-pref-width: 600;
 }
+
+.game-description {
+	-fx-min-width: 400;
+	-fx-min-height: 300;
+}
