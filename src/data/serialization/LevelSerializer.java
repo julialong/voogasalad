@@ -3,6 +3,9 @@ package data.serialization;
 import java.io.IOException;
 import java.io.FileWriter;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import authoring_environment.ScrollingGrid;
 import authoring_environment.GridCell;
 
@@ -81,12 +84,12 @@ public class LevelSerializer	{
 	 * @param jsonGrid	ScrollingGrid in JOSN form - 2d array containing GridCell imagepaths
 	 * @return new ScrollingGrid to go itno level
 	 */
-	public ScrollingGrid deserialize()	{
+	public ScrollingGrid deserialize(JSONObject jsonGrid)	{
 		ScrollingGrid grid = new ScrollingGrid();
 
-		for (int i = 0; i < data.grid.length; i++)	{
-			for (int j = 0; j < data.grid[i].length; j ++)	{
-				grid.setCellImage(grid[i][j], data.grid[i][j].path);
+		for (int i = 0; i < jsonGrid.length(); i++)	{
+			for (int j = 0; j < jsonGrid[i].length(); j ++)	{
+				grid.setCellImage(grid[i][j], jsonGrid[i][j].getString());
 			}
 		}
 
