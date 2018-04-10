@@ -24,10 +24,11 @@ public class VoogaGameItem extends Label implements GameItem {
     private String gameAccessPath;
     private Stage gameApplication = new Stage();
 
-    public VoogaGameItem(String game){
+    public VoogaGameItem(String name, String description){
         this.setPrefWidth(500);
         this.setWrapText(true);
-        gameName = game;
+        gameName = name;
+        gameDescription = description;
         setFutureBounds(gameApplication);
         super.setText(this.toString());
     }
@@ -78,6 +79,6 @@ public class VoogaGameItem extends Label implements GameItem {
      */
     @Override
     public String toString(){
-        return gameName;
+        return gameName + "\n" + gameDescription;
     }
 }
