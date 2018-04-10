@@ -97,7 +97,7 @@ public class AuthoredGame {
      * Updates the state of the game
      */
     public void update() {
-        myGameWriter.update(extractObjects());
+        //myGameWriter.update(myLevels);
     }
 
     private Map<Level, List<GameEntity>> extractObjects() {
