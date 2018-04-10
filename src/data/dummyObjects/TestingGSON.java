@@ -101,7 +101,7 @@ public class TestingGSON {
 //		GameFileWriter myWriter = new GameFileWriter("NewTester");
 //		myWriter.update(objsOrganized);
 //		
-		GameFileReader fr = new GameFileReader();
+//		GameFileReader fr = new GameFileReader();
 //		Map<String, List<Object>> x = fr.loadCompleteGame("NewTester");
 //		for(String xx: x.keySet())
 //		{
@@ -115,7 +115,7 @@ public class TestingGSON {
 //		System.out.println(x);
 		
 //		System.out.println(fr.loadSettings("NewTester"));
-		fr.loadLevel("TestGame", 1);
+//		fr.loadLevel("TestGame", "Default");
 		
 	}
 }
