@@ -11,12 +11,16 @@ import javafx.scene.input.TransferMode;
 
 public class PickableElement extends ImageView{
 	private Image myImage;
+	private String myName;
+	private String myType;
 
-	public PickableElement(Image image) {
+	public PickableElement(Image image, String type, String name) {
 		super(image);
 		this.setFitHeight(40);
 		this.setFitWidth(40);
 		myImage = this.getImage();
+		myName = name;
+		myType = type;
 		setupDragAndDrop();
 	}
 	
@@ -26,10 +30,10 @@ public class PickableElement extends ImageView{
 		        Dragboard db = startDragAndDrop(TransferMode.COPY);
 		        ClipboardContent content = new ClipboardContent();
 		        content.putImage(myImage);
+		        content.putString(myType + "/" + myName);
 		        db.setContent(content);
 		        event.consume();
 		    }
 		});
-		
 	}
 }

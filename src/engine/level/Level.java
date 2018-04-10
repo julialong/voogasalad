@@ -1,7 +1,8 @@
 package engine.level;
 
 import java.util.List;
-import engine.entity.GameObject;
+
+import engine.entity.GameEntity;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -17,18 +18,18 @@ public interface Level {
 	 * Sets all GameObjects in the level to the input setID
 	 * @param objects - a list of GameObjects
 	 */
-	void setObjects(List<GameObject> objects);
+	void setObjects(List<GameEntity> objects);
 	
 	/**
 	 * Adds a singular object to the level class
 	 * @param object - a GameObject
 	 */
-	void addObject(GameObject object);
+	void addObject(GameEntity object);
 	
 	/**
 	 * Returns all objects in a level
 	 */
-	List<GameObject> getObjects();
+	List<GameEntity> getObjects();
 	
 	/**
 	 * Sets the ID of the level for identification purposes

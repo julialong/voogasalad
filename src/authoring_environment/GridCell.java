@@ -1,11 +1,17 @@
 package authoring_environment;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  * 
@@ -14,49 +20,133 @@ import javafx.scene.input.TransferMode;
  *
  */
 
-public class GridCell extends ImageView {
+public class GridCell extends HBox {
 	
-	public GridCell() {
+	private ImageView myCellView;
+	private String myPath;
+	private boolean selected;
+	private ScrollingGrid myGrid;
+	private int mySize;
+	
+	public GridCell(ScrollingGrid grid, int size) {
 		super();
-		setupDragAndDrop();
+		myCellView = new ImageView();
+		mySize = size;
+		this.getChildren().add(myCellView);
+		this.setMinHeight(mySize);
+		this.setMaxWidth(mySize);
+		this.setMaxHeight(mySize);
+		this.setMinWidth(mySize);
+		myCellView.setFitWidth(mySize);
+		myCellView.setFitWidth(mySize);
+		setupEvents();
+		selected = false;
+		myGrid = grid;
 	}
 	
-	private void setupDragAndDrop() {
-		this.setOnDragOver(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		        /* data is dragged over the target */
-		        /* accept it only if it is not dragged from the same node 
-		         * and if it has a string data */
-		        if (event.getGestureSource() != this &&
-		                event.getDragboard().hasImage()) {
-		            /* allow for both copying and moving, whatever user chooses */
-		            event.acceptTransferModes(TransferMode.COPY);
+	public GridCell(double spacing) {
+		super(spacing);
+		myCellView = new ImageView();
+		this.getChildren().add(myCellView);
+		setupEvents();
+		selected = false;
+	}
+	
+	public ImageView getView() {
+		return myCellView;
+	}
+	
+	public Image getImage() {
+		return myCellView.getImage();
+	}
+	
+	public void setImage(Image image) {
+		myCellView.setImage(image);
+	}
+	
+	public void setImage(Image image, String path) {
+		myPath = path;
+		myCellView.setImage(new Image("file:data/" + myPath));
+	}
+	
+	private void select() {
+		selected = true;
+		this.setEffect(new InnerShadow(mySize/2 , Color.web("#99ebff") ));
+	}
+	
+	private void deselect() {
+		selected = false;
+		this.setEffect(null);
+	}
+	
+	public boolean isSelected() {
+		return selected;
+	}
+	
+	public void reset() {
+		this.getChildren().clear();
+		myCellView = new ImageView();
+		this.getChildren().add(myCellView);
+		myCellView.setFitHeight(mySize);
+		myCellView.setFitWidth(mySize);
+		myPath = "";
+		deselect();
+	}
+	
+	private void setupEvents() {
+		GridCell myGridCell = this;
+		
+		myGridCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    public void handle(MouseEvent event) {
+		        if(selected) {
+		        	deselect();
+		        } else {
+		        	select();
 		        }
-		        event.consume();
 		    }
 		});
 		
-		this.setOnDragDropped(new EventHandler<DragEvent>() {
+		myGridCell.setOnDragOver(new EventHandler<DragEvent>() {
 		    public void handle(DragEvent event) {
-		        /* data dropped */
-		        /* if there is a string data on dragboard, read it and use it */
+		        if (event.getGestureSource() != myGridCell &&
+		                event.getDragboard().hasImage()) {
+		            event.acceptTransferModes(TransferMode.COPY);
+		        }
+		        
+		        event.consume();
+		    }
+		});
+		myGridCell.setOnDragDropped(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
 		        Dragboard db = event.getDragboard();
 		        boolean success = false;
 		        if (db.hasImage()) {
-		           setNewImage(db.getImage());
+		           myGrid.setCellImage(myGridCell, db.getImage(), db.getString());
 		           success = true;
 		        }
-		        /* let the source know whether the string was successfully 
-		         * transferred and used */
 		        event.setDropCompleted(success);
 		        
 		        event.consume();
 		     }
 		});
-	}
-	
-	private void setNewImage(Image image) {
-		this.setImage(image);
-	}
+		myGridCell.setOnDragEntered(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
+		         if (event.getGestureSource() != myGridCell &&
+		                 event.getDragboard().hasImage()) {
+		        	 myGridCell.setStyle("-fx-background-color: #99ebff;");
+		         }
+		                
+		         event.consume();
+		    }
+		});
+		myGridCell.setOnDragExited(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
+		    	myGridCell.setStyle("-fx-background-color: transparent;");
+		    	myGridCell.setStyle("-fx-border-color: black;");
 
+		        event.consume();
+		    }
+		});
+		
+	}
 }
