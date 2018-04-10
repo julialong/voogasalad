@@ -1,5 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
+import authoring_environment.AuthoredGame;
 import authoring_environment.editor_windows.LevelCreator;
 import javafx.scene.control.Button;
 
@@ -17,9 +18,9 @@ public class AddLevelButton extends Button {
     /**
      * Creates a simple add element button.
      */
-    public AddLevelButton() {
+    public AddLevelButton(AuthoredGame game) {
         super(ADD_LEVEL);
-        this.setOnAction(e -> new LevelCreator());
+        this.setOnAction(e -> new LevelCreator(game));
     }
 
 }

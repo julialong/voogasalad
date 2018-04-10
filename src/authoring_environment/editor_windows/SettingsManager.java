@@ -37,6 +37,8 @@ public class SettingsManager {
         myStage.centerOnScreen();
     }
 
+    private void saveName() {
 
+    }
 
 }
