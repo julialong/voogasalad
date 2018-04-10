@@ -3,12 +3,20 @@ package data.serialization;
 import java.io.IOException;
 import java.io.FileWriter;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+
 import authoring_environment.ScrollingGrid;
 import authoring_environment.GridCell;
 
 import engine.level.BasicLevel;
 import engine.level.Level;
 
+/**
+ * @author Maya Messinger
+ * Class to "serialize" and deserialze level main objects not able to be serialized with GSON
+ * Adds to a file level instance variables and a ScrollingGrid
+ */
 public class LevelSerializer	{
 	private static final String NAME = "name";
 	private static final String ID = "id";
@@ -20,6 +28,10 @@ public class LevelSerializer	{
 	private int columnNumber;
 	private GridCell[][] cellArray;
 
+	/**
+	 * @param fw	FileWriter that is linked to file to write to (this method is called when file is already being edited)
+	 * @param level	Level to write out
+	 */
 	public void serialize(FileWriter fw, Level level)	{
 		writeKeyValue(fw, NAME, level.getName());
 		writeKeyValue(fw, ID, 1);// level.getID());
@@ -67,16 +79,21 @@ public class LevelSerializer	{
 		TextWriter.closeArray(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
-	public ScrollingGrid deserialize()	{
+	/**
+	 * Create ScrollingGrid for a level given the JSON version of the grid
+	 * @param jsonGrid	ScrollingGrid in JOSN form - 2d array containing GridCell imagepaths
+	 * @return new ScrollingGrid to go itno level
+	 */
+	public ScrollingGrid deserialize(JsonArray jsonGrid)	{
 		ScrollingGrid grid = new ScrollingGrid();
 
-		// get JSON grid
-
-		// for (int i = 0; i < data.grid.length; i++)	{
-		// 	for (int j = 0; j < data.grid[i].length; j ++)	{
-		// 		grid.setCellImage(grid[i][j], data.grid[i][j].path);
-		// 	}
-		// }
+		for (int i = 0; i < jsonGrid.size(); i++)	{
+			JsonArray row = jsonGrid.get(i).getAsJsonArray();
+			for (int j = 0; j < jsonGrid.get(i).getAsJsonArray().size(); j ++)	{
+				grid.setCellImage(grid.getCellArray()[i][j], row.get(j).getAsString());
+				System.out.println(row.get(j).getAsString());
+			}
+		}
 
 		return grid;
 	}
