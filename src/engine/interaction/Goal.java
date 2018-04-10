@@ -1,4 +1,7 @@
 package engine.interaction;
+
+import engine.entity.GameEntity;
+
 /**
  * If the target is a PlayerCharacter, the player moves to the next level.
  * @author Robert Gitau
@@ -7,7 +10,7 @@ package engine.interaction;
 public class Goal implements Interaction{
 
 	@Override
-	public void interact(Object o1, Object o2) {
+	public void interact(GameEntity source, GameEntity target) {
 		// TODO Auto-generated method stub
 		
 	}
