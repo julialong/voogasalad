@@ -39,7 +39,7 @@ public class AttributeEditor {
 	private static final String ATTRIBUTE_RESOURCES = "resources/attributes";
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
-	private GameEntity gameElement;
+	private GameElement gameElement;
 	private HashMap<String, List<String>> attributes;
 	private List<ComboBox<String>> attributeBoxes;
 	private HashMap<String, String> chosenAttributes; 
@@ -52,7 +52,7 @@ public class AttributeEditor {
 	private Stage window;
 	private Double elementID; 
 
-	public AttributeEditor(GameEntity element, Double id) {
+	public AttributeEditor(GameElement element, Double id) {
 		elementID= id;
 		chosenAttributes = new HashMap<String, String>() ;  
 		gameElement= element;
