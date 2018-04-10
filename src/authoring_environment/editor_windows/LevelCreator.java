@@ -108,9 +108,9 @@ public class LevelCreator {
         center = new HBox();
         center.getStyleClass().add("level-center");
         ScrollingGrid tempGrid = newLevel.getGrid();
-        center.setMaxHeight(300);
-        center.setMaxWidth(300);
-        center.getChildren().add(tempGrid);
+        tempGrid.setMaxHeight(300);
+        tempGrid.setMaxWidth(300);
+        //center.getChildren().add(tempGrid);
         return center;
     }
 
