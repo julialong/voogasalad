@@ -3,6 +3,7 @@
  */
 package game_player;
 
+import engine.entity.Player;
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
 import javafx.application.Application;
@@ -26,7 +27,7 @@ import java.util.List;
 public class Driver extends Application {
 	
 	private VController myController;
-	private VView myView;
+	private PlayerView myView;
 	private GameChooser gameChooser;
 	
 	

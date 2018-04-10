@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Each instance of VoogaGame represents a single developed game created from the
  * game authoring environment. Each VoogaGame has a Name, Description, access path, and
@@ -36,6 +39,7 @@ public class VoogaGame extends Label implements GameItem {
      */
     @Override
     public void actionOnClick() {
+
     }
 
     /**
@@ -43,8 +47,8 @@ public class VoogaGame extends Label implements GameItem {
      * with the specific game that this item represents
      */
     @Override
-    public void setUpGame(){
-        VView gameView = new VView(gameAccessPath);
+    public void setUpGame(Map<String, List<Object>> gameMaterials){
+        PlayerView gameView = new PlayerView(gameMaterials);
         VController gameController = new VController(gameView);
         Scene scene = new Scene(gameView);
         scene.getStylesheets().add("styleSheet.css");
