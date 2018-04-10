@@ -19,7 +19,10 @@ import engine.level.Level;
  */
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static final String NEST = "/";
+<<<<<<< HEAD
 	private static final String SETTINGS = "settings";
+=======
+>>>>>>> bdb7787163e9c3f1fd8ab917168eb85e311789d1
 	private static final String EXTENSION = ".json";
 
 	private String gameDirectory;

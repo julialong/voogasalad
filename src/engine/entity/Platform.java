@@ -1,6 +1,7 @@
 package engine.entity;
 
 import engine.behavior.Behavior;
+import engine.interaction.Interaction;
 import engine.movement.Movement;
 /**
  * Defines GameObjects that tend to move and/or can be jumped through and onto by other Entities.
@@ -9,8 +10,4 @@ import engine.movement.Movement;
  */
 public class Platform extends GameObject {
 	
-	@Override
-	public void setInteraction(Object o) {
-		// TODO Auto-generated method stub
-	}
 }

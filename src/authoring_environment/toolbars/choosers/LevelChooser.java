@@ -1,6 +1,7 @@
 package authoring_environment.toolbars.choosers;
 
 import authoring_environment.AuthoredGame;
+import authoring_environment.toolbars.RightBar;
 import engine.level.Level;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
@@ -16,14 +17,16 @@ import javafx.scene.layout.VBox;
 public class LevelChooser extends VBox {
 
     private AuthoredGame myGame;
+    private ScrollPane myScrollPane;
 
     /**
      * Creates a scrollpane that allows users to choose a level to edit.
      * @param game is the current game
      */
-    public LevelChooser(AuthoredGame game) {
+    public LevelChooser(AuthoredGame game, ScrollPane grid, RightBar rightBar) {
         super();
         myGame = game;
+        myScrollPane = grid;
         update();
     }
 
@@ -37,6 +40,7 @@ public class LevelChooser extends VBox {
             thisLevelChoice.setOnMouseClicked(e -> {
                 myGame.setCurrentLevel(level);
                 System.out.println("Current level: " + myGame.getCurrentLevel().getName());
+                myScrollPane.setContent(myGame.getCurrentLevel().getGrid());
             });
             this.getChildren().add(thisLevelChoice);
         }

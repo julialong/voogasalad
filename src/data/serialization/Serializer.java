@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import engine.behavior.Behavior;
+import engine.interaction.Interaction;
 import engine.movement.Movement;
+import engine.powerup.PowerUp;
 import engine.weapon.Weapon;
 /**
  * @author Belanie Nagiel
@@ -39,6 +41,8 @@ public class Serializer {
 		builder.registerTypeAdapter(Weapon.class, new InterfaceAdapter<Weapon>());
 		builder.registerTypeAdapter(Movement.class, new InterfaceAdapter<Movement>());
 		builder.registerTypeAdapter(Behavior.class, new InterfaceAdapter<Behavior>());
+		builder.registerTypeAdapter(Interaction.class, new InterfaceAdapter<Interaction>());
+		builder.registerTypeAdapter(PowerUp.class, new InterfaceAdapter<PowerUp>());
 		gson = builder.create();	
 	}
 	

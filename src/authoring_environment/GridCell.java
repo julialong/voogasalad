@@ -1,12 +1,17 @@
 package authoring_environment;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  * 
@@ -19,19 +24,33 @@ public class GridCell extends HBox {
 	
 	private ImageView myCellView;
 	private String myPath;
+	private boolean selected;
+	private ScrollingGrid myGrid;
+	private int mySize;
 	
-	public GridCell() {
+	public GridCell(ScrollingGrid grid, int size) {
 		super();
 		myCellView = new ImageView();
+		mySize = size;
 		this.getChildren().add(myCellView);
-		setupDragAndDrop();
+		this.setMinHeight(mySize);
+		this.setMaxWidth(mySize);
+		this.setMaxHeight(mySize);
+		this.setMinWidth(mySize);
+		myCellView.setFitWidth(mySize);
+		myCellView.setFitHeight(mySize);
+		this.setStyle("-fx-border-color: black;");
+		setupEvents();
+		selected = false;
+		myGrid = grid;
 	}
 	
 	public GridCell(double spacing) {
 		super(spacing);
 		myCellView = new ImageView();
 		this.getChildren().add(myCellView);
-		setupDragAndDrop();
+		setupEvents();
+		selected = false;
 	}
 	
 	public ImageView getView() {
@@ -51,8 +70,42 @@ public class GridCell extends HBox {
 		myCellView.setImage(new Image("file:data/" + myPath));
 	}
 	
-	private void setupDragAndDrop() {
+	private void select() {
+		selected = true;
+		this.setEffect(new InnerShadow(mySize/2 , Color.web("#99ebff") ));
+	}
+	
+	private void deselect() {
+		selected = false;
+		this.setEffect(null);
+	}
+	
+	public boolean isSelected() {
+		return selected;
+	}
+	
+	public void reset() {
+		this.getChildren().clear();
+		myCellView = new ImageView();
+		this.getChildren().add(myCellView);
+		myCellView.setFitHeight(mySize);
+		myCellView.setFitWidth(mySize);
+		myPath = "";
+		deselect();
+	}
+	
+	private void setupEvents() {
 		GridCell myGridCell = this;
+		
+		myGridCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    public void handle(MouseEvent event) {
+		        if(selected) {
+		        	deselect();
+		        } else {
+		        	select();
+		        }
+		    }
+		});
 		
 		myGridCell.setOnDragOver(new EventHandler<DragEvent>() {
 		    public void handle(DragEvent event) {
@@ -69,7 +122,7 @@ public class GridCell extends HBox {
 		        Dragboard db = event.getDragboard();
 		        boolean success = false;
 		        if (db.hasImage()) {
-		           myGridCell.setImage(db.getImage(), db.getString());
+		           myGrid.setCellImage(myGridCell, db.getImage(), db.getString());
 		           success = true;
 		        }
 		        event.setDropCompleted(success);
@@ -79,8 +132,6 @@ public class GridCell extends HBox {
 		});
 		myGridCell.setOnDragEntered(new EventHandler<DragEvent>() {
 		    public void handle(DragEvent event) {
-		    /* the drag-and-drop gesture entered the target */
-		    /* show to the user that it is an actual gesture target */
 		         if (event.getGestureSource() != myGridCell &&
 		                 event.getDragboard().hasImage()) {
 		        	 myGridCell.setStyle("-fx-background-color: #99ebff;");
@@ -91,7 +142,6 @@ public class GridCell extends HBox {
 		});
 		myGridCell.setOnDragExited(new EventHandler<DragEvent>() {
 		    public void handle(DragEvent event) {
-		        /* mouse moved away, remove the graphical cues */
 		    	myGridCell.setStyle("-fx-background-color: transparent;");
 		    	myGridCell.setStyle("-fx-border-color: black;");
 
