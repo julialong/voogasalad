@@ -16,8 +16,7 @@ public class AuthoredElementCreator {
 	 */
 	public AuthoredElementCreator() {
 		GameElement element = new GameElement();
-		Double elementID = element.getID();
-		AttributeEditor editor= new AttributeEditor(element, elementID);
+		AttributeEditor editor= new AttributeEditor(element);
 			
 	}
 
