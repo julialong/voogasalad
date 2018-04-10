@@ -71,7 +71,7 @@ public class TextWriter	{
 		
 			startFile(fw);
 			serializeLevel(fw, level);
-			addtoWrite(fw, itemsInLevel);
+			writeObjects(fw, itemsInLevel);
 			endFile(fw);
 		}
 		catch (IOException e)	{
@@ -83,16 +83,20 @@ public class TextWriter	{
 		try	{
 			fw.write(QUOTE + DESCRIPTION + QUOTE + COLON + QUOTE + DESCRIPTION_VAL + QUOTE);
 			fw.write(COMMA);
-			fw.write(System.lineSeparator());
+			newLine(fw);
 			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + READYTOPLAY_VAL);
-			fw.write(System.lineSeparator());
+			newLine(fw);
 		}
 		catch (IOException e)	{
 			error(e);
 		}
 	}
 
-	private void addtoWrite(FileWriter fw, List<GameEntity> items)	{
+	private void serializeLevel(FileWriter fw, Level level)	{
+		new LevelSerializer().serialize(fw, level);
+	}
+
+	private void writeObjects(FileWriter fw, List<GameEntity> items)	{
 		int entryIndex = 0;
 		Map<String, List<Object>> objsOrganized = sortObjects(items);
 		for (Map.Entry entry:objsOrganized.entrySet())	{
@@ -121,17 +125,23 @@ public class TextWriter	{
 		return objsOrganized;
 	}
 
-	private void serializeLevel(FileWriter fw, Level level)	{
-		new LevelSerializer().serialize(fw, level);
-	}
-
 	protected static void startFile(FileWriter fw)	{
 		try	{
 			fw.write(CURLYBRACKETOPEN);
-			fw.write(System.lineSeparator());
+			newLine(fw);
 		}
 		catch (IOException e)	{
-			TextWriter.error(e);
+			error(e);
+		}
+	}
+
+	private static void endFile(FileWriter fw)	{
+		try	{
+			fw.write(CURLYBRACKETCLOSE);
+			fw.close();
+		}
+		catch (IOException e)	{
+			error(e);
 		}
 	}
 
@@ -142,7 +152,7 @@ public class TextWriter	{
 			}
 
 			fw.write(BRACKETOPEN);
-			fw.write(System.lineSeparator());
+			newLine(fw);
 		}
 		catch (IOException e)	{
 			error(e);
@@ -153,9 +163,31 @@ public class TextWriter	{
 		try	{
 			fw.write(BRACKETCLOSE);
 			checkWriteComma(fw, entryIndex, mapSize);
-			fw.write(System.lineSeparator());
+			newLine(fw);
 		}
 		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	private void writeArray(FileWriter fw, List toWrite)	{
+		try	{
+			for (Object obj:toWrite)	{
+				fw.write(ser.serialize(obj));
+				checkWriteComma(fw, toWrite.indexOf(obj), toWrite.size());
+				newLine(fw);
+			}
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	protected static void newLine(FileWriter fw)	{
+		try	{
+			fw.write(System.lineSeparator());
+		}
+		catch(IOException e)	{
 			error(e);
 		}
 	}
@@ -187,19 +219,6 @@ public class TextWriter	{
 		}
 	}
 
-	private void writeArray(FileWriter fw, List toWrite)	{
-		try	{
-			for (Object obj:toWrite)	{
-				fw.write(ser.serialize(obj));
-				checkWriteComma(fw, toWrite.indexOf(obj), toWrite.size());
-				fw.write(System.lineSeparator());
-			}
-		}
-		catch (IOException e)	{
-			error(e);
-		}
-	}
-
 	protected static void checkWriteComma(FileWriter fw, int index, int size)	{
 		if (index < size - 1)	{
 			try	{
@@ -208,16 +227,6 @@ public class TextWriter	{
 			catch (IOException e)	{
 				error(e);
 			}
-		}
-	}
-
-	private static void endFile(FileWriter fw)	{
-		try	{
-			fw.write(CURLYBRACKETCLOSE);
-			fw.close();
-		}
-		catch (IOException e)	{
-			error(e);
 		}
 	}
 

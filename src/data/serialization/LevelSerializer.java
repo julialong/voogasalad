@@ -60,6 +60,7 @@ public class LevelSerializer	{
 				TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
 				TextWriter.checkWriteComma(fw, j, grid.getCellArray()[i].length);
 			}
+			TextWriter.newLine(fw);
 			TextWriter.closeArray(fw, i, grid.getCellArray().length);
 		}
 
