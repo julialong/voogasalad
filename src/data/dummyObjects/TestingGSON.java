@@ -115,7 +115,7 @@ public class TestingGSON {
 //		System.out.println(x);
 		
 //		System.out.println(fr.loadSettings("NewTester"));
-		System.out.println(fr.getGameNames());
+		fr.loadLevel("TestGame", 1);
 		
 	}
 }

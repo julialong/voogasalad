@@ -62,7 +62,7 @@ public class ScrollingGrid extends GridPane {
 				GridCell cell = cellArray[j][i];
 				this.add(cell,j,i);
 			}
-		}	
+		}
 	}
 	
 	private void initCells() {
@@ -100,11 +100,19 @@ public class ScrollingGrid extends GridPane {
 				for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
 					GridCell checkCell = cellArray[j][i];
 					if (checkCell.isSelected()) {
-						checkCell.setImage(image, path);
+						checkCell.setImage(path);
 					}
 				}
 			}
-		} else cell.setImage(image, path);
+		} else cell.setImage(path);
+	}
+
+	public void setCellImage(GridCell cell, String path) {
+			GridCell checkCell = cell;
+			checkCell.setImage(path);
 	}
 	
+	public GridCell[][] getCellArray()	{
+		return cellArray;
+	}
 }
