@@ -1,91 +1,113 @@
 package authoring_environment;
 
+import java.util.ArrayList;
+
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 
 /**
  * 
  * @author Judi Sanchez and Michael Acker
  * Date Started: April 1 2018
  */
-public class ScrollingGrid extends ScrollPane {
+public class ScrollingGrid extends GridPane {
 	// TODO: Change this based on level size
-	private static final int NUMBER_OF_ROWS = 50;
-	private static final int NUMBER_OF_COLUMNS = 60;
-	private static final int DEFAULT_CELL_SIZE = 25;
+	private static final int NUMBER_OF_ROWS = 20;
+	private static final int NUMBER_OF_COLUMNS = 50;
+	private static final int DEFAULT_CELL_SIZE = 50;
 	
-	private GridPane gridpane;
-	private ScrollPane scrollpane;
 	private int cellSize;
+	private GridCell[][] cellArray;
 
 	public ScrollingGrid() {
-		gridpane = new GridPane();
-		scrollpane = new ScrollPane(gridpane);
-		setupDragAndDrop();
+		super();
 		cellSize = DEFAULT_CELL_SIZE;
+		cellArray = new GridCell[NUMBER_OF_COLUMNS][NUMBER_OF_ROWS];
+		initCells();
 		makeGrid();
 
 	}
 
 	private void makeGrid() {
+		this.getChildren().clear();
+		this.getRowConstraints().clear();
+		this.getColumnConstraints().clear();
 		//TODO: Change it so that a grid is created when a new level is created
-		gridpane.setGridLinesVisible(true);
+		//this.setGridLinesVisible(true);
 		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
-			gridpane.getRowConstraints().add(new RowConstraints(25));
+			this.getRowConstraints().add(new RowConstraints(cellSize));
 		}
 		for (int i = 0; i < NUMBER_OF_COLUMNS; i++) {
-			gridpane.getColumnConstraints().add(new ColumnConstraints(25));
+			this.getColumnConstraints().add(new ColumnConstraints(cellSize));
 		}
+		addCells();
+		
+	}
+	
+	private void addCells() {
 		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
 			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
-				GridCell cell = new GridCell();
-				cell.setFitHeight(cellSize);
-				cell.setFitWidth(cellSize);
-				gridpane.add(cell,j,i);
+				GridCell cell = cellArray[j][i];
+				cell.getView().setFitHeight(cellSize);
+				cell.getView().setFitWidth(cellSize);
+				cell.setMinHeight(cellSize);
+				cell.setMinWidth(cellSize);
+				cell.setStyle("-fx-border-color: black;");
+				this.add(cell,j,i);
+			}
+		}	
+	}
+	
+	private void initCells() {
+		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
+			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
+				cellArray[j][i] = new GridCell(this, cellSize);
 			}
 		}
 	}
-
-	public ScrollPane getScrollingGridPane() {
-		return scrollpane;
+	
+	public void zoomIn() {
+		cellSize = cellSize + 5;
+		makeGrid();
 	}
 	
-	private void setupDragAndDrop() {
-		scrollpane.setOnDragOver(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		        /* data is dragged over the target */
-		        /* accept it only if it is not dragged from the same node 
-		         * and if it has a string data */
-		        if (event.getGestureSource() != scrollpane &&
-		                event.getDragboard().hasString()) {
-		            /* allow for both copying and moving, whatever user chooses */
-		            event.acceptTransferModes(TransferMode.COPY);
-		        }
-		        
-		        event.consume();
-		    }
-		});
-		gridpane.setOnDragOver(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		        /* data is dragged over the target */
-		        /* accept it only if it is not dragged from the same node 
-		         * and if it has a string data */
-		        if (event.getGestureSource() != gridpane &&
-		                event.getDragboard().hasString()) {
-		            /* allow for both copying and moving, whatever user chooses */
-		            event.acceptTransferModes(TransferMode.COPY);
-		        }
-		        
-		        event.consume();
-		    }
-		});
+	public void zoomOut() {
+		cellSize = cellSize - 5;
+		makeGrid();
 	}
-
+	
+	public void deleteCells() {
+		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
+			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
+				GridCell cell = cellArray[j][i];
+				if (cell.isSelected()) {
+					cell.reset();
+				}
+			}
+		}
+	}
+	
+	public void setCellImage(GridCell cell, Image image, String path) {
+		if (cell.isSelected()) {
+			for (int i = 0; i < NUMBER_OF_ROWS; i++) {
+				for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
+					GridCell checkCell = cellArray[j][i];
+					if (checkCell.isSelected()) {
+						checkCell.setImage(image, path);
+					}
+				}
+			}
+		} else cell.setImage(image, path);
+	}
+	
 }

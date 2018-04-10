@@ -2,16 +2,15 @@ package data.gamefiles;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import data.serialization.GameObject;
-import data.serialization.Level;
 import data.serialization.TextWriter;
+import engine.entity.GameEntity;
+import engine.level.Level;
 
 /**
- * @author Maya messinger
+ * @author Maya Messinger
  * @author Belanie Nagiel
  * Started: 3 Apr 18
  * Class that facilitates addition and removal of items in the levels of a game.
@@ -19,9 +18,12 @@ import data.serialization.TextWriter;
  * not and connects to the GameFile object.
  */
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
+//	private static final String NEST = "\\"; ORIGINAL
+	private static final String NEST = "/";
+	private static final String EXTENSION = ".json";
+
 	private String gameDirectory;
 	private File gameDirectoryFile;
-	private List<Object> objsToWrite = new ArrayList<>();
 
 	/**
 	 * Class Constructor.
@@ -38,7 +40,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param changes	Map of Levels linked to all the items in them
 	 */
 	@Override
-	public void update(Map<Level, List<GameObject>> changes)	{
+	public void update(Map<Level, List<GameEntity>> changes)	{
 		for (Level aLevel:changes.keySet())	{
 			saveData(aLevel, changes.get(aLevel));
 		}
@@ -64,6 +66,18 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		// jsonToObject(getLevel(level));
 		return null;
 	}
+
+	/**
+	 * Method to rename a game (folder)
+	 * @param oldName	game to rename
+	 * @param newName	String to rename game to	
+	 */
+	@Override
+	public void renameGame(String newName)	{
+		File newDir = new File(gameDirectoryFile.getParent() + NEST + newName);
+
+		gameDirectoryFile.renameTo(newDir);
+	}
 	
 	private File retrieveGame()	{
 		File gameFolder = new File(gameDirectory);
@@ -82,7 +96,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	}
 
 	private File getLevel(Level level)	{
-		File newLevel = new File(gameDirectory + level.toString() + ".json");
+		File newLevel = new File(gameDirectory + NEST + level.getName() + EXTENSION);
 
 		if(!newLevel.exists())	{
 			try {

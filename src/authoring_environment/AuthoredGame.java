@@ -1,10 +1,15 @@
 package authoring_environment;
 
 import data.gamefiles.GameFileWriter;
+import engine.entity.GameEntity;
+import engine.entity.GameObject;
+import engine.level.BasicLevel;
 import engine.level.Level;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The Authored Game class holds the current state of the game, including the current levels
@@ -17,6 +22,7 @@ public class AuthoredGame {
 
     private String myName;
     private List<Level> myLevels;
+    private Level currentLevel;
     private GameFileWriter myGameWriter;
 
     private static final String DEFAULT_NAME = "Untitled_Game";
@@ -28,6 +34,7 @@ public class AuthoredGame {
     public AuthoredGame(String gameName) {
         myName = gameName;
         myLevels = new ArrayList<>();
+        currentLevel = new BasicLevel();
         myGameWriter = new GameFileWriter(myName);
     }
 
@@ -64,10 +71,34 @@ public class AuthoredGame {
     }
 
     /**
+     * Sets the current level
+     * @param currentLevel is the level to set as the current level
+     */
+    public void setCurrentLevel(Level currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    /**
+     * Gets the current level
+     * @return the current level
+     */
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+
+    /**
      * Updates the state of the game
      */
     public void update() {
-        // TODO: update myGameWriter
+        myGameWriter.update(extractObjects());
+    }
+
+    private Map<Level, List<GameEntity>> extractObjects() {
+        Map<Level, List<GameEntity>> unpacked = new HashMap<>();
+        for (Level level : myLevels) {
+            unpacked.put(level, level.getObjects());
+        }
+        return unpacked;
     }
 
 }
