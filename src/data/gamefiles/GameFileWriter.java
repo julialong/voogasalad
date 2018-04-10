@@ -56,6 +56,15 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	}
 
 	/**
+	 * Will change settings file mapping to whether game is ready to play or not
+	 * @param ready		value to change readiness of game to
+	 */
+	@Override
+	public void updateMeta(boolean ready, String desc)	{
+		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), ready, desc);
+	}
+
+	/**
 	 * Saves state of level being played, for use with checkpoints
 	 * @param level			name of level to save
 	 * @param itemsInLevel	List (potentially list of lists of different types of objects) if items in level to save stats of
@@ -106,7 +115,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private void makeNewGame(File gameFolder)	{
 		gameFolder.mkdir();
 
-		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION));
+		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), false, "no description");
 	}
 
 	private File getLevel(Level level)	{
