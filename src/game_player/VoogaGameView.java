@@ -6,18 +6,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class VGameView implements GameView{
-	
+import java.util.List;
+import java.util.Map;
+
+public class VoogaGameView implements GameView{
+
 	private HBox myGV;
 	
 	private int temp = 0;
-	
-	public VGameView() {
+
+	public VoogaGameView() {
 		myGV = new HBox();
 		myGV.getChildren().add(new Rectangle(200,200, Color.RED));
 	}
 	
-	
+
+
 	@Override
 	public Node getNode() {
 		// TODO Auto-generated method stub

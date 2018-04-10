@@ -3,6 +3,9 @@ package game_player_api;
 import data.gamefiles.JSONtoObject;
 import javafx.scene.control.ListCell;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Represents each individual item within the GameChooser visual display
  * This inheritance hierarchy will extend the Node class because each
@@ -24,7 +27,7 @@ public interface GameItem {
      * Sets up the Game view application environment
      * with the specific game that this item represents
      */
-    public void setUpGame();
+    public void setUpGame(Map<String, List<Object>> gameMaterials);
 
     /**
      * Alters toString method to return a properly formatted

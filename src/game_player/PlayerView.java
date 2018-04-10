@@ -5,12 +5,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class VView extends BorderPane{
-	
+import java.util.List;
+import java.util.Map;
+
+public class PlayerView extends BorderPane{
+	private Map<String, List<Object>> gameMaterial;
 	private VMenuBar myMenuBar;
-	private VGameView myGameView;
+	private VoogaGameView myGameView;
 	
-	public VView() {
+	public PlayerView() {
 		super();
 		createMenuBar();
 		createGView();
@@ -18,14 +21,19 @@ public class VView extends BorderPane{
 		setMiddle();
 	}
 
-	public VView(String name){
+	public PlayerView(Map<String, List<Object>> game){
+		this();
+		gameMaterial = game;
+	}
+
+	public PlayerView(String name){
 		this();
 		System.out.println(name);
 	}
 	
 	private void createGView() {
 		// TODO Auto-generated method stub
-		myGameView = new VGameView();
+		myGameView = new VoogaGameView();
 	}
 
 	/**
