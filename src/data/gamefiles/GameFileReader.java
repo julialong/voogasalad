@@ -210,14 +210,19 @@ public class GameFileReader implements JSONtoObject {
 	}
 
 	@Override
-	public List<String> getGameNames() {
-		List<String> gameNames = new ArrayList<>();
+	public Map<String,String> getGameNames() {
+		Map<String,String> gameNames = new HashMap<>();
 		File gamesDirectory = new File(gameFolder);
 		File[] games= gamesDirectory.listFiles();
 		for(File game: games)
 		{
 			int index = game.toString().lastIndexOf("/") + 1;
-			gameNames.add(game.toString().substring(index).trim());
+			String gameName = game.toString().substring(index).trim();
+			Map<String,String> gameSettings = loadSettings(gameName);
+			if(gameSettings.get("ready").equals("true"))
+			{
+				gameNames.put(gameName, gameSettings.get("description"));
+			}
 		}
 		return gameNames;
 	}

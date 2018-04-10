@@ -38,7 +38,7 @@ public interface JSONtoObject {
 	 * settings. 
 	 */
 	
-	List<String> getGameNames();
+	Map<String,String> getGameNames();
 	/*
 	 * Game Player calls this method to get the list of currently playable games.
 	 */

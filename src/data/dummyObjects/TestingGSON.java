@@ -85,12 +85,12 @@ public class TestingGSON {
 //
 //		Player p = new Player();
 //		objsToWrite.add(new Block());
-//		objsToWrite.add(new Foes(p));
+//		objsToWrite.add(new Foes());
 //		objsToWrite.add(new Flag());
 //		objsToWrite.add(new Player());
 //		objsToWrite.add(new Block());
 //		objsToWrite.add(new Flag());
-//		objsToWrite.add(new Foes(p));
+//		objsToWrite.add(new Foes());
 //
 //		Level one = new BasicLevel();
 //		objsOrganized.put(one, new ArrayList<GameEntity>());
@@ -101,7 +101,7 @@ public class TestingGSON {
 //		GameFileWriter myWriter = new GameFileWriter("NewTester");
 //		myWriter.update(objsOrganized);
 //		
-//		GameFileReader fr = new GameFileReader();
+		GameFileReader fr = new GameFileReader();
 //		Map<String, List<Object>> x = fr.loadCompleteGame("NewTester");
 //		for(String xx: x.keySet())
 //		{
@@ -109,10 +109,12 @@ public class TestingGSON {
 //			System.out.println(x.get(xx));
 //		}
 	
-		GridPane sc = new GridPane();
-		Gson gs = new Gson();
-		String x = gs.toJson(sc);
-		System.out.println(x);
+//		GridPane sc = new GridPane();
+//		Gson gs = new Gson();
+//		String x = gs.toJson(sc);
+//		System.out.println(x);
+		
+		System.out.println(fr.loadSettings("NewTester"));
 		
 	}
 }
