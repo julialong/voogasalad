@@ -23,6 +23,8 @@ public class EditorWindow implements CreatorView {
 	private Stage myStage;
 	private Scene myScene;
 	private BorderPane myRoot;
+	private ScrollingGrid myGrid;
+	private ScrollPane myScrollPane;
 
 	private AuthoredGame myGame;
 
@@ -92,25 +94,22 @@ public class EditorWindow implements CreatorView {
 		myScene = new Scene(myRoot);
 		myScene.getStylesheets().add("GAE.css");
 		myStage.setMaximized(true);
-
+		myGrid = myGame.getCurrentLevel().getGrid();
 		myRoot.setTop(new TopBar(myGame));
-		myRoot.setRight(setRightBar());
-
 		myRoot.setCenter(setCenterGrid());
+		myRoot.setRight(setRightBar());
 
 	}
 
 	private SplitPane setRightBar() {
-		SplitPane rightBar = new RightBar(myGame);
+		SplitPane rightBar = new RightBar(myGame, myGrid, myScrollPane);
 		rightBar.getStyleClass().add("side-pane");
 		return rightBar;
 	}
 
 	private ScrollPane setCenterGrid() {
-    	 ScrollingGrid grid = new ScrollingGrid();
-    	 ScrollPane centerPane= grid.getScrollingGridPane();
-    	 centerPane.getStyleClass().add("center-pane");
-    	 return centerPane;
-    	
+    	 myScrollPane = new ScrollPane(myGrid);
+    	 myScrollPane.getStyleClass().add("center-pane");
+    	 return myScrollPane;
     }
 }

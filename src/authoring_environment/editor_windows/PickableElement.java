@@ -9,7 +9,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 
-public class PickableElement extends ImageView{
+public class PickableElement extends ImageView {
 	private Image myImage;
 	private String myName;
 	private String myType;
@@ -35,6 +35,5 @@ public class PickableElement extends ImageView{
 		        event.consume();
 		    }
 		});
-		
 	}
 }
