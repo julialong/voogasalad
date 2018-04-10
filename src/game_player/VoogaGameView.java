@@ -1,12 +1,12 @@
 package game_player;
 
+import engine.level.Level;
 import game_player_api.GameView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -15,7 +15,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import engine.controls.Controls;
 import engine.entity.GameEntity;
@@ -35,8 +34,9 @@ public class VoogaGameView implements GameView {
 	private HBox myContainer;
 	private Pane myGP;
 	private boolean myGameStatus = false;
-	private Map<String, List<Object>> myGameObjects;
-	private String myCurrLevel = "1";
+	private List<Level> myGameLevels;
+	//This should represent the index within the myGameLevels, the index should correspond to the level
+	private int myCurrLevel = 0;
 	private int myLeft = 0;
 	private int screenOffset;
 
@@ -50,10 +50,10 @@ public class VoogaGameView implements GameView {
 	/**
 	 * Creates a grid pane. initializes event listeners
 	 * 
-	 * @param gameMaterial
+	 * @param gameLevels
 	 */
-	public VoogaGameView(Map<String, List<Object>> gameMaterial) {
-		myGameObjects = gameMaterial;
+	public VoogaGameView(List<Level> gameLevels) {
+		myGameLevels = gameLevels;
 		// TODO: screenOffset could be passed in from data
 		screenOffset = 100;
 		// TODO: myCurrLevel should be passed in from data. Need to know the name of the
@@ -105,15 +105,18 @@ public class VoogaGameView implements GameView {
 		if (myGameStatus) {
 			List<GameEntity> toDisplay = new ArrayList<>();
 			System.out.println(myCurrLevel);
-			System.out.println(myGameObjects);
-			for (Object o : myGameObjects.get(myCurrLevel)) {
-				GameEntity castedObject = (GameEntity) o;
-				castedObject.update();
-				double[] castedPosition = castedObject.getPosition();
-				if (castedPosition[0] >= myLeft && castedPosition[0] <= (myLeft + screenOffset)) {
-					toDisplay.add(castedObject);
-				}
-			}
+			System.out.println(myGameLevels);
+
+			myGameLevels.get(myCurrLevel).update();
+			//TODO: Discuss with Kelley -- instead of Player iterating through every single object the game engine actually updates it with the level class
+//			for (Object o : myGameLevels.get(myCurrLevel)) {
+//				GameEntity castedObject = (GameEntity) o;
+//				castedObject.update();
+//				double[] castedPosition = castedObject.getPosition();
+//				if (castedPosition[0] >= myLeft && castedPosition[0] <= (myLeft + screenOffset)) {
+//					toDisplay.add(castedObject);
+//				}
+//			}
 			displayObjects(toDisplay);
 		}
 	}

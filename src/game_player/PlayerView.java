@@ -1,17 +1,19 @@
 package game_player;
 
 
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import engine.level.Level;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
 import java.util.List;
-import java.util.Map;
 
+/**
+ * The main application for the game player. Here is where the MVC design pattern is used.
+ * The Player contains a menubar and a game view for buttons and to display the actual game.
+ * This class simply acts as the container for those parts.
+ *
+ * @Author Dorian Barber, Kelley Scroggs
+ */
 public class PlayerView extends VBox{
-	private Map<String, List<Object>> gameMaterial;
+	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
 	private VoogaGameView myGameView;
 	
@@ -23,7 +25,7 @@ public class PlayerView extends VBox{
 //		setMiddle();
 //	}
 
-	public PlayerView(Map<String, List<Object>> game){
+	public PlayerView(List<Level> game){
 		super();
 		gameMaterial = game;
 		createMenuBar();
