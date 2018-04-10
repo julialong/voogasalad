@@ -151,7 +151,6 @@ public class GameFileReader implements JSONtoObject {
 			String levelName = jobject.get("name").getAsString();
 			int id = jobject.get("id").getAsInt();
 			JsonArray gridCells = jobject.getAsJsonArray("ScrollingGrid");
-			System.out.println(gridCells);
 			LevelSerializer ls = new LevelSerializer();
 			ScrollingGrid scrollingGrid = ls.deserialize(gridCells);
 			for(String objectType: objectTypes.keySet())
@@ -175,7 +174,6 @@ public class GameFileReader implements JSONtoObject {
 		{
 			e.printStackTrace();
 		}
-		System.out.println(level);
 		return level;
 	}
 
