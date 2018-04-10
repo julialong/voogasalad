@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
  * with varying parameters, but this allows for different kinds of level classes to be implemented easily
  * by extending this interface.
  *
- * @author **ADD GAME ENGINE AUTHOR**, Julia Long
+ * @author Marcus Oertle, Robert Gitau, Julia Long
  */
 public interface Level {
 
@@ -67,5 +67,10 @@ public interface Level {
 	 * @param Y is the new y size
 	 */
 	void setSize(double X, double Y);
+    
+    /**
+     * Updates the contents of the level
+     */
+     public void update();
 
 }

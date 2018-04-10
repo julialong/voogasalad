@@ -1,8 +1,12 @@
 package engine.entity;
 
+import java.util.ArrayList;
+
 import engine.behavior.Behavior;
-import engine.interaction.Interaction;
-import engine.movement.Movement;
+import engine.interaction.*;
+import engine.movement.*;
+import engine.movement.Static;
+import engine.physics.Kinematics;
 /**
  * Defines GameObjects that are blocks found in most platformers.
  * Intended to be used for terrain and blocks that can be struck by the player to either break or grant powerups.
@@ -10,4 +14,13 @@ import engine.movement.Movement;
  *
  */
 public class Block extends GameObject{
+	
+	public Block() {
+		this(0,0);	
+	}
+	
+	public Block(double x, double y) {
+		movementType =  new Static();
+		kinematics = new Kinematics(x,y,0,0,0,0);
+	}
 }

@@ -1,7 +1,6 @@
 package engine.entity;
 
 import java.util.ArrayList;
-
 import engine.behavior.Behavior;
 import engine.interaction.Interaction;
 import engine.movement.Movement;
@@ -108,6 +107,13 @@ public abstract class GameObject implements GameEntity{
 	@Override
 	public void addInteraction(Interaction i) {
 		interactionList.add(i);
+	}
+	
+	@Override
+	public void interact(GameEntity source, GameEntity target) {
+		for(Interaction i : interactionList) {
+			i.interact(source, target);
+		}
 	}
 	
 	@Override

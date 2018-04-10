@@ -37,6 +37,11 @@ public interface GameEntity {
 	 *            an instance of an Interaction class
 	 */
 	public abstract void addInteraction(Interaction interaction);
+	
+	/**
+	 * 
+	 */
+	public abstract void interact(GameEntity source, GameEntity target);
 
 	/**
 	 * Returns a factor that determines the acceleration of the entity in any

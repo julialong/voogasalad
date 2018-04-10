@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * The BasicLevel class is the basic implementation of the Level interface.
  *
- * @author Julia Long
+ * @author Robert Gitau, Marcus Oertle, Julia Long
  */
 public class BasicLevel implements Level {
 
@@ -86,6 +86,39 @@ public class BasicLevel implements Level {
     @Override
     public void setSize(double X, double Y) {
         myGrid.setPrefSize(X, Y);
+    }
+    
+    @Override
+    public void update(){
+        for(GameEntity source : myObjects){
+            for(GameEntity target : myObjects){
+                checkInteractions(source, target);
+            }
+            source.update();
+        }
+    }
+    
+    private void checkInteractions(GameEntity source, GameEntity target){
+        double sourceXSize = source.getSizeX();
+        double sourceYSize = source.getSizeY();
+        double targetXSize = target.getSizeX();
+        double targetYSize = target.getSizeY();
+        
+        double sourceTop = source.getPosition()[1];
+        double sourceBottom = source.getPosition()[1] - sourceYSize;
+        double sourceLeft = source.getPosition()[0];
+        double sourceRight = source.getPosition()[0] + sourceXSize;
+        
+        double targetTop = target.getPosition()[1];
+        double targetBottom = target.getPosition()[1] - targetYSize;
+        double targetLeft = target.getPosition()[0];
+        double targetRight = target.getPosition()[0] + targetXSize;
+        
+        if((targetBottom < sourceTop && targetBottom > sourceBottom) || (targetTop < sourceTop && targetTop > sourceBottom)) {
+        	if((targetLeft > sourceLeft && targetLeft < sourceRight) || (targetRight > sourceLeft && targetRight < sourceRight)) {
+        		source.interact(source, target);
+        	}
+        }
     }
 
 }

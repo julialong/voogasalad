@@ -26,8 +26,8 @@ public class Foes extends Enemy {
         behaviorList.add(new NoBehavior()); 
         speedFactor = 500; //arbitrary for now
         jumpFactor = 20; // arbitrary for now
-        maxVelocityX = 20; // arbitrary for now
-        maxVelocityY = 20; // arbitrary for now
+        maxVelocityX = 2; // arbitrary for now
+        maxVelocityY = 2; // arbitrary for now
     }
    
     @Override

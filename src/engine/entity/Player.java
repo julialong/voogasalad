@@ -34,8 +34,8 @@ public class Player extends PlayerCharacter{
         weaponType = new NoWeapon();
         speedFactor = 100; //arbitrary for now, might need to be MUCH higher
         jumpFactor = 20; // arbitrary for now
-        maxVelocityX = 20; // arbitrary for now
-        maxVelocityY = 20; // arbitrary for now
+        maxVelocityX = 2; // arbitrary for now
+        maxVelocityY = 2; // arbitrary for now
     }
     
     @Override
@@ -93,6 +93,13 @@ public class Player extends PlayerCharacter{
 	@Override
 	public void addInteraction(Interaction i) {
 		interactionList.add(i);
+	}
+	
+	@Override
+	public void interact(GameEntity source, GameEntity target) {
+		for(Interaction i : interactionList) {
+			i.interact(source, target);
+		}
 	}
 
 	@Override
