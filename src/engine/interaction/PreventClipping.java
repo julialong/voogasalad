@@ -4,7 +4,7 @@ import engine.entity.GameEntity;
 import engine.physics.DetectCollision;
 
 /**
- * Prevents target object from the source
+ * Prevents target object from clipping through the source
  * @author Marcus Oertle and Robert Gitau
  *
  */

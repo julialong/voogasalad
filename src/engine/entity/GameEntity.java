@@ -2,6 +2,7 @@ package engine.entity;
 
 import engine.interaction.Interaction;
 import engine.movement.Movement;
+import engine.physics.Kinematics;
 
 /**
  * Interface for "entities" in a game: player characters, enemies, and objects.
@@ -28,6 +29,11 @@ public interface GameEntity {
 	 *            an int representing what the HP value should be set to.
 	 */
 	public abstract void setHealth(int HP);
+	
+	/**
+	 * Returns the health of the entity
+	 */
+	public abstract int getHealth();
 
 	/**
 	 * Defines how the entity reacts to the Object given, if the object is an
@@ -157,6 +163,10 @@ public interface GameEntity {
 	 */
 	public abstract double getSizeY();
 
+	/**
+	 * Returns the kinematics object
+	 */
+	public abstract Kinematics getKinematics();
 	
 	/**
 	 * Updates the entity with new position/interaction paramters. Called at every time step.

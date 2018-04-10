@@ -89,6 +89,12 @@ public class Player extends PlayerCharacter{
 	public void setHealth(int HP) {
 		health = HP;
 	}
+	
+	@Override
+	public int getHealth() {
+		return health;
+	}
+
 
 	@Override
 	public void addInteraction(Interaction i) {
@@ -143,6 +149,11 @@ public class Player extends PlayerCharacter{
 	@Override
 	public void setFrictionConstant(double frictionConstant) {
 		kinematics.setFrictionConstant(frictionConstant);
+	}
+	
+	@Override
+	public Kinematics getKinematics() {
+		return kinematics;
 	}
 	
 	@Override

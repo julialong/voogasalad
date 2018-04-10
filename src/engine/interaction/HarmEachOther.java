@@ -11,8 +11,8 @@ public class HarmEachOther implements Interaction{
 
 	@Override
 	public void interact(GameEntity source, GameEntity target) {
-		// TODO Auto-generated method stub
-		
+		source.setHealth(source.getHealth()-1);
+		target.setHealth(target.getHealth()-1);
 	}
 
 }

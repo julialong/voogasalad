@@ -9,7 +9,7 @@ import engine.physics.Kinematics;
 public abstract class GameObject implements GameEntity{
 	protected Movement movementType;
     protected Kinematics kinematics;
-    protected double health;
+    protected int health;
     protected double jumpFactor;
     protected double speedFactor;
     protected double maxVelocityX;
@@ -27,6 +27,11 @@ public abstract class GameObject implements GameEntity{
 	@Override
 	public void setHealth(int HP) {
 		health = HP;
+	}
+	
+	@Override
+	public int getHealth() {
+		return health;
 	}
 
 	/**
@@ -134,6 +139,11 @@ public abstract class GameObject implements GameEntity{
 	@Override
 	public double getSizeY() {
 		return height;
+	}
+	
+	@Override
+	public Kinematics getKinematics() {
+		return kinematics;
 	}
 
 	@Override
