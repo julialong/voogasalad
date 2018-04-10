@@ -26,7 +26,7 @@ public interface JSONtoObject {
 	 * based on the game name and create the appropriate list of levels and existing objects.
 	 */
 	
-	Level loadLevel(String gameName, int levelNumber);
+	Level loadLevel(String gameName, String levelName);
 	/*
 	 * GAE calls this method if a user chooses to begin editing an existing level. This will locate the existing game folder 
 	 * based on the game name and and the appropriate level based on the levelName. Then it will create a list of the appropriate

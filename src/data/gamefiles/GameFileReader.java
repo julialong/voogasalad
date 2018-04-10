@@ -97,8 +97,8 @@ public class GameFileReader implements JSONtoObject {
 	private void retrieveLevel(String gameName, String level)
 	{
 		retrieveCurrentGame(gameName);
-//		currentLevel = new File(gameDirectory + "/" + level);
-		currentLevel = new File(gameDirectory + "/" + "Default.json");
+		currentLevel = new File(gameDirectory + "/" + level + ".json");
+//		currentLevel = new File(gameDirectory + "/" + "Default.json");
 	}
 	
 	@Override
@@ -113,7 +113,6 @@ public class GameFileReader implements JSONtoObject {
 		List<Level> completeGame = new ArrayList<>();
 		retrieveCurrentGame(gameName);
 		File[] gameFiles = currentGame.listFiles();
-		int i = 1;
 		for(File gameFile: gameFiles)
 		{
 			if(gameFile.toString().contains("Settings"))
@@ -122,8 +121,10 @@ public class GameFileReader implements JSONtoObject {
 			}
 			else
 			{
-				completeGame.add(loadLevel(gameName, i));
-				i++;
+				int index = gameFile.toString().lastIndexOf("/") + 1;
+				int endIndex = gameFile.toString().lastIndexOf(".json");
+				String levelName = gameFile.toString().substring(index,endIndex).trim();
+				completeGame.add(loadLevel(gameName, levelName));
 			}
 		}
 		return completeGame;
@@ -138,8 +139,8 @@ public class GameFileReader implements JSONtoObject {
 	 * @param levelNumber
 	 * @return
 	 */
-	public Level loadLevel(String gameName, int levelNumber) {
-		retrieveLevel(gameName, Integer.toString(levelNumber));
+	public Level loadLevel(String gameName, String name) {
+		retrieveLevel(gameName, name);
 		List<GameEntity> gameObjects = new ArrayList<>();
 		BasicLevel level = new BasicLevel();
 		try 
