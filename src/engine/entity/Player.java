@@ -25,11 +25,11 @@ public class Player extends PlayerCharacter{
     private double maxVelocityY;
 
     public Player() {
-        this(new Kinematics(0,0,0,0,0,0));
+        this(0,0);
     }
     
-    public Player(Kinematics k){
-        kinematics = k;
+    public Player(double x, double y){
+        kinematics = new Kinematics(x,y,0,0,0,0);
         movementType = new Grounded();
         weaponType = new NoWeapon();
         speedFactor = 100; //arbitrary for now, might need to be MUCH higher
