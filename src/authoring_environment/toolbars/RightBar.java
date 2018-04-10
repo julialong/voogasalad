@@ -31,19 +31,21 @@ public class RightBar extends SplitPane{
     private Pane levelPane;
     private AuthoredGame myGame;
     private ScrollingGrid myGrid;
+    private ScrollPane myScrollPane;
     private LevelChooser myLevelChooser;
 
     /**
      * Creates a new right toolbar with appropriate buttons and panels.
      */
-    public RightBar(AuthoredGame game, ScrollingGrid grid) {
+    public RightBar(AuthoredGame game, ScrollingGrid grid, ScrollPane scroller) {
         super();
         this.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         this.setPrefWidth(PANE_WIDTH);
         this.setOrientation(Orientation.VERTICAL);
         myGame = game;
         myGrid = grid;
-        myLevelChooser = new LevelChooser(myGame);
+        myScrollPane = scroller;
+        myLevelChooser = new LevelChooser(myGame, myScrollPane);
         splitPanes();
         addLabels();
         addButtons();
@@ -79,7 +81,7 @@ public class RightBar extends SplitPane{
 
     private void addScrollScreens() {
         Button updateButton = new Button("Update levels");
-        LevelChooser levelChooser = new LevelChooser(myGame);
+        LevelChooser levelChooser = new LevelChooser(myGame, myScrollPane);
         updateButton.setOnAction(e -> levelChooser.update());
         ScrollPane levelChooserPane = new ScrollPane();
         levelChooserPane.setContent(levelChooser);

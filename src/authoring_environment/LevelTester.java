@@ -22,15 +22,4 @@ public class LevelTester {
         assertEquals(2, game.getLevels().size());
     }
 
-    public void addLevelChooserTest() {
-        AuthoredGame game = new AuthoredGame();
-        LevelChooser lc = new LevelChooser(game);
-        Level levelone = new BasicLevel();
-        levelone.setName("1");
-        game.addLevel(levelone);
-        Level leveltwo = new BasicLevel();
-        leveltwo.setName("2");
-        game.addLevel(leveltwo);
-    }
-
 }

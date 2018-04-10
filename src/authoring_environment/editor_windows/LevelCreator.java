@@ -1,6 +1,7 @@
 package authoring_environment.editor_windows;
 
 import authoring_environment.AuthoredGame;
+import authoring_environment.ScrollingGrid;
 import engine.level.BasicLevel;
 import engine.level.Level;
 import javafx.geometry.Insets;
@@ -106,7 +107,10 @@ public class LevelCreator {
     private Pane createCenter() {
         center = new HBox();
         center.getStyleClass().add("level-center");
-        center.getChildren().add(newLevel.getGrid());
+        ScrollingGrid tempGrid = newLevel.getGrid();
+        tempGrid.setMaxHeight(300);
+        tempGrid.setMaxWidth(300);
+        //center.getChildren().add(tempGrid);
         return center;
     }
 

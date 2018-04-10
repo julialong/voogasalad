@@ -2,6 +2,7 @@ package engine.level;
 
 import java.util.List;
 
+import authoring_environment.ScrollingGrid;
 import engine.entity.GameEntity;
 import javafx.scene.layout.GridPane;
 
@@ -53,13 +54,13 @@ public interface Level {
 	 * Sets the current state of the grid for the level
 	 * @param grid is the grid to update to
 	 */
-	void updateGrid(GridPane grid);
+	void updateGrid(ScrollingGrid grid);
 
 	/**
 	 * Gets the GridPane associated with the level
 	 * @return the grid of the level
 	 */
-	GridPane getGrid();
+	ScrollingGrid getGrid();
 
 	/**
 	 * Sets the x size of the grid.
