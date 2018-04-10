@@ -3,6 +3,7 @@ package engine.entity;
 import java.util.ArrayList;
 
 import engine.behavior.*;
+import engine.interaction.Interaction;
 import engine.movement.*;
 import engine.physics.Kinematics;
 import engine.weapon.*;
@@ -29,10 +30,9 @@ public class Foes extends Enemy {
         maxVelocityY = 20; // arbitrary for now
     }
    
-	@Override
-	public void setInteraction(Object o) {
-		// TODO Auto-generated method stub
-		
+    @Override
+	public void addInteraction(Interaction i) {
+		interactionList.add(i);
 	}
 
 	@Override

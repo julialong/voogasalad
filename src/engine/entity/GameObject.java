@@ -3,6 +3,7 @@ package engine.entity;
 import java.util.ArrayList;
 
 import engine.behavior.Behavior;
+import engine.interaction.Interaction;
 import engine.movement.Movement;
 import engine.physics.Kinematics;
 
@@ -14,7 +15,10 @@ public abstract class GameObject implements GameEntity{
     protected double speedFactor;
     protected double maxVelocityX;
     protected double maxVelocityY;
+    protected double width;
+    protected double height;
     protected ArrayList<Behavior> behaviorList = new ArrayList<>();
+    protected ArrayList<Interaction> interactionList = new ArrayList<>();
     
 	@Override
 	public void setMovementType(Movement movement) {
@@ -99,6 +103,31 @@ public abstract class GameObject implements GameEntity{
 	@Override
 	public void setFrictionConstant(double frictionConstant) {
 		kinematics.setFrictionConstant(frictionConstant);
+	}
+	
+	@Override
+	public void addInteraction(Interaction i) {
+		interactionList.add(i);
+	}
+	
+	@Override
+	public void setSizeX(double x) {
+		width = x;
+	}
+	
+	@Override
+	public void setSizeY(double y) {
+		height = y;
+	}
+	
+	@Override
+	public double getSizeX() {
+		return width;
+	}
+	
+	@Override
+	public double getSizeY() {
+		return height;
 	}
 
 	@Override

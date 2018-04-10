@@ -1,6 +1,7 @@
 package engine.entity;
 
 import engine.behavior.Behavior;
+import engine.interaction.Interaction;
 import engine.movement.Movement;
 /**
  * Defines GameObjects that are blocks found in most platformers.
@@ -9,10 +10,4 @@ import engine.movement.Movement;
  *
  */
 public class Block extends GameObject{
-
-	@Override
-	public void setInteraction(Object o) {
-		// TODO Auto-generated method stub
-		
-	}
 }

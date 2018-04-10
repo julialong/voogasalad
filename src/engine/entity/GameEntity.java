@@ -1,5 +1,6 @@
 package engine.entity;
 
+import engine.interaction.Interaction;
 import engine.movement.Movement;
 
 /**
@@ -32,10 +33,10 @@ public interface GameEntity {
 	 * Defines how the entity reacts to the Object given, if the object is an
 	 * Enemy, GameObject, PowerUp, or Projection.
 	 * 
-	 * @param o:
-	 *            an Object to be interacted with.
+	 * @param interaction:
+	 *            an instance of an Interaction class
 	 */
-	public abstract void setInteraction(Object o);
+	public abstract void addInteraction(Interaction interaction);
 
 	/**
 	 * Returns a factor that determines the acceleration of the entity in any
@@ -128,6 +129,29 @@ public interface GameEntity {
 	 * @param frictionConstant - the constant for friction
 	 */
 	public abstract void setFrictionConstant(double frictionConstant);
+	
+	/**
+	 * Sets the width of the entity
+	 * @param x - the width
+	 */
+	public abstract void setSizeX(double x);
+	
+	/**
+	 * Sets the height of the entity
+	 * @param y - the height
+	 */
+	public abstract void setSizeY(double y);
+	
+	/**
+	 * Gets the width of the entity
+	 */
+	public abstract double getSizeX();
+	
+	/**
+	 * Gets the height of the entity
+	 */
+	public abstract double getSizeY();
+
 	
 	/**
 	 * Updates the entity with new position/interaction paramters. Called at every time step.
