@@ -1,9 +1,13 @@
 package authoring_environment;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -143,14 +147,23 @@ public class AttributeEditor {
 		myImagePane.getChildren().remove(image);
 		Stage fileWindow= new Stage();
 		filechooser = new FileChooser();
+		filechooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
 		File file= filechooser.showOpenDialog(fileWindow);
 		URI uri= file.toURI();
 		URL url= uri.toURL();
+		Path source = Paths.get(uri);
+		Path target = Paths.get("data/customElements/" + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("/") + 1));
+		try {
+			Files.copy(source, target);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		image = new ImageView(url.toString());
 		image.setFitHeight(IMAGE_HEIGHT);
 		image.setFitWidth(IMAGE_WIDTH);
 		myImagePane.getChildren().add(image);
-		gameElement.uploadImage(url.toString());
+		gameElement.uploadImage(target.toString());
 		
 	}
 	
