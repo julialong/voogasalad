@@ -94,6 +94,7 @@
 }
 
 .game-description {
+	-fx-alignment: top-left;
 	-fx-min-width: 400;
 	-fx-min-height: 300;
 }

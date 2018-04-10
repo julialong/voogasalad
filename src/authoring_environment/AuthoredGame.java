@@ -1,5 +1,6 @@
 package authoring_environment;
 
+import data.gamefiles.GAEtoJSON;
 import data.gamefiles.GameFileWriter;
 import engine.entity.GameEntity;
 import engine.entity.GameObject;
@@ -24,7 +25,7 @@ public class AuthoredGame {
     private String myDescription;
     private List<Level> myLevels;
     private Level currentLevel;
-    private GameFileWriter myGameWriter;
+    private GAEtoJSON myGameWriter;
 
     private static final String DEFAULT_NAME = "Untitled_Game";
     private static final String DEFAULT_DESCRIPTION = "A basic game.";
@@ -54,7 +55,7 @@ public class AuthoredGame {
      */
     public void rename(String name) {
         myName = name;
-        // TODO: change name in myGameWriter
+        myGameWriter.renameGame(name);
     }
 
     public void setDescription(String description) {
