@@ -21,7 +21,7 @@ import javafx.scene.image.ImageView;
  */
 public class GameElement implements AuthoredElement {
 	
-	private double elementID;
+	private String elementID;
 	private double xLocation;
 	private double yLocation;
 	
@@ -35,7 +35,6 @@ public class GameElement implements AuthoredElement {
 	 */
 	public GameElement() {
 		attributes = new HashMap<String, String>();
-		setID();
 		
 	}
 
@@ -73,13 +72,11 @@ public class GameElement implements AuthoredElement {
 		
 	}
 	
-	private void setID() {
-		File folder = new File("./data/customElements");
-		File[] files = folder.listFiles((f, name) -> name.endsWith(".xml"));
-		elementID = files.length + 1 ; 
+	public void setID(String id) {
+		elementID = id;
 	}
 	
-	public Double getID() {
+	public String getID() {
 		return elementID; 
 	}
 	

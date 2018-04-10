@@ -27,9 +27,7 @@ public class TextWriter	{
 	private static final String WRITEERRORSTATEMENT = "Could not write to file";
 
 	private static final String DESCRIPTION = "description";
-	private static final String DESCRIPTION_VAL = "New game";
 	private static final String READYTOPLAY = "readyToPlay";
-	private static final boolean READYTOPLAY_VAL = false;
 
 	private Serializer ser = new Serializer();
 
@@ -37,9 +35,11 @@ public class TextWriter	{
 	 * @author Maya Messinger
 	 * Constructor for class for use with writing settings file (no objects)
 	 * @param settings	File of settings to edit
+	 * @param ready		whether game is ready or not
+	 * @param desc		description of game
 	 */
-	public TextWriter(File settings)	{
-		callWrite(settings);
+	public TextWriter(File settings, boolean ready, String desc)	{
+		callWrite(settings, ready, desc);
 	}
 
 	/**
@@ -52,12 +52,12 @@ public class TextWriter	{
 		callWrite(level, levelF, itemsInLevel);
 	}
 
-	private void callWrite(File settings)	{
+	private void callWrite(File settings, boolean ready, String desc)	{
 		try	{
 			FileWriter fw = new FileWriter(settings);
 		
 			startFile(fw);
-			writeSettings(fw);
+			writeSettings(fw, ready, desc);
 			endFile(fw);
 		}
 		catch (IOException e)	{
@@ -79,12 +79,12 @@ public class TextWriter	{
 		}
 	}
 
-	private void writeSettings(FileWriter fw)	{
+	private void writeSettings(FileWriter fw, boolean ready, String desc)	{
 		try	{
-			fw.write(QUOTE + DESCRIPTION + QUOTE + COLON + QUOTE + DESCRIPTION_VAL + QUOTE);
+			fw.write(QUOTE + DESCRIPTION + QUOTE + COLON + QUOTE + desc + QUOTE);
 			fw.write(COMMA);
 			newLine(fw);
-			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + READYTOPLAY_VAL);
+			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + ready);
 			newLine(fw);
 		}
 		catch (IOException e)	{

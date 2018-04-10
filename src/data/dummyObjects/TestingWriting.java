@@ -14,7 +14,7 @@ import engine.physics.Kinematics;
 public class TestingWriting {
 	
 	public static void main(String[] args) {
-		GameFileWriter myWriter = new GameFileWriter("TestGame");
+		GameFileWriter myWriter = new GameFileWriter("Test2Game");
 
 		myWriter.update(makeDummyObjects());
 	}
