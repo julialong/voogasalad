@@ -71,7 +71,7 @@ public class GridCell extends HBox {
 	
 	public void setImage(String path) {
 		myPath = path;
-		// myCellView.setImage(new Image("file:data/" + myPath));
+		myCellView.setImage(new Image("file:data/" + myPath));
 	}
 	
 	private void select() {

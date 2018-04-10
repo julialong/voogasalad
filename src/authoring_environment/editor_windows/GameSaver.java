@@ -35,9 +35,7 @@ public class GameSaver {
 
     private static final String CHOOSE = "Save your file:";
     private static final String NAME = "File name:";
-    private static final String UNTITLED = "Untitled_Game";
     private static final String DESCRIPTION = "File description:";
-    private static final String DEFAULT_DESCRIPTION = "A basic game.";
     private static final String PUBLISH = "Publish game?";
 
     /**
@@ -71,7 +69,7 @@ public class GameSaver {
     private void setName() {
         Pane nameBox = new HBox();
         nameBox.getStyleClass().add("game-saver");
-        fileName = new TextField(UNTITLED);
+        fileName = new TextField(myGame.getName());
         nameBox.getChildren().addAll(new Text(NAME), fileName);
         myRoot.getChildren().add(nameBox);
     }
@@ -79,7 +77,7 @@ public class GameSaver {
     private void setDescription() {
         Pane descriptionBox = new HBox();
         descriptionBox.getStyleClass().add("game-saver");
-        fileDescription = new TextField(DEFAULT_DESCRIPTION);
+        fileDescription = new TextField(myGame.getDescription());
         fileDescription.getStyleClass().add("game-description");
         descriptionBox.getChildren().addAll(new Text(DESCRIPTION), fileDescription);
         myRoot.getChildren().add(descriptionBox);
@@ -98,10 +96,10 @@ public class GameSaver {
         saveButton.setOnAction(e -> {
             myGame.rename(fileName.getText());
             myGame.setDescription(fileDescription.getText());
+            myGame.setPlayable(playableGame.isSelected());
             myGame.update();
         });
         myRoot.getChildren().add(saveButton);
     }
-
 
 }

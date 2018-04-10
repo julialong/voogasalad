@@ -26,6 +26,7 @@ public class AuthoredGame {
     private List<Level> myLevels;
     private Level currentLevel;
     private GAEtoJSON myGameWriter;
+    private boolean isReady;
 
     private static final String DEFAULT_NAME = "Untitled_Game";
     private static final String DEFAULT_DESCRIPTION = "A basic game.";
@@ -40,6 +41,7 @@ public class AuthoredGame {
         myLevels = new ArrayList<>();
         currentLevel = new BasicLevel();
         myGameWriter = new GameFileWriter(myName);
+        isReady = false;
     }
 
     /**
@@ -58,8 +60,24 @@ public class AuthoredGame {
         myGameWriter.renameGame(name);
     }
 
+    public String getName() {
+        return myName;
+    }
+
     public void setDescription(String description) {
         myDescription = description;
+    }
+
+    public String getDescription() {
+        return myDescription;
+    }
+
+    public void setPlayable(boolean playable) {
+        isReady = playable;
+    }
+
+    public boolean isPlayable() {
+        return isReady;
     }
 
     /**
@@ -99,7 +117,6 @@ public class AuthoredGame {
      */
     public void update() {
         myGameWriter.update(myLevels);
-        
         System.out.println("level saved");
     }
 
