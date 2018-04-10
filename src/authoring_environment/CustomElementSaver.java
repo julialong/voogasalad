@@ -35,7 +35,7 @@ public class CustomElementSaver {
 	 * 	This is a map from the attribute type to the chosen attribute for a category
 	 * @throws TransformerException
 	 */
-	public CustomElementSaver(GameEntity gameElment, Double id, HashMap<String, String> attributes, String imageFile) throws TransformerException{
+	public CustomElementSaver(GameEntity gameElement, Double id, HashMap<String, String> attributes, String imageFile) throws TransformerException{
 		elementID= id;
 		try {
 			docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

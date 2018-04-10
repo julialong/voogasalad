@@ -24,7 +24,7 @@ public class ScrollingGrid extends GridPane {
 	// TODO: Change this based on level size
 	private static final int NUMBER_OF_ROWS = 20;
 	private static final int NUMBER_OF_COLUMNS = 50;
-	private static final int DEFAULT_CELL_SIZE = 50;
+	private static final int DEFAULT_CELL_SIZE = 75;
 	
 	private int cellSize;
 	private GridCell[][] cellArray;
@@ -58,11 +58,7 @@ public class ScrollingGrid extends GridPane {
 		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
 			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
 				GridCell cell = cellArray[j][i];
-				cell.getView().setFitHeight(cellSize);
-				cell.getView().setFitWidth(cellSize);
-				cell.setMinHeight(cellSize);
-				cell.setMinWidth(cellSize);
-				cell.setStyle("-fx-border-color: black;");
+				cell.setStyle("-fx-background-color: grey;");
 				this.add(cell,j,i);
 			}
 		}	
