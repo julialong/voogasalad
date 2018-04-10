@@ -1,5 +1,7 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
+import authoring_environment.AuthoredGame;
+import authoring_environment.editor_windows.GameSaver;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
@@ -14,25 +16,24 @@ import javafx.scene.control.MenuItem;
  */
 public class SaveButton extends MenuButton {
 
+    private AuthoredGame myGame;
+
     private static final String SAVE = "Save";
     private static final String GAME = "Game";
     private static final String LEVEL = "Level";
-    private static final String PUBLISH = "Publish";
 
     /**
      * Creates a simple Save menu button with the appropriate drop down items
      */
-    public SaveButton() {
+    public SaveButton(AuthoredGame game) {
         super(SAVE);
-        this.getItems().addAll(createGameItem(),
-                                createLevelItem(),
-                                createPublishItem());
+        myGame = game;
+        this.getItems().addAll(createGameItem(), createLevelItem());
     }
 
     private MenuItem createGameItem() {
         MenuItem gameItem = new MenuItem(GAME);
-        // TODO: open game saver when menu item is clicked
-        // gameItem.setOnAction(e -> new GameSaver());
+        gameItem.setOnAction(e -> new GameSaver(myGame));
         return gameItem;
     }
 
@@ -41,13 +42,6 @@ public class SaveButton extends MenuButton {
         // TODO: open level saver when menu item is clicked
         // gameItem.setOnAction(e -> new LevelSaver());
         return levelItem;
-    }
-
-    private MenuItem createPublishItem() {
-        MenuItem publishItem = new MenuItem(PUBLISH);
-        // TODO: open publishing window when menu item is clicked
-        // gameItem.setOnAction(e -> publishWindow());
-        return publishItem;
     }
 
 }

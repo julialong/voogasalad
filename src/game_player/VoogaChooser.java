@@ -1,18 +1,17 @@
 package game_player;
 
+import data.gamefiles.GameFileReader;
+import data.gamefiles.JSONtoObject;
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,14 +22,11 @@ import java.util.List;
  */
 public class VoogaChooser implements GameChooser {
     private BorderPane myView =  new BorderPane();
-    private ListView<GameItem> playableGames;
+    private JSONtoObject reader = new GameFileReader();
+    private ListView<GameItem> playableGames = new ListView<>();
 
-    public VoogaChooser(List<GameItem> gamesToPlay){
-        playableGames = new ListView<GameItem>();
-        ObservableList<GameItem> gameItems = FXCollections.observableArrayList(gamesToPlay);
-        playableGames.setItems(gameItems);
-        myView.setCenter(playableGames);
-        setListener(playableGames);
+    public VoogaChooser(){
+        myView.setMinWidth(550);
     }
 
     /**
@@ -48,6 +44,15 @@ public class VoogaChooser implements GameChooser {
      */
     @Override
     public BorderPane displayChoices() {
+        List<String> names = reader.getGameNames();
+        List<GameItem> gamesToPlay = new ArrayList<>();
+        for(String gameName : names){
+            GameItem game = new VoogaGame(gameName);
+            gamesToPlay.add(game);
+        }
+        playableGames.setItems(FXCollections.observableArrayList(gamesToPlay));
+        setListener(playableGames);
+        myView.setCenter(playableGames);
         return myView;
     }
 
@@ -71,7 +76,6 @@ public class VoogaChooser implements GameChooser {
             try{
                 GameItem game = gameChoices.getSelectionModel().getSelectedItem();
                 game.setUpGame();
-                myView.getStyleClass().add("styleSheet.css");
                 Stage currentStage = (Stage) myView.getScene().getWindow();
                 currentStage.close();
             }

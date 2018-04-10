@@ -1,5 +1,7 @@
 package engine.behavior;
 
+import engine.entity.GameEntity;
+
 /**
  * Behavior implementation that causes entity to reverse direction when it reaches the edge of an object it is standing on
  * @author Robert Gitau and Marcus Oertle
@@ -8,7 +10,7 @@ package engine.behavior;
 public class ReverseOnLedge implements Behavior{
 
 	@Override
-	public void behave(Object target) {
+	public void update(GameEntity entity) {
 		// TODO Auto-generated method stub
 		
 	}
