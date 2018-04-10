@@ -1,3 +1,4 @@
+
 package data.dummyObjects;
 
 import java.util.ArrayList;
@@ -12,7 +13,22 @@ import engine.entity.*;
 import engine.level.Level;
 import engine.level.BasicLevel;
 
-public class TestingWriting {
+// public class TestingWriting {
+//package data.dummyObjects;
+//
+//import java.util.ArrayList;
+//import java.util.HashMap;
+//import java.util.List;
+//import java.util.Map;
+//
+//import data.gamefiles.GameFileWriter;
+//import engine.controls.Controls;
+//import engine.controls.resources.Bindings;
+//import engine.entity.*;
+//import engine.level.Level;
+//import engine.level.BasicLevel;
+//
+//public class TestingWriting {
 //
 //	public static void main(String[] args) {
 //		GameFileWriter myWriter = new GameFileWriter("TestGame");
@@ -44,5 +60,5 @@ public class TestingWriting {
 //
 //		return objsOrganized;
 //	}
-
-}
+//
+//}
