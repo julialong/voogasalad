@@ -1,7 +1,9 @@
 package engine;
 
+import java.io.IOException;
+
 import engine.behavior.*;
-import engine.controls.Controls;
+import engine.controls.*;
 import engine.entity.Block;
 import engine.entity.Foes;
 import engine.entity.Player;
@@ -130,13 +132,20 @@ public class EngineTest {
 			level.update();
 		}
 	}
+	
+	public void controlRemappingTest() throws IOException {
+		Player p = new Player();
+		Controls c = new Controls(p);
+		c.setBinding(KeyCode.W, new MoveUp());
+	}
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 		EngineTest engineTest = new EngineTest();
 		//engineTest.EnemyMovementTest();
 		//engineTest.PlayerMovementTestLR();
 		engineTest.PlayerMovementTestJUMP();
 		//engineTest.BasicPlayerFloorInteractionTest();
 		//engineTest.BasicPlayerWallInteractionTest();
+		//engineTest.controlRemappingTest();
 	}
 }
