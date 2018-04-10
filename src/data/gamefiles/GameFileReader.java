@@ -20,7 +20,12 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
+import authoring_environment.ScrollingGrid;
+import data.serialization.LevelSerializer;
 import data.serialization.Serializer;
+import engine.entity.GameEntity;
+import engine.level.BasicLevel;
+import engine.level.Level;
 
 /**
  * @author Belanie Nagiel
@@ -104,8 +109,8 @@ public class GameFileReader implements JSONtoObject {
 	 * @param gameName
 	 * @return 
 	 */
-	public Map<String, List<Object>> loadCompleteGame(String gameName) {
-		Map<String, List<Object>> completeGame = new HashMap<>();
+	public List<Level> loadCompleteGame(String gameName) {
+		List<Level> completeGame = new ArrayList<>();
 		retrieveCurrentGame(gameName);
 		File[] gameFiles = currentGame.listFiles();
 		int i = 1;
@@ -117,7 +122,7 @@ public class GameFileReader implements JSONtoObject {
 			}
 			else
 			{
-				completeGame.put(Integer.toString(i), loadLevel(gameName, i));
+				completeGame.add(loadLevel(gameName, i));
 				i++;
 			}
 		}
@@ -133,14 +138,20 @@ public class GameFileReader implements JSONtoObject {
 	 * @param levelNumber
 	 * @return
 	 */
-	public List<Object> loadLevel(String gameName, int levelNumber) {
+	public Level loadLevel(String gameName, int levelNumber) {
 		retrieveLevel(gameName, Integer.toString(levelNumber));
-		List<Object> gameObjects = new ArrayList<>();
+		List<GameEntity> gameObjects = new ArrayList<>();
+		BasicLevel level = new BasicLevel();
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
 			JsonElement jelement = jsonParser.parse(new FileReader(currentLevel));
 			JsonObject  jobject = jelement.getAsJsonObject();
+			String levelName = jobject.get("name").getAsString();
+			int id = jobject.get("id").getAsInt();
+			JsonObject gridCells = jobject.get("ScrollingGrid").getAsJsonObject();
+			LevelSerializer ls = new LevelSerializer();
+			ScrollingGrid scrollingGrid = ls.deserialize();
 			for(String objectType: objectTypes.keySet())
 			{
 				if(jobject.has(objectType))
@@ -148,16 +159,21 @@ public class GameFileReader implements JSONtoObject {
 					JsonArray jarray = jobject.getAsJsonArray(objectType);
 					for(int i = 0; i < jarray.size(); i++)
 					{
-						gameObjects.add(convertToObject(jarray.get(i).getAsJsonObject(), objectType));
+						gameObjects.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
 					}
 				}
-			}	
+			}
+			
+			level.setName(levelName);
+			level.setID(id);
+			level.setObjects(gameObjects);
+			level.updateGrid(scrollingGrid);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		return gameObjects;
+		return level;
 	}
 
 
