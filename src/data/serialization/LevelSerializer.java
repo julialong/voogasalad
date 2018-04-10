@@ -1,0 +1,82 @@
+package data.serialization;
+
+import java.io.IOException;
+import java.io.FileWriter;
+
+import authoring_environment.ScrollingGrid;
+import authoring_environment.GridCell;
+
+import engine.level.BasicLevel;
+import engine.level.Level;
+
+public class LevelSerializer	{
+	private static final String NAME = "name";
+	private static final String ID = "id";
+	private static final String SIZE = "size";
+	private static final String SG = "ScrollingGrid";
+
+	private int cellSize;
+	private int rowNumber;
+	private int columnNumber;
+	private GridCell[][] cellArray;
+
+	public void serialize(FileWriter fw, Level level)	{
+		writeKeyValue(fw, NAME, level.getName());
+		writeKeyValue(fw, ID, 1);// level.getID());
+		writeKeyValue(fw, SIZE, 1);// level.getSize());
+		writeGrid(fw, level.getGrid());
+	}
+
+	private void writeKeyValue(FileWriter fw, String key, String value)	{
+		try	{
+			TextWriter.writeKey(fw, key);
+			TextWriter.writeValue(fw, value);
+			TextWriter.checkWriteComma(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
+			fw.write(System.lineSeparator());
+		}
+		catch (IOException e)	{
+			e.printStackTrace();
+		}
+	}
+
+	private void writeKeyValue(FileWriter fw, String key, int value)	{
+		try	{
+			TextWriter.writeKey(fw, key);
+			TextWriter.writeValue(fw, value);
+			TextWriter.checkWriteComma(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
+			fw.write(System.lineSeparator());
+		}
+		catch (IOException e)	{
+			e.printStackTrace();
+		}
+	}
+
+	private void writeGrid(FileWriter fw, ScrollingGrid grid)	{
+		TextWriter.startArray(fw, SG);
+
+		for (int i = 0; i < grid.getCellArray().length; i++)	{
+			TextWriter.startArray(fw, null);
+			for (int j = 0; j < grid.getCellArray()[i].length; j++)	{
+				TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
+				TextWriter.checkWriteComma(fw, j, grid.getCellArray()[i].length);
+			}
+			TextWriter.closeArray(fw, i, grid.getCellArray().length);
+		}
+
+		TextWriter.closeArray(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+
+	public ScrollingGrid deserialize()	{
+		ScrollingGrid grid = new ScrollingGrid();
+
+		// get JSON grid
+
+		// for (int i = 0; i < data.grid.length; i++)	{
+		// 	for (int j = 0; j < data.grid[i].length; j ++)	{
+		// 		grid.setCellImage(grid[i][j], data.grid[i][j].path);
+		// 	}
+		// }
+
+		return grid;
+	}
+}

@@ -9,6 +9,7 @@ import data.gamefiles.GameFileWriter;
 import engine.entity.*;
 import engine.level.Level;
 import engine.level.BasicLevel;
+import engine.physics.Kinematics;
 
 public class TestingWriting {
 	
@@ -22,14 +23,14 @@ public class TestingWriting {
 		Map<Level, List<GameEntity>> objsOrganized = new HashMap<>();
 		List<GameEntity> objsToWrite = new ArrayList<>();
 
-		Player p = new Player();
+		Kinematics k = new Kinematics();
 		objsToWrite.add(new Block());
-		objsToWrite.add(new Foes(p));
+		objsToWrite.add(new Foes(k));
 		objsToWrite.add(new Flag());
 		objsToWrite.add(new Player());
 		objsToWrite.add(new Block());
 		objsToWrite.add(new Flag());
-		objsToWrite.add(new Foes(p));
+		objsToWrite.add(new Foes(k));
 
 		Level one = new BasicLevel();
 		objsOrganized.put(one, new ArrayList<GameEntity>());
