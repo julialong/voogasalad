@@ -44,7 +44,7 @@ public class VoogaChooser implements GameChooser {
      */
     @Override
     public BorderPane displayChoices() {
-        List<String> names = reader.getGameNames();
+        List<String> names = new ArrayList<>();// reader.getGameNames();
         List<GameItem> gamesToPlay = new ArrayList<>();
         for(String gameName : names){
             GameItem game = new VoogaGame(gameName);

@@ -62,7 +62,7 @@ public class ScrollingGrid extends GridPane {
 				GridCell cell = cellArray[j][i];
 				this.add(cell,j,i);
 			}
-		}	
+		}
 	}
 	
 	private void initCells() {
@@ -107,4 +107,7 @@ public class ScrollingGrid extends GridPane {
 		} else cell.setImage(image, path);
 	}
 	
+	public GridCell[][] getCellArray()	{
+		return cellArray;
+	}
 }
