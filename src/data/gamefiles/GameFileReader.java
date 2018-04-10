@@ -1,6 +1,7 @@
 package data.gamefiles;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -13,8 +14,10 @@ import java.util.regex.Pattern;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
 import data.serialization.Serializer;
@@ -35,7 +38,7 @@ public class GameFileReader implements JSONtoObject {
 	private File currentGame;
 	private File currentLevel;
 	private Map<String,Class<?>> objectTypes;
-	private Serializer deserializer; //ORIGINAL IS DESERIALIZER
+	private Serializer deserializer; 
 	
 	/**
 	 * Class Constructor.
@@ -110,7 +113,7 @@ public class GameFileReader implements JSONtoObject {
 		{
 			if(gameFile.toString().contains("Settings"))
 			{
-				completeGame.put("Settings", loadSettings(gameName));
+				//TO DO: figure out how to represent settings for a game
 			}
 			else
 			{
@@ -165,11 +168,31 @@ public class GameFileReader implements JSONtoObject {
 	 * @param gameName
 	 * @return
 	 */
-	public List<Object> loadSettings(String gameName) {
+	public Map<String,String> loadSettings(String gameName) {
 		// TODO Auto-generated method stub
-		return null;
+		Map<String,String> settingsDetails = new HashMap<>();
+		File settings = retrieveSettings(gameName);
+		try {
+			JsonParser jsonParser = new JsonParser();
+			JsonElement jelement = jsonParser.parse(new FileReader(settings));
+			JsonObject  jobject = jelement.getAsJsonObject();
+			String description = jobject.get("description").toString();
+			settingsDetails.put("description", description);
+			String ready = jobject.get("ready").toString();
+			settingsDetails.put("ready", ready);
+		} 
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return settingsDetails;
 	}
 	
+	private File retrieveSettings(String gameName) {
+		retrieveCurrentGame(gameName);
+		return new File(gameDirectory + "/Settings.json");
+	}
+
 	/**
 	 * Given the JSON object that will be converted into the game object
 	 * and the type of the game object, returns the GameObject object for 

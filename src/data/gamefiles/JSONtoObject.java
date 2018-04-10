@@ -31,7 +31,7 @@ public interface JSONtoObject {
 	 * objects for the level. 
 	 */
 	
-	List<Object> loadSettings(String gameName);
+	Map<String,String> loadSettings(String gameName);
 	/*
 	 * GAE calls this method if a user chooses to begin editing the general settings for a specific game. This will locate the 
 	 * existing game folder based on the game name and will create a list of the appropriate objects associated with the current
