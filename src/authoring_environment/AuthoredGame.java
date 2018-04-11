@@ -6,6 +6,8 @@ import engine.entity.GameEntity;
 import engine.entity.GameObject;
 import engine.level.BasicLevel;
 import engine.level.Level;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +25,7 @@ public class AuthoredGame {
 
     private String myName;
     private String myDescription;
+    private ObservableList<Level> myObservableLevels;
     private List<Level> myLevels;
     private Level currentLevel;
     private GAEtoJSON myGameWriter;
@@ -38,6 +41,7 @@ public class AuthoredGame {
     public AuthoredGame(String gameName) {
         myName = gameName;
         myDescription = DEFAULT_DESCRIPTION;
+        myObservableLevels = FXCollections.observableArrayList();
         myLevels = new ArrayList<>();
         currentLevel = new BasicLevel(0);
         myGameWriter = new GameFileWriter(myName);
@@ -86,6 +90,7 @@ public class AuthoredGame {
      */
     public void addLevel(Level level) {
         myLevels.add(level);
+        myObservableLevels.add(level);
     }
 
     /**
@@ -94,6 +99,10 @@ public class AuthoredGame {
      */
     public List<Level> getLevels() {
         return myLevels;
+    }
+
+    public ObservableList<Level> getObservableLevels() {
+        return myObservableLevels;
     }
 
     /**

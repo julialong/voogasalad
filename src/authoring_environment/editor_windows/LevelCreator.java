@@ -71,7 +71,7 @@ public class LevelCreator {
      */
     private void createNewLevel() {
         System.out.println(myGame.getName());
-        newLevel = new BasicLevel(myGame.getLevels().size()+1);
+        newLevel = new BasicLevel(myGame.getLevels().size() +1);
     }
 
     /**
@@ -174,8 +174,6 @@ public class LevelCreator {
         Button saveButton = new Button(SAVE_LEVEL);
         saveButton.setOnAction(e -> {
             myGame.addLevel(newLevel);
-            System.out.println(newLevel.getName());
-            System.out.println(myGame.getLevels().size());
             myStage.close();
         });
         pane.getChildren().add(saveButton);
