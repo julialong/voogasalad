@@ -91,7 +91,6 @@ public class LevelSerializer	{
 			JsonArray row = jsonGrid.get(i).getAsJsonArray();
 			for (int j = 0; j < jsonGrid.get(i).getAsJsonArray().size(); j ++)	{
 				grid.setCellImage(grid.getCellArray()[i][j], row.get(j).getAsString());
-				System.out.println(row.get(j).getAsString());
 			}
 		}
 

@@ -19,7 +19,7 @@ import engine.level.Level;
  */
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static final String NEST = "/";
-	private static final String SETTINGS = "settings";
+	private static final String SETTINGS = "Settings";
 	private static final String EXTENSION = ".json";
 
 	private String gameDirectory;
@@ -53,6 +53,15 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		for (Level aLevel:changes.keySet())	{
 			saveData(aLevel, changes.get(aLevel));
 		}
+	}
+
+	/**
+	 * Will change settings file mapping to whether game is ready to play or not
+	 * @param ready		value to change readiness of game to
+	 */
+	@Override
+	public void updateMeta(boolean ready, String desc)	{
+		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), ready, desc);
 	}
 
 	/**
@@ -106,7 +115,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private void makeNewGame(File gameFolder)	{
 		gameFolder.mkdir();
 
-		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION));
+		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), false, "no description");
 	}
 
 	private File getLevel(Level level)	{
