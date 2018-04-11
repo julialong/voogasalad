@@ -1,5 +1,7 @@
 package authoring_environment;
 
+import org.w3c.dom.Document;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
@@ -27,6 +29,7 @@ public class GridCell extends HBox {
 	private boolean selected;
 	private ScrollingGrid myGrid;
 	private int mySize;
+	private Document myDataDoc;
 	
 	public GridCell(ScrollingGrid grid, int size) {
 		super();
@@ -61,12 +64,11 @@ public class GridCell extends HBox {
 		return myCellView.getImage();
 	}
 	
-	public void setImage(Image image) {
-		myCellView.setImage(image);
-	}
-	
 	public void setImage(String ID) {
 		myID = ID;
+		myDataDoc = myGrid.parseElementXML(ID);
+		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
+		myCellView.setImage(new Image(path));
 	}
 	
 	private void select() {
@@ -121,7 +123,7 @@ public class GridCell extends HBox {
 		        Dragboard db = event.getDragboard();
 		        boolean success = false;
 		        if (db.hasImage()) {
-		           myGrid.setCellImage(myGridCell, db.getImage(), db.getString());
+		           myGrid.setCellImage(myGridCell, db.getString());
 		           success = true;
 		        }
 		        event.setDropCompleted(success);

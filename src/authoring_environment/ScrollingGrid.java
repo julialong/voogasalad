@@ -1,6 +1,13 @@
 package authoring_environment;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
@@ -25,6 +32,7 @@ public class ScrollingGrid extends GridPane {
 	private static final int NUMBER_OF_ROWS = 20;
 	private static final int NUMBER_OF_COLUMNS = 50;
 	private static final int DEFAULT_CELL_SIZE = 75;
+	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	
 	private int cellSize;
 	private int rowNumber;
@@ -94,25 +102,34 @@ public class ScrollingGrid extends GridPane {
 		}
 	}
 	
-	public void setCellImage(GridCell cell, Image image, String path) {
+	public void setCellImage(GridCell cell, String ID) {
 		if (cell.isSelected()) {
 			for (int i = 0; i < NUMBER_OF_ROWS; i++) {
 				for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
 					GridCell checkCell = cellArray[j][i];
 					if (checkCell.isSelected()) {
-						checkCell.setImage(path);
+						checkCell.setImage(ID);
 					}
 				}
 			}
-		} else cell.setImage(path);
-	}
-
-	public void setCellImage(GridCell cell, String path) {
-			GridCell checkCell = cell;
-			checkCell.setImage(path);
+		} else cell.setImage(ID);
 	}
 	
 	public GridCell[][] getCellArray()	{
 		return cellArray;
+	}
+	
+	public Document parseElementXML(String ID) {
+		try {
+		File file = new File(ELEMENT_DATA_PATH + ID + ".xml");
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db;
+		db = dbf.newDocumentBuilder();
+		Document elementDoc = db.parse(file);
+		return elementDoc;
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    return null;
+	    }
 	}
 }
