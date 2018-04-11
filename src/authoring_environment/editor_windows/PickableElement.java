@@ -29,11 +29,9 @@ public class PickableElement extends ImageView {
 		myDataDoc = parseElementXML(myID);
 		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
 		String type = myDataDoc.getDocumentElement().getAttribute("GameEntity");
-		myImage = new Image("file:/" + path);
+		myImage = new Image("file:" + path);
 		myType = type;
 		this.setImage(myImage);
-		System.out.println(myImage.getHeight());
-		System.out.println(this.getImage().getHeight());
 		this.setFitHeight(40);
 		this.setFitWidth(40);
 		setupDragAndDrop();
@@ -49,6 +47,7 @@ public class PickableElement extends ImageView {
 		        Dragboard db = startDragAndDrop(TransferMode.COPY);
 		        ClipboardContent content = new ClipboardContent();
 		        content.putString(myID);
+		        content.putImage(myImage);
 		        db.setContent(content);
 		        event.consume();
 		    }

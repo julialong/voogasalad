@@ -68,7 +68,7 @@ public class GridCell extends HBox {
 		myID = ID;
 		myDataDoc = myGrid.parseElementXML(ID);
 		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
-		myCellView.setImage(new Image(path));
+		myCellView.setImage(new Image("file:" + path));
 	}
 	
 	private void select() {
@@ -111,7 +111,7 @@ public class GridCell extends HBox {
 		myGridCell.setOnDragOver(new EventHandler<DragEvent>() {
 		    public void handle(DragEvent event) {
 		        if (event.getGestureSource() != myGridCell &&
-		                event.getDragboard().hasImage()) {
+		                event.getDragboard().hasString()) {
 		            event.acceptTransferModes(TransferMode.COPY);
 		        }
 		        
@@ -122,7 +122,7 @@ public class GridCell extends HBox {
 		    public void handle(DragEvent event) {
 		        Dragboard db = event.getDragboard();
 		        boolean success = false;
-		        if (db.hasImage()) {
+		        if (db.hasString()) {
 		           myGrid.setCellImage(myGridCell, db.getString());
 		           success = true;
 		        }
@@ -134,7 +134,7 @@ public class GridCell extends HBox {
 		myGridCell.setOnDragEntered(new EventHandler<DragEvent>() {
 		    public void handle(DragEvent event) {
 		         if (event.getGestureSource() != myGridCell &&
-		                 event.getDragboard().hasImage()) {
+		                 event.getDragboard().hasString()) {
 		        	 myGridCell.setStyle("-fx-background-color: #99ebff;");
 		         }
 		                
