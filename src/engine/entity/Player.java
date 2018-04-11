@@ -23,6 +23,7 @@ public class Player extends PlayerCharacter{
     private double jumpFactor;
     private double maxVelocityX;
     private double maxVelocityY;
+    private String imagePath = "";
 
     public Player() {
         this(0,0);
@@ -164,6 +165,16 @@ public class Player extends PlayerCharacter{
 	@Override
 	public Kinematics getKinematics() {
 		return kinematics;
+	}
+	
+	@Override
+	public void setImagePath(String path) {
+		imagePath = path; 
+	}
+	
+	@Override
+	public String getImagePath() {
+		return imagePath;
 	}
 	
 	@Override

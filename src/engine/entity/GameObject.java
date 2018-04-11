@@ -16,6 +16,7 @@ public abstract class GameObject implements GameEntity{
 	protected double maxVelocityY;
 	protected double width;
 	protected double height;
+	protected String imagePath = "";
 	protected ArrayList<Behavior> behaviorList = new ArrayList<>();
 	protected ArrayList<Interaction> interactionList = new ArrayList<>();
 
@@ -154,6 +155,16 @@ public abstract class GameObject implements GameEntity{
 	@Override
 	public Kinematics getKinematics() {
 		return kinematics;
+	}
+	
+	@Override
+	public void setImagePath(String path) {
+		imagePath = path; 
+	}
+	
+	@Override
+	public String getImagePath() {
+		return imagePath;
 	}
 
 	@Override

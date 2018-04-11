@@ -180,6 +180,16 @@ public interface GameEntity {
 	 * Returns the kinematics object
 	 */
 	public abstract Kinematics getKinematics();
+	
+	/**
+	 * Sets the image path
+	 */
+	public abstract void setImagePath(String path);
+	
+	/**
+	 * Returns the image path
+	 */
+	public abstract String getImagePath();
 
 	/**
 	 * Updates the entity with new position/interaction paramters. Called at every time step.
