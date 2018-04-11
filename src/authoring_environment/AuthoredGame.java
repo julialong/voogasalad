@@ -39,7 +39,7 @@ public class AuthoredGame {
         myName = gameName;
         myDescription = DEFAULT_DESCRIPTION;
         myLevels = new ArrayList<>();
-        currentLevel = new BasicLevel();
+        currentLevel = new BasicLevel(0);
         myGameWriter = new GameFileWriter(myName);
         isReady = false;
     }
@@ -117,6 +117,7 @@ public class AuthoredGame {
      */
     public void update() {
         myGameWriter.update(myLevels);
+        myGameWriter.updateMeta(isReady, myDescription);
         System.out.println("level saved");
     }
 

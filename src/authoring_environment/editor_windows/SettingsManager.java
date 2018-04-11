@@ -2,6 +2,7 @@ package authoring_environment.editor_windows;
 
 import authoring_environment.AuthoredGame;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
  * @author Julia Long
  * Date started: April 04 18
  */
-public class SettingsManager {
+public class SettingsManager implements MetaManager {
 
     private Stage myStage;
     private Pane myRoot;
@@ -29,6 +30,7 @@ public class SettingsManager {
     private static final String CSS = "GAE.css";
     private static final String SETTINGS_MANAGER = "Settings Manager";
     private static final String UPDATE_FILE_NAME = "File name:";
+    private static final String SUBMIT = "Submit";
 
     /**
      * Creates a new settings manager window.
@@ -38,6 +40,7 @@ public class SettingsManager {
         myRoot = new VBox();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
+        myRoot.getStyleClass().add("game_saver");
         myGame = game;
 
         myStage.setScene(myScene);
@@ -45,17 +48,15 @@ public class SettingsManager {
         myStage.show();
         myStage.centerOnScreen();
 
-        setName();
+        setName(fileName, myGame, myRoot);
     }
 
-    private void setName() {
-        Pane nameBox = new HBox();
-        nameBox.getStyleClass().add("game-saver");
-        fileName = new TextField(myGame.getName());
-        nameBox.getChildren().addAll(new Text(UPDATE_FILE_NAME), fileName);
-        myRoot.getChildren().add(nameBox);
-    }
+    private void saveSettings() {
+        Button submitButton = new Button(SUBMIT);
+        submitButton.setOnAction(e -> {
+            myGame.rename(fileName.getText());
 
-    
+        });
+    }
 
 }

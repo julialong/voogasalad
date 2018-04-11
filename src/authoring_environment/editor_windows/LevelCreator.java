@@ -70,7 +70,7 @@ public class LevelCreator {
      * Creates a new level with default size.
      */
     private void createNewLevel() {
-        newLevel = new BasicLevel();
+        newLevel = new BasicLevel(myGame.getLevels().size()+1);
     }
 
     /**

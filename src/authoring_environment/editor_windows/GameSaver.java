@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  * @author Julia Long
  * Date started: April 08 18
  */
-public class GameSaver {
+public class GameSaver implements MetaManager {
 
 
     private Stage myStage;
@@ -70,7 +70,7 @@ public class GameSaver {
         Pane nameBox = new HBox();
         nameBox.getStyleClass().add("game-saver");
         fileName = new TextField(myGame.getName());
-        nameBox.getChildren().addAll(new Text(NAME), fileName);
+        nameBox.getChildren().addAll(new Text(UPDATE_FILE_NAME), fileName);
         myRoot.getChildren().add(nameBox);
     }
 
@@ -98,6 +98,8 @@ public class GameSaver {
             myGame.setDescription(fileDescription.getText());
             myGame.setPlayable(playableGame.isSelected());
             myGame.update();
+            myStage.close();
+            System.out.println("game saved:"+ myGame.getName());
         });
         myRoot.getChildren().add(saveButton);
     }
