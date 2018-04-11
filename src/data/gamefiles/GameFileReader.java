@@ -1,6 +1,7 @@
 package data.gamefiles;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -13,12 +14,18 @@ import java.util.regex.Pattern;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
-import data.serialization.Deserializer;
-import data.serialization.NewSerializer;
+import authoring_environment.ScrollingGrid;
+import data.serialization.LevelSerializer;
+import data.serialization.Serializer;
+import engine.entity.GameEntity;
+import engine.level.BasicLevel;
+import engine.level.Level;
 
 /**
  * @author Belanie Nagiel
@@ -31,12 +38,16 @@ import data.serialization.NewSerializer;
  */
 public class GameFileReader implements JSONtoObject {
 
-	private final String gameFolder = "./data/gameData";
+	private static final String GAME_FOLDER = "./data/gameData";
+	private static final String NEST = "/";
+	private static final String JSON_EXTENSION = ".json";
+	private static final String RESOURCE_FILE = "data.resources/gameObjects";
+	private static final String SETTINGS = "Settings";
 	private String gameDirectory;
 	private File currentGame;
 	private File currentLevel;
 	private Map<String,Class<?>> objectTypes;
-	private NewSerializer deserializer; //ORIGINAL IS DESERIALIZER
+	private Serializer deserializer; 
 	
 	/**
 	 * Class Constructor.
@@ -46,7 +57,7 @@ public class GameFileReader implements JSONtoObject {
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
-		deserializer = new NewSerializer(); //ORIGINAL IS DESERIALIZER
+		deserializer = new Serializer(); 
 	}
 	
 	/**
@@ -56,7 +67,7 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	private void createObjectToClassMap()
 	{
-		ResourceBundle gameObjects = ResourceBundle.getBundle("data.resources/gameObjects");
+		ResourceBundle gameObjects = ResourceBundle.getBundle(RESOURCE_FILE);
 		Enumeration<String> objectNames = gameObjects.getKeys();
 		while(objectNames.hasMoreElements())
 		{
@@ -78,7 +89,7 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	private void retrieveCurrentGame(String gameName)
 	{
-		gameDirectory = gameFolder + "/" + gameName;
+		gameDirectory = GAME_FOLDER + NEST + gameName;
 		currentGame = new File(gameDirectory); 
 	}
 	
@@ -90,8 +101,8 @@ public class GameFileReader implements JSONtoObject {
 	private void retrieveLevel(String gameName, String level)
 	{
 		retrieveCurrentGame(gameName);
-//		currentLevel = new File(gameDirectory + "/" + level);
-		currentLevel = new File(gameDirectory + "/" + "Default.json");
+		currentLevel = new File(gameDirectory + NEST + level + JSON_EXTENSION);
+//		currentLevel = new File(gameDirectory + "/" + "Default.json");
 	}
 	
 	@Override
@@ -102,22 +113,23 @@ public class GameFileReader implements JSONtoObject {
 	 * @param gameName
 	 * @return 
 	 */
-	public Map<String, List<Object>> loadCompleteGame(String gameName) {
-		Map<String, List<Object>> completeGame = new HashMap<>();
+	public List<Level> loadCompleteGame(String gameName) {
+		List<Level> completeGame = new ArrayList<>();
 		retrieveCurrentGame(gameName);
 		File[] gameFiles = currentGame.listFiles();
-		int i = 1;
 		for(File gameFile: gameFiles)
 		{
-			if(gameFile.toString().contains("Settings"))
-			{
-				completeGame.put("Settings", loadSettings(gameName));
-			}
-			else
-			{
-				completeGame.put(Integer.toString(i), loadLevel(gameName, i));
-				i++;
-			}
+				int index = gameFile.toString().lastIndexOf(NEST) + 1;
+				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
+				String levelName = gameFile.toString().substring(index,endIndex).trim();
+				if(levelName.equals(SETTINGS))
+				{
+					//TO DO: implementation for settings
+				}
+				else
+				{
+					completeGame.add(loadLevel(gameName, levelName));
+				}		
 		}
 		return completeGame;
 	}
@@ -131,14 +143,20 @@ public class GameFileReader implements JSONtoObject {
 	 * @param levelNumber
 	 * @return
 	 */
-	public List<Object> loadLevel(String gameName, int levelNumber) {
-		retrieveLevel(gameName, Integer.toString(levelNumber));
-		List<Object> gameObjects = new ArrayList<>();
+	public Level loadLevel(String gameName, String name) {
+		retrieveLevel(gameName, name);
+		List<GameEntity> gameObjects = new ArrayList<>();
+		BasicLevel level = new BasicLevel();
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
 			JsonElement jelement = jsonParser.parse(new FileReader(currentLevel));
 			JsonObject  jobject = jelement.getAsJsonObject();
+			String levelName = jobject.get("name").getAsString();
+			int id = jobject.get("id").getAsInt();
+			JsonArray gridCells = jobject.getAsJsonArray("ScrollingGrid");
+			LevelSerializer ls = new LevelSerializer();
+			ScrollingGrid scrollingGrid = ls.deserialize(gridCells);
 			for(String objectType: objectTypes.keySet())
 			{
 				if(jobject.has(objectType))
@@ -146,16 +164,21 @@ public class GameFileReader implements JSONtoObject {
 					JsonArray jarray = jobject.getAsJsonArray(objectType);
 					for(int i = 0; i < jarray.size(); i++)
 					{
-						gameObjects.add(convertToObject(jarray.get(i).getAsJsonObject(), objectType));
+						gameObjects.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
 					}
 				}
-			}	
+			}
+			
+			level.setName(levelName);
+			level.setID(id);
+			level.setObjects(gameObjects);
+			level.updateGrid(scrollingGrid);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		return gameObjects;
+		return level;
 	}
 
 
@@ -166,11 +189,30 @@ public class GameFileReader implements JSONtoObject {
 	 * @param gameName
 	 * @return
 	 */
-	public List<Object> loadSettings(String gameName) {
+	public Map<String,String> loadSettings(String gameName) {
 		// TODO Auto-generated method stub
-		return null;
+		Map<String,String> settingsDetails = new HashMap<>();
+		File settings = retrieveSettings(gameName);
+		try {
+			JsonParser jsonParser = new JsonParser();
+			JsonElement jelement = jsonParser.parse(new FileReader(settings));
+			JsonObject  jobject = jelement.getAsJsonObject();
+			String description = jobject.get("description").getAsString();
+			settingsDetails.put("description", description);
+			String ready = jobject.get("ready").getAsString();
+			settingsDetails.put("ready", ready);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return settingsDetails;
 	}
 	
+	private File retrieveSettings(String gameName) {
+		retrieveCurrentGame(gameName);
+		return new File(gameDirectory + NEST + SETTINGS + JSON_EXTENSION);
+	}
+
 	/**
 	 * Given the JSON object that will be converted into the game object
 	 * and the type of the game object, returns the GameObject object for 
@@ -188,14 +230,19 @@ public class GameFileReader implements JSONtoObject {
 	}
 
 	@Override
-	public List<String> getGameNames() {
-		List<String> gameNames = new ArrayList<>();
-		File gamesDirectory = new File(gameFolder);
+	public Map<String,String> getGameNames() {
+		Map<String,String> gameNames = new HashMap<>();
+		File gamesDirectory = new File(GAME_FOLDER);
 		File[] games= gamesDirectory.listFiles();
 		for(File game: games)
 		{
 			int index = game.toString().lastIndexOf("/") + 1;
-			gameNames.add(game.toString().substring(index).trim());
+			String gameName = game.toString().substring(index).trim();
+			Map<String,String> gameSettings = loadSettings(gameName);
+			if(gameSettings.get("ready").equals("true"))
+			{
+				gameNames.put(gameName, gameSettings.get("description"));
+			}
 		}
 		return gameNames;
 	}

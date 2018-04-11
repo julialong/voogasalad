@@ -4,15 +4,8 @@
 package game_player;
 
 import game_player_api.GameChooser;
-import game_player_api.GameItem;
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -26,7 +19,7 @@ import java.util.List;
 public class Driver extends Application {
 	
 	private VController myController;
-	private VView myView;
+	private PlayerView myView;
 	private GameChooser gameChooser;
 	
 	

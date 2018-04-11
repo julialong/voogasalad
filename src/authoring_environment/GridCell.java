@@ -65,9 +65,8 @@ public class GridCell extends HBox {
 		myCellView.setImage(image);
 	}
 	
-	public void setImage(Image image, String ID) {
+	public void setImage(String ID) {
 		myID = ID;
-		myCellView.setImage(new Image("file:data/" + myPath));
 	}
 	
 	private void select() {

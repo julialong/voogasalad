@@ -3,6 +3,8 @@ package data.gamefiles;
 import java.util.List;
 import java.util.Map;
 
+import engine.level.Level;
+
 /**
  * @author Belanie Nagiel
  * 
@@ -18,27 +20,27 @@ public interface JSONtoObject {
 	 * and those objects will be updated to contain their relevant information like position or ID. 
 	 */
 	
-	Map<String,List<Object>> loadCompleteGame(String gameName);
+	List<Level> loadCompleteGame(String gameName);
 	/*
 	 * GAE calls this method if a user chooses to begin editing or playing an existing game. This will locate the existing game folder 
 	 * based on the game name and create the appropriate list of levels and existing objects.
 	 */
 	
-	List<Object> loadLevel(String gameName, int levelNumber);
+	Level loadLevel(String gameName, String levelName);
 	/*
 	 * GAE calls this method if a user chooses to begin editing an existing level. This will locate the existing game folder 
 	 * based on the game name and and the appropriate level based on the levelName. Then it will create a list of the appropriate
 	 * objects for the level. 
 	 */
 	
-	List<Object> loadSettings(String gameName);
+	Map<String,String> loadSettings(String gameName);
 	/*
 	 * GAE calls this method if a user chooses to begin editing the general settings for a specific game. This will locate the 
 	 * existing game folder based on the game name and will create a list of the appropriate objects associated with the current
 	 * settings. 
 	 */
 	
-	List<String> getGameNames();
+	Map<String,String> getGameNames();
 	/*
 	 * Game Player calls this method to get the list of currently playable games.
 	 */

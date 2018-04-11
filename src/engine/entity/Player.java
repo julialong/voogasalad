@@ -2,6 +2,7 @@ package engine.entity;
 
 import java.util.ArrayList;
 
+import engine.interaction.Interaction;
 import engine.movement.*;
 import engine.physics.Kinematics;
 import engine.powerup.*;
@@ -17,6 +18,7 @@ public class Player extends PlayerCharacter{
     private Movement movementType;
     private Weapon weaponType;
     private ArrayList<PowerUp> powerupArrayList = new ArrayList<>();
+    private ArrayList<Interaction> interactionList = new ArrayList<>();
     private double speedFactor;
     private double jumpFactor;
     private double maxVelocityX;
@@ -32,8 +34,8 @@ public class Player extends PlayerCharacter{
         weaponType = new NoWeapon();
         speedFactor = 100; //arbitrary for now, might need to be MUCH higher
         jumpFactor = 20; // arbitrary for now
-        maxVelocityX = 20; // arbitrary for now
-        maxVelocityY = 20; // arbitrary for now
+        maxVelocityX = 2; // arbitrary for now
+        maxVelocityY = 2; // arbitrary for now
     }
     
     @Override
@@ -89,8 +91,15 @@ public class Player extends PlayerCharacter{
 	}
 
 	@Override
-	public void setInteraction(Object o) {
-		// TODO Auto-generated method stub
+	public void addInteraction(Interaction i) {
+		interactionList.add(i);
+	}
+	
+	@Override
+	public void interact(GameEntity source, GameEntity target) {
+		for(Interaction i : interactionList) {
+			i.interact(source, target);
+		}
 	}
 
 	@Override
