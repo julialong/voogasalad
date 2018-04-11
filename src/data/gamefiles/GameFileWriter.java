@@ -78,8 +78,8 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 
 	/**
 	 * Cancels any edits made to a game since last save
-	 * @param level	name of level to cancel changes to
-	 * @return	List of objects in level from JSON file of level
+	 * @param level	level to cancel changes to
+	 * @return	new, replacement instance of level
 	 */
 	@Override
 	public Level revertChanges(Level level)	{
