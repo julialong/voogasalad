@@ -23,7 +23,7 @@ import javafx.scene.paint.Color;
 public class GridCell extends HBox {
 	
 	private ImageView myCellView;
-	private String myPath;
+	private String myID;
 	private boolean selected;
 	private ScrollingGrid myGrid;
 	private int mySize;
@@ -32,6 +32,8 @@ public class GridCell extends HBox {
 		super();
 		myCellView = new ImageView();
 		mySize = size;
+		selected = false;
+		myGrid = grid;
 		this.getChildren().add(myCellView);
 		this.setMinHeight(mySize);
 		this.setMaxWidth(mySize);
@@ -41,8 +43,6 @@ public class GridCell extends HBox {
 		myCellView.setFitHeight(mySize);
 		this.setStyle("-fx-border-color: black;");
 		setupEvents();
-		selected = false;
-		myGrid = grid;
 	}
 	
 	public GridCell(double spacing) {
@@ -65,8 +65,8 @@ public class GridCell extends HBox {
 		myCellView.setImage(image);
 	}
 	
-	public void setImage(Image image, String path) {
-		myPath = path;
+	public void setImage(Image image, String ID) {
+		myID = ID;
 		myCellView.setImage(new Image("file:data/" + myPath));
 	}
 	
@@ -90,7 +90,7 @@ public class GridCell extends HBox {
 		this.getChildren().add(myCellView);
 		myCellView.setFitHeight(mySize);
 		myCellView.setFitWidth(mySize);
-		myPath = "";
+		myID = "";
 		deselect();
 	}
 	

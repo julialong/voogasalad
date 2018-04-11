@@ -21,7 +21,7 @@ import javafx.scene.image.ImageView;
  */
 public class GameEntity implements AuthoredElement {
 	
-	private double elementID;
+	private String elementID;
 	private double xLocation;
 	private double yLocation;
 	
