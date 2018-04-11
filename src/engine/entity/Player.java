@@ -55,6 +55,16 @@ public class Player extends PlayerCharacter{
     }
     
     @Override
+    public void setSpeedFactor(double speedFactor){
+        this.speedFactor = speedFactor;
+    }
+    
+    @Override
+    public void setJumpFactor(double jumpFactor){
+        this.jumpFactor = jumpFactor;
+    }
+    
+    @Override
     public void overridePosition(double x, double y) {
     	kinematics.setX(x);
 		kinematics.setY(y);

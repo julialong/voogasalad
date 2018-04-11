@@ -29,7 +29,7 @@ public interface GameEntity {
 	 *            an int representing what the HP value should be set to.
 	 */
 	public abstract void setHealth(int HP);
-	
+
 	/**
 	 * Returns the health of the entity
 	 */
@@ -43,7 +43,7 @@ public interface GameEntity {
 	 *            an instance of an Interaction class
 	 */
 	public abstract void addInteraction(Interaction interaction);
-	
+
 	/**
 	 * 
 	 */
@@ -71,6 +71,19 @@ public interface GameEntity {
 	 * @return a double corresponding to that factor
 	 */
 	public abstract double getJumpFactor();
+
+	/**
+	 * Sets the speed factor
+	 * @param speedFactor
+	 */
+	public void setSpeedFactor(double speedFactor);
+
+	/**
+	 * Sets the jump factor
+	 * @param jumpFactor
+	 * @return
+	 */
+	public void setJumpFactor(double jumpFactor);
 
 	/**
 	 * Overrides the position of the object.
@@ -122,42 +135,42 @@ public interface GameEntity {
 	 * @return the Entity's Movement
 	 */
 	public abstract Movement getMovementType();
-	
+
 	/**
 	 * Sets the maximum speed the Entity can move in the x direction
 	 * @param velocity the desired maximum speed
 	 */
 	public abstract void setMaxXVelocity(double velocity);
-	
+
 	/**
 	 * Sets the maximum speed the Entity can move in the y direction
 	 * @param velocity the desired maximum speed
 	 */
 	public abstract void setMaxYVelocity(double velocity);
-	
+
 	/**
 	 * Sets the friction constant for the entity
 	 * @param frictionConstant - the constant for friction
 	 */
 	public abstract void setFrictionConstant(double frictionConstant);
-	
+
 	/**
 	 * Sets the width of the entity
 	 * @param x - the width
 	 */
 	public abstract void setSizeX(double x);
-	
+
 	/**
 	 * Sets the height of the entity
 	 * @param y - the height
 	 */
 	public abstract void setSizeY(double y);
-	
+
 	/**
 	 * Gets the width of the entity
 	 */
 	public abstract double getSizeX();
-	
+
 	/**
 	 * Gets the height of the entity
 	 */
@@ -167,7 +180,7 @@ public interface GameEntity {
 	 * Returns the kinematics object
 	 */
 	public abstract Kinematics getKinematics();
-	
+
 	/**
 	 * Updates the entity with new position/interaction paramters. Called at every time step.
 	 */
