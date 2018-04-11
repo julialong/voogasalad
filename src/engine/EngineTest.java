@@ -55,7 +55,7 @@ public class EngineTest {
 		block.setSizeX(100);
 		block.setSizeY(1);
 		block.addInteraction(new PreventClipping());
-		Level level = new BasicLevel();
+		Level level = new BasicLevel(0);
 		level.addObject(p);
 		level.addObject(block);
 		Controls controls = new Controls(p);
@@ -75,7 +75,7 @@ public class EngineTest {
 	}
 	
 	public void BasicPlayerFloorInteractionTest() {
-		Level level = new BasicLevel();
+		Level level = new BasicLevel(0);
 		Foes enemy = new Foes();
 		enemy.addBehavior(new MoveForward(new Player()));
 		enemy.overridePosition(0, 2);
@@ -100,7 +100,7 @@ public class EngineTest {
 	}
 	
 	public void BasicPlayerWallInteractionTest() {
-		Level level = new BasicLevel();
+		Level level = new BasicLevel(0);
 		Foes enemy = new Foes();
 		enemy.addBehavior(new MoveForward(new Player()));
 		enemy.overridePosition(3, 1.2);
