@@ -114,8 +114,8 @@ public class TestingGSON {
 //		String x = gs.toJson(sc);
 //		System.out.println(x);
 		
-//		System.out.println(fr.loadSettings("NewTester"));
-		fr.loadLevel("TestGame", 1);
+		System.out.println(fr.loadCompleteGame("TestGame"));
+//		fr.loadLevel("TestGame", "Default");
 		
 	}
 }

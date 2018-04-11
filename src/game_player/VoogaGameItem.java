@@ -1,6 +1,7 @@
 package game_player;
 
 import data.gamefiles.JSONtoObject;
+import engine.level.Level;
 import game_player_api.GameItem;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -48,7 +49,7 @@ public class VoogaGameItem extends Label implements GameItem {
      * with the specific game that this item represents
      */
     @Override
-    public void setUpGame(Map<String, List<Object>> gameMaterials){
+    public void setUpGame(List<Level> gameMaterials){
         PlayerView gameView = new PlayerView(gameMaterials);
         VController gameController = new VController(gameView);
         Scene scene = new Scene(gameView);
