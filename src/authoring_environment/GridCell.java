@@ -64,6 +64,10 @@ public class GridCell extends HBox {
 		return myCellView.getImage();
 	}
 	
+	public String getID() {
+		return myID;
+	}
+	
 	public void setImage(String ID) {
 		myID = ID;
 		myDataDoc = myGrid.parseElementXML(ID);

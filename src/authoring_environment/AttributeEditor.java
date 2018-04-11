@@ -180,7 +180,7 @@ public class AttributeEditor {
 		URI uri= file.toURI();
 		URL url= uri.toURL();
 		Path source = Paths.get(uri);
-		Path target = Paths.get("data/customElements/" + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("/") + 1));
+		Path target = Paths.get("data/authoredElementData/" + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("/") + 1));
 		try {
 			Files.copy(source, target);
 		} catch (IOException e) {

@@ -29,7 +29,7 @@ public class PickableElement extends ImageView {
 		myDataDoc = parseElementXML(myID);
 		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
 		String type = myDataDoc.getDocumentElement().getAttribute("GameEntity");
-		myImage = new Image("file:" + path);
+		myImage = new Image("file:" + path, 40, 40, true, true);
 		myType = type;
 		this.setImage(myImage);
 		this.setFitHeight(40);

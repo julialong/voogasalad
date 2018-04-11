@@ -59,7 +59,7 @@ public class CustomElementSaver {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("data/customElements/" + elementID.toString() + ".xml"));
+		StreamResult result = new StreamResult(new File("data/authoredElementData/" + elementID.toString() + ".xml"));
 		System.out.println("saved");
 		transformer.transform(source, result);
 		
