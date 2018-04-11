@@ -49,6 +49,7 @@ public class SettingsManager implements MetaManager {
         myStage.centerOnScreen();
 
         setName(fileName, myGame, myRoot);
+        saveSettings();
     }
 
     private void saveSettings() {
