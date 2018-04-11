@@ -28,19 +28,23 @@ public class BasicLevel implements Level {
      * @param xSize is the desired x size of the grid
      * @param ySize is the desired y size of the grid
      */
-    public BasicLevel(int xSize, int ySize) {
+    public BasicLevel(int xSize, int ySize, int ID) {
         myGrid = new ScrollingGrid();
         myGrid.setPrefSize(xSize, ySize);
         myObjects = new ArrayList<>();
-        myID = 0;
+        myID = ID;
         myName = DEFAULT;
     }
 
     /**
      * Creates a new basic Level with no size defined.
      */
+    public BasicLevel(int ID) {
+        this(DEFAULT_X_SIZE, DEFAULT_Y_SIZE, ID);
+    }
+
     public BasicLevel() {
-        this(DEFAULT_X_SIZE, DEFAULT_Y_SIZE);
+        this(0);
     }
 
     @Override
@@ -61,6 +65,11 @@ public class BasicLevel implements Level {
     @Override
     public void setID(int id) {
         myID = id;
+    }
+
+    @Override
+    public int getID() {
+        return myID;
     }
 
     @Override

@@ -1,12 +1,16 @@
 package game_player;
 
 import data.gamefiles.JSONtoObject;
+import engine.level.Level;
 import game_player_api.GameItem;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Each instance of VoogaGame represents a single developed game created from the
@@ -15,16 +19,17 @@ import javafx.stage.Stage;
  *
  * @Author Dorian Barber
  */
-public class VoogaGame extends Label implements GameItem {
+public class VoogaGameItem extends Label implements GameItem {
     private String gameName;
     private String gameDescription;
     private String gameAccessPath;
     private Stage gameApplication = new Stage();
 
-    public VoogaGame(String game){
+    public VoogaGameItem(String name, String description){
         this.setPrefWidth(500);
         this.setWrapText(true);
-        gameName = game;
+        gameName = name;
+        gameDescription = description;
         setFutureBounds(gameApplication);
         super.setText(this.toString());
     }
@@ -36,6 +41,7 @@ public class VoogaGame extends Label implements GameItem {
      */
     @Override
     public void actionOnClick() {
+
     }
 
     /**
@@ -43,8 +49,8 @@ public class VoogaGame extends Label implements GameItem {
      * with the specific game that this item represents
      */
     @Override
-    public void setUpGame(){
-        VView gameView = new VView(gameAccessPath);
+    public void setUpGame(List<Level> gameMaterials){
+        PlayerView gameView = new PlayerView(gameMaterials);
         VController gameController = new VController(gameView);
         Scene scene = new Scene(gameView);
         scene.getStylesheets().add("styleSheet.css");
@@ -74,6 +80,6 @@ public class VoogaGame extends Label implements GameItem {
      */
     @Override
     public String toString(){
-        return gameName;
+        return gameName + "\n" + gameDescription;
     }
 }

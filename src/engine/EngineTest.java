@@ -59,7 +59,7 @@ public class EngineTest {
 		block.setSizeX(100);
 		block.setSizeY(1);
 		block.addInteraction(new PreventClipping());
-		Level level = new BasicLevel();
+		Level level = new BasicLevel(0);
 		level.addObject(p);
 		level.addObject(block);
 		Controls controls = new Controls(p);

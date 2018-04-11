@@ -1,31 +1,47 @@
 package game_player;
 
 
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import engine.level.Level;
+import javafx.scene.layout.VBox;
+import java.util.List;
 
-public class VView extends BorderPane{
-	
+/**
+ * The main application for the game player. Here is where the MVC design pattern is used.
+ * The Player contains a menubar and a game view for buttons and to display the actual game.
+ * This class simply acts as the container for those parts.
+ *
+ * @Author Dorian Barber, Kelley Scroggs
+ */
+public class PlayerView extends VBox{
+	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
-	private VGameView myGameView;
+	private VoogaGameView myGameView;
 	
-	public VView() {
+//	public PlayerView() {
+//		super();
+//		createMenuBar();
+//		createGView();
+//		setViewTop();
+//		setMiddle();
+//	}
+
+	public PlayerView(List<Level> game){
 		super();
+		gameMaterial = game;
 		createMenuBar();
 		createGView();
 		setViewTop();
 		setMiddle();
 	}
 
-	public VView(String name){
-		this();
-		System.out.println(name);
-	}
+	//	public PlayerView(String name){
+	//		this();
+	//		System.out.println(name);
+	//	}
 	
 	private void createGView() {
 		// TODO Auto-generated method stub
-		myGameView = new VGameView();
+		myGameView = new VoogaGameView(gameMaterial);
 	}
 
 	/**
@@ -55,14 +71,15 @@ public class VView extends BorderPane{
 	private void setViewTop() {
 		//this.setTop(new Rectangle(100, 100, Color.BLUE));
 		//TODO: menubar class
-		this.setTop(myMenuBar.getNode());
+		this.getChildren().add(myMenuBar.getNode());
 	}
 	
 	/**
 	 * Adds the game image to the middle of the game player UI.
 	 */
 	private void setMiddle() {
-		this.setCenter(myGameView.getNode());
+		this.getChildren().add(myGameView.getNode());
+		myGameView.startGame();
 		//TODO: gameView class
 	}
 	

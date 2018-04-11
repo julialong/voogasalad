@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
  *
  */
 public class VController {
-	private VView view;
+	private PlayerView view;
 
 	//private BACKEND_CLASS myModel;
 
@@ -28,10 +28,10 @@ public class VController {
 	 * Constructor which takes in a scene for the controller to
 	 * take in user inputs
 	 */
-	public VController(VView curView){
+	public VController(PlayerView curView){
 		view = curView;
-		addKeyInputs();
-		addMouseInputs();
+		//addKeyInputs();
+		//addMouseInputs();
 	}
 
 	/**
