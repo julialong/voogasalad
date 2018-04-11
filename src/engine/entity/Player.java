@@ -7,6 +7,7 @@ import engine.movement.*;
 import engine.physics.Kinematics;
 import engine.powerup.*;
 import engine.weapon.*;
+import javafx.scene.image.ImageView;
 /**
  * Defines a player and its movement in and interactions with the game world.
  * @author Robert Gitau and Marcus Oertle
@@ -23,7 +24,8 @@ public class Player extends PlayerCharacter{
     private double jumpFactor;
     private double maxVelocityX;
     private double maxVelocityY;
-    private String imagePath = "";
+    private ImageView myImageView;
+    private String myElementID;
 
     public Player() {
         this(0,0);
@@ -168,17 +170,27 @@ public class Player extends PlayerCharacter{
 	}
 	
 	@Override
-	public void setImagePath(String path) {
-		imagePath = path; 
+	public void setImageView(ImageView view) {
+		myImageView = view; 
 	}
 	
 	@Override
-	public String getImagePath() {
-		return imagePath;
+	public ImageView getImageView() {
+		return myImageView;
 	}
 	
 	@Override
 	public void update() {
 		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
+	}
+
+	@Override
+	public void setElementID(String ID) {
+		myElementID = ID;
+	}
+
+	@Override
+	public String getElementID() {
+		return myElementID;
 	}
 }

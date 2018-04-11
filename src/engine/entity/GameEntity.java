@@ -3,6 +3,7 @@ package engine.entity;
 import engine.interaction.Interaction;
 import engine.movement.Movement;
 import engine.physics.Kinematics;
+import javafx.scene.image.ImageView;
 
 /**
  * Interface for "entities" in a game: player characters, enemies, and objects.
@@ -184,15 +185,26 @@ public interface GameEntity {
 	/**
 	 * Sets the image path
 	 */
-	public abstract void setImagePath(String path);
+	public abstract void setImageView(ImageView imageView);
 	
 	/**
 	 * Returns the image path
 	 */
-	public abstract String getImagePath();
+	public abstract ImageView getImageView();
 
 	/**
-	 * Updates the entity with new position/interaction paramters. Called at every time step.
+	 * Sets the Element ID of the Entity.
+	 * @param ID - the desired String ID
+	 */
+	public abstract void setElementID(String ID);
+	/**
+	 * Retrieves the Element ID of the Entity.
+	 * @return String Element ID
+	 */
+	public abstract String getElementID();
+	
+	/**
+	 * Updates the entity with new position/interaction parameters. Called at every time step.
 	 */
 	public abstract void update();
 }

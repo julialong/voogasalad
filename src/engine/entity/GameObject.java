@@ -5,6 +5,7 @@ import engine.behavior.Behavior;
 import engine.interaction.Interaction;
 import engine.movement.Movement;
 import engine.physics.Kinematics;
+import javafx.scene.image.ImageView;
 
 public abstract class GameObject implements GameEntity{
 	protected Movement movementType;
@@ -16,7 +17,8 @@ public abstract class GameObject implements GameEntity{
 	protected double maxVelocityY;
 	protected double width;
 	protected double height;
-	protected String imagePath = "";
+	protected ImageView myImageView;
+	protected String myElementID;
 	protected ArrayList<Behavior> behaviorList = new ArrayList<>();
 	protected ArrayList<Interaction> interactionList = new ArrayList<>();
 
@@ -158,15 +160,26 @@ public abstract class GameObject implements GameEntity{
 	}
 	
 	@Override
-	public void setImagePath(String path) {
-		imagePath = path; 
+	public void setImageView(ImageView view) {
+		myImageView = view;
+		myImageView.setFitWidth(width);
+		myImageView.setFitHeight(height);
 	}
 	
 	@Override
-	public String getImagePath() {
-		return imagePath;
+	public ImageView getImageView() {
+		return myImageView;
 	}
 
+	@Override
+	public void setElementID(String ID) {
+		myElementID = ID;
+	}
+	
+	@Override
+	public String getElementID() {
+		return myElementID;
+	}
 	@Override
 	public void update() {
 		for(Behavior behavior : behaviorList) {

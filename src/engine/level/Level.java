@@ -79,5 +79,11 @@ public interface Level {
      * Updates the contents of the level
      */
      public void update();
+     
+     /**
+      * Converts the Elements stored in the GridCells in the Level's grid to a list of GameEntities
+      * @return List of GameEntities in the Level
+      */
+     public List<GameEntity> export();
 
 }

@@ -26,6 +26,7 @@ public class GridCell extends HBox {
 	
 	private ImageView myCellView;
 	private String myID;
+	private String myType;
 	private boolean selected;
 	private ScrollingGrid myGrid;
 	private int mySize;
@@ -37,6 +38,7 @@ public class GridCell extends HBox {
 		mySize = size;
 		selected = false;
 		myGrid = grid;
+		myType = null;
 		this.getChildren().add(myCellView);
 		this.setMinHeight(mySize);
 		this.setMaxWidth(mySize);
@@ -68,11 +70,30 @@ public class GridCell extends HBox {
 		return myID;
 	}
 	
+	public int getSize() {
+		return mySize;
+	}
+	
+	public void setSize(int size) {
+		mySize = size;
+		this.setMinHeight(mySize);
+		this.setMaxWidth(mySize);
+		this.setMaxHeight(mySize);
+		this.setMinWidth(mySize);
+		myCellView.setFitWidth(mySize);
+		myCellView.setFitHeight(mySize);
+	}
+	
 	public void setImage(String ID) {
 		myID = ID;
 		myDataDoc = myGrid.parseElementXML(ID);
 		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
+		myType = myDataDoc.getDocumentElement().getAttribute("GameEntity");
 		myCellView.setImage(new Image("file:" + path));
+	}
+	
+	public String getType() {
+		return myType;
 	}
 	
 	private void select() {
@@ -95,7 +116,8 @@ public class GridCell extends HBox {
 		this.getChildren().add(myCellView);
 		myCellView.setFitHeight(mySize);
 		myCellView.setFitWidth(mySize);
-		myID = "";
+		myID = null;
+		myType = null;
 		deselect();
 	}
 	
