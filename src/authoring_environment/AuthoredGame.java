@@ -1,5 +1,6 @@
 package authoring_environment;
 
+import data.gamefiles.GAEtoJSON;
 import data.gamefiles.GameFileWriter;
 import engine.entity.GameEntity;
 import engine.entity.GameObject;
@@ -21,11 +22,14 @@ import java.util.Map;
 public class AuthoredGame {
 
     private String myName;
+    private String myDescription;
     private List<Level> myLevels;
     private Level currentLevel;
-    private GameFileWriter myGameWriter;
+    private GAEtoJSON myGameWriter;
+    private boolean isReady;
 
     private static final String DEFAULT_NAME = "Untitled_Game";
+    private static final String DEFAULT_DESCRIPTION = "A basic game.";
 
     /**
      * Creates a new authored game
@@ -33,9 +37,11 @@ public class AuthoredGame {
      */
     public AuthoredGame(String gameName) {
         myName = gameName;
+        myDescription = DEFAULT_DESCRIPTION;
         myLevels = new ArrayList<>();
-        currentLevel = new BasicLevel();
+        currentLevel = new BasicLevel(0);
         myGameWriter = new GameFileWriter(myName);
+        isReady = false;
     }
 
     /**
@@ -51,7 +57,27 @@ public class AuthoredGame {
      */
     public void rename(String name) {
         myName = name;
-        // TODO: change name in myGameWriter
+        myGameWriter.renameGame(name);
+    }
+
+    public String getName() {
+        return myName;
+    }
+
+    public void setDescription(String description) {
+        myDescription = description;
+    }
+
+    public String getDescription() {
+        return myDescription;
+    }
+
+    public void setPlayable(boolean playable) {
+        isReady = playable;
+    }
+
+    public boolean isPlayable() {
+        return isReady;
     }
 
     /**
@@ -60,6 +86,10 @@ public class AuthoredGame {
      */
     public void addLevel(Level level) {
         myLevels.add(level);
+    }
+
+    public void removeLevel(Level level) {
+        myLevels.remove(level);
     }
 
     /**
@@ -90,7 +120,9 @@ public class AuthoredGame {
      * Updates the state of the game
      */
     public void update() {
-        myGameWriter.update(extractObjects());
+        myGameWriter.update(myLevels);
+        myGameWriter.updateMeta(isReady, myDescription);
+        System.out.println("level saved");
     }
 
     private Map<Level, List<GameEntity>> extractObjects() {
@@ -100,5 +132,4 @@ public class AuthoredGame {
         }
         return unpacked;
     }
-
 }

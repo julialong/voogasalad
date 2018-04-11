@@ -39,6 +39,12 @@ public interface Level {
 	void setID(int id);
 
 	/**
+	 * Returns the integer ID of the level
+	 * @return the integer ID
+	 */
+	int getID();
+
+	/**
 	 * Sets the name of the level
 	 * @param name is the name of the level
 	 */

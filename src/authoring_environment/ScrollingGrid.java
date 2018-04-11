@@ -1,5 +1,6 @@
 package authoring_environment;
 
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -12,15 +13,9 @@ import org.w3c.dom.Document;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
 
 /**
  * 
@@ -33,6 +28,7 @@ public class ScrollingGrid extends GridPane {
 	private static final int NUMBER_OF_COLUMNS = 50;
 	private static final int DEFAULT_CELL_SIZE = 75;
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
+
 	
 	private int cellSize;
 	private int rowNumber;

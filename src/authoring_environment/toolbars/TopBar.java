@@ -35,6 +35,6 @@ public class TopBar extends ToolBar{
         this.getItems().addAll( new LoadButton(),
                                 new SaveButton(myGame),
                                 new InsertButton(myGame),
-                                new SettingsButton());
+                                new SettingsButton(myGame));
     }
 }

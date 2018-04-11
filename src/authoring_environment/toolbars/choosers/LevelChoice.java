@@ -17,20 +17,23 @@ import javafx.scene.text.TextAlignment;
  */
 public class LevelChoice extends HBox{
 
+    private static String CSS = "GAE.css";
+
+
     /**
      * Creates a new LevelChoice object
      * @param level
      */
     public LevelChoice(Level level) {
         super();
-        this.setPrefHeight(30);
-        this.setPrefWidth(200);
-        this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        setStyle();
         // TODO: add level icon to object
-        Text levelName = new Text(level.getName());
-        levelName.setTextAlignment(TextAlignment.CENTER);
-        levelName.setFont(new Font(20));
-        this.getChildren().add(levelName);
+        this.getChildren().add(new Text(level.getName()));
+    }
+
+    private void setStyle() {
+        this.getStylesheets().add(CSS);
+        this.getStyleClass().add("level-choice");
     }
 
 }
