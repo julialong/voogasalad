@@ -62,10 +62,10 @@ public class RightBar extends SplitPane{
 
     private void splitPanes() {
         elementPane = new VBox();
-        elementPane.getStyleClass().add("side-pane");
+        elementPane.getStyleClass().add("rightbar");
         this.getItems().add(elementPane);
         levelPane = new VBox();
-        levelPane.getStyleClass().add("side-pane");
+        levelPane.getStyleClass().add("rightbar");
         this.getItems().add(levelPane);
     }
 

@@ -88,6 +88,10 @@ public class AuthoredGame {
         myLevels.add(level);
     }
 
+    public void removeLevel(Level level) {
+        myLevels.remove(level);
+    }
+
     /**
      * Gets the levels of the game
      * @return the list of level objects
