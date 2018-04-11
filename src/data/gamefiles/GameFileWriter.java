@@ -24,6 +24,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 
 	private String gameDirectory;
 	private File gameDirectoryFile;
+	private String gameName;
 
 	/**
 	 * Class Constructor.
@@ -31,6 +32,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param gameName
 	 */
 	public GameFileWriter(String gameName)	{
+		this.gameName = gameName;
 		gameDirectory = "./data/gameData/" + gameName;
 		gameDirectoryFile = retrieveGame();
 	}
@@ -76,13 +78,14 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 
 	/**
 	 * Cancels any edits made to a game since last save
-	 * @param level	name of level to chancel changes to
-	 * @return	List of objects in level from JSON file of level
+	 * @param level	level to cancel changes to
+	 * @return	new, replacement instance of level
 	 */
 	@Override
-	public List<Object> revertChanges(Level level)	{
-		// jsonToObject(getLevel(level));
-		return null;
+	public Level revertChanges(Level level)	{
+		GameFileReader reader = new GameFileReader();
+		String levelName = level.getName();
+		return reader.loadLevel(gameName, levelName);
 	}
 
 	/**
