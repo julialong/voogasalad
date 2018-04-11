@@ -4,6 +4,12 @@
 	-fx-padding: 5;
     -fx-margin: 25px;
 }
+
+.rightbar {
+	-fx-background-color: #a6a6a6;
+	-fx-pref-width: 300;
+	-fx-orientation: vertical;
+}
 .center-pane{
 	-fx-border-color: #000000;
 	-fx-border-width: 4;
@@ -64,6 +70,21 @@
 	-fx-alignment: top-center;
 	-fx-pref-height: 600;
 	-fx-pref-width: 300;
+}
+
+.level-chooser {
+	-fx-pref-height: 30;
+	-fx-pref-width: 270;
+	-fx-background-color: #fbe9ff;
+}
+
+.level-choice {
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	-fx-font-size: 20;
+	-fx-pref-height: 30;
+	-fx-pref-width: 270;
+	-fx-background-color: #fbe9ff;
 }
 
 .level-center {

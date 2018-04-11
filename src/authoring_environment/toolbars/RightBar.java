@@ -25,6 +25,8 @@ import javafx.scene.paint.Color;
  */
 public class RightBar extends SplitPane{
 
+    private static String CSS = "GAE.css";
+
     private static final int PANE_WIDTH = 300;
 
     private Pane elementPane;
@@ -40,9 +42,8 @@ public class RightBar extends SplitPane{
      */
     public RightBar(AuthoredGame game, ScrollingGrid grid, ScrollPane scroller) {
         super();
-        this.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        this.setPrefWidth(PANE_WIDTH);
-        this.setOrientation(Orientation.VERTICAL);
+        this.getStylesheets().add(CSS);
+        this.getStyleClass().add("rightbar");
         myGame = game;
         myGrid = myGame.getCurrentLevel().getGrid();
         myScrollPane = scroller;
