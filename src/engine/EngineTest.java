@@ -1,7 +1,9 @@
 package engine;
 
+import java.io.IOException;
+
 import engine.behavior.*;
-import engine.controls.Controls;
+import engine.controls.*;
 import engine.entity.Block;
 import engine.entity.Foes;
 import engine.entity.Player;
@@ -49,7 +51,9 @@ public class EngineTest {
 	}
 	
 	public void PlayerMovementTestJUMP() {
-		Player p = new Player();
+		Player p = new Player(0,10);
+		p.setSizeX(1);
+		p.setSizeY(10);
 		p.addInteraction(new PreventClipping());
 		Block block = new Block(-10,0);
 		block.setSizeX(100);
@@ -74,8 +78,8 @@ public class EngineTest {
 		}
 	}
 	
-	public void BasicPlayerFloorInteractionTest() {
-		Level level = new BasicLevel(0);
+	public void BasicEnemyFloorInteractionTest() {
+		Level level = new BasicLevel();
 		Foes enemy = new Foes();
 		enemy.addBehavior(new MoveForward(new Player()));
 		enemy.overridePosition(0, 2);
@@ -99,8 +103,8 @@ public class EngineTest {
 		}
 	}
 	
-	public void BasicPlayerWallInteractionTest() {
-		Level level = new BasicLevel(0);
+	public void BasicEnemyWallInteractionTest() {
+		Level level = new BasicLevel();
 		Foes enemy = new Foes();
 		enemy.addBehavior(new MoveForward(new Player()));
 		enemy.overridePosition(3, 1.2);
@@ -130,13 +134,20 @@ public class EngineTest {
 			level.update();
 		}
 	}
+	
+	public void controlRemappingTest() throws IOException {
+		Player p = new Player();
+		Controls c = new Controls(p);
+		c.setBinding(KeyCode.W, new MoveUp());
+	}
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 		EngineTest engineTest = new EngineTest();
 		//engineTest.EnemyMovementTest();
 		//engineTest.PlayerMovementTestLR();
 		engineTest.PlayerMovementTestJUMP();
-		//engineTest.BasicPlayerFloorInteractionTest();
-		//engineTest.BasicPlayerWallInteractionTest();
+		//engineTest.BasicEnemyFloorInteractionTest();
+		//engineTest.BasicEnemyWallInteractionTest();
+		//engineTest.controlRemappingTest();
 	}
 }

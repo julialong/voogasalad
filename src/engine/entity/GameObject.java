@@ -8,17 +8,17 @@ import engine.physics.Kinematics;
 
 public abstract class GameObject implements GameEntity{
 	protected Movement movementType;
-    protected Kinematics kinematics;
-    protected double health;
-    protected double jumpFactor;
-    protected double speedFactor;
-    protected double maxVelocityX;
-    protected double maxVelocityY;
-    protected double width;
-    protected double height;
-    protected ArrayList<Behavior> behaviorList = new ArrayList<>();
-    protected ArrayList<Interaction> interactionList = new ArrayList<>();
-    
+	protected Kinematics kinematics;
+	protected int health;
+	protected double jumpFactor;
+	protected double speedFactor;
+	protected double maxVelocityX;
+	protected double maxVelocityY;
+	protected double width;
+	protected double height;
+	protected ArrayList<Behavior> behaviorList = new ArrayList<>();
+	protected ArrayList<Interaction> interactionList = new ArrayList<>();
+
 	@Override
 	public void setMovementType(Movement movement) {
 		movementType = movement;
@@ -29,6 +29,11 @@ public abstract class GameObject implements GameEntity{
 		health = HP;
 	}
 
+	@Override
+	public int getHealth() {
+		return health;
+	}
+
 	/**
 	 * Defines how the GameObject behaves with regard to the player (ie makes the player slide across it)
 	 * 
@@ -37,7 +42,7 @@ public abstract class GameObject implements GameEntity{
 	 */
 	public void addBehavior(Behavior behavior) {
 		behaviorList.add(behavior);
-		
+
 	}
 
 	@Override
@@ -48,12 +53,22 @@ public abstract class GameObject implements GameEntity{
 	@Override
 	public double[] getPosition() {
 		double[] positionArray = {kinematics.getX(), kinematics.getY()};
-        return positionArray;
+		return positionArray;
 	}
 
 	@Override
 	public double getJumpFactor() {
 		return jumpFactor;
+	}
+
+	@Override
+	public void setSpeedFactor(double speedFactor){
+		this.speedFactor = speedFactor;
+	}
+
+	@Override
+	public void setJumpFactor(double jumpFactor){
+		this.jumpFactor = jumpFactor;
 	}
 
 	@Override
@@ -80,12 +95,12 @@ public abstract class GameObject implements GameEntity{
 	@Override
 	public void setYAcceleration(double accel) {
 		kinematics.setYAcceleration(accel);
-		
+
 	}
 
 	@Override
 	public Movement getMovementType() {
-        return movementType;
+		return movementType;
 	}
 
 	@Override
@@ -96,44 +111,49 @@ public abstract class GameObject implements GameEntity{
 	@Override
 	public void setMaxYVelocity(double velocity) {
 		maxVelocityY = velocity;
-		
+
 	}
-	
+
 	@Override
 	public void setFrictionConstant(double frictionConstant) {
 		kinematics.setFrictionConstant(frictionConstant);
 	}
-	
+
 	@Override
 	public void addInteraction(Interaction i) {
 		interactionList.add(i);
 	}
-	
+
 	@Override
 	public void interact(GameEntity source, GameEntity target) {
 		for(Interaction i : interactionList) {
 			i.interact(source, target);
 		}
 	}
-	
+
 	@Override
 	public void setSizeX(double x) {
 		width = x;
 	}
-	
+
 	@Override
 	public void setSizeY(double y) {
 		height = y;
 	}
-	
+
 	@Override
 	public double getSizeX() {
 		return width;
 	}
-	
+
 	@Override
 	public double getSizeY() {
 		return height;
+	}
+
+	@Override
+	public Kinematics getKinematics() {
+		return kinematics;
 	}
 
 	@Override
