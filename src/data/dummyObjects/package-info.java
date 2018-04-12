@@ -1,8 +1,7 @@
 /**
- * 
+ * Classes for testing data serialization, file writing
+ * @author Maya Messinger
+ * @author Belanie Nagiel
  */
-/**
- * @author belanie.nagiel
- *
- */
+
 package data.dummyObjects;
