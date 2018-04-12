@@ -1,10 +1,6 @@
-
-public class DEMO_PRESENTATION {
-
-	/**
-	 * VoogaSalad Demo
-
-		Game Player
+VoogaSalad Demo
+==
+### Game Player
 		
 		Kelley
 		High Level Design
@@ -16,7 +12,7 @@ public class DEMO_PRESENTATION {
 		Dorian
 		Game Chooser Demo
 		
-		Game Authoring Environment
+### Game Authoring Environment
 		
 		Primary Architecture:
 		Our data in an AuthoredGame class which contains Level objects. Each Level contains a ScrollingGrid class which contains a two-dimensional Array of GridCells, which have an ID representing the data for a certain type of GameEntity.
@@ -63,7 +59,7 @@ public class DEMO_PRESENTATION {
 		Show that we can delete levels
 		Save game, show settings file
 		
-		Game Engine
+### Game Engine
 		
 		Marcus
 		Proof of function:
@@ -97,7 +93,7 @@ public class DEMO_PRESENTATION {
 		The Authoring Environment and Data define and create Entities and their components based on our structure so that a user can define their own parameters for any Entity.
 		
 		
-		Game Data
+### Game Data
 		
 		Primary Architecture:
 		Total encapsulation of how data is stored (nothing else knows what data files are like or how we’re storing data)
@@ -111,5 +107,3 @@ public class DEMO_PRESENTATION {
 		
 		Any Design Tradeoffs/Decisions:
 		Why JSON? - potential compatibility with online database, it’s easy to read and understand for us, easily add extra lines, syntax for custom serialization
-	 */
-}
