@@ -1,8 +1,4 @@
 /**
- * 
+ * Contains the interfaces that classes within the game_player package implement
  */
-/**
- * @author belanie.nagiel
- *
- */
-package game_player_api;
+package game_player.api;
