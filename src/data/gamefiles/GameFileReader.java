@@ -107,8 +107,8 @@ public class GameFileReader implements JSONtoObject {
 	
 	@Override
 	/**
-	 * Returns a map of levels/settings to their associated game objects based
-	 * on the gameName and the json files for that game.
+	 * Returns a list of the Level objects for a game. Each level
+	 * object is created from the information for each level in the game folder.
 	 * 
 	 * @param gameName
 	 * @return 
@@ -136,7 +136,7 @@ public class GameFileReader implements JSONtoObject {
 	
 	@Override
 	/**
-	 * Returns the list of objects for a specific level of a game based on the JSON
+	 * Returns the Level object for a specific level of a game based on the JSON
 	 * file for that level.
 	 * 
 	 * @param gameName
@@ -184,7 +184,8 @@ public class GameFileReader implements JSONtoObject {
 
 	@Override
 	/**
-	 * To Do: Returns the list of objects for the general game settings
+	 * Returns a map of settings items to values. These items include 
+	 * a description of the game and a ready to play value.
 	 * 
 	 * @param gameName
 	 * @return
@@ -208,6 +209,12 @@ public class GameFileReader implements JSONtoObject {
 		return settingsDetails;
 	}
 	
+	/**
+	 * Returns a the File containing the settings information for a game.
+	 * 
+	 * @param gameName
+	 * @return
+	 */
 	private File retrieveSettings(String gameName) {
 		retrieveCurrentGame(gameName);
 		return new File(gameDirectory + NEST + SETTINGS + JSON_EXTENSION);
@@ -230,6 +237,12 @@ public class GameFileReader implements JSONtoObject {
 	}
 
 	@Override
+	/**
+	 * Returns a Map of the names of the ready to play games and their
+	 * descriptions.
+	 * 
+	 * @return
+	 */
 	public Map<String,String> getGameNames() {
 		Map<String,String> gameNames = new HashMap<>();
 		File gamesDirectory = new File(GAME_FOLDER);
