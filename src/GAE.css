@@ -4,6 +4,14 @@
 	-fx-padding: 5;
     -fx-margin: 25px;
 }
+
+.rightbar {
+	-fx-alignment: top-center;
+	-fx-background-color: #a6a6a6;
+	-fx-pref-width: 300;
+	-fx-spacing: 10px;
+	-fx-orientation: vertical;
+}
 .center-pane{
 	-fx-border-color: #000000;
 	-fx-border-width: 4;
@@ -66,6 +74,21 @@
 	-fx-pref-width: 300;
 }
 
+.level-chooser {
+	-fx-pref-height: 30;
+	-fx-pref-width: 270;
+	-fx-background-color: #fbe9ff;
+}
+
+.level-choice {
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	-fx-font-size: 20;
+	-fx-pref-height: 30;
+	-fx-pref-width: 270;
+	-fx-background-color: #fbe9ff;
+}
+
 .level-center {
 	-fx-background-color: #ffffff;
 	-fx-padding: 30;
@@ -91,4 +114,10 @@
 	-fx-margin: 20px;
 	-fx-pref-height: 600;
 	-fx-pref-width: 600;
+}
+
+.game-description {
+	-fx-alignment: top-left;
+	-fx-min-width: 400;
+	-fx-min-height: 300;
 }

@@ -23,13 +23,14 @@ public class Player extends PlayerCharacter{
     private double jumpFactor;
     private double maxVelocityX;
     private double maxVelocityY;
+    private String imagePath = "";
 
     public Player() {
-        this(new Kinematics(0,0,0,0,0,0));
+        this(0,0);
     }
     
-    public Player(Kinematics k){
-        kinematics = k;
+    public Player(double x, double y){
+        kinematics = new Kinematics(x,y,0,0,0,0);
         movementType = new Grounded();
         weaponType = new NoWeapon();
         speedFactor = 100; //arbitrary for now, might need to be MUCH higher
@@ -52,6 +53,16 @@ public class Player extends PlayerCharacter{
     @Override
     public double getJumpFactor(){
         return jumpFactor;
+    }
+    
+    @Override
+    public void setSpeedFactor(double speedFactor){
+        this.speedFactor = speedFactor;
+    }
+    
+    @Override
+    public void setJumpFactor(double jumpFactor){
+        this.jumpFactor = jumpFactor;
     }
     
     @Override
@@ -89,6 +100,12 @@ public class Player extends PlayerCharacter{
 	public void setHealth(int HP) {
 		health = HP;
 	}
+	
+	@Override
+	public int getHealth() {
+		return health;
+	}
+
 
 	@Override
 	public void addInteraction(Interaction i) {
@@ -143,6 +160,21 @@ public class Player extends PlayerCharacter{
 	@Override
 	public void setFrictionConstant(double frictionConstant) {
 		kinematics.setFrictionConstant(frictionConstant);
+	}
+	
+	@Override
+	public Kinematics getKinematics() {
+		return kinematics;
+	}
+	
+	@Override
+	public void setImagePath(String path) {
+		imagePath = path; 
+	}
+	
+	@Override
+	public String getImagePath() {
+		return imagePath;
 	}
 	
 	@Override
