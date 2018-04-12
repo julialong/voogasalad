@@ -200,8 +200,8 @@ public class GameFileReader implements JSONtoObject {
 			JsonObject  jobject = jelement.getAsJsonObject();
 			String description = jobject.get("description").getAsString();
 			settingsDetails.put("description", description);
-			String ready = jobject.get("ready").getAsString();
-			settingsDetails.put("ready", ready);
+			String ready = jobject.get("readyToPlay").getAsString();
+			settingsDetails.put("readyToPlay", ready);
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
@@ -252,7 +252,7 @@ public class GameFileReader implements JSONtoObject {
 			int index = game.toString().lastIndexOf("/") + 1;
 			String gameName = game.toString().substring(index).trim();
 			Map<String,String> gameSettings = loadSettings(gameName);
-			if(gameSettings.get("ready").equals("true"))
+			if(gameSettings.get("readyToPlay").equals("true"))
 			{
 				gameNames.put(gameName, gameSettings.get("description"));
 			}
