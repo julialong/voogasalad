@@ -8,40 +8,49 @@ import engine.level.Level;
 /**
  * @author Belanie Nagiel
  * 
- * Interface for interactions between Game Authoring Environment, Game Engine, Game Player
+ * Interface for interactions between Game Authoring Environment, Game Player
  * and Game Data. Used for loading existing data files for games.
  *
  */
 public interface JSONtoObject {
-	/*
-	 * Objects of this type will read through the JSON files for the settings and levels of a game
-	 * and create the appropriate GAE objects. The settings file and each level file will be mapped
-	 * to a list of the objects contained in the game authoring environement (obstacles, enemies, etc.) 
-	 * and those objects will be updated to contain their relevant information like position or ID. 
-	 */
 	
+	/**
+	 * This method will return the list of Level objects created from the level
+	 * files for a particular game. This will locate the folder for the specific
+	 * game and load the different level files associated with that folder.
+	 * 
+	 * @param gameName
+	 * @return 
+	 */
 	List<Level> loadCompleteGame(String gameName);
-	/*
-	 * GAE calls this method if a user chooses to begin editing or playing an existing game. This will locate the existing game folder 
-	 * based on the game name and create the appropriate list of levels and existing objects.
+
+	/**
+	 * This will load a specific level within a game based on the game name 
+	 * and the name of the level. Will return the Level object associated with 
+	 * that level file.
+	 * 
+	 * @param gameName
+	 * @param levelName
+	 * @return
 	 */
-	
 	Level loadLevel(String gameName, String levelName);
-	/*
-	 * GAE calls this method if a user chooses to begin editing an existing level. This will locate the existing game folder 
-	 * based on the game name and and the appropriate level based on the levelName. Then it will create a list of the appropriate
-	 * objects for the level. 
+
+	/**
+	 * This will load the different settings associated with a game, i.e the 
+	 * description of the game and whether or not it is ready to be played.
+	 * Returns a map of the setting to the value.
+	 * 
+	 * @param gameName
+	 * @return
 	 */
-	
 	Map<String,String> loadSettings(String gameName);
-	/*
-	 * GAE calls this method if a user chooses to begin editing the general settings for a specific game. This will locate the 
-	 * existing game folder based on the game name and will create a list of the appropriate objects associated with the current
-	 * settings. 
+
+	/**
+	 * This returns a Map of the names of the ready to play games and their
+	 * descriptions.
+	 * 
+	 * @return
 	 */
-	
 	Map<String,String> getGameNames();
-	/*
-	 * Game Player calls this method to get the list of currently playable games.
-	 */
+
 }
