@@ -14,7 +14,7 @@ public class Physics {
      * Constructor without inputs, sets gravity to default
      */
 	public Physics() {
-		gravitationalConstant = 9.81;
+		gravitationalConstant = 9.81*10;
 	}
 	
 	/**
@@ -34,7 +34,12 @@ public class Physics {
 	public Kinematics applyPhysics(Kinematics k, boolean gravApplies){
 		double xAcc = k.getXAcceleration();
         if(k.getXVelocity() != 0){
-            xAcc -= k.getFrictionConstant();
+        	if(k.getXVelocity() < 0){
+        		xAcc += k.getFrictionConstant();
+        	}
+        	else if (k.getXVelocity() > 0){
+        		xAcc -= k.getFrictionConstant();
+        	}
         }
 		double yAcc = k.getYAcceleration();
 		if(gravApplies){
