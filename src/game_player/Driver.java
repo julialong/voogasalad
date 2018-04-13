@@ -8,9 +8,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Main Driver for running the Game Player application
  *

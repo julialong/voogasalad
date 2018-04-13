@@ -234,7 +234,7 @@ public class GameFileReader implements JSONtoObject {
 		File[] games= gamesDirectory.listFiles();
 		for(File game: games)
 		{
-			int index = game.toString().lastIndexOf("/") + 1;
+			int index = game.toString().lastIndexOf("\\") + 1;
 			String gameName = game.toString().substring(index).trim();
 			Map<String,String> gameSettings = loadSettings(gameName);
 			if(gameSettings.get("ready").equals("true"))
