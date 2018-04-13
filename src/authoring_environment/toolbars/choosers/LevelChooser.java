@@ -3,7 +3,11 @@ package authoring_environment.toolbars.choosers;
 import authoring_environment.AuthoredGame;
 import authoring_environment.toolbars.RightBar;
 import engine.level.Level;
+import javafx.geometry.Side;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -38,12 +42,32 @@ public class LevelChooser extends VBox {
         for (Level level : myGame.getLevels()) {
             Pane thisLevelChoice = new LevelChoice(level);
             thisLevelChoice.setOnMouseClicked(e -> {
-                myGame.setCurrentLevel(level);
-                System.out.println("Current level: " + myGame.getCurrentLevel().getName());
-                myScrollPane.setContent(myGame.getCurrentLevel().getGrid());
+                if (e.getButton() == MouseButton.PRIMARY) {
+                    if (e.isControlDown())
+                        addRightClickButtonBehavior(thisLevelChoice, level);
+                    else
+                        addClickButtonBehavior(level);
+                }
             });
             this.getChildren().add(thisLevelChoice);
         }
+    }
+
+    private void addClickButtonBehavior(Level level) {
+        myGame.setCurrentLevel(level);
+        myScrollPane.setContent(myGame.getCurrentLevel().getGrid());
+    }
+
+    private void addRightClickButtonBehavior(Pane levelChoice, Level level) {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem delete = new MenuItem("Delete level");
+        delete.setOnAction(e -> setDeleteBehavior(level));
+        contextMenu.getItems().add(delete);
+        contextMenu.show(levelChoice, Side.RIGHT, 0 ,0 );
+    }
+
+    private void setDeleteBehavior(Level level) {
+        myGame.removeLevel(level);
     }
 
 }

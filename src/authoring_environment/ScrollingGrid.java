@@ -1,19 +1,9 @@
 package authoring_environment;
 
-import java.util.ArrayList;
-
-import javafx.event.EventHandler;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
 
 /**
  * 
@@ -24,7 +14,7 @@ public class ScrollingGrid extends GridPane {
 	// TODO: Change this based on level size
 	private static final int NUMBER_OF_ROWS = 20;
 	private static final int NUMBER_OF_COLUMNS = 50;
-	private static final int DEFAULT_CELL_SIZE = 75;
+	private static final int DEFAULT_CELL_SIZE = 50;
 	
 	private int cellSize;
 	private int rowNumber;

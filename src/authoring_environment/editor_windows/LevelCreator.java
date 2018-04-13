@@ -53,13 +53,13 @@ public class LevelCreator {
      * Creates and launches a new LevelCreator window
      */
     public LevelCreator(AuthoredGame game) {
+        myGame = game;
         createNewLevel();
         myStage = new Stage();
         myRoot = new BorderPane();
         addFields();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
-        myGame = game;
         myStage.setScene(myScene);
         myStage.setTitle(LEVEL_CREATOR);
         myStage.show();
@@ -70,7 +70,8 @@ public class LevelCreator {
      * Creates a new level with default size.
      */
     private void createNewLevel() {
-        newLevel = new BasicLevel();
+        System.out.println(myGame.getName());
+        newLevel = new BasicLevel(myGame.getLevels().size()+1);
     }
 
     /**

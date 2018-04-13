@@ -74,8 +74,8 @@ public class VoogaChooser implements GameChooser {
     private void setListener(ListView<GameItem> gameChoices) {
         gameChoices.setOnMouseClicked(event -> {
             try{
-                //GameItem game = gameChoices.getSelectionModel().getSelectedItem();
-                //game.setUpGame(reader.loadCompleteGame(game.toString()));
+                GameItem game = gameChoices.getSelectionModel().getSelectedItem();
+                game.setUpGame(reader.loadCompleteGame(game.toString()));
                 Stage currentStage = (Stage) myView.getScene().getWindow();
                 currentStage.close();
             }

@@ -19,11 +19,12 @@ import engine.level.Level;
  */
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static final String NEST = "/";
-	private static final String SETTINGS = "settings";
+	private static final String SETTINGS = "Settings";
 	private static final String EXTENSION = ".json";
 
 	private String gameDirectory;
 	private File gameDirectoryFile;
+	private String gameName;
 
 	/**
 	 * Class Constructor.
@@ -31,6 +32,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param gameName
 	 */
 	public GameFileWriter(String gameName)	{
+		this.gameName = gameName;
 		gameDirectory = "./data/gameData/" + gameName;
 		gameDirectoryFile = retrieveGame();
 	}
@@ -56,6 +58,15 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	}
 
 	/**
+	 * Will change settings file mapping to whether game is ready to play or not
+	 * @param ready		value to change readiness of game to
+	 */
+	@Override
+	public void updateMeta(boolean ready, String desc)	{
+		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), ready, desc);
+	}
+
+	/**
 	 * Saves state of level being played, for use with checkpoints
 	 * @param level			name of level to save
 	 * @param itemsInLevel	List (potentially list of lists of different types of objects) if items in level to save stats of
@@ -67,13 +78,14 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 
 	/**
 	 * Cancels any edits made to a game since last save
-	 * @param level	name of level to chancel changes to
-	 * @return	List of objects in level from JSON file of level
+	 * @param level	level to cancel changes to
+	 * @return	new, replacement instance of level
 	 */
 	@Override
-	public List<Object> revertChanges(Level level)	{
-		// jsonToObject(getLevel(level));
-		return null;
+	public Level revertChanges(Level level)	{
+		GameFileReader reader = new GameFileReader();
+		String levelName = level.getName();
+		return reader.loadLevel(gameName, levelName);
 	}
 
 	/**
@@ -106,7 +118,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private void makeNewGame(File gameFolder)	{
 		gameFolder.mkdir();
 
-		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION));
+		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), false, "no description");
 	}
 
 	private File getLevel(Level level)	{
