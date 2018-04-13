@@ -35,4 +35,10 @@ public interface GameItem {
      * representation of the game that can be chosen
      */
     public String toString();
+
+    /**
+     * Returns the name of the game used to retrieve all files
+     * needed for the game engine to run the game.
+     */
+    public String getGameName();
 }
