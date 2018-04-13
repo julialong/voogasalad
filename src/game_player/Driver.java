@@ -31,7 +31,7 @@ public class Driver extends Application {
 		primaryStage.setTitle(TITLE);
         primaryStage.setMinWidth(550);
 		Scene scene = new Scene(gameChooser.displayChoices());
-		scene.getStylesheets().add("styleSheet.css");
+		scene.getStylesheets().add("./data/styling/styleSheet.css");
 
 		primaryStage.setScene(scene);
 
