@@ -60,7 +60,7 @@ public class OverViewDriver extends Application {
         buttonContainer.getChildren().add(gp);
 
         Text title = new Text("Welcome to Super Salad Squad");
-        title.setFont(new Font(30));
+        //title.setFont(new Font(30));
         Text t = new Text("Choose an application to open");
 
         container.getChildren().add(title);

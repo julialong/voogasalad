@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import java.util.Map;
  */
 public class VoogaChooser implements GameChooser {
     private Stage myStage;
+    private HBox container = new HBox();
     private BorderPane myView =  new BorderPane();
     private JSONtoObject reader = new GameFileReader();
     private ListView<GameItem> playableGames = new ListView<>();
