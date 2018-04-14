@@ -1,5 +1,6 @@
 package engine.controls;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -14,6 +15,7 @@ import javafx.scene.input.KeyCode;
 public class Controls {
 	private Player player;
 	private Map<KeyCode, Action> keyBindings = new HashMap<>();
+	private ArrayList<KeyCode> pressedKeys = new ArrayList<>();
 	private boolean allowJump = true;
 	private Bindings bindingsToFile = new Bindings();;
 
@@ -53,6 +55,9 @@ public class Controls {
 	 * @param key - the KeyCode
 	 */
 	public void activate(KeyCode key) {
+		if(!pressedKeys.contains(key)) {
+			pressedKeys.add(key);
+		}	
 		if(keyBindings.keySet().contains(key)) {
 			if(keyBindings.get(key) instanceof Jump) {
 				if(allowJump) {
@@ -70,11 +75,17 @@ public class Controls {
 	 * Stops the player from accelerating. Likely needs some work.
 	 */
 	public void deactivate(KeyCode key) {
+		pressedKeys.remove(key);
 		if(keyBindings.get(key) instanceof Jump) {
 			allowJump = true;
 		}
 		else {
-			new Stop().execute(player);
+			if(pressedKeys.isEmpty()) {
+				new Stop().execute(player);
+			}
+			else {
+				activate(pressedKeys.get(0));
+			}
 		}
 	}
 }

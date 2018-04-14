@@ -1,5 +1,10 @@
 package engine.physics;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import engine.entity.GameEntity;
+
 /**
  * Performs gravitational and pseudo-frictional physics calculations
  * @author Marcus Oertle and Robert Gitau
@@ -8,22 +13,7 @@ package engine.physics;
 public class Physics {
     private static final double FRAME_RATE = 60;
 	private static final double TIME_STEP = 1/FRAME_RATE;
-    private double gravitationalConstant;
-	
-    /**
-     * Constructor without inputs, sets gravity to default
-     */
-	public Physics() {
-		gravitationalConstant = 9.81*10;
-	}
-	
-	/**
-	 * Constructor with input to set gravitational constant
-	 * @param gravConstant - the gravitional constant (default 9.81)
-	 */
-	public Physics(double gravConstant) {
-		gravitationalConstant = gravConstant;
-	}
+	private Map<GameEntity, Kinematics> previousGeKinematicsMap = new HashMap<>();
 	
 	/**
 	 * Apply physics to a Kinematics object
@@ -31,19 +21,14 @@ public class Physics {
 	 * @param gravApplies - boolean determining whether to apply gravity
 	 * @return new Kinematics()
 	 */
-	public Kinematics applyPhysics(Kinematics k, boolean gravApplies){
+	public Kinematics applyPhysics(Kinematics k, boolean gravApplies, boolean frictionApplies){
 		double xAcc = k.getXAcceleration();
-        if(k.getXVelocity() != 0){
-        	if(k.getXVelocity() < 0){
-        		xAcc += k.getFrictionConstant();
-        	}
-        	else if (k.getXVelocity() > 0){
-        		xAcc -= k.getFrictionConstant();
-        	}
-        }
+		if(frictionApplies) {
+			xAcc = applyFriction(k, xAcc);
+		}
 		double yAcc = k.getYAcceleration();
 		if(gravApplies){
-			yAcc += -gravitationalConstant;
+			yAcc += -k.getGravitationalConstant();
 		}
 		double xFinalVelocity = k.getXVelocity() + xAcc * TIME_STEP;
 		double yFinalVelocity = k.getYVelocity() + yAcc * TIME_STEP;
@@ -60,5 +45,23 @@ public class Physics {
 		k.setXVelocity(xFinalVelocity);
 		k.setYVelocity(yFinalVelocity);
 		return k;
+	}
+	
+	/**
+	 * Applies friction
+	 * @param k
+	 * @param xAcc
+	 * @return
+	 */
+	public double applyFriction(Kinematics k, double xAcc) {
+        if(k.getXVelocity() != 0){
+        	if(k.getXVelocity() < 0){
+        		xAcc += k.getFrictionConstant();
+        	}
+        	else if (k.getXVelocity() > 0){
+        		xAcc -= k.getFrictionConstant();
+        	}
+        }
+        return xAcc;
 	}
 }
