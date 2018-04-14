@@ -1,3 +1,8 @@
+.vbox {
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+
 .button {
     -fx-background-color: #000000;
     -fx-border-width: 2;
