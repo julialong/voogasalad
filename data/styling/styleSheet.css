@@ -15,7 +15,8 @@
 }
 
 .list-cell:empty {
-    -fx-opacity: 0;
+    -fx-background-color: #d3d3d3;
+    -fx-border-color: #d3d3d3;
 }
 
 .button {

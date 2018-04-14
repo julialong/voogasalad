@@ -30,7 +30,6 @@ public class OverViewDriver extends Application {
         primaryStage.setTitle("SuperSaladSquad");
         Scene scene = new Scene(getScene(primaryStage));
         scene.getStylesheets().add("../data/styling/overview.css");
-        primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -46,6 +45,7 @@ public class OverViewDriver extends Application {
         Pane pane = new Pane();
         VBox container = new VBox();
         HBox buttonContainer = new HBox();
+        buttonContainer.getStyleClass().add("hbox");
         Button gae = new Button("Game Authoring Environment");
         gae.setOnAction(event -> {
             new EditorWindow(stage);

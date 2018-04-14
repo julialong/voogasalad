@@ -1,5 +1,13 @@
 .vbox {
     -fx-alignment: center;
+    -fx-spacing: 100;
+    -fx-background-color: #d3d3d3;
+    -fx-border-width: 50;
+    -fx-border-color: #d3d3d3;
+}
+
+.hbox {
+    -fx-alignment: center;
     -fx-spacing: 10;
 }
 
