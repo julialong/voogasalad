@@ -1,6 +1,6 @@
 package engine.level;
 
-import authoring_environment.ScrollingGrid;
+import authoring_environment.grid.ScrollingGrid;
 import engine.entity.GameEntity;
 import engine.physics.DetectCollision;
 

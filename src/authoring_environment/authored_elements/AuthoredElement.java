@@ -1,4 +1,6 @@
-package authoring_environment;
+package authoring_environment.authored_elements;
+
+import authoring_environment.Attribute;
 
 /**
  * The AuthoredElement interface is implemented by every element that

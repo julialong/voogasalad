@@ -1,6 +1,5 @@
 package authoring_environment.toolbars.buttons;
 
-import authoring_environment.AuthoredElementCreator;
 import javafx.scene.control.Button;
 
 import java.net.MalformedURLException;

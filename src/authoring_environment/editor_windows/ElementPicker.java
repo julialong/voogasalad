@@ -50,16 +50,14 @@ public class ElementPicker {
 	private void loadImages(String type) {
 		File folder = new File("./data/" + type);
 		String[] imageExtensions = new String[]{".jpg", ".jpeg", ".png", ".gif"};
-		File[] imageFiles = folder.listFiles(new FilenameFilter() {
-			public boolean accept(File folder, String name) {
-				for (String extension : imageExtensions) {
-					if (name.endsWith(extension)) {
-						return (true);
-					}
-				}
-				return (false);
-			}
-		});
+		File[] imageFiles = folder.listFiles((folder1, name) -> {
+            for (String extension : imageExtensions) {
+                if (name.endsWith(extension)) {
+                    return (true);
+                }
+            }
+            return (false);
+        });
 		for(File file : imageFiles) {
 			Image image = new Image("file:data/" + myTypeChoice + "/" + file.getName(), 40, 40, true, true);
 			PickableElement element = new PickableElement(image, myTypeChoice, file.getName());

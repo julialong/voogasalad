@@ -27,7 +27,7 @@ public class CustomElementSaver {
 	
 	/**
 	 * 
-	 * @param gameElment
+	 * @param gameElement
 	 * 	This is the gameEntity object that the attributes are being saved for
 	 * @param id
 	 * 	This is the ID for the gameEnity object that is being saved

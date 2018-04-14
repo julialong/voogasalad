@@ -1,8 +1,6 @@
-package authoring_environment;
+package authoring_environment.grid;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
