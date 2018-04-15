@@ -39,10 +39,10 @@ import engine.level.Level;
 public class GameFileReader implements JSONtoObject {
 
 	private static final String GAME_FOLDER = "./data/gameData";
-	private static final String NEST = "/";
 	private static final String JSON_EXTENSION = ".json";
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
 	private static final String SETTINGS = "Settings";
+	private String NEST = "/";
 	private String gameDirectory;
 	private File currentGame;
 	private File currentLevel;
@@ -58,7 +58,11 @@ public class GameFileReader implements JSONtoObject {
 		System.out.println(System.getProperty("os.name"));
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
-		deserializer = new Serializer(); 
+		deserializer = new Serializer();
+
+		if (System.getProperty("os.name").toString().contains("Windows"))	{
+			NEST = "\\";
+		}
 	}
 	
 	/**
@@ -91,7 +95,7 @@ public class GameFileReader implements JSONtoObject {
 	private void retrieveCurrentGame(String gameName)
 	{
 		gameDirectory = GAME_FOLDER + NEST + gameName;
-		currentGame = new File(gameDirectory); 
+		currentGame = new File(gameDirectory); 	
 	}
 	
 	/**
