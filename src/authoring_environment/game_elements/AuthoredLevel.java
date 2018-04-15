@@ -1,6 +1,7 @@
 package authoring_environment.game_elements;
 
 import authoring_environment.grid.ScrollingGrid;
+import engine.entity.GameEntity;
 import engine.level.Level;
 import javafx.scene.layout.Background;
 
@@ -62,5 +63,21 @@ public class AuthoredLevel {
      */
     public ScrollingGrid getScrollingGrid() {
         return myScrollingGrid;
+    }
+
+    /**
+     * Adds object to Level
+     * @param ID is the ID of the object to create
+     */
+    public void addObject(String ID) {
+        // TODO: some reflection shit
+    }
+
+    /**
+     * Removes the object from the level
+     * @param object is the object to remove
+     */
+    public void removeObject(GameEntity object){
+        myLevel.getObjects().remove(object);
     }
 }

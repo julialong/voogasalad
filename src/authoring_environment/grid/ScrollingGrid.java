@@ -101,6 +101,7 @@ public class ScrollingGrid extends GridPane {
 					GridCell checkCell = cellArray[j][i];
 					if (checkCell.isSelected()) {
 						checkCell.setImage(path);
+						myLevel.addObject(" beep");
 					}
 				}
 			}
