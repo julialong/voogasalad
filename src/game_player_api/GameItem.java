@@ -1,6 +1,7 @@
 package game_player_api;
 
 import data.gamefiles.JSONtoObject;
+import engine.level.Level;
 import javafx.scene.control.ListCell;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface GameItem {
      * Sets up the Game view application environment
      * with the specific game that this item represents
      */
-    public void setUpGame(Map<String, List<Object>> gameMaterials);
+    public void setUpGame(List<Level> gameLevels);
 
     /**
      * Alters toString method to return a properly formatted

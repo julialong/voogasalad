@@ -22,7 +22,12 @@ import engine.level.Level;
 import javafx.application.Application;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
-
+/**
+ * Class used for testing serialization.
+ * 
+ * @author Belanie Nagiel
+ *
+ */
 public class TestingGSON {
 	
 	
@@ -114,8 +119,8 @@ public class TestingGSON {
 //		String x = gs.toJson(sc);
 //		System.out.println(x);
 		
-//		System.out.println(fr.loadSettings("NewTester"));
-		System.out.println(fr.getGameNames());
+		System.out.println(fr.loadCompleteGame("TestGame"));
+//		fr.loadLevel("TestGame", "Default");
 		
 	}
 }

@@ -16,11 +16,11 @@ public class Foes extends Enemy {
     private Weapon weaponType;
     
     public Foes() {
-        this(new Kinematics(0,0,0,0,0,0));
+        this(0,0);
     }
     
-    public Foes(Kinematics k){
-        kinematics = k;
+    public Foes(double x, double y){
+        kinematics = new Kinematics(x,y,0,0,0,0);
         movementType = new Grounded();
         weaponType = new NoWeapon();
         behaviorList.add(new NoBehavior()); 

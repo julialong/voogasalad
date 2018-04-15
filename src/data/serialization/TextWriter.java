@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import engine.entity.GameEntity;
+import engine.level.Level;
 
 /**
  * @author Maya Messinger
@@ -16,16 +17,30 @@ import engine.entity.GameEntity;
  * Class that copletely encapsulates file writing
  */
 public class TextWriter	{
-	private static final String CURLYBRACKETOPEN = "{";
-	private static final String CURLYBRACKETCLOSE = "}";
-	private static final String BRACKETOPEN = "[";
-	private static final String BRACKETCLOSE = "]";
-	private static final String COLON = ":";
-	private static final String COMMA = ",";
-	private static final String QUOTE = "\"";
+	public static final String CURLYBRACKETOPEN = "{";
+	public static final String CURLYBRACKETCLOSE = "}";
+	public static final String BRACKETOPEN = "[";
+	public static final String BRACKETCLOSE = "]";
+	public static final String COLON = ":";
+	public static final String COMMA = ",";
+	public static final String QUOTE = "\"";
 	private static final String WRITEERRORSTATEMENT = "Could not write to file";
 
+	private static final String DESCRIPTION = "description";
+	private static final String READYTOPLAY = "readyToPlay";
+
 	private Serializer ser = new Serializer();
+
+	/**
+	 * @author Maya Messinger
+	 * Constructor for class for use with writing settings file (no objects)
+	 * @param settings	File of settings to edit
+	 * @param ready		whether game is ready or not
+	 * @param desc		description of game
+	 */
+	public TextWriter(File settings, boolean ready, String desc)	{
+		callWrite(settings, ready, desc);
+	}
 
 	/**
 	 * @author Maya Messinger
@@ -33,16 +48,16 @@ public class TextWriter	{
 	 * @param level			File of level to write
 	 * @param itemsInLevel	items to serialize and write
 	 */
-	public TextWriter(File level, List itemsInLevel)	{
-		callWrite(level, itemsInLevel);
+	public TextWriter(Level level, File levelF, List itemsInLevel)	{
+		callWrite(level, levelF, itemsInLevel);
 	}
 
-	private void callWrite(File level, List<GameEntity> itemsInLevel)	{
+	private void callWrite(File settings, boolean ready, String desc)	{
 		try	{
-			FileWriter fw = new FileWriter(level);
+			FileWriter fw = new FileWriter(settings);
 		
 			startFile(fw);
-			addtoWrite(fw, itemsInLevel);
+			writeSettings(fw, ready, desc);
 			endFile(fw);
 		}
 		catch (IOException e)	{
@@ -50,7 +65,38 @@ public class TextWriter	{
 		}
 	}
 
-	private void addtoWrite(FileWriter fw, List<GameEntity> items)	{
+	private void callWrite(Level level, File levelF, List<GameEntity> itemsInLevel)	{
+		try	{
+			FileWriter fw = new FileWriter(levelF);
+		
+			startFile(fw);
+			serializeLevel(fw, level);
+			writeObjects(fw, itemsInLevel);
+			endFile(fw);
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	private void writeSettings(FileWriter fw, boolean ready, String desc)	{
+		try	{
+			fw.write(QUOTE + DESCRIPTION + QUOTE + COLON + QUOTE + desc + QUOTE);
+			fw.write(COMMA);
+			newLine(fw);
+			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + ready);
+			newLine(fw);
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	private void serializeLevel(FileWriter fw, Level level)	{
+		new LevelSerializer().serialize(fw, level);
+	}
+
+	private void writeObjects(FileWriter fw, List<GameEntity> items)	{
 		int entryIndex = 0;
 		Map<String, List<Object>> objsOrganized = sortObjects(items);
 		for (Map.Entry entry:objsOrganized.entrySet())	{
@@ -79,31 +125,45 @@ public class TextWriter	{
 		return objsOrganized;
 	}
 
-	private void startFile(FileWriter fw)	{
+	protected static void startFile(FileWriter fw)	{
 		try	{
 			fw.write(CURLYBRACKETOPEN);
-			fw.write(System.lineSeparator());
+			newLine(fw);
 		}
 		catch (IOException e)	{
 			error(e);
 		}
 	}
 
-	private void startArray(FileWriter fw, String title)	{
+	private static void endFile(FileWriter fw)	{
 		try	{
-			fw.write(QUOTE + title + QUOTE + COLON + BRACKETOPEN);
-			fw.write(System.lineSeparator());
+			fw.write(CURLYBRACKETCLOSE);
+			fw.close();
 		}
 		catch (IOException e)	{
 			error(e);
 		}
 	}
 
-	private void closeArray(FileWriter fw, int entryIndex, int mapSize)	{
+	protected static void startArray(FileWriter fw, String title)	{
+		try	{
+			if (title != null && !title.equals(""))	{
+				writeKey(fw, title);
+			}
+
+			fw.write(BRACKETOPEN);
+			newLine(fw);
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	protected static void closeArray(FileWriter fw, int entryIndex, int mapSize)	{
 		try	{
 			fw.write(BRACKETCLOSE);
 			checkWriteComma(fw, entryIndex, mapSize);
-			fw.write(System.lineSeparator());
+			newLine(fw);
 		}
 		catch (IOException e)	{
 			error(e);
@@ -115,7 +175,7 @@ public class TextWriter	{
 			for (Object obj:toWrite)	{
 				fw.write(ser.serialize(obj));
 				checkWriteComma(fw, toWrite.indexOf(obj), toWrite.size());
-				fw.write(System.lineSeparator());
+				newLine(fw);
 			}
 		}
 		catch (IOException e)	{
@@ -123,7 +183,43 @@ public class TextWriter	{
 		}
 	}
 
-	private void checkWriteComma(FileWriter fw, int index, int size)	{
+	protected static void newLine(FileWriter fw)	{
+		try	{
+			fw.write(System.lineSeparator());
+		}
+		catch(IOException e)	{
+			error(e);
+		}
+	}
+
+	protected static void writeKey(FileWriter fw, String key)	{
+		try	{
+			fw.write(QUOTE + key + QUOTE + COLON);
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	protected static void writeValue(FileWriter fw, String value)	{
+		try	{
+			fw.write(QUOTE + value + QUOTE);
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	protected static void writeValue(FileWriter fw, int value)	{
+		try	{
+			fw.write(Integer.toString(value));
+		}
+		catch (IOException e)	{
+			error(e);
+		}
+	}
+
+	protected static void checkWriteComma(FileWriter fw, int index, int size)	{
 		if (index < size - 1)	{
 			try	{
 				fw.write(COMMA);
@@ -134,17 +230,7 @@ public class TextWriter	{
 		}
 	}
 
-	private void endFile(FileWriter fw)	{
-		try	{
-			fw.write(CURLYBRACKETCLOSE);
-			fw.close();
-		}
-		catch (IOException e)	{
-			error(e);
-		}
-	}
-
-	private void error(IOException e)	{
+	protected static void error(IOException e)	{
 		System.out.println(WRITEERRORSTATEMENT);
 	}
 }

@@ -1,6 +1,7 @@
 package engine.interaction;
 
 import engine.entity.GameEntity;
+import engine.physics.Kinematics;
 
 /**
  * The source causes the target to get knocked away from the source
@@ -11,8 +12,8 @@ public class KnockBack implements Interaction{
 
 	@Override
 	public void interact(GameEntity source, GameEntity target) {
-		// TODO Auto-generated method stub
-		
+		Kinematics k = target.getKinematics();
+		target.setXVelocity(-k.getXVelocity());
 	}
 
 }

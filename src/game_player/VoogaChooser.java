@@ -6,13 +6,13 @@ import game_player_api.GameChooser;
 import game_player_api.GameItem;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Application for running the Game Chooser. The purpose is to let
@@ -44,10 +44,10 @@ public class VoogaChooser implements GameChooser {
      */
     @Override
     public BorderPane displayChoices() {
-        List<String> names = reader.getGameNames();
+        Map<String, String> names = reader.getGameNames();
         List<GameItem> gamesToPlay = new ArrayList<>();
-        for(String gameName : names){
-            GameItem game = new VoogaGameItem(gameName);
+        for(String gameName : names.keySet()){
+            GameItem game = new VoogaGameItem(gameName, names.get(gameName));
             gamesToPlay.add(game);
         }
         playableGames.setItems(FXCollections.observableArrayList(gamesToPlay));
