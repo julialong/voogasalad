@@ -1,8 +1,7 @@
 package authoring_environment.authored_elements;
 
 
-import authoring_environment.AttributeEditor;
-import authoring_environment.GameElement;
+import authoring_environment.editor_windows.AttributeEditor;
 
 /**
  * Authored Element Creator allows for the user to create a new AuthoredElement.  

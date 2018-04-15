@@ -1,10 +1,11 @@
-package authoring_environment.editor_windows;
+package authoring_environment.toolbars.choosers;
 
 import java.io.Console;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 
+import authoring_environment.editor_windows.PickableElement;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;

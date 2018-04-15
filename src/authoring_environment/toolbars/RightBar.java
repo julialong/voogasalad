@@ -1,8 +1,8 @@
 package authoring_environment.toolbars;
 
-import authoring_environment.AuthoredGame;
+import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.grid.ScrollingGrid;
-import authoring_environment.editor_windows.ElementPicker;
+import authoring_environment.toolbars.choosers.ElementPicker;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddElementButton;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddLevelButton;
 import authoring_environment.toolbars.buttons.creator_view_buttons.DeleteGridCellButton;

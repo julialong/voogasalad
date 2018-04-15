@@ -1,6 +1,6 @@
 package authoring_environment.toolbars.choosers;
 
-import authoring_environment.AuthoredGame;
+import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.toolbars.RightBar;
 import engine.level.Level;
 import javafx.geometry.Side;

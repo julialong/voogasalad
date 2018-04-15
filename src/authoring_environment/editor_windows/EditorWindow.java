@@ -1,7 +1,7 @@
 package authoring_environment.editor_windows;
 
 import authoring_environment.authored_elements.AuthoredElement;
-import authoring_environment.AuthoredGame;
+import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.RightBar;
 import authoring_environment.toolbars.TopBar;

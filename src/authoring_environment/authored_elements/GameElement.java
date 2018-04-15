@@ -1,9 +1,11 @@
-package authoring_environment;
+package authoring_environment.authored_elements;
 
 import java.util.HashMap;
 
 import javax.xml.transform.TransformerException;
 
+import authoring_environment.Attribute;
+import authoring_environment.CustomElementSaver;
 import authoring_environment.authored_elements.AuthoredElement;
 
 /**
