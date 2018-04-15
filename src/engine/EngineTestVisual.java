@@ -1,5 +1,8 @@
 package engine;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import engine.behavior.MoveForward;
 import engine.controls.Controls;
 import engine.entity.Block;
@@ -29,6 +32,7 @@ public class EngineTestVisual extends Application{
 	private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final Level LEVEL = new BasicLevel();
 	private Group root = new Group();
+	private Map<GameEntity, Rectangle> geRectMap = new HashMap<>();
 	private Controls controls;
 	/**
 	 * Start the program.
@@ -38,7 +42,25 @@ public class EngineTestVisual extends Application{
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) throws Exception {	
+		setupLevel();
+		
+		Scene scene = new Scene(root, 400, 400, Color.THISTLE);
+		scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+		scene.setOnKeyReleased(e -> handleKeyRelease(e.getCode()));
+		Timeline animation = new Timeline();
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
+				e -> step(SECOND_DELAY));
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("EngineVisualTest");
+		primaryStage.show();
+	}
+	
+	private void setupLevel() {
 		LEVEL.setSize(400, 400);
 		Foes enemy = new Foes();
 		//Block enemy = new Block();
@@ -74,23 +96,19 @@ public class EngineTestVisual extends Application{
 		LEVEL.addObject(enemy);
 		LEVEL.addObject(wall);
 		LEVEL.addObject(player);
-		
-		
-
-
-		Scene scene = new Scene(root, 400, 400, Color.THISTLE);
-		scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-		scene.setOnKeyReleased(e -> handleKeyRelease(e.getCode()));
-		Timeline animation = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-				e -> step(SECOND_DELAY));
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("EngineVisualTest");
-		primaryStage.show();
+		for(GameEntity ge : LEVEL.getObjects()){
+			Rectangle entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
+			entityImage.setFill(Color.GREEN);
+			entityImage.setStroke(Color.BLACK);
+			if(ge instanceof Player){
+				entityImage.setFill(Color.BLUE);
+			}
+			if(ge instanceof Foes){
+				entityImage.setFill(Color.RED);
+			}
+			root.getChildren().add(entityImage);
+			geRectMap.put(ge, entityImage);
+		};
 	}
 
 	private void handleKeyInput(KeyCode code) {
@@ -103,20 +121,9 @@ public class EngineTestVisual extends Application{
 
 	private void step(double secondDelay) {
 		LEVEL.update();
-		//		System.out.println("done");
-		//		System.out.println("");
-		root.getChildren().clear();
 		for(GameEntity ge : LEVEL.getObjects()){
-			Rectangle entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
-			entityImage.setFill(Color.GREEN);
-			entityImage.setStroke(Color.BLACK);
-			if(ge instanceof Player){
-				entityImage.setFill(Color.BLUE);
-			}
-			if(ge instanceof Foes){
-				entityImage.setFill(Color.RED);
-			}
-			root.getChildren().add(entityImage);
+			geRectMap.get(ge).setX(ge.getPosition()[0]+200);
+			geRectMap.get(ge).setY(-ge.getPosition()[1]+200);
 		}
 	}
 }
