@@ -1,7 +1,11 @@
 package engine.level;
 
+
 import authoring_environment.grid.ScrollingGrid;
+import engine.entity.Block;
+import engine.entity.Foes;
 import engine.entity.GameEntity;
+import engine.entity.Player;
 import engine.physics.DetectCollision;
 
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ public class BasicLevel implements Level {
     private List<GameEntity> myObjects;
     private int myID;
     private String myName;
+    private DetectCollision detectCollision = new DetectCollision();
 
     private static final String DEFAULT = "Default";
     private static final int DEFAULT_X_SIZE = 500;
@@ -54,7 +59,12 @@ public class BasicLevel implements Level {
 
     @Override
     public void addObject(GameEntity object) {
-        myObjects.add(object);
+//    	if(object instanceof Player || object instanceof Foes) {
+//    		myObjects.add(0, object);
+//    	}
+//    	else {
+    		myObjects.add(object);
+//    	}
     }
 
     @Override
@@ -99,17 +109,51 @@ public class BasicLevel implements Level {
     
     @Override
     public void update(){
+    	for(GameEntity source : myObjects){
+    		source.update();
+    	}
         for(GameEntity source : myObjects){
+//        	if(source instanceof Player) {
+//            	System.out.println("P0: " + source.getKinematics().getY());
+//            }
+//            if(source instanceof Block) {
+//            	System.out.println("B0: " + source.getKinematics().getY());
+//            }
+        	//source.update();
+//            if(source instanceof Player) {
+//            	System.out.println("P1: " + source.getKinematics().getY());
+//            }
+//            if(source instanceof Block) {
+//            	System.out.println("B1: " + source.getKinematics().getY());
+//            }
             for(GameEntity target : myObjects){
-                checkInteractions(source, target);
+            	if(!(source == target)) {
+            		checkInteractions(source, target);
+//                    if(target instanceof Player) {
+//                    	System.out.println("P2: " + target.getKinematics().getY());
+//                    }
+//                    if(target instanceof Block) {
+//                    	System.out.println("B2: " + target.getKinematics().getY());
+//                    }a
+            	}
             }
-            source.update();
+            //source.update();
+//            if(source instanceof Player) {
+//            	System.out.println("P3: " + source.getKinematics().getY());
+//            }
+//            if(source instanceof Block) {
+//            	System.out.println("B3: " + source.getKinematics().getY());
+//            }
+//            if(source instanceof Player) {
+//            	System.out.println("P4: " + source.getKinematics().getY());
+//            }
         }
     }
     
     private void checkInteractions(GameEntity source, GameEntity target){
-    	if(!((new DetectCollision().detect(source, target)).equals("none"))) {
-    		source.interact(source, target);
+    	String direction = detectCollision.detect(source, target);
+    	if(!(direction.equals("none"))) {
+    		source.interact(source, target, direction);
     	}
     }
 

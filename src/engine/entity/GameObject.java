@@ -1,12 +1,17 @@
 package engine.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import engine.behavior.Behavior;
 import engine.interaction.Interaction;
 import engine.movement.Movement;
 import engine.physics.Kinematics;
 
 public abstract class GameObject implements GameEntity{
+	protected int id;
 	protected Movement movementType;
 	protected Kinematics kinematics;
 	protected int health;
@@ -19,156 +24,166 @@ public abstract class GameObject implements GameEntity{
 	protected String imagePath = "";
 	protected ArrayList<Behavior> behaviorList = new ArrayList<>();
 	protected ArrayList<Interaction> interactionList = new ArrayList<>();
+	protected Map<GameEntity, String> interactionsMap = new HashMap<>();
 
-	@Override
+	public void setID(int id) {
+		this.id = id;
+	}
+	
+	public int getID() {
+		return id;
+	}
+
 	public void setMovementType(Movement movement) {
 		movementType = movement;
 	}
 
-	@Override
 	public void setHealth(int HP) {
 		health = HP;
 	}
 
-	@Override
 	public int getHealth() {
 		return health;
 	}
 
-	/**
-	 * Defines how the GameObject behaves with regard to the player (ie makes the player slide across it)
-	 * 
-	 * @param behavior:
-	 *            the enemies Behavior type.
-	 */
 	public void addBehavior(Behavior behavior) {
 		behaviorList.add(behavior);
 
 	}
 
-	@Override
 	public double getSpeedFactor() {
 		return speedFactor;
 	}
 
-	@Override
 	public double[] getPosition() {
 		double[] positionArray = {kinematics.getX(), kinematics.getY()};
 		return positionArray;
 	}
 
-	@Override
 	public double getJumpFactor() {
 		return jumpFactor;
 	}
 
-	@Override
 	public void setSpeedFactor(double speedFactor){
 		this.speedFactor = speedFactor;
 	}
 
-	@Override
 	public void setJumpFactor(double jumpFactor){
 		this.jumpFactor = jumpFactor;
 	}
 
-	@Override
 	public void overridePosition(double x, double y) {
 		kinematics.setX(x);
 		kinematics.setY(y);		
 	}
 
-	@Override
 	public void setXVelocity(double velocity) {
 		kinematics.setXVelocity(velocity);
 	}
 
-	@Override
 	public void setYVelocity(double velocity) {
 		kinematics.setYVelocity(velocity);		
 	}
 
-	@Override
 	public void setXAcceleration(double accel) {
 		kinematics.setXAcceleration(accel);		
 	}
 
-	@Override
 	public void setYAcceleration(double accel) {
 		kinematics.setYAcceleration(accel);
 
 	}
 
-	@Override
 	public Movement getMovementType() {
 		return movementType;
 	}
 
-	@Override
 	public void setMaxXVelocity(double velocity) {
 		maxVelocityX = velocity;		
 	}
 
-	@Override
 	public void setMaxYVelocity(double velocity) {
 		maxVelocityY = velocity;
 
 	}
+	
+	public double getMaxXVelocity() {
+		return maxVelocityX;
+	}
 
-	@Override
+	public double getMaxYVelocity() {
+		return maxVelocityY;
+	}
+
 	public void setFrictionConstant(double frictionConstant) {
 		kinematics.setFrictionConstant(frictionConstant);
 	}
+	
+	public void setGravitationalConstant(double gravitationalConstant) {
+		kinematics.setGravitationalConstant(gravitationalConstant);
+	}
 
-	@Override
 	public void addInteraction(Interaction i) {
 		interactionList.add(i);
 	}
 
-	@Override
-	public void interact(GameEntity source, GameEntity target) {
+	public void interact(GameEntity source, GameEntity target, String direction) {
+		interactionsMap.put(target, direction);
 		for(Interaction i : interactionList) {
 			i.interact(source, target);
 		}
 	}
+	
+	public Map<GameEntity, String> getInteractionMap() {
+		return interactionsMap;
+	}
+	
+	public List<Interaction> getInteractions() {
+		return interactionList;
+	}
 
-	@Override
 	public void setSizeX(double x) {
 		width = x;
 	}
 
-	@Override
 	public void setSizeY(double y) {
 		height = y;
 	}
 
-	@Override
 	public double getSizeX() {
 		return width;
 	}
 
-	@Override
 	public double getSizeY() {
 		return height;
 	}
+	
+	public void setX(double x) {
+		kinematics.setX(x);
+	}
+	
+	public void setY(double y) {
+		kinematics.setY(y);
+	}
 
-	@Override
 	public Kinematics getKinematics() {
 		return kinematics;
 	}
 	
-	@Override
+	public void setKinematics(Kinematics kinematics) {
+		this.kinematics = kinematics;
+	}
+	
 	public void setImagePath(String path) {
 		imagePath = path; 
 	}
 	
-	@Override
 	public String getImagePath() {
 		return imagePath;
 	}
 
-	@Override
 	public void update() {
+		interactionsMap.clear();
 		for(Behavior behavior : behaviorList) {
 			behavior.update(this);
 		}
