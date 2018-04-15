@@ -13,7 +13,7 @@ public class KnockBack implements Interaction{
 	@Override
 	public void interact(GameEntity source, GameEntity target) {
 		Kinematics k = target.getKinematics();
-		target.setXVelocity(-k.getXVelocity());
+		target.setXVelocity(-30*k.getXVelocity());
 	}
 
 }

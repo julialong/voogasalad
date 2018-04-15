@@ -1,5 +1,6 @@
 package engine.movement;
 
+import engine.entity.GameEntity;
 import engine.physics.Kinematics;
 import engine.physics.Physics;
 
@@ -9,11 +10,11 @@ import engine.physics.Physics;
  *
  */
 public class Flying implements Movement{
+	Physics physics = new Physics();
   
     @Override
     public Kinematics update(Kinematics k, double xVelocityLimit, double yVelocityLimit){
-        Physics p = new Physics();
-    	Kinematics kFinal = p.applyPhysics(k, false);
+    	Kinematics kFinal = physics.applyPhysics(k, false, false);
         if ((kFinal.getXVelocity() > xVelocityLimit) || (kFinal.getXVelocity() < -xVelocityLimit)){
             kFinal.setXVelocity(xVelocityLimit);
         }

@@ -13,17 +13,8 @@ import engine.weapon.*;
  *
  */
 public class Player extends PlayerCharacter{
-    private Kinematics kinematics;
-    private int health;
-    private Movement movementType;
     private Weapon weaponType;
     private ArrayList<PowerUp> powerupArrayList = new ArrayList<>();
-    private ArrayList<Interaction> interactionList = new ArrayList<>();
-    private double speedFactor;
-    private double jumpFactor;
-    private double maxVelocityX;
-    private double maxVelocityY;
-    private String imagePath = "";
 
     public Player() {
         this(0,0);
@@ -33,92 +24,12 @@ public class Player extends PlayerCharacter{
         kinematics = new Kinematics(x,y,0,0,0,0);
         movementType = new Grounded();
         weaponType = new NoWeapon();
-        speedFactor = 100; //arbitrary for now, might need to be MUCH higher
-        jumpFactor = 20; // arbitrary for now
-        maxVelocityX = 2; // arbitrary for now
-        maxVelocityY = 2; // arbitrary for now
+        speedFactor = 1000; //arbitrary for now, might need to be MUCH higher
+        jumpFactor = 80; // arbitrary for now
+        maxVelocityX = 100; // arbitrary for now
+        maxVelocityY = 50; // arbitrary for now
     }
     
-    @Override
-    public double[] getPosition(){
-        double[] positionArray = {kinematics.getX(), kinematics.getY()};
-        return positionArray;
-    }
-    
-    @Override
-    public double getSpeedFactor(){
-        return speedFactor;
-    }
-    
-    @Override
-    public double getJumpFactor(){
-        return jumpFactor;
-    }
-    
-    @Override
-    public void setSpeedFactor(double speedFactor){
-        this.speedFactor = speedFactor;
-    }
-    
-    @Override
-    public void setJumpFactor(double jumpFactor){
-        this.jumpFactor = jumpFactor;
-    }
-    
-    @Override
-    public void overridePosition(double x, double y) {
-    	kinematics.setX(x);
-		kinematics.setY(y);
-    }
-    
-    @Override
-	public void setXVelocity(double velocity) {
-    	kinematics.setXVelocity(velocity);
-	}
-    
-    @Override
-	public void setYVelocity(double velocity) {
-    	kinematics.setYVelocity(velocity);
-	}
-    
-	@Override
-	public void setXAcceleration(double accel) {
-		kinematics.setXAcceleration(accel);
-	}
-    
-    @Override
-	public void setYAcceleration(double accel) {
-    	kinematics.setYAcceleration(accel);
-	}
-
-	@Override
-	public void setMovementType(Movement movement) {
-        movementType = movement;
-	}
-
-	@Override
-	public void setHealth(int HP) {
-		health = HP;
-	}
-	
-	@Override
-	public int getHealth() {
-		return health;
-	}
-
-
-	@Override
-	public void addInteraction(Interaction i) {
-		interactionList.add(i);
-	}
-	
-	@Override
-	public void interact(GameEntity source, GameEntity target) {
-		for(Interaction i : interactionList) {
-			i.interact(source, target);
-		}
-	}
-
 	@Override
 	public void setWeapon(Weapon weapon) {
         weaponType = weapon;		
@@ -140,41 +51,6 @@ public class Player extends PlayerCharacter{
 	@Override
 	public void removePowerUp(PowerUp power) {
         powerupArrayList.remove(power);
-	}
-
-	@Override
-	public Movement getMovementType() {
-		return movementType;
-	}
-
-	@Override
-	public void setMaxXVelocity(double velocity) {
-		maxVelocityX = velocity;
-	}
-
-	@Override
-	public void setMaxYVelocity(double velocity) {
-		maxVelocityY = velocity;		
-	}
-
-	@Override
-	public void setFrictionConstant(double frictionConstant) {
-		kinematics.setFrictionConstant(frictionConstant);
-	}
-	
-	@Override
-	public Kinematics getKinematics() {
-		return kinematics;
-	}
-	
-	@Override
-	public void setImagePath(String path) {
-		imagePath = path; 
-	}
-	
-	@Override
-	public String getImagePath() {
-		return imagePath;
 	}
 	
 	@Override
