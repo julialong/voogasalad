@@ -1,4 +1,4 @@
-import authoring_environment.EditorWindow;
+import authoring_environment.editor_windows.EditorWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

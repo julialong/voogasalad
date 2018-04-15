@@ -1,4 +1,4 @@
-package authoring_environment;
+package authoring_environment.game_elements;
 
 import data.gamefiles.GAEtoJSON;
 import data.gamefiles.GameFileWriter;

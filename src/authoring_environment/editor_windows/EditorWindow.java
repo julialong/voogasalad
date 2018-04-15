@@ -1,14 +1,14 @@
-package authoring_environment;
+package authoring_environment.editor_windows;
 
+import authoring_environment.authored_elements.AuthoredElement;
+import authoring_environment.game_elements.AuthoredGame;
+import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.RightBar;
 import authoring_environment.toolbars.TopBar;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**

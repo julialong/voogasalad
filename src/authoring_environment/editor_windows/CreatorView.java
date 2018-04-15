@@ -1,4 +1,6 @@
-package authoring_environment;
+package authoring_environment.editor_windows;
+
+import authoring_environment.authored_elements.AuthoredElement;
 
 /**
  * 

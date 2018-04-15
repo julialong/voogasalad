@@ -1,6 +1,6 @@
 package authoring_environment.toolbars.buttons;
 
-import authoring_environment.AttributeEditor;
+import authoring_environment.editor_windows.AttributeEditor;
 import javafx.scene.control.Button;
 
 /**

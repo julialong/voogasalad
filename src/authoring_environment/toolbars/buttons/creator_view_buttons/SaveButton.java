@@ -1,6 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-import authoring_environment.AuthoredGame;
+import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.editor_windows.GameSaver;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;

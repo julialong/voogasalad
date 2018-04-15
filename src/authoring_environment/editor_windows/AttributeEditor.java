@@ -1,4 +1,4 @@
-package authoring_environment;
+package authoring_environment.editor_windows;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +18,7 @@ import java.util.Set;
 
 import javax.xml.transform.TransformerException;
 
+import authoring_environment.authored_elements.GameElement;
 import authoring_environment.toolbars.buttons.AddImageButton;
 import authoring_environment.toolbars.buttons.CloseAttributeEditorButton;
 import javafx.scene.Scene;

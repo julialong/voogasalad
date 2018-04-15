@@ -1,4 +1,4 @@
-package authoring_environment;
+package authoring_environment.grid;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;

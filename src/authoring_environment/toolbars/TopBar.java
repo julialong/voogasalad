@@ -1,6 +1,6 @@
 package authoring_environment.toolbars;
 
-import authoring_environment.AuthoredGame;
+import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.toolbars.buttons.creator_view_buttons.InsertButton;
 import authoring_environment.toolbars.buttons.creator_view_buttons.LoadButton;
 import authoring_environment.toolbars.buttons.creator_view_buttons.SaveButton;

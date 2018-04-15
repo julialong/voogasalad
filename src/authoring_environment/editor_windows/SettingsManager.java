@@ -1,14 +1,11 @@
 package authoring_environment.editor_windows;
 
-import authoring_environment.AuthoredGame;
+import authoring_environment.game_elements.AuthoredGame;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**

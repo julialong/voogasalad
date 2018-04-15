@@ -1,6 +1,7 @@
 package engine.level;
 
-import authoring_environment.ScrollingGrid;
+
+import authoring_environment.grid.ScrollingGrid;
 import engine.entity.Block;
 import engine.entity.Foes;
 import engine.entity.GameEntity;
