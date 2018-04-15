@@ -70,4 +70,14 @@ public class OverViewDriver extends Application {
         pane.getChildren().add(container);
         return pane;
     }
+    
+	/**
+	 * Runs the SSS application
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 }
