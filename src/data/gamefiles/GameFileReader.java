@@ -55,6 +55,7 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	public GameFileReader()
 	{
+		System.out.println(System.getProperty("os.name"));
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
 		deserializer = new Serializer(); 
