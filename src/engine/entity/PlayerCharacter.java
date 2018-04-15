@@ -8,7 +8,7 @@ import engine.weapon.Weapon;
  * @author Robert Gitau and Marcus Oertle
  *
  */
-public abstract class PlayerCharacter implements GameEntity{
+public abstract class PlayerCharacter extends GameObject{
 	private double width;
 	private double height;
 	
@@ -41,24 +41,4 @@ public abstract class PlayerCharacter implements GameEntity{
 	 *            the PowerUp to be removed.
 	 */
 	public abstract void removePowerUp(PowerUp power);
-	
-	@Override
-	public void setSizeX(double x) {
-		width = x;
-	}
-	
-	@Override
-	public void setSizeY(double y) {
-		height = y;
-	}
-	
-	@Override
-	public double getSizeX() {
-		return width;
-	}
-	
-	@Override
-	public double getSizeY() {
-		return height;
-	}
 }
