@@ -27,15 +27,7 @@ public class Driver extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		createChooser();
-		primaryStage.setTitle(TITLE);
-        primaryStage.setMinWidth(550);
-		Scene scene = new Scene(gameChooser.displayChoices());
-		scene.getStylesheets().add("styleSheet.css");
-
-		primaryStage.setScene(scene);
-
-		primaryStage.show();
+		new VoogaChooser(primaryStage);
 	}
 
 	private void createChooser(){

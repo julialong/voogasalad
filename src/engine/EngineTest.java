@@ -145,9 +145,9 @@ public class EngineTest {
 		EngineTest engineTest = new EngineTest();
 		//engineTest.EnemyMovementTest();
 		//engineTest.PlayerMovementTestLR();
-		engineTest.PlayerMovementTestJUMP();
+		//engineTest.PlayerMovementTestJUMP();
 		//engineTest.BasicEnemyFloorInteractionTest();
-		//engineTest.BasicEnemyWallInteractionTest();
+		engineTest.BasicEnemyWallInteractionTest();
 		//engineTest.controlRemappingTest();
 	}
 }
