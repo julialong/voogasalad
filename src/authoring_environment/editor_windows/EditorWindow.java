@@ -94,7 +94,7 @@ public class EditorWindow implements CreatorView {
 		myScene = new Scene(myRoot);
 		myScene.getStylesheets().add("GAE.css");
 		myStage.setMaximized(true);
-		myGrid = myGame.getCurrentLevel().getGrid();
+		myGrid = myGame.getCurrentLevel().getScrollingGrid();
 		myRoot.setTop(new TopBar(myGame));
 		myRoot.setCenter(setCenterGrid());
 		myRoot.setRight(setRightBar());
