@@ -1,5 +1,6 @@
 package engine.movement;
 
+import engine.entity.GameEntity;
 import engine.physics.Kinematics;
 
 /**
