@@ -59,7 +59,7 @@ public class GameFileReader implements JSONtoObject {
 		createObjectToClassMap();
 		deserializer = new Serializer();
 
-		if (!System.getProperty("os.name").contains("Mac"))	{
+		if (System.getProperty("os.name").toString().contains("Windows"))	{
 			NEST = "\\";
 		}
 	}
