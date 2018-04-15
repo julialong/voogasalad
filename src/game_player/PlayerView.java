@@ -16,14 +16,14 @@ public class PlayerView extends VBox{
 	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
 	private VoogaGameView myGameView;
-	
-//	public PlayerView() {
-//		super();
-//		createMenuBar();
-//		createGView();
-//		setViewTop();
-//		setMiddle();
-//	}
+
+	public PlayerView() {
+		super();
+		createMenuBar();
+		createGView();
+		setViewTop();
+		setMiddle();
+	}
 
 	public PlayerView(List<Level> game){
 		super();

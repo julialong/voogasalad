@@ -104,19 +104,10 @@ public class VoogaGameView implements GameView {
 	private void step(double elapsedTime) {
 		if (myGameStatus) {
 			List<GameEntity> toDisplay = new ArrayList<>();
-			System.out.println(myCurrLevel);
-			System.out.println(myGameLevels);
+//			System.out.println(myCurrLevel);
+//			System.out.println(myGameLevels);
 
 			myGameLevels.get(myCurrLevel).update();
-			//TODO: Discuss with Kelley -- instead of Player iterating through every single object the game engine actually updates it with the level class
-//			for (Object o : myGameLevels.get(myCurrLevel)) {
-//				GameEntity castedObject = (GameEntity) o;
-//				castedObject.update();
-//				double[] castedPosition = castedObject.getPosition();
-//				if (castedPosition[0] >= myLeft && castedPosition[0] <= (myLeft + screenOffset)) {
-//					toDisplay.add(castedObject);
-//				}
-//			}
 			displayObjects(toDisplay);
 		}
 	}

@@ -1,0 +1,22 @@
+.vbox {
+    -fx-alignment: center;
+    -fx-spacing: 100;
+    -fx-background-color: #d3d3d3;
+    -fx-border-width: 50;
+    -fx-border-color: #d3d3d3;
+}
+
+.hbox {
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+
+.button {
+    -fx-background-color: #000000;
+    -fx-text-fill: #F0F0F0;
+}
+
+.button:hover {
+    -fx-background-color: #606060;
+    -fx-text-fill: #ffffff;
+}
