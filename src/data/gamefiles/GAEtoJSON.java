@@ -36,4 +36,10 @@ public interface GAEtoJSON	{
 	 * @param newName	String to rename game to	
 	 */
 	void renameGame(String newName);
+
+	/**
+	 * Allows for saving individual level as a "stray", not part of a game
+	 * @param level		level to save separately
+	 */
+	public void saveIndivLevel(Level level);
 }
