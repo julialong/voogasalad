@@ -1,8 +1,8 @@
 /**
+ * Classes for keeping track of custom elements, authored elements,
+ * authored games, and the visualization grid.
  * 
- */
-/**
- * @author belanie.nagiel
- *
+ * @author Judi Sanchez
+ * @author Julia Long
  */
 package authoring_environment;
