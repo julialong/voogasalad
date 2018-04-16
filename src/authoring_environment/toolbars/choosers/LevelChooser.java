@@ -1,6 +1,8 @@
 package authoring_environment.toolbars.choosers;
 
+import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredGame;
+import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.toolbars.RightBar;
 import engine.level.Level;
 import javafx.geometry.Side;
@@ -20,16 +22,16 @@ import javafx.scene.layout.VBox;
  */
 public class LevelChooser extends VBox {
 
-    private AuthoredGame myGame;
+    private CreatorView myWindow;
     private ScrollPane myScrollPane;
 
     /**
      * Creates a scrollpane that allows users to choose a level to edit.
-     * @param game is the current game
+     * @param window is the current window
      */
-    public LevelChooser(AuthoredGame game, ScrollPane grid, RightBar rightBar) {
+    public LevelChooser(CreatorView window, ScrollPane grid) {
         super();
-        myGame = game;
+        myWindow = window;
         myScrollPane = grid;
         update();
     }
@@ -39,7 +41,7 @@ public class LevelChooser extends VBox {
      */
     public void update() {
         this.getChildren().removeAll(this.getChildren());
-        for (Level level : myGame.getLevels()) {
+        for (AuthoredLevel level : myWindow.getGame().getLevels()) {
             Pane thisLevelChoice = new LevelChoice(level);
             thisLevelChoice.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
@@ -53,12 +55,12 @@ public class LevelChooser extends VBox {
         }
     }
 
-    private void addClickButtonBehavior(Level level) {
-        myGame.setCurrentLevel(level);
-        myScrollPane.setContent(myGame.getCurrentLevel().getGrid());
+    private void addClickButtonBehavior(AuthoredLevel level) {
+        myWindow.getGame().setCurrentLevel(level);
+        myScrollPane.setContent(myWindow.getGame().getCurrentLevel().getScrollingGrid());
     }
 
-    private void addRightClickButtonBehavior(Pane levelChoice, Level level) {
+    private void addRightClickButtonBehavior(Pane levelChoice, AuthoredLevel level) {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem delete = new MenuItem("Delete level");
         delete.setOnAction(e -> setDeleteBehavior(level));
@@ -66,8 +68,8 @@ public class LevelChooser extends VBox {
         contextMenu.show(levelChoice, Side.RIGHT, 0 ,0 );
     }
 
-    private void setDeleteBehavior(Level level) {
-        myGame.removeLevel(level);
+    private void setDeleteBehavior(AuthoredLevel level) {
+        myWindow.getGame().removeLevel(level);
     }
 
 }

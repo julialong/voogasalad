@@ -1,5 +1,6 @@
 package authoring_environment.grid;
 
+import authoring_environment.game_elements.AuthoredLevel;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -20,6 +21,7 @@ public class ScrollingGrid extends GridPane {
 	private int rowNumber;
 	private int columnNumber;
 	private GridCell[][] cellArray;
+	private AuthoredLevel myLevel;
 
 	public ScrollingGrid() {
 		super();
@@ -28,6 +30,14 @@ public class ScrollingGrid extends GridPane {
 		initCells();
 		makeGrid();
 
+	}
+
+	/**
+	 * Sets the class to notify when an object is added
+	 * @param level
+	 */
+	public void setMediator(AuthoredLevel level) {
+		myLevel = level;
 	}
 
 	private void makeGrid() {
@@ -91,6 +101,7 @@ public class ScrollingGrid extends GridPane {
 					GridCell checkCell = cellArray[j][i];
 					if (checkCell.isSelected()) {
 						checkCell.setImage(path);
+						myLevel.addObject(" beep");
 					}
 				}
 			}

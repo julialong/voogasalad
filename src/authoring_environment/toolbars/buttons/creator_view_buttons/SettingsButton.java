@@ -1,5 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
+import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.editor_windows.SettingsManager;
 import javafx.scene.control.Button;
@@ -13,14 +14,15 @@ import javafx.scene.control.Button;
  */
 public class SettingsButton extends Button{
 
+
     private static final String SETTINGS = "Settings";
 
     /**
      * Creates a simple Settings menu button
      */
-    public SettingsButton(AuthoredGame game) {
+    public SettingsButton(CreatorView window) {
         super(SETTINGS);
-        this.setOnAction(e -> new SettingsManager(game));
+        this.setOnAction(e -> new SettingsManager(window));
     }
 
 }

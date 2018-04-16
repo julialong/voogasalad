@@ -1,5 +1,6 @@
 package authoring_environment.toolbars;
 
+import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.choosers.ElementPicker;
@@ -29,7 +30,7 @@ public class RightBar extends SplitPane{
     private Pane elementPane;
     private Pane levelPane;
     private DeleteGridCellButton myDeleteButton;
-    private AuthoredGame myGame;
+    private CreatorView myWindow;
     private ScrollingGrid myGrid;
     private ScrollPane myScrollPane;
     private LevelChooser myLevelChooser;
@@ -37,14 +38,14 @@ public class RightBar extends SplitPane{
     /**
      * Creates a new right toolbar with appropriate buttons and panels.
      */
-    public RightBar(AuthoredGame game, ScrollingGrid grid, ScrollPane scroller) {
+    public RightBar(CreatorView window, ScrollingGrid grid, ScrollPane scroller) {
         super();
         this.getStylesheets().add(CSS);
         this.getStyleClass().add("rightbar");
-        myGame = game;
-        myGrid = myGame.getCurrentLevel().getGrid();
+        myWindow = window;
+        myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
         myScrollPane = scroller;
-        myLevelChooser = new LevelChooser(myGame, myScrollPane, this);
+        myLevelChooser = new LevelChooser(myWindow, myScrollPane);
         splitPanes();
         addLabels();
         addButtons();
@@ -53,7 +54,7 @@ public class RightBar extends SplitPane{
 
     public void update() {
         myLevelChooser.update();
-        myGrid = myGame.getCurrentLevel().getGrid();
+        myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
         myDeleteButton.changeGrid(myGrid);
     }
 
@@ -76,13 +77,13 @@ public class RightBar extends SplitPane{
         myDeleteButton = new DeleteGridCellButton(myGrid);
         elementPane.getChildren().add(elementButton);
         elementPane.getChildren().add(myDeleteButton);
-        Button levelButton = new AddLevelButton(myGame);
+        Button levelButton = new AddLevelButton(myWindow);
         levelPane.getChildren().add(levelButton);
     }
 
     private void addScrollScreens() {
         Button updateButton = new Button("Update levels");
-        LevelChooser levelChooser = new LevelChooser(myGame, myScrollPane, this);
+        LevelChooser levelChooser = new LevelChooser(myWindow, myScrollPane);
         updateButton.setOnAction(e -> levelChooser.update());
         ScrollPane levelChooserPane = new ScrollPane();
         levelChooserPane.setContent(levelChooser);
