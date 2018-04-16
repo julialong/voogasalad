@@ -12,9 +12,4 @@ public interface GameView {
 	 */
 	public Node getNode();
 
-	/*
-	 * Updates the game based on the result of passing the current game state and
-	 * user input to the game engine.
-	 */
-	public void updateGame();
 }
