@@ -9,6 +9,7 @@ import engine.behavior.Behavior;
 import engine.interaction.Interaction;
 import engine.movement.Movement;
 import engine.physics.Kinematics;
+import javafx.scene.image.ImageView;
 
 public abstract class GameObject implements GameEntity{
 	protected int id;
@@ -21,7 +22,8 @@ public abstract class GameObject implements GameEntity{
 	protected double maxVelocityY;
 	protected double width;
 	protected double height;
-	protected String imagePath = "";
+	protected ImageView myImageView;
+	protected String myElementID;
 	protected ArrayList<Behavior> behaviorList = new ArrayList<>();
 	protected ArrayList<Interaction> interactionList = new ArrayList<>();
 	protected Map<GameEntity, String> interactionsMap = new HashMap<>();
@@ -169,19 +171,33 @@ public abstract class GameObject implements GameEntity{
 	public Kinematics getKinematics() {
 		return kinematics;
 	}
-	
+
 	public void setKinematics(Kinematics kinematics) {
 		this.kinematics = kinematics;
 	}
-	
-	public void setImagePath(String path) {
-		imagePath = path; 
+
+	@Override
+	public void setImageView(ImageView view) {
+		myImageView = view;
+		myImageView.setFitWidth(width);
+		myImageView.setFitHeight(height);
 	}
 	
-	public String getImagePath() {
-		return imagePath;
+	@Override
+	public ImageView getImageView() {
+		return myImageView;
 	}
 
+	@Override
+	public void setElementID(String ID) {
+		myElementID = ID;
+	}
+	
+	@Override
+	public String getElementID() {
+		return myElementID;
+	}
+	@Override
 	public void update() {
 		interactionsMap.clear();
 		for(Behavior behavior : behaviorList) {

@@ -18,7 +18,7 @@ public class AuthoredElementCreator {
 	 */
 	public AuthoredElementCreator() {
 		GameElement element = new GameElement();
-		AttributeEditor editor= new AttributeEditor(element);
+		AttributeEditor editor = new AttributeEditor(element);
 			
 	}
 
