@@ -25,6 +25,14 @@ public class LevelBuilder {
 	private Serializer deserializer; 
 	private File levelFile;
 	
+	/**
+	 * Class Constructor
+	 * 
+	 * Takes in a level file and creates the object to class map for all of the
+	 * GameObjects
+	 * 
+	 * @param level
+	 */
 	public LevelBuilder(File level) 
 	{
 		objectTypes= new HashMap<>();
@@ -56,6 +64,12 @@ public class LevelBuilder {
 		}
 	}
 	
+	/**
+	 * Returns a new BasicLevel with the appropriate data and 
+	 * game objects.
+	 * 
+	 * @return
+	 */
 	public Level buildLevel()
 	{
 		BasicLevel level = new BasicLevel();
@@ -73,6 +87,12 @@ public class LevelBuilder {
 		return level;	
 	}
 	
+	/**
+	 * Adds the relevant instance variables to the level
+	 * 
+	 * @param level
+	 * @param jobject
+	 */
 	private void addMetaData(Level level, JsonObject jobject)
 	{
 		String levelName = jobject.get("name").getAsString();
@@ -82,6 +102,12 @@ public class LevelBuilder {
 		level.setID(id);
 	}
 	
+	/**
+	 * Adds the game objects to the level
+	 * 
+	 * @param level
+	 * @param jobject
+	 */
 	private void addGameObjects(Level level, JsonObject jobject)
 	{
 		List<GameEntity> gameObjects = new ArrayList<>();
