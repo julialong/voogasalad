@@ -62,7 +62,9 @@ public class KeyBindingWindow {
         	change.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                	myGameView.changeBinding(propKey,KeyCode.valueOf(((Character) (textField.getText().charAt(0))).toString()));
+                	//TODO: add error check to make sure there is actually a keyCode for what is passed in
+                	myGameView.changeBinding(propKey,KeyCode.valueOf(textField.getText().toString().toUpperCase()));
+                	displayChoices();
                 }
             });
         	tempContainer.getChildren().addAll(textField, change);
@@ -71,25 +73,5 @@ public class KeyBindingWindow {
         myView.setCenter(container);
         return myView;
     }
-
-
-    /**
-     * Sets the listener to wait for the user to click a viable game to play.
-     * Once the user selects a game to play the application closes.
-     */
-//    private void setListener(ListView<GameItem> gameChoices) {
-//        gameChoices.setOnMouseClicked(event -> {
-//            try{
-//                GameItem game = gameChoices.getSelectionModel().getSelectedItem();
-//                System.out.println(game.getGameName());
-//                game.setUpGame(reader.loadCompleteGame(game.getGameName()));
-//                Stage currentStage = (Stage) myView.getScene().getWindow();
-//                currentStage.close();
-//            }
-//            catch(NullPointerException e){
-//                e.printStackTrace();
-//            }
-//        });
-//    }
 }
 

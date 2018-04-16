@@ -98,7 +98,7 @@ public class VoogaChooser implements GameChooser {
             try{
                 GameItem game = gameChoices.getSelectionModel().getSelectedItem();
                 System.out.println(game.getGameName());
-                game.setUpGame(reader.loadCompleteGame(game.getGameName()));
+                game.setUpGame(reader.loadCompleteGame(game.getGameName()), game.getGameName());
                 Stage currentStage = (Stage) myView.getScene().getWindow();
                 currentStage.close();
             }

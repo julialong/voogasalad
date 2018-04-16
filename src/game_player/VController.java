@@ -32,11 +32,9 @@ public class VController {
 	 */
 	private void passKeyInput() {
 		view.addEventFilter(KeyEvent.KEY_PRESSED, (key) -> {
-			System.out.println("Key pressed");
 			view.startKey(key.getCode());
 		});
 		view.addEventFilter(KeyEvent.KEY_RELEASED, (key) -> {
-			System.out.println("Key released");
 			view.endKey(key.getCode());
 		});
 	}

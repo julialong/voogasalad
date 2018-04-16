@@ -14,10 +14,13 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import data.gamefiles.GameFileReader;
+import data.gamefiles.JSONtoObject;
 import engine.controls.*;
 import engine.entity.GameEntity;
 import engine.entity.Player;
@@ -181,9 +184,7 @@ public class VoogaGameView implements GameView {
 	 * @param keyCode
 	 */
 	public void keyPressed(KeyCode keyCode) {
-		// TODO: BUG when right button is pressed, the player keeps on moving right
 		if (myGameStatus) {
-			System.out.println(keyCode + " key activated");
 			myControls.activate(keyCode);
 		}
 	}
@@ -195,9 +196,7 @@ public class VoogaGameView implements GameView {
 	 */
 	public void keyUnPressed(KeyCode keyCode) {
 		if (myGameStatus) {
-			System.out.println(keyCode + " key deactivated");
 			myControls.deactivate(keyCode);
-			System.out.println();
 		}
 	}
 
@@ -208,13 +207,9 @@ public class VoogaGameView implements GameView {
 	 * @param keyCode
 	 */
 	public void changeBinding(String propKey, KeyCode keyCode) {
-		System.out.println("CHANGING BINDING FOR " + propKey + " TO " + keyCode);
 		try {
-			// Class<?> clazz = Class.forName(propKey);
-			// Action a = (Action) clazz.newInstance();
-			Object instance = Class.forName(propKey).newInstance();
+			Object instance = Class.forName("engine.controls."+propKey).newInstance();
 			Action a = (Action) instance;
-
 			myControls.setBinding(keyCode, a);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
