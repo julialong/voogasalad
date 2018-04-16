@@ -1,7 +1,6 @@
 package data.gamefiles;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -9,18 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.JsonReader;
 
-import authoring_environment.ScrollingGrid;
+import authoring_environment.grid.ScrollingGrid;
 import data.serialization.LevelSerializer;
 import data.serialization.Serializer;
 import engine.entity.GameEntity;

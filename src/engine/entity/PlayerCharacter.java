@@ -9,8 +9,6 @@ import engine.weapon.Weapon;
  *
  */
 public abstract class PlayerCharacter extends GameObject{
-	private double width;
-	private double height;
 	
 	/**
 	 * Sets the player's weapon, which implements the Weapon interface.

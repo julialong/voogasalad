@@ -25,15 +25,13 @@ public class PickableElement extends ImageView {
 	}
 	
 	private void setupDragAndDrop() {
-		this.setOnDragDetected(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event) {
+		this.setOnDragDetected(e -> {
 		        Dragboard db = startDragAndDrop(TransferMode.COPY);
 		        ClipboardContent content = new ClipboardContent();
 		        content.putImage(myImage);
 		        content.putString(myType + "/" + myName);
 		        db.setContent(content);
-		        event.consume();
-		    }
+		        e.consume();
 		});
 	}
 }

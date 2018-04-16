@@ -1,14 +1,12 @@
-package authoring_environment;
+package authoring_environment.authored_elements;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.xml.transform.TransformerException;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import authoring_environment.Attribute;
+import authoring_environment.CustomElementSaver;
+import authoring_environment.authored_elements.AuthoredElement;
 
 /**
  * 
@@ -34,7 +32,7 @@ public class GameElement implements AuthoredElement {
 	 * of a custom element. It also gives the element a unique ID. 
 	 */
 	public GameElement() {
-		attributes = new HashMap<String, String>();
+		attributes = new HashMap<>();
 		
 	}
 

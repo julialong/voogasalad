@@ -1,6 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-import authoring_environment.AuthoredElementCreator;
+import authoring_environment.authored_elements.AuthoredElementCreator;
 import javafx.scene.control.Button;
 
 /**

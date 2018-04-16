@@ -3,6 +3,7 @@ package data.gamefiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import data.serialization.TextWriter;
@@ -18,6 +19,8 @@ import engine.level.Level;
  * not and connects to the GameFile object.
  */
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
+	private static final String GAMEDATA = "./data/gameData/";
+	private static final String LEVELDATA = "./data/levelData/";
 	private static final String NEST = "/";
 	private static final String SETTINGS = "Settings";
 	private static final String EXTENSION = ".json";
@@ -33,7 +36,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	public GameFileWriter(String gameName)	{
 		this.gameName = gameName;
-		gameDirectory = "./data/gameData/" + gameName;
+		gameDirectory = GAMEDATA + gameName;
 		gameDirectoryFile = retrieveGame();
 	}
 
@@ -45,15 +48,6 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	public void update(List<Level> changes)	{
 		for (Level aLevel:changes)	{
 			saveData(aLevel, aLevel.getObjects());
-		}
-	}
-
-	/**
-	 * For testing only
-	 */
-	public void update(Map<Level, List<GameEntity>> changes)	{
-		for (Level aLevel:changes.keySet())	{
-			saveData(aLevel, changes.get(aLevel));
 		}
 	}
 
@@ -97,6 +91,21 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		File newDir = new File(gameDirectoryFile.getParent() + NEST + newName);
 
 		gameDirectoryFile.renameTo(newDir);
+	}
+
+	/**
+	 * Allows for saving individual level as a "stray", not part of a game
+	 * @author Maya Messinger
+	 * @param level		level to save separately
+	 */
+	public void saveIndivLevel(Level level)	{
+		String tempGameDir = gameDirectory;
+
+		gameDirectory = LEVELDATA;
+
+		saveData(level, level.getObjects());
+
+		gameDirectory = tempGameDir;
 	}
 	
 	private File retrieveGame()	{

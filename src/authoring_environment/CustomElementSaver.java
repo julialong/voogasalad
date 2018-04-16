@@ -10,6 +10,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+import authoring_environment.authored_elements.GameElement;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -27,7 +29,7 @@ public class CustomElementSaver {
 	
 	/**
 	 * 
-	 * @param gameElment
+	 * @param gameElement
 	 * 	This is the gameEntity object that the attributes are being saved for
 	 * @param id
 	 * 	This is the ID for the gameEnity object that is being saved
