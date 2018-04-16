@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
+import authoring_environment.game_elements.AuthoredLevel;
+import authoring_environment.grid.ScrollingGrid;
 import data.serialization.TextWriter;
 import engine.entity.GameEntity;
 import engine.level.Level;
@@ -45,9 +47,9 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param changes	Map of Levels linked to all the items in them
 	 */
 	@Override
-	public void update(List<Level> changes)	{
-		for (Level aLevel:changes)	{
-			saveData(aLevel, aLevel.getObjects());
+	public void update(List<AuthoredLevel> changes)	{
+		for (AuthoredLevel aLevel:changes)	{
+			saveData(aLevel);
 		}
 	}
 
@@ -63,11 +65,18 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	/**
 	 * Saves state of level being played, for use with checkpoints
 	 * @param level			name of level to save
-	 * @param itemsInLevel	List (potentially list of lists of different types of objects) if items in level to save stats of
+	 */
+	public void saveData(AuthoredLevel level)	{
+		new TextWriter(level, getLevel(level.getLevel()));
+	}
+
+	/**
+	 * Saves state of level being played, for use with checkpoints
+	 * @param level			name of level to save
 	 */
 	@Override
-	public void saveData(Level level, List itemsInLevel)	{
-		new TextWriter(level, getLevel(level), itemsInLevel);
+	public void saveData(Level level)	{
+		new TextWriter(new AuthoredLevel(level, new ScrollingGrid()), getLevel(level));
 	}
 
 	/**
@@ -98,12 +107,12 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @author Maya Messinger
 	 * @param level		level to save separately
 	 */
-	public void saveIndivLevel(Level level)	{
+	public void saveIndivLevel(AuthoredLevel level)	{
 		String tempGameDir = gameDirectory;
 
 		gameDirectory = LEVELDATA;
 
-		saveData(level, level.getObjects());
+		saveData(level);
 
 		gameDirectory = tempGameDir;
 	}

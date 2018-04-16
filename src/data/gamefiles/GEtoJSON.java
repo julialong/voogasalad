@@ -14,9 +14,8 @@ public interface GEtoJSON	{
 	 * Only need to save state of current level, because player will either have completed past level (making it unnecessary to save)
 	 * or has not reached further level (unnecessary to save as new file, file exists in game data already)
 	 * @param level			name of level to save
-	 * @param itemsInLevel	List (potentially list of lists of different types of objects) if items in level to save stats of
 	 */
-	void saveData(Level level, List<GameEntity> itemsInLevel);
+	void saveData(Level level);
 		// for (List items:itemsInLevel)	{
 		// 	for (Object item:items)	{
 		// 		// push item and its info to database

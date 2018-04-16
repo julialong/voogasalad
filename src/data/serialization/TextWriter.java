@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import authoring_environment.game_elements.AuthoredLevel;
 import engine.entity.GameEntity;
 import engine.level.Level;
 
@@ -46,10 +47,9 @@ public class TextWriter	{
 	 * @author Maya Messinger
 	 * Constructor for class. Calls the writing, so making a new TextWriter writes to a file
 	 * @param level			File of level to write
-	 * @param itemsInLevel	items to serialize and write
 	 */
-	public TextWriter(Level level, File levelF, List itemsInLevel)	{
-		callWrite(level, levelF, itemsInLevel);
+	public TextWriter(AuthoredLevel level, File levelF)	{
+		callWrite(level, levelF);
 	}
 
 	private void callWrite(File settings, boolean ready, String desc)	{
@@ -65,13 +65,13 @@ public class TextWriter	{
 		}
 	}
 
-	private void callWrite(Level level, File levelF, List<GameEntity> itemsInLevel)	{
+	private void callWrite(AuthoredLevel level, File levelF)	{
 		try	{
 			FileWriter fw = new FileWriter(levelF);
 		
 			startFile(fw);
 			serializeLevel(fw, level);
-			writeObjects(fw, itemsInLevel);
+			writeObjects(fw, level.getLevel().getObjects());
 			endFile(fw);
 		}
 		catch (IOException e)	{
@@ -92,8 +92,8 @@ public class TextWriter	{
 		}
 	}
 
-	private void serializeLevel(FileWriter fw, Level level)	{
-		new LevelSerializer().serialize(fw, level);
+	private void serializeLevel(FileWriter fw, AuthoredLevel level)	{
+		new LevelSerializer().serialize(fw, level.getLevel(), level.getScrollingGrid());
 	}
 
 	private void writeObjects(FileWriter fw, List<GameEntity> items)	{

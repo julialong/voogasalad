@@ -5,6 +5,7 @@ import java.io.FileWriter;
 
 import com.google.gson.JsonArray;
 
+import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.grid.GridCell;
 
@@ -30,11 +31,11 @@ public class LevelSerializer	{
 	 * @param fw	FileWriter that is linked to file to write to (this method is called when file is already being edited)
 	 * @param level	Level to write out
 	 */
-	public void serialize(FileWriter fw, Level level)	{
+	public void serialize(FileWriter fw, Level level, ScrollingGrid grid)	{
 		writeKeyValue(fw, NAME, level.getName());
 		writeKeyValue(fw, ID, 1);// level.getID());
 		writeKeyValue(fw, SIZE, 1);// level.getSize());
-		writeGrid(fw, level.getGrid());
+		writeGrid(fw, grid);
 	}
 
 	private void writeKeyValue(FileWriter fw, String key, String value)	{
@@ -64,16 +65,18 @@ public class LevelSerializer	{
 	private void writeGrid(FileWriter fw, ScrollingGrid grid)	{
 		TextWriter.startArray(fw, SG);
 
-		for (int i = 0; i < grid.getCellArray().length; i++)	{
-			TextWriter.startArray(fw, null);
-			for (int j = 0; j < grid.getCellArray()[i].length; j++)	{
-				// TODO: UNCOMMENT LINE BELOW
-				//TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
-				TextWriter.checkWriteComma(fw, j, grid.getCellArray()[i].length);
-			}
-			TextWriter.newLine(fw);
-			TextWriter.closeArray(fw, i, grid.getCellArray().length);
-		}
+		// for (int i = 0; i < grid.getCellArray().length; i++)	{
+		// 	TextWriter.startArray(fw, null);
+		// 	for (int j = 0; j < grid.getCellArray()[i].length; j++)	{
+		// 		// TODO: UNCOMMENT LINE BELOW
+		// 		//TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
+		// 		TextWriter.checkWriteComma(fw, j, grid.getCellArray()[i].length);
+		// 	}
+		// 	TextWriter.newLine(fw);
+		// 	TextWriter.closeArray(fw, i, grid.getCellArray().length);
+		// }
+
+		TextWriter.writeValue(fw, "grid");
 
 		TextWriter.closeArray(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
