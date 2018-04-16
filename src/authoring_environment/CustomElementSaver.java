@@ -37,8 +37,10 @@ public class CustomElementSaver {
 	 * 	This is a map from the attribute type to the chosen attribute for a category
 	 * @throws TransformerException
 	 */
+
 	public CustomElementSaver(GameElement gameElement, String id, HashMap<String, String> attributes, String imageFile) throws TransformerException{
 		elementID= id;
+
 		try {
 			docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
@@ -50,7 +52,7 @@ public class CustomElementSaver {
 	}
 	
 	private void updateAttributes(HashMap<String, String> attributes, String imageFile) throws TransformerException {
-		Element customElement= doc.createElement("Attributes");
+		Element customElement = doc.createElement("Attributes");
 		doc.appendChild(customElement);
 		for(String attribute: attributes.keySet()) {
 			customElement.setAttribute(attribute, attributes.get(attribute));
@@ -59,7 +61,7 @@ public class CustomElementSaver {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("data/customElements/" + elementID.toString() + ".xml"));
+		StreamResult result = new StreamResult(new File("data/authoredElementData/" + elementID.toString() + ".xml"));
 		System.out.println("saved");
 		transformer.transform(source, result);
 		

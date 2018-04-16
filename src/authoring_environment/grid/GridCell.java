@@ -1,5 +1,7 @@
 package authoring_environment.grid;
 
+import org.w3c.dom.Document;
+
 import javafx.event.EventHandler;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
@@ -21,15 +23,20 @@ import javafx.scene.paint.Color;
 public class GridCell extends HBox {
 	
 	private ImageView myCellView;
-	private String myPath;
+	private String myID;
+	private String myType;
 	private boolean selected;
 	private ScrollingGrid myGrid;
 	private int mySize;
+	private Document myDataDoc;
 	
 	public GridCell(ScrollingGrid grid, int size) {
 		super();
 		myCellView = new ImageView();
 		mySize = size;
+		selected = false;
+		myGrid = grid;
+		myType = null;
 		this.getChildren().add(myCellView);
 		this.setMinHeight(mySize);
 		this.setMaxWidth(mySize);
@@ -39,8 +46,6 @@ public class GridCell extends HBox {
 		myCellView.setFitHeight(mySize);
 		this.setStyle("-fx-border-color: black;");
 		setupEvents();
-		selected = false;
-		myGrid = grid;
 	}
 	
 	public GridCell(double spacing) {
@@ -58,18 +63,35 @@ public class GridCell extends HBox {
 	public Image getImage() {
 		return myCellView.getImage();
 	}
-
-	public String getPath()	{
-		return myPath;
+	
+	public String getID() {
+		return myID;
 	}
 	
-	public void setImage(Image image) {
-		myCellView.setImage(image);
+	public int getSize() {
+		return mySize;
 	}
 	
-	public void setImage(String path) {
-		myPath = path;
-		myCellView.setImage(new Image("file:data/" + myPath));
+	public void setSize(int size) {
+		mySize = size;
+		this.setMinHeight(mySize);
+		this.setMaxWidth(mySize);
+		this.setMaxHeight(mySize);
+		this.setMinWidth(mySize);
+		myCellView.setFitWidth(mySize);
+		myCellView.setFitHeight(mySize);
+	}
+	
+	public void setImage(String ID) {
+		myID = ID;
+		myDataDoc = myGrid.parseElementXML(ID);
+		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
+		myType = myDataDoc.getDocumentElement().getAttribute("GameEntity");
+		myCellView.setImage(new Image("file:" + path));
+	}
+	
+	public String getType() {
+		return myType;
 	}
 	
 	private void select() {
@@ -92,7 +114,8 @@ public class GridCell extends HBox {
 		this.getChildren().add(myCellView);
 		myCellView.setFitHeight(mySize);
 		myCellView.setFitWidth(mySize);
-		myPath = "";
+		myID = null;
+		myType = null;
 		deselect();
 	}
 	
@@ -106,21 +129,54 @@ public class GridCell extends HBox {
                 select();
             }
         });
-		
-		myGridCell.setOnDragOver(event -> {
-            if (event.getGestureSource() != myGridCell &&
-                    event.getDragboard().hasImage()) {
-                event.acceptTransferModes(TransferMode.COPY);
-            }
 
-            event.consume();
-        });
+		myGridCell.setOnDragOver(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
+		        if (event.getGestureSource() != myGridCell &&
+		                event.getDragboard().hasString()) {
+		            event.acceptTransferModes(TransferMode.COPY);
+		        }
+
+		        event.consume();
+		    }
+		});
+		myGridCell.setOnDragDropped(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
+		        Dragboard db = event.getDragboard();
+		        boolean success = false;
+		        if (db.hasString()) {
+		           myGrid.setCellImage(myGridCell, db.getString());
+		           success = true;
+		        }
+		        event.setDropCompleted(success);
+
+		        event.consume();
+		     }
+		});
+		myGridCell.setOnDragEntered(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
+		         if (event.getGestureSource() != myGridCell &&
+		                 event.getDragboard().hasString()) {
+		        	 myGridCell.setStyle("-fx-background-color: #99ebff;");
+		         }
+
+		         event.consume();
+		    }
+		});
+		myGridCell.setOnDragExited(new EventHandler<DragEvent>() {
+									   public void handle(DragEvent event) {
+										   myGridCell.setStyle("-fx-background-color: transparent;");
+										   myGridCell.setStyle("-fx-border-color: black;");
+										   event.consume();
+									   }
+
+								   });
 
 		myGridCell.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasImage()) {
-               myGrid.setCellImage(myGridCell, db.getImage(), db.getString());
+               myGrid.setCellImage(myGridCell, db.getString());
                success = true;
             }
             event.setDropCompleted(success);

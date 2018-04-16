@@ -67,7 +67,8 @@ public class LevelSerializer	{
 		for (int i = 0; i < grid.getCellArray().length; i++)	{
 			TextWriter.startArray(fw, null);
 			for (int j = 0; j < grid.getCellArray()[i].length; j++)	{
-				TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
+				// TODO: UNCOMMENT LINE BELOW
+				//TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
 				TextWriter.checkWriteComma(fw, j, grid.getCellArray()[i].length);
 			}
 			TextWriter.newLine(fw);
