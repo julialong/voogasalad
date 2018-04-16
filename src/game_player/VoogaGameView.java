@@ -11,11 +11,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
+
+import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import engine.controls.Controls;
+import engine.controls.*;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 
@@ -61,7 +64,7 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustXCord(double x) {
 		//TODO: adjust this factor based on sensitivity
-		return x * (myWidth / 800.0) + (myWidth / 2.0);
+		return x * (myWidth / 4000.0) + (myWidth / 2.0);
 	}
 
 	/**
@@ -180,5 +183,29 @@ public class VoogaGameView implements GameView {
 			myControls.deactivate(keyCode);
 			System.out.println();
 		}
+	}
+
+	/**
+	 * Passes changes from the Key Bindings UI to the backend.
+	 * @param propKey
+	 * @param keyCode
+	 */
+	public void changeBinding(String propKey, KeyCode keyCode) {
+		System.out.println("CHANGING BINDING FOR " + propKey + " TO " + keyCode);
+		try {
+//			Class<?> clazz = Class.forName(propKey);
+//			Action a = (Action) clazz.newInstance();
+			Object instance = Class.forName(propKey).newInstance();
+			Action a = (Action) instance;
+			
+			myControls.setBinding(keyCode, a);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}  
+		
 	}
 }

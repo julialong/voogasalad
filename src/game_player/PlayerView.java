@@ -70,6 +70,11 @@ public class PlayerView extends VBox{
 		VButton pauseButton = new VButton("Pause Game");
 		pauseButton.setOnAction(e -> myGameView.pauseGame());
 		myMenuBar.addButton(pauseButton);
+		
+		//TODO: new interface here
+		VButton keysButton = new VButton("Change Bindings");
+		keysButton.setOnAction(e -> new KeyBindingWindow(myGameView));
+		myMenuBar.addButton(keysButton);
 	}
 
 	/**
