@@ -72,6 +72,11 @@ public class EditorWindow implements CreatorView {
 
 	}
 
+	@Override
+	public AuthoredGame getGame() {
+		return myGame;
+	}
+
 	/**
 	 * Opens a new window to allow for multi-window editing of the same level or
 	 * different levels of the game
@@ -95,14 +100,14 @@ public class EditorWindow implements CreatorView {
 		myScene.getStylesheets().add("GAE.css");
 		myStage.setMaximized(true);
 		myGrid = myGame.getCurrentLevel().getScrollingGrid();
-		myRoot.setTop(new TopBar(myGame));
+		myRoot.setTop(new TopBar(this));
 		myRoot.setCenter(setCenterGrid());
 		myRoot.setRight(setRightBar());
 
 	}
 
 	private SplitPane setRightBar() {
-		SplitPane rightBar = new RightBar(myGame, myGrid, myScrollPane);
+		SplitPane rightBar = new RightBar(this, myGrid, myScrollPane);
 		rightBar.getStyleClass().add("side-pane");
 		return rightBar;
 	}

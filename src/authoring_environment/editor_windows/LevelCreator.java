@@ -33,7 +33,7 @@ public class LevelCreator {
     private Scene myScene;
     private BorderPane myRoot;
     private AuthoredLevel newLevel;
-    private AuthoredGame myGame;
+    private CreatorView myWindow;
 
     private Pane right;
     private Pane center;
@@ -53,8 +53,8 @@ public class LevelCreator {
     /**
      * Creates and launches a new LevelCreator window
      */
-    public LevelCreator(AuthoredGame game) {
-        myGame = game;
+    public LevelCreator(CreatorView window) {
+        myWindow = window;
         createNewLevel();
         myStage = new Stage();
         myRoot = new BorderPane();
@@ -71,7 +71,7 @@ public class LevelCreator {
      * Creates a new level with default size.
      */
     private void createNewLevel() {
-        Level createdLevel = new BasicLevel(myGame.getLevels().size()+1);
+        Level createdLevel = new BasicLevel(myWindow.getGame().getLevels().size()+1);
         newLevel = new AuthoredLevel(createdLevel, new ScrollingGrid());
     }
 
@@ -174,7 +174,7 @@ public class LevelCreator {
     private void createSaveButton(Pane pane) {
         Button saveButton = new Button(SAVE_LEVEL);
         saveButton.setOnAction(e -> {
-            myGame.addLevel(newLevel);
+            myWindow.getGame().addLevel(newLevel);
             myStage.close();
         });
         pane.getChildren().add(saveButton);

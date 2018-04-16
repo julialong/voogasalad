@@ -21,7 +21,7 @@ public class SettingsManager implements MetaManager {
     private Pane myRoot;
     private Scene myScene;
 
-    private AuthoredGame myGame;
+    private CreatorView myWindow;
     private TextField fileName;
 
     private static final String CSS = "GAE.css";
@@ -32,27 +32,27 @@ public class SettingsManager implements MetaManager {
     /**
      * Creates a new settings manager window.
      */
-    public SettingsManager(AuthoredGame game) {
+    public SettingsManager(CreatorView window) {
         myStage = new Stage();
         myRoot = new VBox();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
         myRoot.getStyleClass().add("game_saver");
-        myGame = game;
+        myWindow = window;
 
         myStage.setScene(myScene);
         myStage.setTitle(SETTINGS_MANAGER);
         myStage.show();
         myStage.centerOnScreen();
 
-        setName(fileName, myGame, myRoot);
+        //setName(fileName, myGame, myRoot);
         saveSettings();
     }
 
     private void saveSettings() {
         Button submitButton = new Button(SUBMIT);
         submitButton.setOnAction(e -> {
-            myGame.rename(fileName.getText());
+            myWindow.getGame().rename(fileName.getText());
 
         });
     }

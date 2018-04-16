@@ -1,5 +1,6 @@
 package authoring_environment.toolbars.choosers;
 
+import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.toolbars.RightBar;
@@ -21,16 +22,16 @@ import javafx.scene.layout.VBox;
  */
 public class LevelChooser extends VBox {
 
-    private AuthoredGame myGame;
+    private CreatorView myWindow;
     private ScrollPane myScrollPane;
 
     /**
      * Creates a scrollpane that allows users to choose a level to edit.
-     * @param game is the current game
+     * @param window is the current window
      */
-    public LevelChooser(AuthoredGame game, ScrollPane grid, RightBar rightBar) {
+    public LevelChooser(CreatorView window, ScrollPane grid) {
         super();
-        myGame = game;
+        myWindow = window;
         myScrollPane = grid;
         update();
     }
@@ -40,7 +41,7 @@ public class LevelChooser extends VBox {
      */
     public void update() {
         this.getChildren().removeAll(this.getChildren());
-        for (AuthoredLevel level : myGame.getLevels()) {
+        for (AuthoredLevel level : myWindow.getGame().getLevels()) {
             Pane thisLevelChoice = new LevelChoice(level);
             thisLevelChoice.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
@@ -55,8 +56,8 @@ public class LevelChooser extends VBox {
     }
 
     private void addClickButtonBehavior(AuthoredLevel level) {
-        myGame.setCurrentLevel(level);
-        myScrollPane.setContent(myGame.getCurrentLevel().getScrollingGrid());
+        myWindow.getGame().setCurrentLevel(level);
+        myScrollPane.setContent(myWindow.getGame().getCurrentLevel().getScrollingGrid());
     }
 
     private void addRightClickButtonBehavior(Pane levelChoice, AuthoredLevel level) {
@@ -68,7 +69,7 @@ public class LevelChooser extends VBox {
     }
 
     private void setDeleteBehavior(AuthoredLevel level) {
-        myGame.removeLevel(level);
+        myWindow.getGame().removeLevel(level);
     }
 
 }
