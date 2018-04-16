@@ -1,7 +1,14 @@
 package authoring_environment.grid;
 
 import authoring_environment.game_elements.AuthoredLevel;
-import javafx.scene.image.Image;
+
+import java.io.File;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -16,6 +23,8 @@ public class ScrollingGrid extends GridPane {
 	private static final int NUMBER_OF_ROWS = 20;
 	private static final int NUMBER_OF_COLUMNS = 50;
 	private static final int DEFAULT_CELL_SIZE = 50;
+	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
+
 	
 	private int cellSize;
 	private int rowNumber;
@@ -94,26 +103,35 @@ public class ScrollingGrid extends GridPane {
 		}
 	}
 	
-	public void setCellImage(GridCell cell, Image image, String path) {
+	public void setCellImage(GridCell cell, String ID) {
 		if (cell.isSelected()) {
 			for (int i = 0; i < NUMBER_OF_ROWS; i++) {
 				for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
 					GridCell checkCell = cellArray[j][i];
 					if (checkCell.isSelected()) {
-						checkCell.setImage(path);
-						myLevel.addObject(" beep");
+						myLevel.addObject(ID);
+						checkCell.setImage(ID);
 					}
 				}
 			}
-		} else cell.setImage(path);
-	}
-
-	public void setCellImage(GridCell cell, String path) {
-			GridCell checkCell = cell;
-			checkCell.setImage(path);
+		} else cell.setImage(ID);
 	}
 	
 	public GridCell[][] getCellArray()	{
 		return cellArray;
+	}
+	
+	public Document parseElementXML(String ID) {
+		try {
+		File file = new File(ELEMENT_DATA_PATH + ID + ".xml");
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db;
+		db = dbf.newDocumentBuilder();
+		Document elementDoc = db.parse(file);
+		return elementDoc;
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    return null;
+	    }
 	}
 }

@@ -2,10 +2,7 @@ package engine.level;
 
 
 import authoring_environment.grid.ScrollingGrid;
-import engine.entity.Block;
-import engine.entity.Foes;
 import engine.entity.GameEntity;
-import engine.entity.Player;
 import engine.physics.DetectCollision;
 
 import java.util.ArrayList;
@@ -14,7 +11,7 @@ import java.util.List;
 /**
  * The BasicLevel class is the basic implementation of the Level interface.
  *
- * @author Robert Gitau, Marcus Oertle, Julia Long
+ * @author Robert Gitau, Marcus Oertle, Julia Long, Michael Acker
  */
 public class BasicLevel implements Level {
 
@@ -27,6 +24,10 @@ public class BasicLevel implements Level {
     private static final String DEFAULT = "Default";
     private static final int DEFAULT_X_SIZE = 500;
     private static final int DEFAULT_Y_SIZE = 500;
+    private static final int DEFAULT_CELL_SIZE = 50;
+    private int myXSize;
+    private int myYSize;
+    private int myCellSize;
 
     /**
      * Creates a new basic Level.
@@ -35,7 +36,9 @@ public class BasicLevel implements Level {
      */
     public BasicLevel(int xSize, int ySize, int ID) {
         myGrid = new ScrollingGrid();
-        myGrid.setPrefSize(xSize, ySize);
+        myXSize = xSize;
+        myYSize = ySize;
+        myGrid.setPrefSize(myXSize, myYSize);
         myObjects = new ArrayList<>();
         myID = ID;
         myName = DEFAULT;
@@ -156,5 +159,4 @@ public class BasicLevel implements Level {
     		source.interact(source, target, direction);
     	}
     }
-
 }
