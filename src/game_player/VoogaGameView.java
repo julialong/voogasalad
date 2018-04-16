@@ -61,11 +61,11 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustXCord(double x) {
 		//TODO: adjust this factor based on sensitivity
-		return x * (myWidth / 100.0) + (myWidth / 2.0);
+		return x * (myWidth / 800.0) + (myWidth / 2.0);
 	}
 
 	/**
-	 * Calibrates y coordinates to be at the center of the screen and multiples by a
+	 * Calibrates y coordinates to be at thecenter of the screen and multiples by a
 	 * factor to make the difference between them larger.
 	 * 
 	 * @param y
@@ -73,7 +73,7 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustYCord(double y) {
 		//TODO: adjust this factor based on sensitivity
-		return (myHeight / 2.0) - y * (myHeight / 120.0);
+		return (myHeight / 2.0) - y * (myHeight / 240.0);
 	}
 
 	/**
