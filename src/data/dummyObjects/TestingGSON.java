@@ -1,27 +1,8 @@
 package data.dummyObjects;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.google.gson.Gson;
-
-import authoring_environment.ScrollingGrid;
 import data.gamefiles.GameFileReader;
-import data.gamefiles.GameFileWriter;
-import data.serialization.Serializer;
-import engine.entity.Block;
-import engine.entity.Flag;
-import engine.entity.Foes;
-import engine.entity.GameEntity;
-import engine.entity.Player;
-import engine.level.BasicLevel;
-import engine.level.Level;
-import javafx.application.Application;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
+
 /**
  * Class used for testing serialization.
  * 

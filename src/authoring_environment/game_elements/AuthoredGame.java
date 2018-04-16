@@ -1,5 +1,6 @@
-package authoring_environment;
+package authoring_environment.game_elements;
 
+import authoring_environment.grid.ScrollingGrid;
 import data.gamefiles.GAEtoJSON;
 import data.gamefiles.GameFileWriter;
 import engine.entity.GameEntity;
@@ -23,8 +24,8 @@ public class AuthoredGame {
 
     private String myName;
     private String myDescription;
-    private List<Level> myLevels;
-    private Level currentLevel;
+    private List<AuthoredLevel> myLevels;
+    private AuthoredLevel currentLevel;
     private GAEtoJSON myGameWriter;
     private boolean isReady;
 
@@ -39,7 +40,8 @@ public class AuthoredGame {
         myName = gameName;
         myDescription = DEFAULT_DESCRIPTION;
         myLevels = new ArrayList<>();
-        currentLevel = new BasicLevel(0);
+        Level tempLevel = new BasicLevel(0);
+        currentLevel = new AuthoredLevel(tempLevel, new ScrollingGrid());
         myGameWriter = new GameFileWriter(myName);
         isReady = false;
     }
@@ -84,11 +86,11 @@ public class AuthoredGame {
      * Adds a level to the game
      * @param level is the new level
      */
-    public void addLevel(Level level) {
+    public void addLevel(AuthoredLevel level) {
         myLevels.add(level);
     }
 
-    public void removeLevel(Level level) {
+    public void removeLevel(AuthoredLevel level) {
         myLevels.remove(level);
     }
 
@@ -96,7 +98,7 @@ public class AuthoredGame {
      * Gets the levels of the game
      * @return the list of level objects
      */
-    public List<Level> getLevels() {
+    public List<AuthoredLevel> getLevels() {
         return myLevels;
     }
 
@@ -104,7 +106,7 @@ public class AuthoredGame {
      * Sets the current level
      * @param currentLevel is the level to set as the current level
      */
-    public void setCurrentLevel(Level currentLevel) {
+    public void setCurrentLevel(AuthoredLevel currentLevel) {
         this.currentLevel = currentLevel;
     }
 
@@ -112,7 +114,7 @@ public class AuthoredGame {
      * Gets the current level
      * @return the current level
      */
-    public Level getCurrentLevel() {
+    public AuthoredLevel getCurrentLevel() {
         return currentLevel;
     }
 
@@ -120,16 +122,16 @@ public class AuthoredGame {
      * Updates the state of the game
      */
     public void update() {
-        myGameWriter.update(myLevels);
+        // myGameWriter.update(myLevels);
         myGameWriter.updateMeta(isReady, myDescription);
         System.out.println("level saved");
     }
 
-    private Map<Level, List<GameEntity>> extractObjects() {
-        Map<Level, List<GameEntity>> unpacked = new HashMap<>();
-        for (Level level : myLevels) {
-            unpacked.put(level, level.getObjects());
-        }
-        return unpacked;
-    }
+//    private Map<Level, List<GameEntity>> extractObjects() {
+//        Map<Level, List<GameEntity>> unpacked = new HashMap<>();
+//        for (Level level : myLevels) {
+//            unpacked.put(level, level.getObjects());
+//        }
+//        return unpacked;
+//    }
 }

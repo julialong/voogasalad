@@ -8,7 +8,7 @@ public class PhysicsTest {
 		Physics p = new Physics();
 
 		for(int i = 0; i < seconds*60; i++) {
-			k = p.applyPhysics(k, true);
+			k = p.applyPhysics(k, true, true);
 			if(k.getY() < 0) {
 				k.setY(0.01);
 			}

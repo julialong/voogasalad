@@ -45,7 +45,7 @@ public class DemoTester {
 			objsOrganized.get(two).add(obj);
 		}
 
-		gameForDemo.update(objsOrganized);
+		// gameForDemo.update(objsOrganized);
 		
 		//Reading
 		GameFileReader fileReader = new GameFileReader();

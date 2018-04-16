@@ -1,4 +1,7 @@
-package authoring_environment;
+package authoring_environment.editor_windows;
+
+import authoring_environment.authored_elements.AuthoredElement;
+import authoring_environment.game_elements.AuthoredGame;
 
 /**
  * 
@@ -11,7 +14,7 @@ public interface CreatorView {
 	 * Updates the current GUI representation of the AuthoredElements locations
 	 * on a particular level's grid
 	 */
-	public void updateGrid();
+	void updateGrid();
 	
 	
 	/**
@@ -22,13 +25,19 @@ public interface CreatorView {
 	 * @param location is the value of the leftmost coordinate on the
 	 * viewable grid
 	 */
-	public void updateGridView(double location);
+	void updateGridView(double location);
 	
 	/**
 	 * Opens an editor to change the atributes of a specific AuthoredElement
 	 * @param elem is the AuthoredElement for which an editor window will be opened
 	 */
 	void openAttributeEditor(AuthoredElement elem);
+
+	/**
+	 * Gets the Game assigned to the window
+	 * @return
+	 */
+	AuthoredGame getGame();
 	
 	/**
 	 * Opens a new window to allow for multi-window editing 
