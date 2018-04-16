@@ -22,7 +22,7 @@ public class ScrollingGrid extends GridPane {
 	// TODO: Change this based on level size
 	private static final int NUMBER_OF_ROWS = 20;
 	private static final int NUMBER_OF_COLUMNS = 50;
-	private static final int DEFAULT_CELL_SIZE = 75;
+	private static final int DEFAULT_CELL_SIZE = 50;
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 
 	
