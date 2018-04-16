@@ -34,7 +34,7 @@ public interface JSONtoGAE {
 	 * game authoring environment. It will return the map of image paths 
 	 * to custom game entities. 
 	 * 
-	 * @param gameName
+	 * @param author
 	 * @return
 	 */
 	Map<String,GameEntity> loadAuthorCustomObjects(String author);
