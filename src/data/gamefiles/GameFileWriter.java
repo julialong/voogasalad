@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import data.serialization.TextWriter;
@@ -85,7 +88,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @return	new, replacement instance of level
 	 */
 	@Override
-	public Level revertChanges(Level level)	{
+	public Level revertChanges(AuthoredLevel level)	{
 		GameFileReader reader = new GameFileReader();
 		String levelName = level.getName();
 		return reader.loadLevel(gameName, levelName);
@@ -147,8 +150,10 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 				newLevel.createNewFile();
 			} 
 			catch (IOException e) {
-				// TODO proper error
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(new JFrame(),
+				    "Could not get or make file " + newLevel.toString(),
+				    "IOException",
+				    JOptionPane.WARNING_MESSAGE);
 			}
 		}
 

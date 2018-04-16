@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+
 import authoring_environment.game_elements.AuthoredLevel;
 import engine.entity.GameEntity;
 import engine.level.Level;
@@ -25,7 +28,7 @@ public class TextWriter	{
 	public static final String COLON = ":";
 	public static final String COMMA = ",";
 	public static final String QUOTE = "\"";
-	private static final String WRITEERRORSTATEMENT = "Could not write to file";
+	private static final String WRITEERRORSTATEMENT = "Could not write content in file ";
 
 	private static final String DESCRIPTION = "description";
 	private static final String READYTOPLAY = "readyToPlay";
@@ -61,7 +64,10 @@ public class TextWriter	{
 			endFile(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			JOptionPane.showMessageDialog(new JFrame(),
+			    "Could not create FileWriter with file " + settings.toString(),
+			    "IOException",
+			    JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
@@ -75,7 +81,10 @@ public class TextWriter	{
 			endFile(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			JOptionPane.showMessageDialog(new JFrame(),
+			    "Could not create FileWriter with file " + level.toString(),
+			    "IOException",
+			    JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
@@ -88,7 +97,7 @@ public class TextWriter	{
 			newLine(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
@@ -131,7 +140,10 @@ public class TextWriter	{
 			newLine(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			JOptionPane.showMessageDialog(new JFrame(),
+			    "Could not start file with FileWriter " + fw.toString(),
+			    "IOException",
+			    JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
@@ -141,7 +153,10 @@ public class TextWriter	{
 			fw.close();
 		}
 		catch (IOException e)	{
-			error(e);
+			JOptionPane.showMessageDialog(new JFrame(),
+			    "Could not end file with FileWriter " + fw.toString(),
+			    "IOException",
+			    JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
@@ -155,7 +170,7 @@ public class TextWriter	{
 			newLine(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
@@ -166,7 +181,7 @@ public class TextWriter	{
 			newLine(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
@@ -179,7 +194,7 @@ public class TextWriter	{
 			}
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
@@ -188,7 +203,7 @@ public class TextWriter	{
 			fw.write(System.lineSeparator());
 		}
 		catch(IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
@@ -197,7 +212,7 @@ public class TextWriter	{
 			fw.write(QUOTE + key + QUOTE + COLON);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
@@ -206,7 +221,7 @@ public class TextWriter	{
 			fw.write(QUOTE + value + QUOTE);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
@@ -215,7 +230,7 @@ public class TextWriter	{
 			fw.write(Integer.toString(value));
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
@@ -225,12 +240,15 @@ public class TextWriter	{
 				fw.write(COMMA);
 			}
 			catch (IOException e)	{
-				error(e);
+				error(e, fw);
 			}
 		}
 	}
 
-	protected static void error(IOException e)	{
-		System.out.println(WRITEERRORSTATEMENT);
+	protected static void error(IOException e, FileWriter fw)	{
+		JOptionPane.showMessageDialog(new JFrame(),
+		    WRITEERRORSTATEMENT + fw.toString(),
+		    e.getClass().getSimpleName(),
+		    JOptionPane.WARNING_MESSAGE);
 	}
 }
