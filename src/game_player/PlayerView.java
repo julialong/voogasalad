@@ -2,6 +2,7 @@ package game_player;
 
 
 import engine.level.Level;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class PlayerView extends VBox{
 
 	public PlayerView() {
 		super();
-		createMenuBar();
 		createGView();
+		createMenuBar();
 		setViewTop();
 		setMiddle();
 	}
@@ -28,8 +29,8 @@ public class PlayerView extends VBox{
 	public PlayerView(List<Level> game){
 		super();
 		gameMaterial = game;
-		createMenuBar();
 		createGView();
+		createMenuBar();
 		setViewTop();
 		setMiddle();
 	}
@@ -40,7 +41,6 @@ public class PlayerView extends VBox{
 	//	}
 	
 	private void createGView() {
-		// TODO Auto-generated method stub
 		myGameView = new VoogaGameView(gameMaterial);
 	}
 
@@ -57,12 +57,19 @@ public class PlayerView extends VBox{
 	 * add buttons to my menubar
 	 */
 	private void addButtons() {
-		// TODO Auto-generated method stub
 		myMenuBar.addButton(new VButton("High Scores"));
 		myMenuBar.addButton(new VButton("Replay"));
 		myMenuBar.addButton(new VButton("Switch Game"));
 		myMenuBar.addButton(new VButton("Save Game"));
 		myMenuBar.addButton(new VButton("Set Preferences"));
+		
+		VButton resumeButton = new VButton("Resume Game");
+		resumeButton.setOnAction(e -> myGameView.resumeGame());
+		myMenuBar.addButton(resumeButton);
+		
+		VButton pauseButton = new VButton("Pause Game");
+		pauseButton.setOnAction(e -> myGameView.pauseGame());
+		myMenuBar.addButton(pauseButton);
 	}
 
 	/**
@@ -82,12 +89,13 @@ public class PlayerView extends VBox{
 		myGameView.startGame();
 		//TODO: gameView class
 	}
-	
-	/**
-	 * update the game view
-	 * 
-	 */
-	public void updateView() {
-		myGameView.updateGame();
+		
+	public void startKey(KeyCode keyCode) {
+		myGameView.keyPressed(keyCode);
 	}
+	
+	public void endKey(KeyCode keyCode) {
+		myGameView.keyUnPressed(keyCode);
+	}
+	
 }
