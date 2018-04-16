@@ -5,18 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import authoring_environment.game_elements.AuthoredLevel;
-import engine.entity.GameEntity;
 import engine.level.Level;
 
-public class NewGameFileReader implements JSONtoGAE, JSONtoGP{
+public class GPGameFileReader implements JSONtoGP{
 
 	private static final String GAME_FOLDER = "./data/gameData";
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private String NEST = "/";
 	
-	public NewGameFileReader()
+	public GPGameFileReader()
 	{
 		if (System.getProperty("os.name").toString().contains("Windows"))	
 		{
@@ -29,9 +27,25 @@ public class NewGameFileReader implements JSONtoGAE, JSONtoGP{
 	 * 
 	 * @param gameName
 	 */
-	private File retrieveCurrentGame(String gameName)
+	private String retrieveCurrentGamePath(String gameName)
 	{
-		return new File(GAME_FOLDER + NEST + gameName);
+		//Search through authors
+		//NEEDS TO BE TESTED
+		File gameFolder = new File(GAME_FOLDER);
+		File[] authors = gameFolder.listFiles();
+		for(File author: authors)
+		{
+			File[] games = author.listFiles();
+			for(File game: games)
+			{
+				if(game.toString().contains(gameName))
+				{
+					return game.toString();
+				}
+			}
+		}
+		return null;
+//		return new File(GAME_FOLDER + NEST + gameName);
 	}
 	
 	/**
@@ -42,7 +56,7 @@ public class NewGameFileReader implements JSONtoGAE, JSONtoGP{
 	 */
 	private File retrieveLevel(String gameName, String level)
 	{
-		String gameDirectory = GAME_FOLDER + NEST + gameName;
+		String gameDirectory = retrieveCurrentGamePath(gameName);
 		return new File(gameDirectory + NEST + level + JSON_EXTENSION);
 	}
 	
@@ -53,7 +67,7 @@ public class NewGameFileReader implements JSONtoGAE, JSONtoGP{
 	 * @return
 	 */
 	private File retrieveSettings(String gameName) {
-		String gameDirectory = GAME_FOLDER + NEST + gameName;
+		String gameDirectory = retrieveCurrentGamePath(gameName);
 		return new File(gameDirectory + NEST + SETTINGS + JSON_EXTENSION);
 	}
 	
@@ -68,7 +82,7 @@ public class NewGameFileReader implements JSONtoGAE, JSONtoGP{
 	@Override
 	public List<Level> loadCompleteGame(String gameName) {
 		List<Level> completeGame = new ArrayList<>();
-		File currentGame = retrieveCurrentGame(gameName);
+		File currentGame = new File(retrieveCurrentGamePath(gameName));
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
@@ -122,48 +136,8 @@ public class NewGameFileReader implements JSONtoGAE, JSONtoGP{
 	@Override
 	public Map<String, String> getGameNames() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * This method will return the list of AuthoredLevel objects created from the level
-	 * files for a particular game. This will locate the folder for the specific
-	 * game and load the different level files associated with that folder. This will 
-	 * allow the game authoring environment to do continued editing on a game.
-	 * 
-	 * @param gameName
-	 * @return 
-	 */
-	@Override
-	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * This will load one of the stray levels that an author can
-	 * add to his or her game in the game authoring environment.
-	 * 
-	 * @param levelName
-	 * @return
-	 */
-	@Override
-	public AuthoredLevel loadAuthoredLevel(String levelName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * This will load the author settings for a specific author in the 
-	 * game authoring environment. It will return the map of image paths 
-	 * to custom game entities. 
-	 * 
-	 * @param author
-	 * @return
-	 */
-	@Override
-	public Map<String, GameEntity> loadAuthorCustomObjects(String author) {
-		// TODO Auto-generated method stub
+		
+		//Sort through authors
 		return null;
 	}
 

@@ -45,5 +45,7 @@ public interface JSONtoGP {
 	 * @return
 	 */
 	Map<String,String> getGameNames();
+	
+	//Something with players?
 
 }
