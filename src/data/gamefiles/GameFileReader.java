@@ -1,7 +1,6 @@
 package data.gamefiles;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -9,18 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.JsonReader;
 
-import authoring_environment.ScrollingGrid;
+import authoring_environment.grid.ScrollingGrid;
 import data.serialization.LevelSerializer;
 import data.serialization.Serializer;
 import engine.entity.GameEntity;
@@ -39,10 +33,10 @@ import engine.level.Level;
 public class GameFileReader implements JSONtoObject {
 
 	private static final String GAME_FOLDER = "./data/gameData";
-	private static final String NEST = "/";
 	private static final String JSON_EXTENSION = ".json";
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
 	private static final String SETTINGS = "Settings";
+	private String NEST = "/";
 	private String gameDirectory;
 	private File currentGame;
 	private File currentLevel;
@@ -57,7 +51,11 @@ public class GameFileReader implements JSONtoObject {
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
-		deserializer = new Serializer(); 
+		deserializer = new Serializer();
+
+		if (System.getProperty("os.name").toString().contains("Windows"))	{
+			NEST = "\\";
+		}
 	}
 	
 	/**
@@ -90,7 +88,7 @@ public class GameFileReader implements JSONtoObject {
 	private void retrieveCurrentGame(String gameName)
 	{
 		gameDirectory = GAME_FOLDER + NEST + gameName;
-		currentGame = new File(gameDirectory); 
+		currentGame = new File(gameDirectory); 	
 	}
 	
 	/**

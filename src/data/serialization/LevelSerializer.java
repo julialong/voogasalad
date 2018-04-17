@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.io.FileWriter;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
 
-import authoring_environment.ScrollingGrid;
-import authoring_environment.GridCell;
+import authoring_environment.grid.ScrollingGrid;
+import authoring_environment.grid.GridCell;
 
-import engine.level.BasicLevel;
 import engine.level.Level;
 
 /**

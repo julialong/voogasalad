@@ -1,14 +1,11 @@
 package authoring_environment.editor_windows;
 
-import authoring_environment.AuthoredGame;
+import authoring_environment.game_elements.AuthoredGame;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -24,7 +21,7 @@ public class SettingsManager implements MetaManager {
     private Pane myRoot;
     private Scene myScene;
 
-    private AuthoredGame myGame;
+    private CreatorView myWindow;
     private TextField fileName;
 
     private static final String CSS = "GAE.css";
@@ -35,27 +32,27 @@ public class SettingsManager implements MetaManager {
     /**
      * Creates a new settings manager window.
      */
-    public SettingsManager(AuthoredGame game) {
+    public SettingsManager(CreatorView window) {
         myStage = new Stage();
         myRoot = new VBox();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
         myRoot.getStyleClass().add("game_saver");
-        myGame = game;
+        myWindow = window;
 
         myStage.setScene(myScene);
         myStage.setTitle(SETTINGS_MANAGER);
         myStage.show();
         myStage.centerOnScreen();
 
-        setName(fileName, myGame, myRoot);
+        //setName(fileName, myGame, myRoot);
         saveSettings();
     }
 
     private void saveSettings() {
         Button submitButton = new Button(SUBMIT);
         submitButton.setOnAction(e -> {
-            myGame.rename(fileName.getText());
+            myWindow.getGame().rename(fileName.getText());
 
         });
     }

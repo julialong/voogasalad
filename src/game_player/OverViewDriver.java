@@ -1,9 +1,7 @@
 package game_player;
 
-import authoring_environment.EditorWindow;
+import authoring_environment.editor_windows.*;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -70,4 +68,14 @@ public class OverViewDriver extends Application {
         pane.getChildren().add(container);
         return pane;
     }
+    
+	/**
+	 * Runs the SSS application
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 }
