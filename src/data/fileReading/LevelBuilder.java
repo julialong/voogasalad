@@ -1,6 +1,7 @@
 package data.fileReading;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -9,9 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.google.gson.JsonArray;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import data.serialization.Serializer;
 import engine.entity.GameEntity;
@@ -59,6 +65,10 @@ public class LevelBuilder {
 				objectTypes.put(objectName, objectClass);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(new JFrame(),
+						 "Could not find object class for reflection",
+						    "Class Not Found Exception",
+					    JOptionPane.WARNING_MESSAGE);
 				e.printStackTrace();
 			}
 		}
@@ -76,12 +86,17 @@ public class LevelBuilder {
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
-			JsonObject  jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
+			JsonObject jobject;
+			jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
 			addMetaData(level, jobject);
 			addGameObjects(level,jobject);
 		}
-		catch(Exception e)
+		catch(JsonIOException | JsonSyntaxException | FileNotFoundException e)
 		{
+			JOptionPane.showMessageDialog(new JFrame(),
+					 "Could not find the file to load for Level",
+					    "File Reader Exception",
+				    JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
 		}
 		return level;	
