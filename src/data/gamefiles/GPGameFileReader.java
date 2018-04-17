@@ -9,10 +9,10 @@ import engine.level.Level;
 
 public class GPGameFileReader implements JSONtoGP{
 
-	private static final String GAME_FOLDER = "./data/gameData";
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private String NEST = "/";
+	private FileRetriever fileRetriever;
 	
 	public GPGameFileReader()
 	{
@@ -20,55 +20,7 @@ public class GPGameFileReader implements JSONtoGP{
 		{
 			NEST = "\\";
 		}
-	}
-	
-	/**
-	 * Returns the file associated to the game name
-	 * 
-	 * @param gameName
-	 */
-	private String retrieveCurrentGamePath(String gameName)
-	{
-		//Search through authors
-		//NEEDS TO BE TESTED
-		File gameFolder = new File(GAME_FOLDER);
-		File[] authors = gameFolder.listFiles();
-		for(File author: authors)
-		{
-			File[] games = author.listFiles();
-			for(File game: games)
-			{
-				if(game.toString().contains(gameName))
-				{
-					return game.toString();
-				}
-			}
-		}
-		return null;
-//		return new File(GAME_FOLDER + NEST + gameName);
-	}
-	
-	/**
-	 * Return the file for the specific level
-	 * 
-	 * @param gameName
-	 * @param level
-	 */
-	private File retrieveLevel(String gameName, String level)
-	{
-		String gameDirectory = retrieveCurrentGamePath(gameName);
-		return new File(gameDirectory + NEST + level + JSON_EXTENSION);
-	}
-	
-	/**
-	 * Returns a the File containing the settings information for a game.
-	 * 
-	 * @param gameName
-	 * @return
-	 */
-	private File retrieveSettings(String gameName) {
-		String gameDirectory = retrieveCurrentGamePath(gameName);
-		return new File(gameDirectory + NEST + SETTINGS + JSON_EXTENSION);
+		fileRetriever = new FileRetriever();
 	}
 	
 	/**
@@ -82,7 +34,7 @@ public class GPGameFileReader implements JSONtoGP{
 	@Override
 	public List<Level> loadCompleteGame(String gameName) {
 		List<Level> completeGame = new ArrayList<>();
-		File currentGame = new File(retrieveCurrentGamePath(gameName));
+		File currentGame = new File(fileRetriever.retrieveCurrentGamePath(gameName));
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
@@ -108,7 +60,7 @@ public class GPGameFileReader implements JSONtoGP{
 	 */
 	@Override
 	public Level loadLevel(String gameName, String levelName) {
-		File currentLevel = retrieveLevel(gameName, levelName);
+		File currentLevel = fileRetriever.retrieveLevel(gameName, levelName);
 		LevelBuilder levelBuilder = new LevelBuilder(currentLevel);
 		return levelBuilder.buildLevel();
 	}
