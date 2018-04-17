@@ -46,12 +46,13 @@ public class GAEGameFileReader implements JSONtoGAE {
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
 				if(!levelName.equals(SETTINGS))
 				{
-					completeGame.add(loadLevel(gameName, levelName));
+					File level = fileRetriever.retrieveLevel(gameName, levelName);
+					AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
+					completeGame.add(authoredBuilder.buildAuthoredLevel());
 				}		
 		}
 		return completeGame;
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	/**
