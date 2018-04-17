@@ -3,6 +3,7 @@ package engine.level;
 
 import authoring_environment.grid.ScrollingGrid;
 import engine.entity.GameEntity;
+import engine.entity.Player;
 import engine.physics.DetectCollision;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class BasicLevel implements Level {
     private int myID;
     private String myName;
     private DetectCollision detectCollision = new DetectCollision();
+    private ArrayList<GameEntity> toRemoveFromObjectList = new ArrayList<>();
 
     private static final String DEFAULT = "Default";
     private static final int DEFAULT_X_SIZE = 500;
@@ -114,42 +116,21 @@ public class BasicLevel implements Level {
     public void update(){
     	for(GameEntity source : myObjects){
     		source.update();
+    		if(source.getHealth() < 1 && !(source instanceof Player)) {
+    			//System.out.println(source.getClass().getSimpleName() + ": " + source.getHealth());
+    			toRemoveFromObjectList.add(source);
+    		}
     	}
+    	for(GameEntity ge : toRemoveFromObjectList) {
+    		myObjects.remove(ge);
+    	}
+    	toRemoveFromObjectList.clear();
         for(GameEntity source : myObjects){
-//        	if(source instanceof Player) {
-//            	System.out.println("P0: " + source.getKinematics().getY());
-//            }
-//            if(source instanceof Block) {
-//            	System.out.println("B0: " + source.getKinematics().getY());
-//            }
-        	//source.update();
-//            if(source instanceof Player) {
-//            	System.out.println("P1: " + source.getKinematics().getY());
-//            }
-//            if(source instanceof Block) {
-//            	System.out.println("B1: " + source.getKinematics().getY());
-//            }
             for(GameEntity target : myObjects){
             	if(!(source == target)) {
             		checkInteractions(source, target);
-//                    if(target instanceof Player) {
-//                    	System.out.println("P2: " + target.getKinematics().getY());
-//                    }
-//                    if(target instanceof Block) {
-//                    	System.out.println("B2: " + target.getKinematics().getY());
-//                    }a
             	}
             }
-            //source.update();
-//            if(source instanceof Player) {
-//            	System.out.println("P3: " + source.getKinematics().getY());
-//            }
-//            if(source instanceof Block) {
-//            	System.out.println("B3: " + source.getKinematics().getY());
-//            }
-//            if(source instanceof Player) {
-//            	System.out.println("P4: " + source.getKinematics().getY());
-//            }
         }
     }
     

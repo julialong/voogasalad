@@ -39,7 +39,7 @@ public class Kinematics {
 		xAcc = xa;
 		yAcc = ya;
 		frictionConstant = 0;
-		gravitionalConstant = 9.81*10;
+		gravitionalConstant = 9.81*10*4;
 	}
 	
 	/**

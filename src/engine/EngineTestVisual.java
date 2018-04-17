@@ -1,5 +1,6 @@
 package engine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import engine.entity.Block;
 import engine.entity.Foes;
 import engine.entity.GameEntity;
 import engine.entity.Player;
+import engine.interaction.DamageOnStomp;
 import engine.interaction.KnockBack;
 import engine.interaction.PreventClipping;
 import engine.interaction.Pushable;
@@ -66,7 +68,8 @@ public class EngineTestVisual extends Application{
 		//Block enemy = new Block();
 		//enemy.addBehavior(new MoveForward(new Player()));
 		//enemy.addInteraction(new KnockBack());
-		//enemy.addInteraction(new PreventClipping());
+		//wenemy.addInteraction(new PreventClipping());
+		enemy.addInteraction(new DamageOnStomp());
 		enemy.overridePosition(30, 20);
 		enemy.setSizeX(10);
 		enemy.setSizeY(20);
@@ -89,7 +92,11 @@ public class EngineTestVisual extends Application{
 		player.setMaxXVelocity(50);
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
-		player.setJumpFactor(75);
+		player.setJumpFactor(150);
+		enemy.setHealth(1);
+		//player.setHealth(1);
+		block.setHealth(1);
+		wall.setHealth(1);
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		LEVEL.addObject(block);
@@ -121,9 +128,19 @@ public class EngineTestVisual extends Application{
 
 	private void step(double secondDelay) {
 		LEVEL.update();
-		for(GameEntity ge : LEVEL.getObjects()){
-			geRectMap.get(ge).setX(ge.getPosition()[0]+200);
-			geRectMap.get(ge).setY(-ge.getPosition()[1]+200);
+		ArrayList<GameEntity> toRemove = new ArrayList<>();
+		for(GameEntity ge : geRectMap.keySet()){
+			if(LEVEL.getObjects().contains(ge)) {
+				geRectMap.get(ge).setX(ge.getPosition()[0]+200);
+				geRectMap.get(ge).setY(-ge.getPosition()[1]+200);
+			}
+			else {
+				toRemove.add(ge);
+				root.getChildren().remove(geRectMap.get(ge));
+			}
+		}
+		for(GameEntity ge : toRemove) {
+			geRectMap.remove(ge);
 		}
 	}
 }
