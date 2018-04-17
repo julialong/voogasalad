@@ -60,10 +60,13 @@ public class LevelBuilder {
 		while(objectNames.hasMoreElements())
 		{
 			String objectName = objectNames.nextElement();
-			try {
+			try 
+			{
 				Class<?> objectClass = Class.forName(gameObjects.getString(objectName));
 				objectTypes.put(objectName, objectClass);
-			} catch (ClassNotFoundException e) {
+			} 
+			catch (ClassNotFoundException e) 
+			{
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(new JFrame(),
 						 "Could not find object class for reflection",
