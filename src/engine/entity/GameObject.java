@@ -22,6 +22,8 @@ public abstract class GameObject implements GameEntity{
 	protected double maxVelocityY;
 	protected double width;
 	protected double height;
+	protected double sceneX;
+	protected double sceneY;
 	protected ImageView myImageView;
 	protected String myElementID;
 	protected ArrayList<Behavior> behaviorList = new ArrayList<>();
@@ -175,29 +177,35 @@ public abstract class GameObject implements GameEntity{
 	public void setKinematics(Kinematics kinematics) {
 		this.kinematics = kinematics;
 	}
+	
+	public void setScenePosition(double x, double y) {
+		sceneX = x;
+		sceneY = y;
+	}
+	
+	public double[] getScenePosition() {
+		double[] positionArray = {sceneX, sceneY};
+		return positionArray;
+	}
 
-	@Override
 	public void setImageView(ImageView view) {
 		myImageView = view;
 		myImageView.setFitWidth(width);
 		myImageView.setFitHeight(height);
 	}
 	
-	@Override
 	public ImageView getImageView() {
 		return myImageView;
 	}
 
-	@Override
 	public void setElementID(String ID) {
 		myElementID = ID;
 	}
 	
-	@Override
 	public String getElementID() {
 		return myElementID;
 	}
-	@Override
+
 	public void update() {
 		interactionsMap.clear();
 		for(Behavior behavior : behaviorList) {

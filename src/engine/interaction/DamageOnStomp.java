@@ -16,12 +16,13 @@ public class DamageOnStomp implements Interaction{
 	public void interact(GameEntity source, GameEntity target) {
 		if(!(target instanceof Player)) return;
 		if(target.getKinematics().getYVelocity() > 0) return;
-		
+
 		String collisionType = new DetectCollision().detect(source, target);
-		
+
 		if (collisionType.equals("top"))
 		{
 			source.setHealth(source.getHealth() - 1);
+			target.setYVelocity(target.getJumpFactor());
 		}
 	}
 }

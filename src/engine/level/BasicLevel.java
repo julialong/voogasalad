@@ -2,6 +2,7 @@ package engine.level;
 
 
 import authoring_environment.grid.ScrollingGrid;
+import engine.Camera;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.physics.DetectCollision;
@@ -22,10 +23,15 @@ public class BasicLevel implements Level {
     private String myName;
     private DetectCollision detectCollision = new DetectCollision();
     private ArrayList<GameEntity> toRemoveFromObjectList = new ArrayList<>();
+    private Camera camera;
+    private double sceneX;
+    private double sceenY;
 
     private static final String DEFAULT = "Default";
     private static final int DEFAULT_X_SIZE = 500;
     private static final int DEFAULT_Y_SIZE = 500;
+    private static final int DEFAULT_X_SCENE_SIZE = 400;
+    private static final int DEFAULT_Y_SCENE_SIZE = 400;
     private static final int DEFAULT_CELL_SIZE = 50;
     private int myXSize;
     private int myYSize;
@@ -36,21 +42,25 @@ public class BasicLevel implements Level {
      * @param xSize is the desired x size of the grid
      * @param ySize is the desired y size of the grid
      */
-    public BasicLevel(int xSize, int ySize, int ID) {
+    public BasicLevel(int xSize, int ySize, int sceneX, int sceneY, int ID) {
         myGrid = new ScrollingGrid();
         myXSize = xSize;
         myYSize = ySize;
+        this.sceneX = sceneX;
+        this.sceenY = sceneY;
         myGrid.setPrefSize(myXSize, myYSize);
         myObjects = new ArrayList<>();
         myID = ID;
         myName = DEFAULT;
+        camera = new Camera(myXSize, myYSize, sceneX, sceneY);
+        
     }
 
     /**
      * Creates a new basic Level with no size defined.
      */
     public BasicLevel(int ID) {
-        this(DEFAULT_X_SIZE, DEFAULT_Y_SIZE, ID);
+        this(DEFAULT_X_SIZE, DEFAULT_Y_SIZE, DEFAULT_X_SCENE_SIZE, DEFAULT_Y_SCENE_SIZE, ID);
     }
 
     public BasicLevel() {
@@ -117,7 +127,6 @@ public class BasicLevel implements Level {
     	for(GameEntity source : myObjects){
     		source.update();
     		if(source.getHealth() < 1 && !(source instanceof Player)) {
-    			//System.out.println(source.getClass().getSimpleName() + ": " + source.getHealth());
     			toRemoveFromObjectList.add(source);
     		}
     	}
@@ -130,7 +139,13 @@ public class BasicLevel implements Level {
             	if(!(source == target)) {
             		checkInteractions(source, target);
             	}
-            }
+            }   
+        }
+        camera.translate(myObjects);
+        for(GameEntity ge : myObjects) {
+        	if(ge instanceof Player) {
+        		camera.setPlayerPosition(ge);
+        	}
         }
     }
     

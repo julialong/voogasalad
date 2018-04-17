@@ -88,6 +88,16 @@ public interface GameEntity {
 	 *         index 1
 	 */
 	public abstract double[] getPosition();
+	
+	/**
+	 * Sets the scene position
+	 */
+	public abstract void setScenePosition(double x, double y);
+	
+	/**
+	 * Gets the scene position
+	 */
+	public abstract double[] getScenePosition();
 
 	/**
 	 * Returns a factor that determines the velocity of an entity when it jumps

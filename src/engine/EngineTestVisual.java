@@ -32,7 +32,7 @@ public class EngineTestVisual extends Application{
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-	private static final Level LEVEL = new BasicLevel();
+	private Level level;
 	private Group root = new Group();
 	private Map<GameEntity, Rectangle> geRectMap = new HashMap<>();
 	private Controls controls;
@@ -44,9 +44,10 @@ public class EngineTestVisual extends Application{
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {	
+	public void start(Stage primaryStage) throws Exception {
+		level = new BasicLevel(800, 400, 400, 400, 0);
 		setupLevel();
-		
+
 		Scene scene = new Scene(root, 400, 400, Color.THISTLE);
 		scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 		scene.setOnKeyReleased(e -> handleKeyRelease(e.getCode()));
@@ -61,31 +62,49 @@ public class EngineTestVisual extends Application{
 		primaryStage.setTitle("EngineVisualTest");
 		primaryStage.show();
 	}
-	
+
 	private void setupLevel() {
-		LEVEL.setSize(400, 400);
+		level.setSize(400, 400);
 		Foes enemy = new Foes();
+		Foes enemy2 = new Foes();
+		Foes enemy3 = new Foes();
 		//Block enemy = new Block();
 		//enemy.addBehavior(new MoveForward(new Player()));
 		//enemy.addInteraction(new KnockBack());
-		//wenemy.addInteraction(new PreventClipping());
-		enemy.addInteraction(new DamageOnStomp());
-		enemy.overridePosition(30, 20);
+		//enemy.addInteraction(new PreventClipping());
+		//enemy.addInteraction(new DamageOnStomp());
+		enemy.overridePosition(30, -170);
 		enemy.setSizeX(10);
 		enemy.setSizeY(20);
 		enemy.setMaxXVelocity(30);
 		enemy.setMaxYVelocity(500);
 		enemy.addInteraction(new Pushable());
-		Block block = new Block(-125,0);
-		block.setSizeX(250);
+		enemy3.overridePosition(-70, -170);
+		enemy3.setSizeX(10);
+		enemy3.setSizeY(20);
+		enemy3.setMaxXVelocity(30);
+		enemy3.setMaxYVelocity(500);
+		enemy3.addInteraction(new Pushable());
+		enemy2.overridePosition(-85, -170);
+		enemy2.setSizeX(10);
+		enemy2.setSizeY(20);
+		enemy2.setMaxXVelocity(30);
+		enemy2.setMaxYVelocity(500);
+		//enemy2.addInteraction(new Pushable());
+		enemy2.addBehavior(new MoveForward(new Player()));
+		enemy2.addInteraction(new DamageOnStomp());
+		enemy2.addInteraction(new KnockBack());
+		Block block = new Block(-400,-190);
+		block.setSizeX(800);
 		block.setSizeY(10);
 		block.addInteraction(new PreventClipping());
-		Block wall = new Block(-50, 48);
+		Block wall = new Block(-50, -142);
 		wall.setSizeX(10);
 		wall.setSizeY(48);
 		Player player = new Player();
 		player.setMovementType(new Grounded());
-		player.overridePosition(50, 20);
+		//player.setScenePosition(400/2 - player.getSizeX()/2, 400/2 - player.getSizeY()/2);
+		player.overridePosition(-380, -170);
 		player.setSizeX(10);
 		player.setSizeY(20);
 		player.setSpeedFactor(1000);
@@ -94,16 +113,20 @@ public class EngineTestVisual extends Application{
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
 		enemy.setHealth(1);
+		enemy2.setHealth(1);
+		enemy3.setHealth(1);
 		//player.setHealth(1);
 		block.setHealth(1);
 		wall.setHealth(1);
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
-		LEVEL.addObject(block);
-		LEVEL.addObject(enemy);
-		LEVEL.addObject(wall);
-		LEVEL.addObject(player);
-		for(GameEntity ge : LEVEL.getObjects()){
+		level.addObject(block);
+		level.addObject(enemy);
+		level.addObject(wall);
+		level.addObject(player);
+		level.addObject(enemy2);
+		level.addObject(enemy3);
+		for(GameEntity ge : level.getObjects()){
 			Rectangle entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
 			entityImage.setFill(Color.GREEN);
 			entityImage.setStroke(Color.BLACK);
@@ -127,12 +150,15 @@ public class EngineTestVisual extends Application{
 	}
 
 	private void step(double secondDelay) {
-		LEVEL.update();
+		level.update();
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
 		for(GameEntity ge : geRectMap.keySet()){
-			if(LEVEL.getObjects().contains(ge)) {
-				geRectMap.get(ge).setX(ge.getPosition()[0]+200);
-				geRectMap.get(ge).setY(-ge.getPosition()[1]+200);
+			if(level.getObjects().contains(ge)) {
+				//geRectMap.get(ge).setX(ge.getPosition()[0]+200);
+				//geRectMap.get(ge).setY(-ge.getPosition()[1]+200);
+				geRectMap.get(ge).setX(ge.getScenePosition()[0]);
+				geRectMap.get(ge).setY(ge.getScenePosition()[1]);
+
 			}
 			else {
 				toRemove.add(ge);
