@@ -88,6 +88,16 @@ public interface GameEntity {
 	 *         index 1
 	 */
 	public abstract double[] getPosition();
+	
+	/**
+	 * Sets the scene position
+	 */
+	public abstract void setScenePosition(double x, double y);
+	
+	/**
+	 * Gets the scene position
+	 */
+	public abstract double[] getScenePosition();
 
 	/**
 	 * Returns a factor that determines the velocity of an entity when it jumps
@@ -247,7 +257,6 @@ public interface GameEntity {
 	public abstract ImageView getImageView();
 
 	/**
-<<<<<<< HEAD
 	 * Gets map of interaction entities to directionality
 	 */
 	public abstract Map<GameEntity, String> getInteractionMap();
@@ -259,7 +268,6 @@ public interface GameEntity {
 	
 	/**
 	 * Updates the entity with new position/interaction paramters. Called at every time step.
-=======
 	 * Sets the Element ID of the Entity.
 	 * @param ID - the desired String ID
 	 */
@@ -272,7 +280,6 @@ public interface GameEntity {
 	
 	/**
 	 * Updates the entity with new position/interaction parameters. Called at every time step.
->>>>>>> GaeGui
 	 */
 	public abstract void update();
 }
