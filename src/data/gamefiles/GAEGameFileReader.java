@@ -1,15 +1,28 @@
 package data.gamefiles;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import authoring_environment.game_elements.AuthoredLevel;
 import engine.entity.GameEntity;
+import engine.level.Level;
 
 public class GAEGameFileReader implements JSONtoGAE {
 	
-	public GAEGameFileReader() {
-		
+	private static final String JSON_EXTENSION = ".json";
+	private static final String SETTINGS = "Settings";
+	private String NEST = "/";
+	private FileRetriever fileRetriever;
+	
+	public GAEGameFileReader() 
+	{
+		if (System.getProperty("os.name").toString().contains("Windows"))	
+		{
+			NEST = "\\";
+		}
+		fileRetriever = new FileRetriever();
 	}
 	
 	/**
@@ -23,6 +36,20 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) {
+		List<AuthoredLevel> completeGame = new ArrayList<>();
+		File currentGame = new File(fileRetriever.retrieveCurrentGamePath(gameName));
+		File[] gameFiles = currentGame.listFiles();
+		for(File gameFile: gameFiles)
+		{
+				int index = gameFile.toString().lastIndexOf(NEST) + 1;
+				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
+				String levelName = gameFile.toString().substring(index,endIndex).trim();
+				if(!levelName.equals(SETTINGS))
+				{
+					completeGame.add(loadLevel(gameName, levelName));
+				}		
+		}
+		return completeGame;
 		// TODO Auto-generated method stub
 		return null;
 	}
