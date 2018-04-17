@@ -11,7 +11,7 @@ public class FileRetriever {
 	
 	public FileRetriever()
 	{
-		if (System.getProperty("os.name").toString().contains("Windows"))	
+		if (System.getProperty("os.name").contains("Windows"))	
 		{
 			NEST = "\\";
 		}

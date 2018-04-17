@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -134,14 +135,27 @@ public class LevelBuilder {
 		{
 			if(jobject.has(objectType))
 			{
-				JsonArray jarray = jobject.getAsJsonArray(objectType);
-				for(int i = 0; i < jarray.size(); i++)
-				{
-					gameObjects.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
-				}
+				gameObjects.addAll(retrieveObjectsOfType(jobject, objectType));
 			}
 		}
 		level.setObjects(gameObjects);
+	}
+
+	/**
+	 * Returns a list of game objects associated with the given object type
+	 * 
+	 * @param jobject
+	 * @param objectType
+	 * @return
+	 */
+	private List<GameEntity> retrieveObjectsOfType(JsonObject jobject, String objectType) {
+		List<GameEntity> newObjectsOfType = new ArrayList<>();
+		JsonArray jarray = jobject.getAsJsonArray(objectType);
+		for(int i = 0; i < jarray.size(); i++)
+		{
+			newObjectsOfType.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
+		}
+		return newObjectsOfType;
 	}
 
 	/**
@@ -156,8 +170,7 @@ public class LevelBuilder {
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
 		JsonObject j = toConvert;
-		Object converted = deserializer.deserialize(j.toString(), objectTypes.get(objectType));
-		return converted;
+		return deserializer.deserialize(j.toString(), objectTypes.get(objectType));
 	}
 	
 }

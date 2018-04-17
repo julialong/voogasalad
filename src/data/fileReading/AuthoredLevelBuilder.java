@@ -40,14 +40,14 @@ public class AuthoredLevelBuilder {
 	private ScrollingGrid retrieveScrollingGrid(File levelFile) 
 	{
 		JsonParser jsonParser = new JsonParser();
+		ScrollingGrid scrollingGrid = new ScrollingGrid();
 		try 
 		{
 			JsonObject jobject;
 			jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
 			JsonArray gridCells = jobject.getAsJsonArray("ScrollingGrid");
 			LevelSerializer ls = new LevelSerializer();
-			ScrollingGrid scrollingGrid = ls.deserialize(gridCells);
-			return scrollingGrid;
+			scrollingGrid = ls.deserialize(gridCells);
 		} 
 		catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) 
 		{
@@ -59,6 +59,6 @@ public class AuthoredLevelBuilder {
 			
 			e.printStackTrace();
 		}
-		return null;
+		return scrollingGrid;
 	}
 }

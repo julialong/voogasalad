@@ -18,7 +18,7 @@ public class GAEGameFileReader implements JSONtoGAE {
 	
 	public GAEGameFileReader() 
 	{
-		if (System.getProperty("os.name").toString().contains("Windows"))	
+		if (System.getProperty("os.name").contains("Windows"))	
 		{
 			NEST = "\\";
 		}

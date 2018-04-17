@@ -16,7 +16,7 @@ public class GPGameFileReader implements JSONtoGP{
 	
 	public GPGameFileReader()
 	{
-		if (System.getProperty("os.name").toString().contains("Windows"))	
+		if (System.getProperty("os.name").contains("Windows"))	
 		{
 			NEST = "\\";
 		}
