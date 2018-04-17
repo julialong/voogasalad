@@ -2,7 +2,6 @@ package game_player;
 
 import data.gamefiles.GameFileReader;
 import data.gamefiles.JSONtoObject;
-import engine.level.Level;
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
 
