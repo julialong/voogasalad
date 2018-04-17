@@ -1,4 +1,4 @@
-package data.gamefiles;
+package data.fileReading;
 
 import java.io.File;
 import java.io.FileReader;

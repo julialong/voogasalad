@@ -1,4 +1,4 @@
-package data.gamefiles;
+package data.fileReading;
 
 import java.util.List;
 import java.util.Map;
