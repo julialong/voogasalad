@@ -6,6 +6,11 @@ import java.util.List;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 
+/**
+ * Controls the display coordinates of a level to be centered around the player
+ * @author Marcus Oertle and Robert Gitau
+ *
+ */
 public class Camera {
 	ArrayList<GameEntity> ge = new ArrayList<>();
 	private double camX = 0;
@@ -15,6 +20,13 @@ public class Camera {
 	private double camWidth;
 	private double camHeight;
 	
+	/**
+	 * Instantiates the camera that calculates display coordinates.
+	 * @param levelWidth
+	 * @param levelHeight
+	 * @param camWidth
+	 * @param camHeight
+	 */
 	public Camera(double levelWidth, double levelHeight, double camWidth, double camHeight) {
 		this.levelWidth = levelWidth;
 		this.levelHeight = levelHeight;
@@ -22,6 +34,10 @@ public class Camera {
 		this.camHeight = camHeight;
 	}
 	
+	/**
+	 * Updates the camera position based on the player's position
+	 * @param player
+	 */
 	public void setPlayerPosition(GameEntity player) {
 		player.setScenePosition(camWidth/2 - player.getSizeX()/2, camHeight/2 - player.getSizeY()/2);
 		double playerMiddleX = player.getPosition()[0] + player.getSizeX()/2 + levelWidth/2;// - camX;
@@ -46,11 +62,20 @@ public class Camera {
 		}
 	}
 	
+	/**
+	 * Translates all entities other than the player to visual coordinates
+	 * @param geList
+	 */
 	public void translate(List<GameEntity> geList) {
 		geList = translateToTopLeft(geList);
 		geList = translateToScene(geList);
 	}
 	
+	/**
+	 * Helper method to translate that does an intermediary translation step
+	 * @param geList
+	 * @return List of GameEntity(s)
+	 */
 	private List translateToTopLeft(List<GameEntity> geList) {
 		for(GameEntity ge : geList) {
 			if(ge instanceof Player) {
@@ -61,6 +86,11 @@ public class Camera {
 		return geList;
 	}
 	
+	/**
+	 * Helper method to translate that does an final translation step
+	 * @param geList
+	 * @return List of GameEntity(s)
+	 */
 	private List translateToScene(List<GameEntity> geList) {
 		for(GameEntity ge : geList) {
 			if(ge instanceof Player) {
