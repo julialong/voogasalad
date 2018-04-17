@@ -11,11 +11,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
+
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import engine.controls.Controls;
+import data.gamefiles.GameFileReader;
+import data.gamefiles.JSONtoObject;
+import engine.controls.*;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 
@@ -60,20 +66,20 @@ public class VoogaGameView implements GameView {
 	 * @return
 	 */
 	private double adjustXCord(double x) {
-		//TODO: adjust this factor based on sensitivity
-		return x * (myWidth / 100.0) + (myWidth / 2.0);
+		// TODO: adjust this factor based on sensitivity
+		return x * (myWidth / 4000.0) + (myWidth / 2.0);
 	}
 
 	/**
-	 * Calibrates y coordinates to be at the center of the screen and multiples by a
+	 * Calibrates y coordinates to be at thecenter of the screen and multiples by a
 	 * factor to make the difference between them larger.
 	 * 
 	 * @param y
 	 * @return
 	 */
 	private double adjustYCord(double y) {
-		//TODO: adjust this factor based on sensitivity
-		return (myHeight / 2.0) - y * (myHeight / 120.0);
+		// TODO: adjust this factor based on sensitivity
+		return (myHeight / 2.0) - y * (myHeight / 240.0);
 	}
 
 	/**
@@ -81,15 +87,31 @@ public class VoogaGameView implements GameView {
 	 */
 	private void initDisplayMap() {
 		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
+			// TODO: below is filler for actual data, delete once gae sends us the real
+			// stuff
+			String imgPath = ge.getImagePath();
 			if (ge.getClass().equals(new Player().getClass())) {
 				myControls = new Controls((Player) ge);
-			}
-			String imgPath = ge.getImagePath();
-			if (ge.getImagePath().equals(null) || ge.getImagePath().equals("")) {
+				imgPath = "trump.gif";
+				ge.setSpeedFactor(1000);
+				ge.setMaxXVelocity(50);
+				ge.setMaxYVelocity(500);
+				ge.setFrictionConstant(200);
+				ge.setJumpFactor(75);
+			} else if (ge.getImagePath().equals(null) || ge.getImagePath().equals("")) {
 				imgPath = "brick.png";
 			}
 			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath), ge.getSizeX() + 50,
 					ge.getSizeY() + 50, true, true));
+
+			// TODO: uncomment below once GAE sends us actual data
+			// if (ge.getClass().equals(new Player().getClass())) {
+			// myControls = new Controls((Player) ge);
+			// }
+			// ImageView entityImage = new ImageView(new
+			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
+			// ge.getSizeY(), true, true));
+
 			entityImage.setX(adjustXCord(ge.getPosition()[0]));
 			entityImage.setY(adjustYCord(ge.getPosition()[1]));
 			myDispMap.put(ge, entityImage);
@@ -162,9 +184,7 @@ public class VoogaGameView implements GameView {
 	 * @param keyCode
 	 */
 	public void keyPressed(KeyCode keyCode) {
-		//TODO: BUG when right button is pressed, the player keeps on moving right
 		if (myGameStatus) {
-			System.out.println(keyCode + " key activated");
 			myControls.activate(keyCode);
 		}
 	}
@@ -176,9 +196,27 @@ public class VoogaGameView implements GameView {
 	 */
 	public void keyUnPressed(KeyCode keyCode) {
 		if (myGameStatus) {
-			System.out.println(keyCode + " key deactivated");
 			myControls.deactivate(keyCode);
-			System.out.println();
+		}
+	}
+
+	/**
+	 * Passes changes from the Key Bindings UI to the backend.
+	 * 
+	 * @param propKey
+	 * @param keyCode
+	 */
+	public void changeBinding(String propKey, KeyCode keyCode) {
+		try {
+			Object instance = Class.forName("engine.controls."+propKey).newInstance();
+			Action a = (Action) instance;
+			myControls.setBinding(keyCode, a);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 }

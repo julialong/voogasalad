@@ -6,6 +6,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import java.util.List;
 
+import data.gamefiles.GameFileReader;
+import data.gamefiles.JSONtoObject;
+
 /**
  * The main application for the game player. Here is where the MVC design pattern is used.
  * The Player contains a menubar and a game view for buttons and to display the actual game.
@@ -17,7 +20,8 @@ public class PlayerView extends VBox{
 	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
 	private VoogaGameView myGameView;
-
+	private JSONtoObject reader = new GameFileReader();
+	private String myName;
 	public PlayerView() {
 		super();
 		createGView();
@@ -26,9 +30,10 @@ public class PlayerView extends VBox{
 		setMiddle();
 	}
 
-	public PlayerView(List<Level> game){
+	public PlayerView(List<Level> game, String name){
 		super();
 		gameMaterial = game;
+		myName = name;
 		createGView();
 		createMenuBar();
 		setViewTop();
@@ -40,6 +45,27 @@ public class PlayerView extends VBox{
 	//		System.out.println(name);
 	//	}
 	
+	/**
+	 * Resets the game
+	 */
+	private void resetGame() {
+		this.getChildren().remove(myGameView.getNode());
+		resetGView();
+		setMiddle();
+	}
+	
+	
+	/**
+	 * Reloads the game materials;
+	 */
+	private void resetGView() {
+		myGameView = new VoogaGameView(reader.loadCompleteGame(myName));
+	}
+	
+	
+	/**
+	 * Creates the view where the game is displayed.
+	 */
 	private void createGView() {
 		myGameView = new VoogaGameView(gameMaterial);
 	}
@@ -64,12 +90,21 @@ public class PlayerView extends VBox{
 		myMenuBar.addButton(new VButton("Set Preferences"));
 		
 		VButton resumeButton = new VButton("Resume Game");
-		resumeButton.setOnAction(e -> myGameView.resumeGame());
+		resumeButton.setOnMouseClicked(e -> myGameView.resumeGame());
 		myMenuBar.addButton(resumeButton);
 		
 		VButton pauseButton = new VButton("Pause Game");
-		pauseButton.setOnAction(e -> myGameView.pauseGame());
+		pauseButton.setOnMouseClicked(e -> myGameView.pauseGame());
 		myMenuBar.addButton(pauseButton);
+		
+		//TODO: new interface here
+		VButton keysButton = new VButton("Change Bindings");
+		keysButton.setOnMouseClicked(e -> new KeyBindingWindow(myGameView));
+		myMenuBar.addButton(keysButton);
+		
+		VButton resetButton = new VButton("Reset");
+		resetButton.setOnMouseClicked(e -> resetGame());
+		myMenuBar.addButton(resetButton);
 	}
 
 	/**

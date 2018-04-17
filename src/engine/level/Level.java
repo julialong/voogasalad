@@ -2,9 +2,8 @@ package engine.level;
 
 import java.util.List;
 
-import authoring_environment.ScrollingGrid;
+import authoring_environment.grid.ScrollingGrid;
 import engine.entity.GameEntity;
-import javafx.scene.layout.GridPane;
 
 /**
  * The level interface is to be extended by each level class. There will likely be one level class
@@ -78,6 +77,6 @@ public interface Level {
     /**
      * Updates the contents of the level
      */
-     public void update();
+     void update();
 
 }

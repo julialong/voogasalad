@@ -27,8 +27,10 @@ public interface GameItem {
     /**
      * Sets up the Game view application environment
      * with the specific game that this item represents
+     * @param string 
+     * @param string 
      */
-    public void setUpGame(List<Level> gameLevels);
+    public void setUpGame(List<Level> gameLevels, String string);
 
     /**
      * Alters toString method to return a properly formatted
