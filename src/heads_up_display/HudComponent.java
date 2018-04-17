@@ -13,6 +13,7 @@ public class HudComponent extends Text implements Component{
     public HudComponent(String value){
         super(value);
         setDraggable();
+        getStyleClass().add("text");
     }
 
     /**
