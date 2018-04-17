@@ -1,6 +1,7 @@
 package engine.interaction;
 
 import engine.entity.GameEntity;
+import engine.physics.DetectCollision;
 import engine.physics.Kinematics;
 
 /**
@@ -12,8 +13,12 @@ public class KnockBack implements Interaction{
 
 	@Override
 	public void interact(GameEntity source, GameEntity target) {
-		Kinematics k = target.getKinematics();
-		target.setXVelocity(-30*k.getXVelocity());
+		String collisionType = new DetectCollision().detect(source, target);
+		
+		if(!(collisionType.equals("top") || collisionType.equals("bottom"))) {
+			Kinematics k = target.getKinematics();
+			target.setXVelocity(-30*k.getXVelocity());
+		}
 	}
 
 }
