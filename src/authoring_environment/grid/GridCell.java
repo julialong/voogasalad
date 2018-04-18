@@ -130,47 +130,38 @@ public class GridCell extends HBox {
             }
         });
 
-		myGridCell.setOnDragOver(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		        if (event.getGestureSource() != myGridCell &&
-		                event.getDragboard().hasString()) {
-		            event.acceptTransferModes(TransferMode.COPY);
-		        }
+		myGridCell.setOnDragOver(event -> {
+            if (event.getGestureSource() != myGridCell &&
+                    event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY);
+            }
 
-		        event.consume();
-		    }
-		});
-		myGridCell.setOnDragDropped(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		        Dragboard db = event.getDragboard();
-		        boolean success = false;
-		        if (db.hasString()) {
-		           myGrid.setCellImage(myGridCell, db.getString());
-		           success = true;
-		        }
-		        event.setDropCompleted(success);
+            event.consume();
+        });
+		myGridCell.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+               myGrid.setCellImage(myGridCell, db.getString());
+               success = true;
+            }
+            event.setDropCompleted(success);
 
-		        event.consume();
-		     }
-		});
-		myGridCell.setOnDragEntered(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		         if (event.getGestureSource() != myGridCell &&
-		                 event.getDragboard().hasString()) {
-		        	 myGridCell.setStyle("-fx-background-color: #99ebff;");
-		         }
+            event.consume();
+         });
+		myGridCell.setOnDragEntered(event -> {
+            if (event.getGestureSource() != myGridCell &&
+                    event.getDragboard().hasString()) {
+                myGridCell.setStyle("-fx-background-color: #99ebff;");
+            }
 
-		         event.consume();
-		    }
-		});
-		myGridCell.setOnDragExited(new EventHandler<DragEvent>() {
-									   public void handle(DragEvent event) {
-										   myGridCell.setStyle("-fx-background-color: transparent;");
-										   myGridCell.setStyle("-fx-border-color: black;");
-										   event.consume();
-									   }
-
-								   });
+            event.consume();
+        });
+		myGridCell.setOnDragExited(event -> {
+            myGridCell.setStyle("-fx-background-color: transparent;");
+            myGridCell.setStyle("-fx-border-color: black;");
+            event.consume();
+        });
 
 		myGridCell.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();

@@ -69,8 +69,10 @@ public class AuthoredLevel {
      * Adds object to Level
      * @param ID is the ID of the object to create
      */
-    public void addObject(String ID) {
+    public void addObject(String type, String ID) {
         // TODO: some reflection shit
+        System.out.println(type);
+        System.out.println(ID);
     }
 
     /**

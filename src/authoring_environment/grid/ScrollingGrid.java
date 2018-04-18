@@ -109,12 +109,20 @@ public class ScrollingGrid extends GridPane {
 				for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
 					GridCell checkCell = cellArray[j][i];
 					if (checkCell.isSelected()) {
-						myLevel.addObject(ID);
 						checkCell.setImage(ID);
+						System.out.println("I hate CS308");
+						// TODO: create new object in level with the correct type and ID
+						System.out.println(ID);
+						myLevel.addObject(cell.getType(), ID);
 					}
 				}
 			}
-		} else cell.setImage(ID);
+		} else {
+			// TODO: create new object in level with the correct type and ID
+			System.out.println(ID);
+			myLevel.addObject(cell.getType(), ID);
+			cell.setImage(ID);
+		}
 	}
 	
 	public GridCell[][] getCellArray()	{
