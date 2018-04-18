@@ -58,6 +58,8 @@ public class LevelCreator {
     private static final String CHOOSE_COLOR = "Choose background color";
     private static final String SET_SIZE = "Set size";
     private static final String SAVE_LEVEL = "Save level";
+    private static final int SMALL_FONT = 15;
+    private static final int LARGE_FONT = 20;
 
     /**
      * Creates and launches a new LevelCreator window
@@ -97,7 +99,7 @@ public class LevelCreator {
         HBox box = new HBox();
         box.getStyleClass().add("level-top");
         Label instruction = new Label(LEVEL_NAME);
-        instruction.setFont(new Font(15));
+        instruction.setFont(new Font(SMALL_FONT));
         box.getChildren().add(instruction);
         TextField name = new TextField();
         box.getChildren().add(name);
@@ -118,10 +120,7 @@ public class LevelCreator {
     private Pane createCenter() {
         center = new HBox();
         center.getStyleClass().add("level-center");
-        //ScrollingGrid tempGrid = newLevel.getGrid();
-        //tempGrid.setMaxHeight(300);
-        //tempGrid.setMaxWidth(300);
-        //center.getChildren().add(tempGrid);
+        // TODO: show grid preview
         return center;
     }
 
@@ -130,7 +129,7 @@ public class LevelCreator {
         submitButton.setOnAction(e -> {
             box.getChildren().removeAll(name,submitButton,instruction);
             Text levelName = new Text(name.getText());
-            levelName.setFont(new Font(20));
+            levelName.setFont(new Font(LARGE_FONT));
             box.getChildren().add(levelName);
             newLevel.setName(name.getText());
         });
@@ -151,7 +150,7 @@ public class LevelCreator {
                                                                             BackgroundSize.DEFAULT)));
         });
         Text uploadImage = new Text(UPLOAD_BACKGROUND_IMAGE);
-        uploadImage.setFont(new Font(15));
+        uploadImage.setFont(new Font(SMALL_FONT));
         pane.getChildren().add(uploadImage);
         pane.getChildren().add(backgroundImage);
     }
@@ -163,7 +162,7 @@ public class LevelCreator {
             newLevel.setBackground(new Background(new BackgroundFill(chosenColor, CornerRadii.EMPTY, Insets.EMPTY)));
         });
         Text chooseColor = new Text(CHOOSE_COLOR);
-        chooseColor.setFont(new Font(15));
+        chooseColor.setFont(new Font(SMALL_FONT));
         pane.getChildren().add(chooseColor);
         pane.getChildren().add(colorPicker);
     }
@@ -176,7 +175,7 @@ public class LevelCreator {
             newLevel.setSize(Double.parseDouble(xNumber.getText()), Double.parseDouble(yNumber.getText()));
         });
         Text setSize = new Text(SET_SIZE);
-        setSize.setFont(new Font(15));
+        setSize.setFont(new Font(SMALL_FONT));
         pane.getChildren().addAll(setSize, xNumber, yNumber, submit);
     }
 

@@ -20,9 +20,12 @@ import javafx.scene.layout.GridPane;
  */
 
 public class ElementPicker {
-	private static final int ELEMENT_SIZE = 40;
 	private static final int MAX_GRID_COLUMN_INDEX = 2;
-	
+	private static final int PADDING  = 19;
+	private static final int MIN_HEIGHT = 300;
+	private static final int MAX_WIDTH = 200;
+	private static final int GAP = 20;
+
 	private GridPane myElementGrid;
 	private ScrollPane myScrollPane;
 	private ArrayList<ImageView> myElementImages;
@@ -32,11 +35,11 @@ public class ElementPicker {
 		
 		myElementGrid = new GridPane();
 		myScrollPane = new ScrollPane(myElementGrid);
-		myScrollPane.setMinHeight(300);
-		myScrollPane.setMaxWidth(200);
-		myElementGrid.setPadding(new Insets(19,19,19,19));
-		myElementGrid.setHgap(20);
-		myElementGrid.setVgap(20);
+		myScrollPane.setMinHeight(MIN_HEIGHT);
+		myScrollPane.setMaxWidth(MAX_WIDTH);
+		myElementGrid.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
+		myElementGrid.setHgap(GAP);
+		myElementGrid.setVgap(GAP);
 		myElementImages = new ArrayList<ImageView>();
 		updateTypeChoice();
 		loadImages(myTypeChoice);
@@ -51,16 +54,14 @@ public class ElementPicker {
 	private void loadImages(String type) {
 		File folder = new File("./data/authoredElementData/");
 		String[] imageExtensions = new String[]{".xml"};
-		File[] imageFiles = folder.listFiles(new FilenameFilter() {
-			public boolean accept(File folder, String name) {
-				for (String extension : imageExtensions) {
-					if (name.endsWith(extension)) {
-						return (true);
-					}
-				}
-				return (false);
-			}
-		});
+		File[] imageFiles = folder.listFiles((folder1, name) -> {
+            for (String extension : imageExtensions) {
+                if (name.endsWith(extension)) {
+                    return (true);
+                }
+            }
+            return (false);
+        });
 		for(File file : imageFiles) {
 			String fileName = file.getName();
 			String ID = fileName.substring(0, fileName.lastIndexOf('.'));

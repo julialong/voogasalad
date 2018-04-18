@@ -24,11 +24,10 @@ public class ScrollingGrid extends GridPane {
 	private static final int NUMBER_OF_COLUMNS = 50;
 	private static final int DEFAULT_CELL_SIZE = 50;
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
+	private static final int CELL_INCREMENT = 5;
 
 	
 	private int cellSize;
-	private int rowNumber;
-	private int columnNumber;
 	private GridCell[][] cellArray;
 	private AuthoredLevel myLevel;
 
@@ -83,12 +82,12 @@ public class ScrollingGrid extends GridPane {
 	}
 	
 	public void zoomIn() {
-		cellSize = cellSize + 5;
+		cellSize = cellSize + CELL_INCREMENT;
 		makeGrid();
 	}
 	
 	public void zoomOut() {
-		cellSize = cellSize - 5;
+		cellSize = cellSize - CELL_INCREMENT;
 		makeGrid();
 	}
 	
@@ -136,6 +135,7 @@ public class ScrollingGrid extends GridPane {
 		Document elementDoc = db.parse(file);
 		return elementDoc;
 		} catch (Exception e) {
+			// TODO: handle this exception
 		    e.printStackTrace();
 		    return null;
 	    }
