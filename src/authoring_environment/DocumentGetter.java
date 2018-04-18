@@ -23,18 +23,23 @@ public interface DocumentGetter {
      * @param elementDataPath is the filepath to the folder
      * @return the retrieved Document
      */
-    default Document getDocument(String ID, String elementDataPath) {
+    default Document getDocument(String ID, String elementDataPath){
         try {
             File file = new File(elementDataPath + ID + XML);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db;
             db = dbf.newDocumentBuilder();
-            Document elementDoc = db.parse(file);
-            return elementDoc;
+            return db.parse(file);
         } catch (Exception e) {
-            // TODO: handle this exception
-            e.printStackTrace();
+            //throw new InvalidElementException();
             return null;
         }
+    }
+
+    /**
+     * Thrown when the file requested in invalid.
+     */
+    class InvalidElementException extends Exception {
+
     }
 }
