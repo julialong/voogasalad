@@ -1,5 +1,6 @@
 package authoring_environment.grid;
 
+import authoring_environment.DocumentGetter;
 import authoring_environment.game_elements.AuthoredLevel;
 
 import java.io.File;
@@ -18,7 +19,7 @@ import javafx.scene.layout.RowConstraints;
  * @author Judi Sanchez and Michael Acker
  * Date Started: April 1 2018
  */
-public class ScrollingGrid extends GridPane {
+public class ScrollingGrid extends GridPane implements DocumentGetter{
 	// TODO: Change this based on level size
 	private static final int NUMBER_OF_ROWS = 20;
 	private static final int NUMBER_OF_COLUMNS = 50;
@@ -127,17 +128,8 @@ public class ScrollingGrid extends GridPane {
 	}
 	
 	public Document parseElementXML(String ID) {
-		try {
-		File file = new File(ELEMENT_DATA_PATH + ID + ".xml");
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db;
-		db = dbf.newDocumentBuilder();
-		Document elementDoc = db.parse(file);
-		return elementDoc;
-		} catch (Exception e) {
-			// TODO: handle this exception
-		    e.printStackTrace();
-		    return null;
-	    }
+		return getDocument(ID, ELEMENT_DATA_PATH);
 	}
+
+
 }

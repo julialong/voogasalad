@@ -1,10 +1,6 @@
 package authoring_environment.editor_windows;
 
-import java.io.File;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import authoring_environment.DocumentGetter;
 import org.w3c.dom.Document;
 
 import javafx.scene.image.Image;
@@ -13,7 +9,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 
-public class PickableElement extends ImageView {
+public class PickableElement extends ImageView implements DocumentGetter {
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	private static final int REQUESTED_WIDTH = 40;
 	private static final int REQUESTED_HEIGHT = 40;
@@ -53,18 +49,6 @@ public class PickableElement extends ImageView {
 	}
 	
 	private Document parseElementXML(String ID) {
-		// TODO: get rid of this duplicated code
-		try {
-		File file = new File(ELEMENT_DATA_PATH + ID + ".xml");
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db;
-		db = dbf.newDocumentBuilder();
-		Document elementDoc = db.parse(file);
-		return elementDoc;
-		} catch (Exception e) {
-		    e.printStackTrace();
-		    // TODO: handle exceotion
-		    return null;
-	    }
-	}
+        return getDocument(ID, ELEMENT_DATA_PATH);
+    }
 }
