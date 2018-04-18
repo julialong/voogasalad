@@ -16,7 +16,7 @@ import javafx.scene.layout.RowConstraints;
 
 /**
  * 
- * @author Judi Sanchez and Michael Acker
+ * @author Judi Sanchez, Michael Acker, Julia Long
  * Date Started: April 1 2018
  */
 public class ScrollingGrid extends GridPane implements DocumentGetter{
@@ -32,6 +32,9 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 	private GridCell[][] cellArray;
 	private AuthoredLevel myLevel;
 
+	/**
+	 * Creates a new Scrolling Grid
+	 */
 	public ScrollingGrid() {
 		super();
 		cellSize = DEFAULT_CELL_SIZE;
@@ -43,7 +46,7 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 
 	/**
 	 * Sets the class to notify when an object is added
-	 * @param level
+	 * @param level is the AuthoredLevel to associate with this grid.
 	 */
 	public void setMediator(AuthoredLevel level) {
 		myLevel = level;
@@ -81,17 +84,26 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 			}
 		}
 	}
-	
+
+	/**
+	 * Zooms in by making GridCells larger.
+	 */
 	public void zoomIn() {
 		cellSize = cellSize + CELL_INCREMENT;
 		makeGrid();
 	}
-	
+
+	/**
+	 * Zooms out by making GridCells smaller.
+	 */
 	public void zoomOut() {
 		cellSize = cellSize - CELL_INCREMENT;
 		makeGrid();
 	}
-	
+
+	/**
+	 * Resets all GridCells in the ScrollingGrid.
+	 */
 	public void deleteCells() {
 		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
 			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
@@ -102,7 +114,12 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 			}
 		}
 	}
-	
+
+	/**
+	 * Sets the given cell's state
+	 * @param cell is the cell to modify
+	 * @param ID is the ID of the new state
+	 */
 	public void setCellImage(GridCell cell, String ID) {
 		if (cell.isSelected()) {
 			checkMultipleCells(ID);
@@ -122,12 +139,23 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 			}
 		}
 	}
-	
+
+	/**
+	 * Gets the current GridCell array.
+	 * @return the array of GridCells in the ScrollingGrid.
+	 */
 	public GridCell[][] getCellArray()	{
 		return cellArray;
 	}
-	
-	public Document parseElementXML(String ID) {
+
+	/**
+	 * TODO: why can't we have all of the parsing done by
+	 * TODO: these methods, and return a contructed object?
+	 * Gets the Document associated with a given ID
+	 * @param ID is the ID of the object to get
+	 * @return the XML Document associated with the ID
+	 */
+	Document parseElementXML(String ID) {
 		return getDocument(ID, ELEMENT_DATA_PATH);
 	}
 
