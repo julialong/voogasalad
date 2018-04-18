@@ -105,16 +105,22 @@ public class ScrollingGrid extends GridPane {
 	
 	public void setCellImage(GridCell cell, String ID) {
 		if (cell.isSelected()) {
-			for (int i = 0; i < NUMBER_OF_ROWS; i++) {
-				for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
-					GridCell checkCell = cellArray[j][i];
-					if (checkCell.isSelected()) {
-						myLevel.addObject(ID);
-						checkCell.setImage(ID);
-					}
+			checkMultipleCells(ID);
+		} else {
+			cell.setImage(ID);
+		}
+	}
+
+	private void checkMultipleCells(String ID) {
+		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
+			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
+				GridCell checkCell = cellArray[j][i];
+				if (checkCell.isSelected()) {
+					myLevel.addObject(ID);
+					checkCell.setImage(ID);
 				}
 			}
-		} else cell.setImage(ID);
+		}
 	}
 	
 	public GridCell[][] getCellArray()	{
