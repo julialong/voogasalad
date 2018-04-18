@@ -3,15 +3,11 @@ package authoring_environment.game_elements;
 import authoring_environment.grid.ScrollingGrid;
 import data.gamefiles.GAEtoJSON;
 import data.gamefiles.GameFileWriter;
-import engine.entity.GameEntity;
-import engine.entity.GameObject;
 import engine.level.BasicLevel;
 import engine.level.Level;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The Authored Game class holds the current state of the game, including the current levels
