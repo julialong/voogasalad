@@ -62,22 +62,42 @@ public class AuthoredGame {
         myGameWriter.renameGame(name);
     }
 
+    /**
+     * Gets the name of the game
+     * @return the assigned game name
+     */
     public String getName() {
         return myName;
     }
 
+    /**
+     * Sets the description of the game
+     * @param description is the desired description
+     */
     public void setDescription(String description) {
         myDescription = description;
     }
 
+    /**
+     * Gets the description of the game
+     * @return the assigned description
+     */
     public String getDescription() {
         return myDescription;
     }
 
+    /**
+     * Designates the game as playable
+     * @param playable is true if the game is ready to play
+     */
     public void setPlayable(boolean playable) {
         isReady = playable;
     }
 
+    /**
+     * Checks if the game is ready to play
+     * @return true if the game is ready to play, false otherwise
+     */
     public boolean isPlayable() {
         return isReady;
     }
@@ -90,6 +110,10 @@ public class AuthoredGame {
         myLevels.add(level);
     }
 
+    /**
+     * Removes a level from the game
+     * @param level is the level to remove
+     */
     public void removeLevel(AuthoredLevel level) {
         myLevels.remove(level);
     }
