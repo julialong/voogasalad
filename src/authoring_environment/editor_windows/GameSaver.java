@@ -22,9 +22,7 @@ public class GameSaver implements MetaManager {
 
     private Stage myStage;
     private Pane myRoot;
-    private Scene myScene;
     private CreatorView myWindow;
-
     private TextField fileName;
     private TextField fileDescription;
     private CheckBox playableGame;
@@ -47,7 +45,7 @@ public class GameSaver implements MetaManager {
         myWindow = window;
         myStage = new Stage();
         myRoot = new VBox();
-        myScene = new Scene(myRoot);
+        Scene myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
         addFields();
         myStage.setScene(myScene);
