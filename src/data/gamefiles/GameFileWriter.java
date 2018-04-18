@@ -75,11 +75,13 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 
 	/**
 	 * Saves state of level being played, for use with checkpoints
-	 * @param level			name of level to save
+	 * @param player			name of level to save
 	 */
 	@Override
-	public void saveData(Level level)	{
-		new TextWriter(new AuthoredLevel(level, new ScrollingGrid()), getLevel(level));
+	public void saveData(String player, List<Level> levels)	{
+		for (Level aLevel:levels)	{
+			new TextWriter(new AuthoredLevel(aLevel, new ScrollingGrid()), getLevel(aLevel, player));
+		}
 	}
 
 	/**
@@ -143,7 +145,11 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	}
 
 	private File getLevel(Level level)	{
-		File newLevel = new File(gameDirectory + NEST + level.getName() + EXTENSION);
+		return (getLevel(level, ""));
+	}
+
+	private File getLevel(Level level, String user)	{
+		File newLevel = new File(gameDirectory + NEST + level.getName() + user + EXTENSION);
 
 		if(!newLevel.exists())	{
 			try {

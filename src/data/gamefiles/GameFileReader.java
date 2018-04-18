@@ -53,7 +53,7 @@ public class GameFileReader implements JSONtoObject {
 		createObjectToClassMap();
 		deserializer = new Serializer();
 
-		if (System.getProperty("os.name").toString().contains("Windows"))	{
+		if (!System.getProperty("os.name").contains("Mac"))	{
 			NEST = "\\";
 		}
 	}
@@ -118,6 +118,7 @@ public class GameFileReader implements JSONtoObject {
 		for(File gameFile: gameFiles)
 		{
 				int index = gameFile.toString().lastIndexOf(NEST) + 1;
+				System.out.println(index);
 				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
 				if(levelName.equals(SETTINGS))
@@ -247,7 +248,7 @@ public class GameFileReader implements JSONtoObject {
 		File[] games= gamesDirectory.listFiles();
 		for(File game: games)
 		{
-			int index = game.toString().lastIndexOf("/") + 1;
+			int index = game.toString().lastIndexOf(NEST) + 1;
 			String gameName = game.toString().substring(index).trim();
 			Map<String,String> gameSettings = loadSettings(gameName);
 			if(gameSettings.get("ready").equals("true"))

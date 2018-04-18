@@ -46,7 +46,7 @@ public class LevelSerializer	{
 			fw.write(System.lineSeparator());
 		}
 		catch (IOException e)	{
-			error(e, fw);
+			TextWriter.error(e, fw);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class LevelSerializer	{
 			fw.write(System.lineSeparator());
 		}
 		catch (IOException e)	{
-			error(e, fw);
+			TextWriter.error(e, fw);
 		}
 	}
 

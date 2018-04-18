@@ -13,9 +13,10 @@ public interface GEtoJSON	{
 	 * Called by Game Engine, updates database with data as it is currently in the play environment
 	 * Only need to save state of current level, because player will either have completed past level (making it unnecessary to save)
 	 * or has not reached further level (unnecessary to save as new file, file exists in game data already)
-	 * @param level			name of level to save
+	 * @param player		name of player
+	 * @param levels		list of levels to save
 	 */
-	void saveData(Level level);
+	void saveData(String player, List<Level> levels);
 		// for (List items:itemsInLevel)	{
 		// 	for (Object item:items)	{
 		// 		// push item and its info to database

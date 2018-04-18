@@ -49,7 +49,8 @@ public class TextWriter	{
 	/**
 	 * @author Maya Messinger
 	 * Constructor for class. Calls the writing, so making a new TextWriter writes to a file
-	 * @param level			File of level to write
+	 * @param level			level to write
+	 * @param levelF		File if level to write
 	 */
 	public TextWriter(AuthoredLevel level, File levelF)	{
 		callWrite(level, levelF);
