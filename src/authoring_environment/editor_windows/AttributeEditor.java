@@ -43,6 +43,7 @@ import javafx.stage.Stage;
  * Date started: April 3 2018
  *
  */
+// TODO: refactor this class into smaller classes to reduce number of dependencies
 public class AttributeEditor {
 
 	private static final String ATTRIBUTE_RESOURCES = "resources/attributes";
@@ -50,6 +51,9 @@ public class AttributeEditor {
 	private static final double IMAGE_HEIGHT = 200;
 	private static final String INPUT_ID = "Please enter a custom element ID: ";
 	private static final String SUBMIT= "Submit";
+	private static final int SMALL_FONT = 15;
+	private static final int LARGE_FONT = 20;
+
 	private GameElement gameElement;
 	private HashMap<String, List<String>> attributes;
 	private List<ComboBox<String>> attributeBoxes;
@@ -61,10 +65,11 @@ public class AttributeEditor {
 	private FileChooser filechooser;
 	private ImageView image;
 	private Stage window;
-	private String elementID; 
+
+
 
 	public AttributeEditor(GameElement element) {
-		chosenAttributes = new HashMap<String, String>() ;  
+		chosenAttributes = new HashMap<>() ;
 		gameElement= element;
 		setUpEditorWindow();
 		attributes = loadAttributes();
@@ -74,7 +79,7 @@ public class AttributeEditor {
 	}
 
 	private HashMap<String, List<String>> loadAttributes() {
-		HashMap<String, List<String>> attributes = new HashMap<String, List<String>>();
+		HashMap<String, List<String>> attributes = new HashMap<>();
 		ResourceBundle resources = ResourceBundle.getBundle(ATTRIBUTE_RESOURCES);
 		Enumeration<String> attributeOptions = resources.getKeys();
 		while (attributeOptions.hasMoreElements()) {
@@ -86,7 +91,7 @@ public class AttributeEditor {
 				attributes.put(type, optionList);
 			}
 			else {
-				List<String> optionList = new ArrayList<String>();
+				List<String> optionList = new ArrayList<>();
 				optionList.add(option);
 				attributes.put(type, optionList);
 			}
@@ -95,17 +100,17 @@ public class AttributeEditor {
 	}
 
 	private void makeComboBoxList(HashMap<String, List<String>> attributes) {
-		attributeBoxes = new ArrayList<ComboBox<String>>();
-		Set<String> categories = new HashSet<String>(attributes.keySet());
+		attributeBoxes = new ArrayList<>();
+		Set<String> categories = new HashSet<>(attributes.keySet());
 		for (String category : categories) {
-			ComboBox<String> attributeBox = new ComboBox<String>();
+			ComboBox<String> attributeBox = new ComboBox<>();
 			attributeBox.getItems().addAll(attributes.get(category));
 			attributeBox.getSelectionModel().select(category);
 			attributeBox.getStyleClass().add("combobox");
 			attributeBox.setOnAction(e -> {try {
 				updateAttribute(category, attributeBox.getValue());
 			} catch (TransformerException e1) {
-				// TODO Auto-generated catch block
+				// TODO Handle this exception
 				e1.printStackTrace();
 			}});
 			attributeBoxes.add(attributeBox);
@@ -135,7 +140,7 @@ public class AttributeEditor {
 	
 	private void setUpInputBox() {
 		Label instruction = new Label(INPUT_ID);
-        instruction.setFont(new Font(15));
+        instruction.setFont(new Font(SMALL_FONT));
         myTitlePane.getChildren().add(instruction);
         TextField idNameInput = new TextField();
         myTitlePane.getChildren().add(idNameInput);
@@ -148,7 +153,7 @@ public class AttributeEditor {
             myTitlePane.getChildren().removeAll(idNameInput,submitButton,instruction);
             String id = idNameInput.getText();
             Text name = new Text("Element ID: " + id);
-            name.setFont(new Font(20));
+            name.setFont(new Font(LARGE_FONT));
             myTitlePane.getChildren().add(name);
             gameElement.setID(id);
         });
@@ -157,9 +162,8 @@ public class AttributeEditor {
 	
 	private void organizeEditor() {
 		setUpInputBox();
-		for(int i=0; i<attributeBoxes.size(); i++) {
-			myAttributePane.getChildren().add(attributeBoxes.get(i));
-			
+		for(ComboBox attributeBox: attributeBoxes) {
+			myAttributePane.getChildren().add(attributeBox);
 		}
 		
 		myAttributePane.getChildren().add(new CloseAttributeEditorButton(this));
@@ -185,6 +189,7 @@ public class AttributeEditor {
 		try {
 			Files.copy(source, target);
 		} catch (IOException e) {
+			// TODO: Handle this error
 			e.printStackTrace();
 		}
 		image = new ImageView(url.toString());

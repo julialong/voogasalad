@@ -126,12 +126,4 @@ public class AuthoredGame {
         myGameWriter.updateMeta(isReady, myDescription);
         System.out.println("level saved");
     }
-
-//    private Map<Level, List<GameEntity>> extractObjects() {
-//        Map<Level, List<GameEntity>> unpacked = new HashMap<>();
-//        for (Level level : myLevels) {
-//            unpacked.put(level, level.getObjects());
-//        }
-//        return unpacked;
-//    }
 }

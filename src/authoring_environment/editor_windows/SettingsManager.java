@@ -26,7 +26,7 @@ public class SettingsManager implements MetaManager {
 
     private static final String CSS = "GAE.css";
     private static final String SETTINGS_MANAGER = "Settings Manager";
-    private static final String UPDATE_FILE_NAME = "File name:";
+    //private static final String UPDATE_FILE_NAME = "File name:";
     private static final String SUBMIT = "Submit";
 
     /**

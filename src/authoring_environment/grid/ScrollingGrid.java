@@ -24,11 +24,10 @@ public class ScrollingGrid extends GridPane {
 	private static final int NUMBER_OF_COLUMNS = 50;
 	private static final int DEFAULT_CELL_SIZE = 50;
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
+	private static final int CELL_INCREMENT = 5;
 
 	
 	private int cellSize;
-	private int rowNumber;
-	private int columnNumber;
 	private GridCell[][] cellArray;
 	private AuthoredLevel myLevel;
 
@@ -83,12 +82,12 @@ public class ScrollingGrid extends GridPane {
 	}
 	
 	public void zoomIn() {
-		cellSize = cellSize + 5;
+		cellSize = cellSize + CELL_INCREMENT;
 		makeGrid();
 	}
 	
 	public void zoomOut() {
-		cellSize = cellSize - 5;
+		cellSize = cellSize - CELL_INCREMENT;
 		makeGrid();
 	}
 	
@@ -105,16 +104,22 @@ public class ScrollingGrid extends GridPane {
 	
 	public void setCellImage(GridCell cell, String ID) {
 		if (cell.isSelected()) {
-			for (int i = 0; i < NUMBER_OF_ROWS; i++) {
-				for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
-					GridCell checkCell = cellArray[j][i];
-					if (checkCell.isSelected()) {
-						myLevel.addObject(ID);
-						checkCell.setImage(ID);
-					}
+			checkMultipleCells(ID);
+		} else {
+			cell.setImage(ID);
+		}
+	}
+
+	private void checkMultipleCells(String ID) {
+		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
+			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
+				GridCell checkCell = cellArray[j][i];
+				if (checkCell.isSelected()) {
+					myLevel.addObject(ID);
+					checkCell.setImage(ID);
 				}
 			}
-		} else cell.setImage(ID);
+		}
 	}
 	
 	public GridCell[][] getCellArray()	{
@@ -130,6 +135,7 @@ public class ScrollingGrid extends GridPane {
 		Document elementDoc = db.parse(file);
 		return elementDoc;
 		} catch (Exception e) {
+			// TODO: handle this exception
 		    e.printStackTrace();
 		    return null;
 	    }

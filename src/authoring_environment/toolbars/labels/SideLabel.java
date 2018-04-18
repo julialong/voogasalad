@@ -14,6 +14,9 @@ import javafx.scene.text.Text;
  */
 public class SideLabel extends HBox{
 
+    private static final int PADDING = 10;
+    private static final int FONT_SIZE = 20;
+
     /**
      * SideLabel creates a new HBox containing the desired text.
      * @param text is the text that should be shown in the label
@@ -21,9 +24,9 @@ public class SideLabel extends HBox{
     public SideLabel(String text) {
         super();
         this.setAlignment(Pos.CENTER);
-        this.setPadding(new Insets(10));
+        this.setPadding(new Insets(PADDING));
         Text thisText = new Text(text);
-        thisText.setFont(new Font(20));
+        thisText.setFont(new Font(FONT_SIZE));
         this.getChildren().add(thisText);
     }
 }
