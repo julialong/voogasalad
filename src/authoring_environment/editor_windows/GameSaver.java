@@ -1,6 +1,5 @@
 package authoring_environment.editor_windows;
 
-import authoring_environment.game_elements.AuthoredGame;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -23,9 +22,7 @@ public class GameSaver implements MetaManager {
 
     private Stage myStage;
     private Pane myRoot;
-    private Scene myScene;
     private CreatorView myWindow;
-
     private TextField fileName;
     private TextField fileDescription;
     private CheckBox playableGame;
@@ -38,6 +35,8 @@ public class GameSaver implements MetaManager {
     private static final String DESCRIPTION = "File description:";
     private static final String PUBLISH = "Publish game?";
 
+    private static final int FONT_SIZE = 20;
+
     /**
      * Creates a new game saver window
      * @param window is the current editor window class
@@ -46,7 +45,7 @@ public class GameSaver implements MetaManager {
         myWindow = window;
         myStage = new Stage();
         myRoot = new VBox();
-        myScene = new Scene(myRoot);
+        Scene myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
         addFields();
         myStage.setScene(myScene);
@@ -58,7 +57,7 @@ public class GameSaver implements MetaManager {
     private void addFields() {
         myRoot.getStyleClass().add("game-saver");
         Text chooseText = new Text(CHOOSE);
-        chooseText.setFont(new Font(20));
+        chooseText.setFont(new Font(FONT_SIZE));
         myRoot.getChildren().add(chooseText);
         setName();
         setDescription();
@@ -70,7 +69,7 @@ public class GameSaver implements MetaManager {
         Pane nameBox = new HBox();
         nameBox.getStyleClass().add("game-saver");
         fileName = new TextField(myWindow.getGame().getName());
-        nameBox.getChildren().addAll(new Text(UPDATE_FILE_NAME), fileName);
+        nameBox.getChildren().addAll(new Text(NAME), fileName);
         myRoot.getChildren().add(nameBox);
     }
 

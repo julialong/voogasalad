@@ -1,13 +1,8 @@
 package authoring_environment.toolbars.choosers;
 
 import authoring_environment.game_elements.AuthoredLevel;
-import engine.level.Level;
-import javafx.geometry.Insets;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 
 /**
