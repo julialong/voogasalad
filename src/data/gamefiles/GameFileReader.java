@@ -37,6 +37,7 @@ public class GameFileReader implements JSONtoObject {
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
 	private static final String SETTINGS = "Settings";
 	private String NEST = "/";
+	private String userDirectory;
 	private String gameDirectory;
 	private File currentGame;
 	private File currentLevel;
@@ -49,7 +50,6 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	public GameFileReader()
 	{
-		System.out.println(System.getProperty("os.name"));
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
 		deserializer = new Serializer();
@@ -88,7 +88,8 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	private void retrieveCurrentGame(String gameName)
 	{
-		gameDirectory = GAME_FOLDER + NEST + gameName;
+		gameDirectory = gameName;
+
 		currentGame = new File(gameDirectory); 	
 	}
 	
@@ -245,18 +246,26 @@ public class GameFileReader implements JSONtoObject {
 	 */
 	public Map<String,String> getGameNames() {
 		Map<String,String> gameNames = new HashMap<>();
-		File gamesDirectory = new File(GAME_FOLDER);
-		File[] games= gamesDirectory.listFiles();
-		for(File game: games)
+		File usersDirectory = new File(GAME_FOLDER);
+		File[] users = usersDirectory.listFiles();
+
+		for(File user:users)
 		{
-			int index = game.toString().lastIndexOf(NEST) + 1;
-			String gameName = game.toString().substring(index).trim();
-			Map<String,String> gameSettings = loadSettings(gameName);
-			if(gameSettings.get("ready").equals("true"))
-			{
-				gameNames.put(gameName, gameSettings.get("description"));
+			File gamesDirectory = new File(user.toString());
+			File[] games = gamesDirectory.listFiles();
+
+			for (File game:games)	{
+				int index = game.toString().lastIndexOf(NEST) + 1;
+
+				String gameName = game.toString().substring(index).trim();
+				Map<String,String> gameSettings = loadSettings(user.toString() + NEST + gameName);
+				if(gameSettings.get("readyToPlay").equals("true"))
+				{
+					gameNames.put(gameName, gameSettings.get("description"));
+				}
 			}
 		}
+
 		return gameNames;
 	}
 }

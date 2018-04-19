@@ -1,16 +1,6 @@
 package data.dummyObjects;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javafx.scene.control.Alert;
-
-import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import javax.swing.JOptionPane;
-import javax.swing.JFrame;
 
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
