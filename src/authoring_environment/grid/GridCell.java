@@ -1,5 +1,6 @@
 package authoring_environment.grid;
 
+import engine.entity.GameEntity;
 import javafx.scene.PointLight;
 import org.w3c.dom.Document;
 
@@ -31,6 +32,7 @@ public class GridCell extends HBox {
 	private int mySize;
 	private Document myDataDoc;
 	private Point myPosition;
+	private GameEntity myObject;
 	
 	public GridCell(ScrollingGrid grid, int size, int x, int y) {
 		super();
@@ -69,6 +71,14 @@ public class GridCell extends HBox {
 	
 	public String getID() {
 		return myID;
+	}
+
+	public void setObject(GameEntity object) {
+		myObject = object;
+	}
+
+	public GameEntity getObject() {
+		return myObject;
 	}
 	
 	public int getSize() {
@@ -123,6 +133,7 @@ public class GridCell extends HBox {
 		myCellView.setFitWidth(mySize);
 		myID = null;
 		myType = null;
+		myObject = null;
 		deselect();
 	}
 
