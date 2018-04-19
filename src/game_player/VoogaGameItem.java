@@ -49,8 +49,14 @@ public class VoogaGameItem extends Label implements GameItem {
      * with the specific game that this item represents
      */
     @Override
-    public void setUpGame(List<Level> gameMaterials){
-        PlayerView gameView = new PlayerView(gameMaterials);
+    public void setUpGame(List<Level> gameMaterials, String name){
+        PlayerView gameView;
+        try{
+            gameView = new PlayerView(gameMaterials, name);
+        } catch(NullPointerException e){
+            gameView = new PlayerView();
+        }
+
         VController gameController = new VController(gameView);
         Scene scene = new Scene(gameView);
         scene.getStylesheets().add("styleSheet.css");
@@ -81,5 +87,14 @@ public class VoogaGameItem extends Label implements GameItem {
     @Override
     public String toString(){
         return gameName + "\n" + gameDescription;
+    }
+
+    /**
+     * Sets the listener to wait for the user to click a viable game to play.
+     * Once the user selects a game to play the application closes.
+     */
+    @Override
+    public String getGameName(){
+        return gameName;
     }
 }

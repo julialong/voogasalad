@@ -20,8 +20,6 @@ public class TestingGSON {
 		System.out.println(fr.retrieveCurrentGamePath("WithAL"));
 		GPGameFileReader gp = new GPGameFileReader();
 		System.out.println(gp.getGameNames());
-
 		System.out.println(gp.loadLevel("WithAL", "Default"));
-		
 	}
 }

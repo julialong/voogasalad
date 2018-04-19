@@ -8,9 +8,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Main Driver for running the Game Player application
  *
@@ -30,15 +27,7 @@ public class Driver extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		createChooser();
-		primaryStage.setTitle(TITLE);
-        primaryStage.setMinWidth(550);
-		Scene scene = new Scene(gameChooser.displayChoices());
-		scene.getStylesheets().add("styleSheet.css");
-
-		primaryStage.setScene(scene);
-
-		primaryStage.show();
+		new VoogaChooser(primaryStage);
 	}
 
 	private void createChooser(){
