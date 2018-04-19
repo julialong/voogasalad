@@ -24,6 +24,8 @@ public class PlayerView extends VBox{
 	private VoogaGameView myGameView;
     private JSONtoGP reader = new GPGameFileReader();
 	private String myName;
+	private ScoreKeeper myHighScores = new ScoreKeeper();
+	
 	public PlayerView() {
 		super();
 		createGView();
@@ -41,11 +43,6 @@ public class PlayerView extends VBox{
 		setViewTop();
 		setMiddle();
 	}
-
-	//	public PlayerView(String name){
-	//		this();
-	//		System.out.println(name);
-	//	}
 	
 	/**
 	 * Resets the game
@@ -85,12 +82,14 @@ public class PlayerView extends VBox{
 	 * add buttons to my menubar
 	 */
 	private void addButtons() {
-		myMenuBar.addButton(new VButton("High Scores"));
-		myMenuBar.addButton(new VButton("Replay"));
+		
 		myMenuBar.addButton(new VButton("Switch Game"));
 		myMenuBar.addButton(new VButton("Save Game"));
-		myMenuBar.addButton(new VButton("Set Preferences"));
 		
+		VButton scoresButton = new VButton("High Scores");
+		scoresButton.setOnMouseClicked(e -> myHighScores.setUpStage());
+		
+		myMenuBar.addButton(scoresButton);
 		VButton resumeButton = new VButton("Resume Game");
 		resumeButton.setOnMouseClicked(e -> myGameView.resumeGame());
 		myMenuBar.addButton(resumeButton);
