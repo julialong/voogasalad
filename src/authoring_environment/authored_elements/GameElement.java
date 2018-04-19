@@ -41,7 +41,7 @@ public class GameElement implements AuthoredElement {
 		
 	}
 
-	public void updateAttributes(HashMap<String, String> newAttributes) {
+	public void updateAttributes(Map<String, String> newAttributes) {
 		attributes = newAttributes;
 		try {
 			CustomElementSaver saver = new CustomElementSaver(this, elementID, newAttributes, imageFile);
