@@ -63,8 +63,10 @@ public class KeyBindingWindow {
                 @Override
                 public void handle(ActionEvent e) {
                 	//TODO: add error check to make sure there is actually a keyCode for what is passed in
-                	myGameView.changeBinding(propKey,KeyCode.valueOf(textField.getText().toString().toUpperCase()));
-                	displayChoices();
+                	if(textField.getText() != null && textField.getText() != "") {
+                		myGameView.changeBinding(propKey,KeyCode.valueOf(textField.getText().toString().toUpperCase()));
+                		//displayChoices();
+                	}
                 }
             });
         	tempContainer.getChildren().addAll(textField, change);
