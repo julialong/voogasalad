@@ -84,7 +84,10 @@ public class PlayerView extends VBox{
 	private void addButtons() {
 		
 		myMenuBar.addButton(new VButton("Switch Game"));
-		myMenuBar.addButton(new VButton("Save Game"));
+		
+		VButton saveButton = new VButton("Save Game");
+		saveButton.setOnMouseClicked(e -> new SaveScreen(gameMaterial, myName));
+		myMenuBar.addButton(saveButton);
 		
 		VButton scoresButton = new VButton("High Scores");
 		scoresButton.setOnMouseClicked(e -> myHighScores.setUpStage());
