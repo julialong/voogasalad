@@ -56,7 +56,7 @@ public class Controls {
 	 * @param key - the KeyCode
 	 */
 	public void activate(KeyCode key) {
-		System.out.println("Activate: " + key.getName());
+		//System.out.println("Activate: " + key.getName());
 		if(!pressedKeys.contains(key)) {
 			pressedKeys.add(key);
 		}	
@@ -77,7 +77,7 @@ public class Controls {
 	 * Stops the player from accelerating. Likely needs some work.
 	 */
 	public void deactivate(KeyCode key) {
-		System.out.println("Deactivate: " + key.getName());
+		//System.out.println("Deactivate: " + key.getName());
 		pressedKeys.remove(key);
 		if(keyBindings.get(key) instanceof Jump) {
 			allowJump = true;
@@ -85,16 +85,16 @@ public class Controls {
 		else {
 			if(pressedKeys.isEmpty()) {
 				new Stop().execute(player);
-				System.out.println("Stop");
+				//System.out.println("Stop");
 			}
 			else {
 				if((keyBindings.get(pressedKeys.get(0)) instanceof Jump)){
 					new Stop().execute(player);
-					System.out.println("Stop");
+					//System.out.println("Stop");
 				}
 				else {
 					activate(pressedKeys.get(0));
-					System.out.println("activate: " + pressedKeys.get(0).getName());
+					//System.out.println("activate: " + pressedKeys.get(0).getName());
 				}
 			}
 		}

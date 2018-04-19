@@ -1,6 +1,6 @@
 package authoring_environment.editor_windows;
 
-import authoring_environment.game_elements.AuthoredGame;
+import authoring_environment.editor_windows.buttons.SaveGameButton;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -23,20 +23,19 @@ public class GameSaver implements MetaManager {
 
     private Stage myStage;
     private Pane myRoot;
-    private Scene myScene;
     private CreatorView myWindow;
-
     private TextField fileName;
     private TextField fileDescription;
     private CheckBox playableGame;
 
     private static final String CSS = "GAE.css";
     private static final String SAVE_GAME = "Save Game";
-
     private static final String CHOOSE = "Save your file:";
     private static final String NAME = "File name:";
     private static final String DESCRIPTION = "File description:";
     private static final String PUBLISH = "Publish game?";
+
+    private static final int FONT_SIZE = 20;
 
     /**
      * Creates a new game saver window
@@ -46,7 +45,7 @@ public class GameSaver implements MetaManager {
         myWindow = window;
         myStage = new Stage();
         myRoot = new VBox();
-        myScene = new Scene(myRoot);
+        Scene myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
         addFields();
         myStage.setScene(myScene);
@@ -58,7 +57,7 @@ public class GameSaver implements MetaManager {
     private void addFields() {
         myRoot.getStyleClass().add("game-saver");
         Text chooseText = new Text(CHOOSE);
-        chooseText.setFont(new Font(20));
+        chooseText.setFont(new Font(FONT_SIZE));
         myRoot.getChildren().add(chooseText);
         setName();
         setDescription();
@@ -70,7 +69,7 @@ public class GameSaver implements MetaManager {
         Pane nameBox = new HBox();
         nameBox.getStyleClass().add("game-saver");
         fileName = new TextField(myWindow.getGame().getName());
-        nameBox.getChildren().addAll(new Text(UPDATE_FILE_NAME), fileName);
+        nameBox.getChildren().addAll(new Text(NAME), fileName);
         myRoot.getChildren().add(nameBox);
     }
 
@@ -92,16 +91,8 @@ public class GameSaver implements MetaManager {
     }
 
     private void addSaveButton() {
-        Button saveButton = new Button(SAVE_GAME);
-        saveButton.setOnAction(e -> {
-            myWindow.getGame().rename(fileName.getText());
-            myWindow.getGame().setDescription(fileDescription.getText());
-            myWindow.getGame().setPlayable(playableGame.isSelected());
-            myWindow.getGame().update();
-            myStage.close();
-            System.out.println("game saved:"+ myWindow.getGame().getName());
-        });
-        myRoot.getChildren().add(saveButton);
+        myRoot.getChildren().add(new SaveGameButton(myWindow, myStage, fileName.getText(),
+                fileDescription.getText(), playableGame.isSelected()));
     }
 
 }

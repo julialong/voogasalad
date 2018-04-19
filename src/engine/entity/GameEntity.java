@@ -249,12 +249,12 @@ public interface GameEntity {
 	/**
 	 * Sets the image path
 	 */
-	public abstract void setImageView(ImageView imageView);
+	public abstract void setImageView(String imageView);
 	
 	/**
 	 * Returns the image path
 	 */
-	public abstract ImageView getImageView();
+	public abstract String getImageView();
 
 	/**
 	 * Gets map of interaction entities to directionality

@@ -16,13 +16,13 @@ import javafx.scene.image.ImageView;
 public class Player extends PlayerCharacter{
     private Weapon weaponType;
     private ArrayList<PowerUp> powerupArrayList = new ArrayList<>();
-    private ArrayList<Interaction> interactionList = new ArrayList<>();
-    private double speedFactor;
-    private double jumpFactor;
-    private double maxVelocityX;
-    private double maxVelocityY;
-    private ImageView myImageView;
-    private String myElementID;
+    //private ArrayList<Interaction> interactionList = new ArrayList<>();
+    //private double speedFactor;
+    //private double jumpFactor;
+    //private double maxVelocityX;
+    //private double maxVelocityY;
+    //private ImageView myImageView;
+    //private String myElementID;
 
     public Player() {
         this(0,0);
@@ -84,16 +84,6 @@ public class Player extends PlayerCharacter{
 	@Override
 	public Kinematics getKinematics() {
 		return kinematics;
-	}
-	
-	@Override
-	public void setImageView(ImageView view) {
-		myImageView = view; 
-	}
-	
-	@Override
-	public ImageView getImageView() {
-		return myImageView;
 	}
 	
 	@Override
