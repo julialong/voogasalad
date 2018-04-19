@@ -8,7 +8,7 @@ import javafx.scene.control.MenuItem;
  * The LoadButton, when clicked, triggers a drop-down menu that allows the user
  * to choose whether they would like to load a game or level for editing
  *
- * @author julialong
+ * @author Julia Long
  * Date started: April 01 18
  */
 public class LoadButton extends MenuButton {

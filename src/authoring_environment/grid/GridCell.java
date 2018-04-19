@@ -1,5 +1,7 @@
 package authoring_environment.grid;
 
+import engine.entity.GameEntity;
+import javafx.scene.PointLight;
 import org.w3c.dom.Document;
 
 import javafx.scene.effect.InnerShadow;
@@ -10,6 +12,8 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
+import java.awt.*;
 
 /**
  * 
@@ -27,14 +31,17 @@ public class GridCell extends HBox {
 	private ScrollingGrid myGrid;
 	private int mySize;
 	private Document myDataDoc;
+	private Point myPosition;
+	private GameEntity myObject;
 	
-	public GridCell(ScrollingGrid grid, int size) {
+	public GridCell(ScrollingGrid grid, int size, int x, int y) {
 		super();
 		myCellView = new ImageView();
 		mySize = size;
 		selected = false;
 		myGrid = grid;
 		myType = null;
+		myPosition = new Point(x,y);
 		this.getChildren().add(myCellView);
 		this.setMinHeight(mySize);
 		this.setMaxWidth(mySize);
@@ -65,9 +72,21 @@ public class GridCell extends HBox {
 	public String getID() {
 		return myID;
 	}
+
+	public void setObject(GameEntity object) {
+		myObject = object;
+	}
+
+	public GameEntity getObject() {
+		return myObject;
+	}
 	
 	public int getSize() {
 		return mySize;
+	}
+
+	public Point getPosition() {
+		return myPosition;
 	}
 	
 	public void setSize(int size) {
@@ -114,19 +133,15 @@ public class GridCell extends HBox {
 		myCellView.setFitWidth(mySize);
 		myID = null;
 		myType = null;
+		myObject = null;
 		deselect();
 	}
 
 	private void setupEvents() {
-		
 		this.setOnMouseClicked(e -> handleClicked());
-
 		this.setOnDragOver(this::handleDragOver);
-
 		this.setOnDragDropped(this::handleDragDropped);
-
 		this.setOnDragEntered(this::handleDragEntered);
-
 		this.setOnDragExited(this::handleDragExited);
 	}
 
@@ -164,7 +179,7 @@ public class GridCell extends HBox {
 		Dragboard db = event.getDragboard();
 		boolean success = false;
 		if (db.hasString()) {
-			myGrid.setCellImage(this, db.getString());
+			myGrid.setCellElement(this, db.getString());
 			success = true;
 		}
 		event.setDropCompleted(success);
