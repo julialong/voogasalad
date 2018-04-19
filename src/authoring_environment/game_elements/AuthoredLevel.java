@@ -2,10 +2,14 @@ package authoring_environment.game_elements;
 
 import authoring_environment.DocumentGetter;
 import authoring_environment.grid.ScrollingGrid;
+import engine.behavior.Behavior;
 import engine.entity.GameEntity;
 import engine.level.Level;
 import javafx.scene.layout.Background;
 import org.w3c.dom.Document;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 
 /**
@@ -20,6 +24,7 @@ public class AuthoredLevel implements DocumentGetter {
     private Level myLevel;
     private ScrollingGrid myScrollingGrid;
 
+    private static final String ENTITY_PATH = "engine.entity.";
     private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 
     /**
@@ -76,11 +81,43 @@ public class AuthoredLevel implements DocumentGetter {
      */
     // TODO: Remove Point from Scrolling Grid
     public void addObject(String ID, double x, double y) {
-        // TODO: some reflection shit
+        GameEntity newEntity;
         Document objectDoc = getDocument(ID, ELEMENT_DATA_PATH);
         String path = objectDoc.getDocumentElement().getAttribute("ImageFile");
         String type = objectDoc.getDocumentElement().getAttribute("GameEntity");
-        
+        String behavior = objectDoc.getDocumentElement().getAttribute("Behavior");
+        String imagePath = objectDoc.getDocumentElement().getAttribute("ImageFile");
+        String interaction = objectDoc.getDocumentElement().getAttribute("Interaction");
+        String movement = objectDoc.getDocumentElement().getAttribute("Movement");
+        String powerup = objectDoc.getDocumentElement().getAttribute("PowerUp");
+        String projectile = objectDoc.getDocumentElement().getAttribute("Projectile");
+        String weapon = objectDoc.getDocumentElement().getAttribute("Weapon");
+
+        newEntity = createObject(type, x, y);
+    }
+
+    private GameEntity createObject(String type, double x, double y) {
+        try {
+            Constructor<?> objectConstructor = Class.forName(ENTITY_PATH + type).getConstructor(Double.TYPE, Double.TYPE);
+            objectConstructor.setAccessible(true);
+            return ((GameEntity) objectConstructor.newInstance(x, y));
+        }
+        catch (Exception e) {
+            // TODO: handle this
+            return null;
+        }
+    }
+
+    private Behavior createBehavior(String behavior, GameEntity entity) {
+        try {
+            Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(GameEntity.class);
+            behaviorConstructor.setAccessible(true);
+            return (Behavior) behaviorConstructor.newInstance(entity);
+        }
+        catch (Exception e) {
+            // TODO: handle this
+            return null;
+        }
     }
 
     /**
