@@ -17,9 +17,4 @@ public interface GEtoJSON	{
 	 * @param levels		list of levels to save
 	 */
 	void saveData(String player, List<Level> levels);
-		// for (List items:itemsInLevel)	{
-		// 	for (Object item:items)	{
-		// 		// push item and its info to database
-		// 	}
-		// }
 }
