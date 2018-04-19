@@ -4,14 +4,23 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Centralizes all the file retrieval and folder searching for the creation
+ * of Levels and AuthoredLevels
+ * 
+ * @author Belanie Nagiel
+ *
+ */
 public class FileRetriever {
 
 	private static final String GAME_FOLDER = "./data/gameData";
-	// private static final String GAME_FOLDER = "./data/testingGameData";
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private String NEST = "/";
 	
+	/**
+	 * Class Constructor
+	 */
 	public FileRetriever()
 	{
 		if (System.getProperty("os.name").contains("Windows"))	
@@ -20,6 +29,11 @@ public class FileRetriever {
 		}
 	}
 	
+	/**
+	 * Returns a list of all the possible game paths
+	 * 
+	 * @return
+	 */
 	public List<String> retrieveAllGamePaths()
 	{
 		List<String> gamePaths = new ArrayList<>();
@@ -33,11 +47,13 @@ public class FileRetriever {
 				gamePaths.add(game.toString());
 			}
 		}	
-		//error for no games
+		// TODO error for no games
 		return gamePaths;
 	}
+	
 	/**
-	 * Returns the file associated to the game name
+	 * Returns the String game path for the game name given 
+	 * as a parameter
 	 * 
 	 * @param gameName
 	 */
@@ -51,7 +67,7 @@ public class FileRetriever {
 				return gamePath;
 			}	
 		}
-		//ERROR FOR CAN'T FIND THE FILE
+		// TODO ERROR FOR CAN'T FIND THE FILE
 		return null;
 	}
 	

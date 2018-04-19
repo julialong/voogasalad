@@ -12,7 +12,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import engine.level.Level;
-
+/**
+ *  This class holds the implementation for the methods that allow the Game Player to load games and files
+ * for play.
+ * 
+ * @author Belanie Nagiel
+ *
+ */
 public class GPGameFileReader implements JSONtoGP{
 
 	private static final String JSON_EXTENSION = ".json";
@@ -21,6 +27,9 @@ public class GPGameFileReader implements JSONtoGP{
 	private String NEST = "/";
 	private FileRetriever fileRetriever;
 	
+	/**
+	 * Class Constructor
+	 */
 	public GPGameFileReader()
 	{
 		if (System.getProperty("os.name").contains("Windows"))	

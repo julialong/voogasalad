@@ -8,7 +8,13 @@ import java.util.Map;
 import authoring_environment.game_elements.AuthoredLevel;
 import engine.entity.GameEntity;
 import engine.level.Level;
-
+/**
+ * This class holds the implementation for the methods that allow the GAE to load games and files
+ * for continued editing or use.
+ * 
+ * @author Belanie Nagiel
+ *
+ */
 public class GAEGameFileReader implements JSONtoGAE {
 	
 	private static final String JSON_EXTENSION = ".json";
@@ -17,6 +23,9 @@ public class GAEGameFileReader implements JSONtoGAE {
 	private String NEST = "/";
 	private FileRetriever fileRetriever;
 	
+	/**
+	 * Class Constructor
+	 */
 	public GAEGameFileReader() 
 	{
 		if (System.getProperty("os.name").contains("Windows"))	
