@@ -27,12 +27,20 @@ public interface GameItem {
     /**
      * Sets up the Game view application environment
      * with the specific game that this item represents
+     * @param string 
+     * @param string 
      */
-    public void setUpGame(List<Level> gameLevels);
+    public void setUpGame(List<Level> gameLevels, String string);
 
     /**
      * Alters toString method to return a properly formatted
      * representation of the game that can be chosen
      */
     public String toString();
+
+    /**
+     * Returns the name of the game used to retrieve all files
+     * needed for the game engine to run the game.
+     */
+    public String getGameName();
 }

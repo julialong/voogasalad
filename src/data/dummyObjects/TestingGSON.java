@@ -100,8 +100,8 @@ public class TestingGSON {
 //		String x = gs.toJson(sc);
 //		System.out.println(x);
 		
-		System.out.println(fr.loadCompleteGame("TestGame"));
+//		System.out.println(fr.loadCompleteGame("TestGame"));
 //		fr.loadLevel("TestGame", "Default");
-		
+		System.out.println(fr.getGameNames());
 	}
 }
