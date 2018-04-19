@@ -65,9 +65,9 @@ public class SaveScreen {
 	 */
 	private void setAction(Button save) {
 		Button saveButton = save;
-		GameFileWriter gfw = new GameFileWriter(myName);
 		if (myTextField.getText() != null && myTextField.getText() != "") {
 			String currName = myTextField.getText();
+			GameFileWriter gfw = new GameFileWriter(currName, myName);
 			// TODO: confirm with data team that this is the correct API call
 			saveButton.setOnMouseClicked(e -> gfw.saveData(currName, myLevels));
 			// TODO: Do we want the stage to close on save?
