@@ -88,19 +88,23 @@ public class VoogaGameView implements GameView {
 	private void initDisplayMap() {
 		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
 			// TODO: below is filler for actual data, delete once gae sends us the real
-			// stuff
-			String imgPath = ge.getImagePath();
-			if (ge.getClass().equals(new Player().getClass())) {
+			String imgPath = "brick.png";
+			if(ge instanceof Player) {
 				myControls = new Controls((Player) ge);
-				imgPath = "trump.gif";
-				ge.setSpeedFactor(1000);
-				ge.setMaxXVelocity(50);
-				ge.setMaxYVelocity(500);
-				ge.setFrictionConstant(200);
-				ge.setJumpFactor(75);
-			} else if (ge.getImagePath().equals(null) || ge.getImagePath().equals("")) {
-				imgPath = "brick.png";
 			}
+			// stuff
+//			String imgPath = ge.getImagePath();
+//			if (ge.getClass().equals(new Player().getClass())) {
+//				myControls = new Controls((Player) ge);
+//				imgPath = "trump.gif";
+//				ge.setSpeedFactor(1000);
+//				ge.setMaxXVelocity(50);
+//				ge.setMaxYVelocity(500);
+//				ge.setFrictionConstant(200);
+//				ge.setJumpFactor(75);
+//			} else if (ge.getImagePath().equals(null) || ge.getImagePath().equals("")) {
+//				imgPath = "brick.png";
+//			}
 			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath), ge.getSizeX() + 50,
 					ge.getSizeY() + 50, true, true));
 

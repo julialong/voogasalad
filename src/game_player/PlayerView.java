@@ -6,6 +6,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import java.util.List;
 
+import data.fileReading.GPGameFileReader;
+import data.fileReading.JSONtoGP;
 import data.gamefiles.GameFileReader;
 import data.gamefiles.JSONtoObject;
 
@@ -20,7 +22,7 @@ public class PlayerView extends VBox{
 	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
 	private VoogaGameView myGameView;
-	private JSONtoObject reader = new GameFileReader();
+    private JSONtoGP reader = new GPGameFileReader();
 	private String myName;
 	public PlayerView() {
 		super();
