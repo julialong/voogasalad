@@ -51,8 +51,8 @@ public class SaveScreen {
 		HBox hbox = new HBox();
 		myTextField = new TextField();
 		Button save = new Button("Save");
-		setAction(save);
 		hbox.getChildren().addAll(myTextField, save);
+		setAction(save);
 		return hbox;
 	}
 
@@ -64,17 +64,20 @@ public class SaveScreen {
 	 * @param save
 	 */
 	private void setAction(Button save) {
-		Button saveButton = save;
-		if (myTextField.getText() != null && myTextField.getText() != "") {
-			String currName = myTextField.getText();
-			GameFileWriter gfw = new GameFileWriter(currName, myName);
-			// TODO: confirm with data team that this is the correct API call
-			saveButton.setOnMouseClicked(e -> gfw.saveData(currName, myLevels));
-			// TODO: Do we want the stage to close on save?
-			System.out.println("Closing window...");
-			myStage.close();
-			System.out.println("...Window closed");
-		}
-	}
+		save.setOnAction(event ->{
+			System.out.println(myTextField.getText());
+			if (myTextField.getText() != null && myTextField.getText() != "") {
+				String currName = myTextField.getText();
+				System.out.println(currName);
+				GameFileWriter gfw = new GameFileWriter(currName, myName);
+				// TODO: confirm with data team that this is the correct API call
+				save.setOnMouseClicked(e -> gfw.saveData(currName, myLevels));
+				// TODO: Do we want the stage to close on save?
+				System.out.println("Closing window...");
 
+				myStage.close();
+				System.out.println("...Window closed");
+			}
+		});
+	}
 }
