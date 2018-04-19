@@ -18,7 +18,6 @@ public class TestingGSON {
 		FileRetriever fr = new FileRetriever();
 		System.out.println(fr.retrieveAllGamePaths());
 		System.out.println(fr.retrieveCurrentGamePath("WithAL"));
-
 		GPGameFileReader gp = new GPGameFileReader();
 		System.out.println(gp.getGameNames());
 
