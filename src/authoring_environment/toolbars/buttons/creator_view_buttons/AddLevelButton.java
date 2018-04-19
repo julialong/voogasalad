@@ -16,8 +16,6 @@ public class AddLevelButton extends Button {
 
     private static final String ADD_LEVEL= "Create new level";
 
-    private CreatorView myWindow;
-
     /**
      * Creates a simple add element button.
      */

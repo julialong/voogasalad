@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+
+import authoring_environment.game_elements.AuthoredLevel;
+import authoring_environment.grid.ScrollingGrid;
 import data.serialization.TextWriter;
 import engine.entity.GameEntity;
 import engine.level.Level;
@@ -45,9 +50,9 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param changes	Map of Levels linked to all the items in them
 	 */
 	@Override
-	public void update(List<Level> changes)	{
-		for (Level aLevel:changes)	{
-			saveData(aLevel, aLevel.getObjects());
+	public void update(List<AuthoredLevel> changes)	{
+		for (AuthoredLevel aLevel:changes)	{
+			saveData(aLevel);
 		}
 	}
 
@@ -63,11 +68,20 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	/**
 	 * Saves state of level being played, for use with checkpoints
 	 * @param level			name of level to save
-	 * @param itemsInLevel	List (potentially list of lists of different types of objects) if items in level to save stats of
+	 */
+	public void saveData(AuthoredLevel level)	{
+		new TextWriter(level, getLevel(level.getLevel()));
+	}
+
+	/**
+	 * Saves state of level being played, for use with checkpoints
+	 * @param player			name of level to save
 	 */
 	@Override
-	public void saveData(Level level, List itemsInLevel)	{
-		new TextWriter(level, getLevel(level), itemsInLevel);
+	public void saveData(String player, List<Level> levels)	{
+		for (Level aLevel:levels)	{
+			new TextWriter(new AuthoredLevel(aLevel, new ScrollingGrid()), getLevel(aLevel, player));
+		}
 	}
 
 	/**
@@ -76,7 +90,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @return	new, replacement instance of level
 	 */
 	@Override
-	public Level revertChanges(Level level)	{
+	public Level revertChanges(AuthoredLevel level)	{
 		GameFileReader reader = new GameFileReader();
 		String levelName = level.getName();
 		return reader.loadLevel(gameName, levelName);
@@ -98,12 +112,12 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @author Maya Messinger
 	 * @param level		level to save separately
 	 */
-	public void saveIndivLevel(Level level)	{
+	public void saveIndivLevel(AuthoredLevel level)	{
 		String tempGameDir = gameDirectory;
 
 		gameDirectory = LEVELDATA;
 
-		saveData(level, level.getObjects());
+		saveData(level);
 
 		gameDirectory = tempGameDir;
 	}
@@ -131,15 +145,21 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	}
 
 	private File getLevel(Level level)	{
-		File newLevel = new File(gameDirectory + NEST + level.getName() + EXTENSION);
+		return (getLevel(level, ""));
+	}
+
+	private File getLevel(Level level, String user)	{
+		File newLevel = new File(gameDirectory + NEST + level.getName() + user + EXTENSION);
 
 		if(!newLevel.exists())	{
 			try {
 				newLevel.createNewFile();
 			} 
 			catch (IOException e) {
-				// TODO proper error
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(new JFrame(),
+				    "Could not get or make file " + newLevel.toString(),
+				    "IOException",
+				    JOptionPane.WARNING_MESSAGE);
 			}
 		}
 

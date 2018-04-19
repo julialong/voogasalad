@@ -1,13 +1,11 @@
 package game_player;
 
-
 import engine.level.Level;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import java.util.List;
-
-import data.gamefiles.GameFileReader;
-import data.gamefiles.JSONtoObject;
+import data.fileReading.GPGameFileReader;
+import data.fileReading.JSONtoGP;
 
 /**
  * The main application for the game player. Here is where the MVC design pattern is used.
@@ -20,8 +18,10 @@ public class PlayerView extends VBox{
 	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
 	private VoogaGameView myGameView;
-	private JSONtoObject reader = new GameFileReader();
+    private JSONtoGP reader = new GPGameFileReader();
 	private String myName;
+	private ScoreKeeper myHighScores = new ScoreKeeper();
+	
 	public PlayerView() {
 		super();
 		createGView();
@@ -39,11 +39,6 @@ public class PlayerView extends VBox{
 		setViewTop();
 		setMiddle();
 	}
-
-	//	public PlayerView(String name){
-	//		this();
-	//		System.out.println(name);
-	//	}
 	
 	/**
 	 * Resets the game
@@ -83,12 +78,17 @@ public class PlayerView extends VBox{
 	 * add buttons to my menubar
 	 */
 	private void addButtons() {
-		myMenuBar.addButton(new VButton("High Scores"));
-		myMenuBar.addButton(new VButton("Replay"));
-		myMenuBar.addButton(new VButton("Switch Game"));
-		myMenuBar.addButton(new VButton("Save Game"));
-		myMenuBar.addButton(new VButton("Set Preferences"));
 		
+		myMenuBar.addButton(new VButton("Switch Game"));
+		
+		VButton saveButton = new VButton("Save Game");
+		saveButton.setOnMouseClicked(e -> new SaveScreen(gameMaterial, myName));
+		myMenuBar.addButton(saveButton);
+		
+		VButton scoresButton = new VButton("High Scores");
+		scoresButton.setOnMouseClicked(e -> myHighScores.setUpStage());
+		
+		myMenuBar.addButton(scoresButton);
 		VButton resumeButton = new VButton("Resume Game");
 		resumeButton.setOnMouseClicked(e -> myGameView.resumeGame());
 		myMenuBar.addButton(resumeButton);

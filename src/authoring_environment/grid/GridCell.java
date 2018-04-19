@@ -1,15 +1,19 @@
 package authoring_environment.grid;
 
-import javafx.event.EventHandler;
+import engine.entity.GameEntity;
+import javafx.scene.PointLight;
+import org.w3c.dom.Document;
+
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
+import java.awt.*;
 
 /**
  * 
@@ -21,15 +25,23 @@ import javafx.scene.paint.Color;
 public class GridCell extends HBox {
 	
 	private ImageView myCellView;
-	private String myPath;
+	private String myID;
+	private String myType;
 	private boolean selected;
 	private ScrollingGrid myGrid;
 	private int mySize;
+	private Document myDataDoc;
+	private Point myPosition;
+	private GameEntity myObject;
 	
-	public GridCell(ScrollingGrid grid, int size) {
+	public GridCell(ScrollingGrid grid, int size, int x, int y) {
 		super();
 		myCellView = new ImageView();
 		mySize = size;
+		selected = false;
+		myGrid = grid;
+		myType = null;
+		myPosition = new Point(x,y);
 		this.getChildren().add(myCellView);
 		this.setMinHeight(mySize);
 		this.setMaxWidth(mySize);
@@ -39,8 +51,6 @@ public class GridCell extends HBox {
 		myCellView.setFitHeight(mySize);
 		this.setStyle("-fx-border-color: black;");
 		setupEvents();
-		selected = false;
-		myGrid = grid;
 	}
 	
 	public GridCell(double spacing) {
@@ -58,18 +68,47 @@ public class GridCell extends HBox {
 	public Image getImage() {
 		return myCellView.getImage();
 	}
+	
+	public String getID() {
+		return myID;
+	}
 
-	public String getPath()	{
-		return myPath;
+	public void setObject(GameEntity object) {
+		myObject = object;
+	}
+
+	public GameEntity getObject() {
+		return myObject;
 	}
 	
-	public void setImage(Image image) {
-		myCellView.setImage(image);
+	public int getSize() {
+		return mySize;
+	}
+
+	public Point getPosition() {
+		return myPosition;
 	}
 	
-	public void setImage(String path) {
-		myPath = path;
-		myCellView.setImage(new Image("file:data/" + myPath));
+	public void setSize(int size) {
+		mySize = size;
+		this.setMinHeight(mySize);
+		this.setMaxWidth(mySize);
+		this.setMaxHeight(mySize);
+		this.setMinWidth(mySize);
+		myCellView.setFitWidth(mySize);
+		myCellView.setFitHeight(mySize);
+	}
+	
+	public void setImage(String ID) {
+		myID = ID;
+		myDataDoc = myGrid.parseElementXML(ID);
+		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
+		myType = myDataDoc.getDocumentElement().getAttribute("GameEntity");
+		myCellView.setImage(new Image("file:" + path));
+	}
+	
+	public String getType() {
+		return myType;
 	}
 	
 	private void select() {
@@ -92,57 +131,58 @@ public class GridCell extends HBox {
 		this.getChildren().add(myCellView);
 		myCellView.setFitHeight(mySize);
 		myCellView.setFitWidth(mySize);
-		myPath = "";
+		myID = null;
+		myType = null;
+		myObject = null;
 		deselect();
 	}
-	
+
 	private void setupEvents() {
-		GridCell myGridCell = this;
-		
-		myGridCell.setOnMouseClicked(event -> {
-            if(selected) {
-                deselect();
-            } else {
-                select();
-            }
-        });
-		
-		myGridCell.setOnDragOver(event -> {
-            if (event.getGestureSource() != myGridCell &&
-                    event.getDragboard().hasImage()) {
-                event.acceptTransferModes(TransferMode.COPY);
-            }
+		this.setOnMouseClicked(e -> handleClicked());
+		this.setOnDragOver(this::handleDragOver);
+		this.setOnDragDropped(this::handleDragDropped);
+		this.setOnDragEntered(this::handleDragEntered);
+		this.setOnDragExited(this::handleDragExited);
+	}
 
-            event.consume();
-        });
+	private void handleClicked() {
+		if(selected) {
+			deselect();
+		} else {
+			select();
+		}
+	}
 
-		myGridCell.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            if (db.hasImage()) {
-               myGrid.setCellImage(myGridCell, db.getImage(), db.getString());
-               success = true;
-            }
-            event.setDropCompleted(success);
+	private void handleDragOver(DragEvent event) {
+		if (event.getGestureSource() != this &&
+				event.getDragboard().hasString()) {
+			event.acceptTransferModes(TransferMode.COPY);
+		}
+		event.consume();
+	}
 
-            event.consume();
-         });
+	private void handleDragEntered(DragEvent event) {
+		if (event.getGestureSource() != this &&
+				event.getDragboard().hasString()) {
+			this.setStyle("-fx-background-color: #99ebff;");
+		}
+		event.consume();
+	}
 
-		myGridCell.setOnDragEntered(event -> {
-             if (event.getGestureSource() != myGridCell &&
-                     event.getDragboard().hasImage()) {
-                 myGridCell.setStyle("-fx-background-color: #99ebff;");
-             }
+	private void handleDragExited(DragEvent event) {
+		this.setStyle("-fx-background-color: transparent;");
+		this.setStyle("-fx-border-color: black;");
+		event.consume();
+	}
 
-             event.consume();
-        });
-
-		myGridCell.setOnDragExited(event -> {
-            myGridCell.setStyle("-fx-background-color: transparent;");
-            myGridCell.setStyle("-fx-border-color: black;");
-
-            event.consume();
-        });
-		
+	private void handleDragDropped(DragEvent event) {
+		Dragboard db = event.getDragboard();
+		boolean success = false;
+		if (db.hasString()) {
+			myGrid.setCellElement(this, db.getString());
+			success = true;
+		}
+		event.setDropCompleted(success);
+		event.consume();
 	}
 }

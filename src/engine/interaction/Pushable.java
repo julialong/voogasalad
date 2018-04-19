@@ -30,6 +30,7 @@ public class Pushable implements Interaction {
 						if(i instanceof PreventClipping) {
 							push = false;
 							target.setY(source.getPosition()[1] + target.getSizeY());
+							target.setYVelocity(0);
 						}
 					}
 				}
@@ -66,7 +67,7 @@ public class Pushable implements Interaction {
 					for(Interaction i : ge.getInteractions()) {
 						if(i instanceof PreventClipping) {
 							push = false;
-							target.setX(source.getPosition()[0] + source.getSizeX());
+							target.setX(source.getPosition()[0] - source.getSizeX());
 						}
 					}
 				}
@@ -90,7 +91,7 @@ public class Pushable implements Interaction {
 				}
 			}
 			if(push) {
-				source.setX(target.getPosition()[0] - source.getSizeX());
+				source.setX(target.getPosition()[0] - target.getSizeX());
 			}
 		}
 	}

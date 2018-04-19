@@ -25,7 +25,7 @@ public abstract class PlayerCharacter extends GameObject{
 	public abstract void useWeapon();
 
 	/**
-	 * Adds a power up to the Player, which has behavoir defined internally.
+	 * Adds a power up to the Player, which has behavior defined internally.
 	 * 
 	 * @param power:
 	 *            the PowerUp to be added.

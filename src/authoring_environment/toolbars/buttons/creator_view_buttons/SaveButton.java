@@ -1,6 +1,7 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
 import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.editor_windows.LevelSaver;
 import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.editor_windows.GameSaver;
 import javafx.scene.control.MenuButton;
@@ -40,8 +41,7 @@ public class SaveButton extends MenuButton {
 
     private MenuItem createLevelItem() {
         MenuItem levelItem = new MenuItem(LEVEL);
-        // TODO: open level saver when menu item is clicked
-        // gameItem.setOnAction(e -> new LevelSaver());
+        levelItem.setOnAction(e -> new LevelSaver(myWindow));
         return levelItem;
     }
 

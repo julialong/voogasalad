@@ -5,6 +5,7 @@ import java.io.FileWriter;
 
 import com.google.gson.JsonArray;
 
+import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.grid.GridCell;
 
@@ -30,11 +31,11 @@ public class LevelSerializer	{
 	 * @param fw	FileWriter that is linked to file to write to (this method is called when file is already being edited)
 	 * @param level	Level to write out
 	 */
-	public void serialize(FileWriter fw, Level level)	{
+	public void serialize(FileWriter fw, Level level, ScrollingGrid grid)	{
 		writeKeyValue(fw, NAME, level.getName());
 		writeKeyValue(fw, ID, 1);// level.getID());
 		writeKeyValue(fw, SIZE, 1);// level.getSize());
-		writeGrid(fw, level.getGrid());
+		writeGrid(fw, grid);
 	}
 
 	private void writeKeyValue(FileWriter fw, String key, String value)	{
@@ -45,7 +46,7 @@ public class LevelSerializer	{
 			fw.write(System.lineSeparator());
 		}
 		catch (IOException e)	{
-			e.printStackTrace();
+			TextWriter.error(e, fw);
 		}
 	}
 
@@ -57,7 +58,7 @@ public class LevelSerializer	{
 			fw.write(System.lineSeparator());
 		}
 		catch (IOException e)	{
-			e.printStackTrace();
+			TextWriter.error(e, fw);
 		}
 	}
 
@@ -67,7 +68,8 @@ public class LevelSerializer	{
 		for (int i = 0; i < grid.getCellArray().length; i++)	{
 			TextWriter.startArray(fw, null);
 			for (int j = 0; j < grid.getCellArray()[i].length; j++)	{
-				TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
+				// TODO: UNCOMMENT LINE BELOW
+				//TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
 				TextWriter.checkWriteComma(fw, j, grid.getCellArray()[i].length);
 			}
 			TextWriter.newLine(fw);
@@ -88,7 +90,7 @@ public class LevelSerializer	{
 		for (int i = 0; i < jsonGrid.size(); i++)	{
 			JsonArray row = jsonGrid.get(i).getAsJsonArray();
 			for (int j = 0; j < jsonGrid.get(i).getAsJsonArray().size(); j ++)	{
-//				grid.setCellImage(grid.getCellArray()[i][j], row.get(j).getAsString());
+//				grid.setCellElement(grid.getCellArray()[i][j], row.get(j).getAsString());
 			}
 		}
 
