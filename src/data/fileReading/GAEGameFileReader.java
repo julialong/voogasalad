@@ -13,6 +13,7 @@ public class GAEGameFileReader implements JSONtoGAE {
 	
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
+	private static final String LEVEL_FOLDER = "./data/levelData";
 	private String NEST = "/";
 	private FileRetriever fileRetriever;
 	
@@ -64,8 +65,9 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public AuthoredLevel loadAuthoredLevel(String levelName) {
-		// TODO Auto-generated method stub
-		return null;
+		File level = new File(LEVEL_FOLDER + NEST + levelName);
+		AuthoredLevelBuilder levelBuilder = new AuthoredLevelBuilder(level);
+		return levelBuilder.buildAuthoredLevel();
 	}
 
 	/**

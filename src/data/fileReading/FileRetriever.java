@@ -1,10 +1,13 @@
 package data.fileReading;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileRetriever {
 
-	private static final String GAME_FOLDER = "./data/gameData";
+//	private static final String GAME_FOLDER = "./data/gameData";
+	private static final String GAME_FOLDER = "./data/testingGameData";
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private String NEST = "/";
@@ -16,15 +19,10 @@ public class FileRetriever {
 			NEST = "\\";
 		}
 	}
-	/**
-	 * Returns the file associated to the game name
-	 * 
-	 * @param gameName
-	 */
-	public String retrieveCurrentGamePath(String gameName)
+	
+	public List<String> retrieveAllGamePaths()
 	{
-		//Search through authors
-		//NEEDS TO BE TESTED
+		List<String> gamePaths = new ArrayList<>();
 		File gameFolder = new File(GAME_FOLDER);
 		File[] authors = gameFolder.listFiles();
 		for(File author: authors)
@@ -32,14 +30,29 @@ public class FileRetriever {
 			File[] games = author.listFiles();
 			for(File game: games)
 			{
-				if(game.toString().contains(gameName))
-				{
-					return game.toString();
-				}
+				gamePaths.add(game.toString());
 			}
+		}	
+		//error for no games
+		return gamePaths;
+	}
+	/**
+	 * Returns the file associated to the game name
+	 * 
+	 * @param gameName
+	 */
+	public String retrieveCurrentGamePath(String gameName)
+	{
+		List<String> allGamePaths = retrieveAllGamePaths();
+		for(String gamePath: allGamePaths)
+		{
+			if(gamePath.contains(gameName))
+			{
+				return gamePath;
+			}	
 		}
+		//ERROR FOR CAN'T FIND THE FILE
 		return null;
-//		return new File(GAME_FOLDER + NEST + gameName);
 	}
 	
 	/**

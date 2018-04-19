@@ -199,8 +199,8 @@ public class GameFileReader implements JSONtoObject {
 			JsonObject  jobject = jelement.getAsJsonObject();
 			String description = jobject.get("description").getAsString();
 			settingsDetails.put("description", description);
-			String ready = jobject.get("ready").getAsString();
-			settingsDetails.put("ready", ready);
+			String ready = jobject.get("readyToPlay").getAsString();
+			settingsDetails.put("readyToPlay", ready);
 		} 
 		catch (Exception e) {
 			e.printStackTrace();

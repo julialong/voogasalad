@@ -1,9 +1,15 @@
 package data.fileReading;
 
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import engine.level.Level;
 
@@ -11,6 +17,7 @@ public class GPGameFileReader implements JSONtoGP{
 
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
+	private static final String[] SETTINGS_DATA = {"description", "readyToPlay"};
 	private String NEST = "/";
 	private FileRetriever fileRetriever;
 	
@@ -75,8 +82,22 @@ public class GPGameFileReader implements JSONtoGP{
 	 */
 	@Override
 	public Map<String, String> loadSettings(String gameName) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String,String> settingsDetails = new HashMap<>();
+		File settings = fileRetriever.retrieveSettings(gameName);
+		try {
+			JsonParser jsonParser = new JsonParser();
+			JsonElement jelement = jsonParser.parse(new FileReader(settings));
+			JsonObject  jobject = jelement.getAsJsonObject();
+			for(String metadata: SETTINGS_DATA)
+			{
+				String info = jobject.get(metadata).getAsString();
+				settingsDetails.put(metadata, info);
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return settingsDetails;
 	}
 
 	/**
@@ -87,10 +108,19 @@ public class GPGameFileReader implements JSONtoGP{
 	 */
 	@Override
 	public Map<String, String> getGameNames() {
-		// TODO Auto-generated method stub
-		
-		//Sort through authors
-		return null;
+		Map<String,String> gameNames = new HashMap<>();
+		List<String> allGamePaths = fileRetriever.retrieveAllGamePaths();
+		for(String gamePath: allGamePaths)
+		{
+			int index = gamePath.lastIndexOf(NEST) + 1;
+			String gameName = gamePath.substring(index).trim();
+			Map<String,String> gameSettings = loadSettings(gameName);
+			if(gameSettings.get("readyToPlay").equals("true"))
+			{
+				gameNames.put(gameName, gameSettings.get("description"));
+			}
+		}
+		return gameNames;
 	}
 
 }
