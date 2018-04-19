@@ -6,8 +6,8 @@ import java.util.List;
 
 public class FileRetriever {
 
-//	private static final String GAME_FOLDER = "./data/gameData";
-	private static final String GAME_FOLDER = "./data/testingGameData";
+	private static final String GAME_FOLDER = "./data/gameData";
+	// private static final String GAME_FOLDER = "./data/testingGameData";
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private String NEST = "/";
