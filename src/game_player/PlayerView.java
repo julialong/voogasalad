@@ -1,15 +1,11 @@
 package game_player;
 
-
 import engine.level.Level;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import java.util.List;
-
 import data.fileReading.GPGameFileReader;
 import data.fileReading.JSONtoGP;
-import data.gamefiles.GameFileReader;
-import data.gamefiles.JSONtoObject;
 
 /**
  * The main application for the game player. Here is where the MVC design pattern is used.

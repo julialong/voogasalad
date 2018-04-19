@@ -14,6 +14,7 @@ public class SaveScreen {
 	private List<Level> myLevels;
 	private String myName;
 	private TextField myTextField;
+	private Stage myStage;
 
 	/**
 	 * Launches the save game screen.
@@ -31,13 +32,13 @@ public class SaveScreen {
 	 * sets up the save game screen.
 	 */
 	private void setUpStage() {
-		Stage stage = new Stage();
-		stage.setTitle("My High Scores");
-		stage.setMinWidth(MIN_WINDOW_WIDTH);
+		myStage = new Stage();
+		myStage.setTitle("Save My Progress");
+		myStage.setMinWidth(MIN_WINDOW_WIDTH);
 		Scene scene = new Scene(this.displayFields(), MIN_WINDOW_WIDTH, MIN_WINDOW_WIDTH);
 		scene.getStylesheets().add("../data/styling/styleSheet.css");
-		stage.setScene(scene);
-		stage.show();
+		myStage.setScene(scene);
+		myStage.show();
 
 	}
 
@@ -69,6 +70,10 @@ public class SaveScreen {
 			String currName = myTextField.getText();
 			// TODO: confirm with data team that this is the correct API call
 			saveButton.setOnMouseClicked(e -> gfw.saveData(currName, myLevels));
+			// TODO: Do we want the stage to close on save?
+			System.out.println("Closing window...");
+			myStage.close();
+			System.out.println("...Window closed");
 		}
 	}
 
