@@ -3,9 +3,7 @@ package heads_up_display;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +27,7 @@ public class Hud implements HeadsUpDisplay {
         double width = screen.getWidth();
         double height = screen.getHeight();
         displayBoard = new SubScene(root, width, height);
-        displayBoard.setUserAgentStylesheet("hudStyleSheet.css");
+        displayBoard.setUserAgentStylesheet("../data/styling/hudStyleSheet.css");
     }
 
 
@@ -41,7 +39,7 @@ public class Hud implements HeadsUpDisplay {
     public Hud(int width, int height){
         initializeFields();
         displayBoard = new SubScene(root, width, height);
-        displayBoard.setUserAgentStylesheet("src\\heads_up_display\\hudStyleSheet.css");
+        displayBoard.setUserAgentStylesheet("../data/styling/hudStyleSheet.css");
     }
 
 
@@ -90,8 +88,16 @@ public class Hud implements HeadsUpDisplay {
         components.put(counter, displayComponent);
         counter += 1;
         root.getChildren().add(displayComponent);
-        root.getChildren().add(new Text("HI"));
         return counter - 1;
+    }
+
+    /**
+     * Updates the particular component specified by the ID
+     * whose new value is set by the string
+     */
+    @Override
+    public void updateComponent(int ID, String newValue) {
+        components.get(ID).setComponent(newValue);
     }
 
 
@@ -104,6 +110,9 @@ public class Hud implements HeadsUpDisplay {
      */
     @Override
     public void removeComponent(int ID) {
-            components.remove(ID);
+        components.remove(ID);
     }
+
+
+
 }

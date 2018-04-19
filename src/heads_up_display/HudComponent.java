@@ -25,11 +25,13 @@ public class HudComponent extends Text implements Component{
             mouseY = event.getSceneY();
         });
         setOnMouseDragged(event ->{
-            double deltaX = event.getSceneX() - mouseX ;
-            double deltaY = event.getSceneY() - mouseY ;
-            relocate(getLayoutX() + deltaX, getLayoutY() + deltaY);
-            mouseX = event.getSceneX() ;
-            mouseY = event.getSceneY() ;
+            double deltaX = event.getSceneX() - mouseX;
+            double deltaY = event.getSceneY() - mouseY;
+            setLayoutX(getLayoutX() + deltaX);
+            setLayoutY(getLayoutY() + deltaY);
+            mouseX = event.getSceneX();
+            mouseY = event.getSceneY();
+            event.consume();
         });
     }
 

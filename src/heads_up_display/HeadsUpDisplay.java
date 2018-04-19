@@ -38,4 +38,11 @@ public interface HeadsUpDisplay {
      * where in the subscene the component is add.
      */
     public int addComponent(String value, int x, int y);
+
+
+    /**
+     * Updates the particular component specified by the ID
+     * whose new value is set by the string
+     */
+    public void updateComponent(int ID, String newValue);
 }
