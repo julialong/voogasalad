@@ -79,44 +79,46 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustYCord(double y) {
 		// TODO: adjust this factor based on sensitivity
-		return (myHeight / 2.0) - y * (myHeight / 240.0);
+		return (myHeight / 2.0) - y * (myHeight / 4800.0);
 	}
 
 	/**
 	 * Adds all of the levels objects to a map that maps them to a position
 	 */
 	private void initDisplayMap() {
-//		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
-//			// TODO: below is filler for actual data, delete once gae sends us the real
-//			// stuff
-//			String imgPath = ge.getImagePath();
-//			if (ge.getClass().equals(new Player().getClass())) {
-//				myControls = new Controls((Player) ge);
-//				imgPath = "trump.gif";
-//				ge.setSpeedFactor(1000);
-//				ge.setMaxXVelocity(50);
-//				ge.setMaxYVelocity(500);
-//				ge.setFrictionConstant(200);
-//				ge.setJumpFactor(75);
-//			} else if (ge.getImagePath().equals(null) || ge.getImagePath().equals("")) {
-//				imgPath = "brick.png";
-//			}
-//			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath), ge.getSizeX() + 50,
-//					ge.getSizeY() + 50, true, true));
-//
-//			// TODO: uncomment below once GAE sends us actual data
-//			// if (ge.getClass().equals(new Player().getClass())) {
-//			// myControls = new Controls((Player) ge);
-//			// }
-//			// ImageView entityImage = new ImageView(new
-//			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
-//			// ge.getSizeY(), true, true));
-//
-//			entityImage.setX(adjustXCord(ge.getPosition()[0]));
-//			entityImage.setY(adjustYCord(ge.getPosition()[1]));
-//			myDispMap.put(ge, entityImage);
-//			myGP.getChildren().add(myDispMap.get(ge));
-//		}
+		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
+			// TODO: below is filler for actual data, delete once gae sends us the real
+			// stuff
+			String imgPath;
+			if (ge.getImageView() == null || ge.getImageView() == "") {
+				imgPath = "brick.png";
+			} else {
+				imgPath = ge.getImageView();
+			}
+			if (ge instanceof Player) {
+				myControls = new Controls((Player) ge);
+				imgPath = "trump.gif";
+				ge.setSpeedFactor(1000);
+				ge.setMaxXVelocity(50);
+				ge.setMaxYVelocity(500);
+				ge.setFrictionConstant(200);
+				ge.setJumpFactor(75);
+			}
+			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath), ge.getSizeX() + 50,
+					ge.getSizeY() + 50, true, true));
+			// TODO: uncomment below once GAE sends us actual data
+			// if (ge.getClass().equals(new Player().getClass())) {
+			// myControls = new Controls((Player) ge);
+			// }
+			// ImageView entityImage = new ImageView(new
+			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
+			// ge.getSizeY(), true, true));
+
+			entityImage.setX(adjustXCord(ge.getPosition()[0]));
+			entityImage.setY(adjustYCord(ge.getPosition()[1]));
+			myDispMap.put(ge, entityImage);
+			myGP.getChildren().add(myDispMap.get(ge));
+		}
 	}
 
 	/**

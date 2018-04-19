@@ -17,16 +17,33 @@ import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import data.serialization.LevelSerializer;
 import engine.level.Level;
-
+/**
+ * 
+ * Creates authored levels to return to the Game Authoring Environment when a 
+ * game is going to be edited again.
+ * 
+ * @author Belanie Nagiel
+ *
+ */
 public class AuthoredLevelBuilder {
 	
 	private File levelFile;
 	
+	/**
+	 * Class Constructor
+	 * Takes in the level JSON file to be converted to an authored level
+	 * 
+	 * @param level
+	 */
 	public AuthoredLevelBuilder(File level) 
 	{
 		levelFile = level;
 	}
 	
+	/**
+	 * Returns an authored level made up of a Level object and a ScrollingGrid
+	 * @return
+	 */
 	public AuthoredLevel buildAuthoredLevel()
 	{
 		LevelBuilder levelBuilder = new LevelBuilder(levelFile);
@@ -37,6 +54,12 @@ public class AuthoredLevelBuilder {
 		return new AuthoredLevel(levelForAuthoredLevel, gridForAuthoredLevel);
 	}
 
+	/**
+	 * Creates the scrolling grid from the JSON array
+	 * 
+	 * @param levelFile
+	 * @return
+	 */
 	private ScrollingGrid retrieveScrollingGrid(File levelFile) 
 	{
 		JsonParser jsonParser = new JsonParser();
@@ -56,7 +79,7 @@ public class AuthoredLevelBuilder {
 					 "Could not find the file to load for AuthoredLevel",
 					    "File Reader Exception",
 				    JOptionPane.WARNING_MESSAGE);
-			
+			// TODO remove print stack trace
 			e.printStackTrace();
 		}
 		return scrollingGrid;

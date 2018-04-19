@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class KeyBindingWindow {
+	private final int MIN_WINDOW_WIDTH = 600;
 	private Stage myStage = new Stage();
     private BorderPane myView =  new BorderPane();
 //    private JSONtoObject reader = new GameFileReader();
@@ -26,7 +27,7 @@ public class KeyBindingWindow {
     
     public KeyBindingWindow(VoogaGameView gv){
         myGameView = gv;
-    	myView.setMinWidth(550);
+    	myView.setMinWidth(MIN_WINDOW_WIDTH);
         setUpStage();
     }
 
@@ -36,7 +37,7 @@ public class KeyBindingWindow {
     private void setUpStage(){
         myStage.setTitle("Change Key Bindings");
         //myStage.setMaximized(true);
-        myStage.setMinWidth(600);
+        myStage.setMinWidth(MIN_WINDOW_WIDTH);
         Scene scene = new Scene(this.displayChoices(),450,450);
         scene.getStylesheets().add("../data/styling/styleSheet.css");
         myStage.setScene(scene);
@@ -63,8 +64,10 @@ public class KeyBindingWindow {
                 @Override
                 public void handle(ActionEvent e) {
                 	//TODO: add error check to make sure there is actually a keyCode for what is passed in
-                	myGameView.changeBinding(propKey,KeyCode.valueOf(textField.getText().toString().toUpperCase()));
-                	displayChoices();
+                	if(textField.getText() != null && textField.getText() != "") {
+                		myGameView.changeBinding(propKey,KeyCode.valueOf(textField.getText().toString().toUpperCase()));
+                		//displayChoices();
+                	}
                 }
             });
         	tempContainer.getChildren().addAll(textField, change);

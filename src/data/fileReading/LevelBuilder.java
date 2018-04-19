@@ -25,6 +25,13 @@ import engine.entity.GameEntity;
 import engine.level.BasicLevel;
 import engine.level.Level;
 
+/**
+ * Creates levels to return to the Game Player when a 
+ * game is going to be played
+ * 
+ * @author belanie.nagiel
+ *
+ */
 public class LevelBuilder {
 
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
