@@ -6,7 +6,6 @@
 
 .list-cell {
     -fx-background-color: #d3d3d3;
-    /*linear-gradient(#ADF0F8 0%, #A3F1FA 25%, #94EFF9 75%, #90EEF9 100%);*/
     -fx-border-width: 2;
     -fx-border-color: #8a8a8a;
     -fx-font-weight: bold;
@@ -37,4 +36,5 @@
     -fx-background-color: linear-gradient(#d0d0d0 0%, #d7d7d7 100%);/*, #e7e7e7 85%, #efefef 100% -fx-border-insets: 1;*/
     -fx-border-width: 2;
     -fx-border-color: #8a8a8a;
+    -fx-spacing: 1;
 }

@@ -36,10 +36,9 @@ public class SaveScreen {
 		myStage.setTitle("Save My Progress");
 		myStage.setMinWidth(MIN_WINDOW_WIDTH);
 		Scene scene = new Scene(this.displayFields(), MIN_WINDOW_WIDTH, MIN_WINDOW_WIDTH);
-		scene.getStylesheets().add("../data/styling/styleSheet.css");
+		scene.getStylesheets().add("../data/styling/saveScreenStyle.css");
 		myStage.setScene(scene);
 		myStage.show();
-
 	}
 
 	/**
@@ -49,7 +48,9 @@ public class SaveScreen {
 	 */
 	private HBox displayFields() {
 		HBox hbox = new HBox();
+		hbox.getStyleClass().add("hbox");
 		myTextField = new TextField();
+		//myTextField.getStyleClass().add("text-field");
 		Button save = new Button("Save");
 		hbox.getChildren().addAll(myTextField, save);
 		setAction(save);
