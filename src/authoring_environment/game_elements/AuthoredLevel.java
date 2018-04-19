@@ -4,7 +4,10 @@ import authoring_environment.DocumentGetter;
 import authoring_environment.grid.ScrollingGrid;
 import engine.behavior.Behavior;
 import engine.entity.GameEntity;
+import engine.interaction.Interaction;
 import engine.level.Level;
+import engine.movement.Movement;
+import engine.powerup.PowerUp;
 import javafx.scene.layout.Background;
 import org.w3c.dom.Document;
 
@@ -86,7 +89,6 @@ public class AuthoredLevel implements DocumentGetter {
         String path = objectDoc.getDocumentElement().getAttribute("ImageFile");
         String type = objectDoc.getDocumentElement().getAttribute("GameEntity");
         String behavior = objectDoc.getDocumentElement().getAttribute("Behavior");
-        String imagePath = objectDoc.getDocumentElement().getAttribute("ImageFile");
         String interaction = objectDoc.getDocumentElement().getAttribute("Interaction");
         String movement = objectDoc.getDocumentElement().getAttribute("Movement");
         String powerup = objectDoc.getDocumentElement().getAttribute("PowerUp");
@@ -94,6 +96,14 @@ public class AuthoredLevel implements DocumentGetter {
         String weapon = objectDoc.getDocumentElement().getAttribute("Weapon");
 
         newEntity = createObject(type, x, y);
+        if (newEntity == null) {
+            return;
+        }
+        newEntity.setImageView(path);
+        createBehavior(behavior, newEntity);
+        newEntity.setMovementType(createMovement(movement));
+        newEntity.addInteraction(createInteraction(interaction));
+        // newEntity.addPowerUp(createPowerUp(powerup));
     }
 
     private GameEntity createObject(String type, double x, double y) {
@@ -108,11 +118,47 @@ public class AuthoredLevel implements DocumentGetter {
         }
     }
 
-    private Behavior createBehavior(String behavior, GameEntity entity) {
+    private void createBehavior(String behavior, GameEntity entity) {
         try {
             Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(GameEntity.class);
             behaviorConstructor.setAccessible(true);
-            return (Behavior) behaviorConstructor.newInstance(entity);
+            Behavior newBehavior = (Behavior) behaviorConstructor.newInstance(entity);
+            entity.addBehavior(newBehavior);
+        }
+        catch (Exception e) {
+            // TODO: handle this
+        }
+    }
+
+    private Movement createMovement(String movement) {
+        try {
+            Constructor<?> movementConstructor = Class.forName(ENTITY_PATH + movement).getConstructor();
+            movementConstructor.setAccessible(true);
+            return (Movement) movementConstructor.newInstance();
+        }
+        catch (Exception e) {
+            // TODO: handle this
+            return null;
+        }
+    }
+
+    private Interaction createInteraction(String interaction) {
+        try {
+            Constructor<?> interactionConstructor = Class.forName(ENTITY_PATH + interaction).getConstructor();
+            interactionConstructor.setAccessible(true);
+            return (Interaction) interactionConstructor.newInstance();
+        }
+        catch (Exception e) {
+            // TODO: handle this
+            return null;
+        }
+    }
+
+    private PowerUp createPowerUp(String powerup) {
+        try {
+            Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor();
+            powerupConstructor.setAccessible(true);
+            return (PowerUp) powerupConstructor.newInstance();
         }
         catch (Exception e) {
             // TODO: handle this
