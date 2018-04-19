@@ -118,15 +118,10 @@ public class GridCell extends HBox {
 	}
 
 	private void setupEvents() {
-		
 		this.setOnMouseClicked(e -> handleClicked());
-
 		this.setOnDragOver(this::handleDragOver);
-
 		this.setOnDragDropped(this::handleDragDropped);
-
 		this.setOnDragEntered(this::handleDragEntered);
-
 		this.setOnDragExited(this::handleDragExited);
 	}
 

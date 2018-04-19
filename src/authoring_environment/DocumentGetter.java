@@ -11,7 +11,7 @@ import java.io.File;
  * from any class. This code was appearing in several classes, and was refactored
  * to prevent code duplication.
  *
- * @author Michael Acker, Judith Sanchez, Julia Long
+ * @author Judith Sanchez, Julia Long
  */
 public interface DocumentGetter {
 

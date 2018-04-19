@@ -3,11 +3,6 @@ package authoring_environment.grid;
 import authoring_environment.DocumentGetter;
 import authoring_environment.game_elements.AuthoredLevel;
 
-import java.io.File;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 
 import javafx.scene.layout.ColumnConstraints;
