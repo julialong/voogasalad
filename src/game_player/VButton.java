@@ -20,7 +20,7 @@ public class VButton extends Button implements GamePlayerButton {
 	
 	private void setButtonAction() {
 		// TODO Auto-generated method stub
-		this.setOnAction((event) -> {
+		this.setOnMouseClicked((event) -> {
 		    // Button was clicked, do something...
 		    System.out.println(myCommand);
 		});
