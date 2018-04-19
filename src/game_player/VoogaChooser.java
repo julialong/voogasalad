@@ -9,9 +9,10 @@ import javafx.collections.FXCollections;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -102,8 +103,9 @@ public class VoogaChooser implements GameChooser {
 
     private VBox createText(){
         VBox container = new VBox();
-        Text title = new Text("Pick a game");
-        container.getChildren().add(title);
+        Image img = new Image("../data/styling/pick_game.png");
+        ImageView image = new ImageView(img);
+        container.getChildren().add(image);
         return container;
     }
 }
