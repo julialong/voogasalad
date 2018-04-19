@@ -16,7 +16,6 @@ public class SaveScreen {
 	private final int MIN_WINDOW_WIDTH = 600;
 	private List<Level> myLevels;
 	private String myName;
-	//private TextField myTextField;
 	private Stage myStage;
 
 	/**
@@ -60,6 +59,7 @@ public class SaveScreen {
              	if(textField.getText() != null && textField.getText() != "") {
              		String currName = textField.getText();
         			GameFileWriter gfw = new GameFileWriter(currName, myName);
+        			gfw.saveData(currName, myLevels);
         			myStage.close();
              	}
              }
@@ -67,27 +67,4 @@ public class SaveScreen {
 		hbox.getChildren().addAll(textField, save);
 		return hbox;
 	}
-
-	/**
-	 * Adds functionality to the save button. When clicked it should call the data
-	 * team's method that saves the state of the current game under the name of the
-	 * current player.
-	 * 
-	 * @param save
-	 */
-//	private void setAction(Button b) {
-//		if (myTextField.getText() != null && myTextField.getText() != "") {
-//			String currName = myTextField.getText();
-//			GameFileWriter gfw = new GameFileWriter(currName, myName);
-//			// TODO: confirm with data team that this is the correct API call
-//			b.setOnMouseClicked(e -> gfw.saveData(currName, myLevels));
-//			// TODO: Do we want the stage to close on save?
-//			System.out.println("Closing window...");
-//			myStage.close();
-//			System.out.println("...Window closed");
-//		} else {
-//			System.out.println("WARNING: NO USER NAME GIVEN");
-//		}
-//	}
-
 }
