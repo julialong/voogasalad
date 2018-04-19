@@ -65,18 +65,16 @@ public class LevelSerializer	{
 	private void writeGrid(FileWriter fw, ScrollingGrid grid)	{
 		TextWriter.startArray(fw, SG);
 
-		// for (int i = 0; i < grid.getCellArray().length; i++)	{
-		// 	TextWriter.startArray(fw, null);
-		// 	for (int j = 0; j < grid.getCellArray()[i].length; j++)	{
-		// 		// TODO: UNCOMMENT LINE BELOW
-		// 		//TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
-		// 		TextWriter.checkWriteComma(fw, j, grid.getCellArray()[i].length);
-		// 	}
-		// 	TextWriter.newLine(fw);
-		// 	TextWriter.closeArray(fw, i, grid.getCellArray().length);
-		// }
-
-		TextWriter.writeValue(fw, "grid");
+		for (int i = 0; i < grid.getCellArray().length; i++)	{
+			TextWriter.startArray(fw, null);
+			for (int j = 0; j < grid.getCellArray()[i].length; j++)	{
+				// TODO: UNCOMMENT LINE BELOW
+				//TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
+				TextWriter.checkWriteComma(fw, j, grid.getCellArray()[i].length);
+			}
+			TextWriter.newLine(fw);
+			TextWriter.closeArray(fw, i, grid.getCellArray().length);
+		}
 
 		TextWriter.closeArray(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}

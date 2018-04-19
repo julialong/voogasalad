@@ -22,19 +22,9 @@ import engine.level.BasicLevel;
 public class TestingWriting {
 
 	public static void main(String[] args) {
-		GameFileWriter myWriter = new GameFileWriter("TestGame");
+		GameFileWriter myWriter = new GameFileWriter("WithAL");
 
 		FileWriter fw;
-
-		try	{
-			JOptionPane.showMessageDialog(new JFrame(),
-					"cloud not wroe" + new FileWriter("blah").toString(),
-					new IOException().getClass().getSimpleName(),
-					JOptionPane.WARNING_MESSAGE);
-		}
-		catch (IOException e)	{
-
-		}
 
 		myWriter.saveIndivLevel(makeDummyObjects());
 		myWriter.saveData(makeDummyObjects());
