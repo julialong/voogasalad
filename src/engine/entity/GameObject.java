@@ -24,7 +24,7 @@ public abstract class GameObject implements GameEntity{
 	protected double height;
 	protected double sceneX;
 	protected double sceneY;
-	protected ImageView myImageView;
+	protected String myImagePath;
 	protected String myElementID;
 	protected ArrayList<Behavior> behaviorList = new ArrayList<>();
 	protected ArrayList<Interaction> interactionList = new ArrayList<>();
@@ -188,14 +188,14 @@ public abstract class GameObject implements GameEntity{
 		return positionArray;
 	}
 
-	public void setImageView(ImageView view) {
-		myImageView = view;
-		myImageView.setFitWidth(width);
-		myImageView.setFitHeight(height);
+	public void setImageView(String path) {
+		myImagePath = path;
+		//myImagePath.setFitWidth(width);
+		//myImagePath.setFitHeight(height);
 	}
 	
-	public ImageView getImageView() {
-		return myImageView;
+	public String getImageView() {
+		return myImagePath;
 	}
 
 	public void setElementID(String ID) {
