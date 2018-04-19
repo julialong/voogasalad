@@ -30,6 +30,8 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static final String SETTINGS = "Settings";
 	private static final String EXTENSION = ".json";
 
+	private String userDirectory;
+	private File userDirectoryFile;
 	private String gameDirectory;
 	private File gameDirectoryFile;
 	private String gameName;
@@ -39,10 +41,12 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Creates or loads the appropriate GameFile object for a game.
 	 * @param gameName
 	 */
-	public GameFileWriter(String gameName)	{
+	public GameFileWriter(String user, String gameName)	{
 		this.gameName = gameName;
-		gameDirectory = GAMEDATA + gameName;
-		gameDirectoryFile = retrieveGame();
+		userDirectory = GAMEDATA + user;
+		userDirectoryFile = retrieveFolder(userDirectory);
+		gameDirectory = userDirectory + NEST + gameName;
+		gameDirectoryFile = retrieveFolder(gameDirectory);
 	}
 
 	/**
@@ -122,13 +126,12 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		gameDirectory = tempGameDir;
 	}
 	
-	private File retrieveGame()	{
-		File gameFolder = new File(gameDirectory);
-		if (!gameExists(gameFolder))
-		{
-			makeNewGame(gameFolder);
+	private File retrieveFolder(String lookFor)	{
+		File folder = new File(lookFor);
+		if (!gameExists(folder))	{
+			makeNewGame(folder);
 		}
-		return gameFolder;
+		return folder;
 	}
 
 	private boolean gameExists(File gameFolder)	{
@@ -141,7 +144,9 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private void makeNewGame(File gameFolder)	{
 		gameFolder.mkdir();
 
-		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), false, "no description");
+		if (gameDirectory != null)	{
+			new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), false, "no description");
+		}
 	}
 
 	private File getLevel(Level level)	{
