@@ -45,10 +45,12 @@ public class LevelChooser extends VBox {
             Pane thisLevelChoice = new LevelChoice(level);
             thisLevelChoice.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
-                    if (e.isControlDown())
+                    if (e.isControlDown()) {
                         addRightClickButtonBehavior(thisLevelChoice, level);
-                    else
+                    }
+                    else {
                         addClickButtonBehavior(level);
+                    }
                 }
             });
             this.getChildren().add(thisLevelChoice);

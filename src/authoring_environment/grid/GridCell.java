@@ -2,13 +2,11 @@ package authoring_environment.grid;
 
 import org.w3c.dom.Document;
 
-import javafx.event.EventHandler;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -118,87 +116,58 @@ public class GridCell extends HBox {
 		myType = null;
 		deselect();
 	}
-	
+
 	private void setupEvents() {
-		GridCell myGridCell = this;
 		
-		myGridCell.setOnMouseClicked(event -> {
-            if(selected) {
-                deselect();
-            } else {
-                select();
-            }
-        });
+		this.setOnMouseClicked(e -> handleClicked());
 
-		myGridCell.setOnDragOver(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		        if (event.getGestureSource() != myGridCell &&
-		                event.getDragboard().hasString()) {
-		            event.acceptTransferModes(TransferMode.COPY);
-		        }
+		this.setOnDragOver(this::handleDragOver);
 
-		        event.consume();
-		    }
-		});
-		myGridCell.setOnDragDropped(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		        Dragboard db = event.getDragboard();
-		        boolean success = false;
-		        if (db.hasString()) {
-		           myGrid.setCellImage(myGridCell, db.getString());
-		           success = true;
-		        }
-		        event.setDropCompleted(success);
+		this.setOnDragDropped(this::handleDragDropped);
 
-		        event.consume();
-		     }
-		});
-		myGridCell.setOnDragEntered(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		         if (event.getGestureSource() != myGridCell &&
-		                 event.getDragboard().hasString()) {
-		        	 myGridCell.setStyle("-fx-background-color: #99ebff;");
-		         }
+		this.setOnDragEntered(this::handleDragEntered);
 
-		         event.consume();
-		    }
-		});
-		myGridCell.setOnDragExited(new EventHandler<DragEvent>() {
-									   public void handle(DragEvent event) {
-										   myGridCell.setStyle("-fx-background-color: transparent;");
-										   myGridCell.setStyle("-fx-border-color: black;");
-										   event.consume();
-									   }
+		this.setOnDragExited(this::handleDragExited);
+	}
 
-								   });
+	private void handleClicked() {
+		if(selected) {
+			deselect();
+		} else {
+			select();
+		}
+	}
 
-		myGridCell.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            if (db.hasImage()) {
-               myGrid.setCellImage(myGridCell, db.getString());
-               success = true;
-            }
-            event.setDropCompleted(success);
+	private void handleDragOver(DragEvent event) {
+		if (event.getGestureSource() != this &&
+				event.getDragboard().hasString()) {
+			event.acceptTransferModes(TransferMode.COPY);
+		}
+		event.consume();
+	}
 
-            event.consume();
-         });
+	private void handleDragEntered(DragEvent event) {
+		if (event.getGestureSource() != this &&
+				event.getDragboard().hasString()) {
+			this.setStyle("-fx-background-color: #99ebff;");
+		}
+		event.consume();
+	}
 
-		myGridCell.setOnDragEntered(event -> {
-             if (event.getGestureSource() != myGridCell &&
-                     event.getDragboard().hasImage()) {
-                 myGridCell.setStyle("-fx-background-color: #99ebff;");
-             }
+	private void handleDragExited(DragEvent event) {
+		this.setStyle("-fx-background-color: transparent;");
+		this.setStyle("-fx-border-color: black;");
+		event.consume();
+	}
 
-             event.consume();
-        });
-
-		myGridCell.setOnDragExited(event -> {
-            myGridCell.setStyle("-fx-background-color: transparent;");
-            myGridCell.setStyle("-fx-border-color: black;");
-
-            event.consume();
-        });
-		
+	private void handleDragDropped(DragEvent event) {
+		Dragboard db = event.getDragboard();
+		boolean success = false;
+		if (db.hasString()) {
+			myGrid.setCellImage(this, db.getString());
+			success = true;
+		}
+		event.setDropCompleted(success);
+		event.consume();
 	}
 }

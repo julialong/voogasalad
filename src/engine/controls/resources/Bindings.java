@@ -35,7 +35,7 @@ public class Bindings	{
 		in.close();
 		
 		FileOutputStream out = new FileOutputStream("src/engine/controls/resources/Controls.properties");
-		props.setProperty(action.getClass().getSimpleName(), key.getName());
+		props.setProperty(action.getClass().getSimpleName(), key.getName().toUpperCase());
 		props.store(out, null);
 		out.close();
 	}
