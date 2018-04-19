@@ -65,7 +65,6 @@ public class SaveScreen {
 	 */
 	private void setAction(Button save) {
 		Button saveButton = save;
-		
 		if (myTextField.getText() != null && myTextField.getText() != "") {
 			String currName = myTextField.getText();
 			GameFileWriter gfw = new GameFileWriter(currName, myName);
