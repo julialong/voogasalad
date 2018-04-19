@@ -1,5 +1,6 @@
 package authoring_environment.editor_windows;
 
+import authoring_environment.editor_windows.buttons.SaveGameButton;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -29,7 +30,6 @@ public class GameSaver implements MetaManager {
 
     private static final String CSS = "GAE.css";
     private static final String SAVE_GAME = "Save Game";
-
     private static final String CHOOSE = "Save your file:";
     private static final String NAME = "File name:";
     private static final String DESCRIPTION = "File description:";
@@ -91,16 +91,8 @@ public class GameSaver implements MetaManager {
     }
 
     private void addSaveButton() {
-        Button saveButton = new Button(SAVE_GAME);
-        saveButton.setOnAction(e -> {
-            myWindow.getGame().rename(fileName.getText());
-            myWindow.getGame().setDescription(fileDescription.getText());
-            myWindow.getGame().setPlayable(playableGame.isSelected());
-            myWindow.getGame().update();
-            myStage.close();
-            System.out.println("game saved:"+ myWindow.getGame().getName());
-        });
-        myRoot.getChildren().add(saveButton);
+        myRoot.getChildren().add(new SaveGameButton(myWindow, myStage, fileName.getText(),
+                fileDescription.getText(), playableGame.isSelected()));
     }
 
 }
