@@ -3,9 +3,12 @@ package game_player;
 import java.util.List;
 import data.gamefiles.GameFileWriter;
 import engine.level.Level;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -13,7 +16,6 @@ public class SaveScreen {
 	private final int MIN_WINDOW_WIDTH = 600;
 	private List<Level> myLevels;
 	private String myName;
-	private TextField myTextField;
 	private Stage myStage;
 
 	/**
@@ -49,32 +51,20 @@ public class SaveScreen {
 	 */
 	private HBox displayFields() {
 		HBox hbox = new HBox();
-		myTextField = new TextField();
+		TextField textField = new TextField();
 		Button save = new Button("Save");
-		setAction(save);
-		hbox.getChildren().addAll(myTextField, save);
+		save.setOnAction(new EventHandler<ActionEvent>() {
+			 @Override
+             public void handle(ActionEvent e) {
+             	if(textField.getText() != null && textField.getText() != "") {
+             		String currName = textField.getText();
+        			GameFileWriter gfw = new GameFileWriter(currName, myName);
+        			gfw.saveData(currName, myLevels);
+        			myStage.close();
+             	}
+             }
+		});
+		hbox.getChildren().addAll(textField, save);
 		return hbox;
 	}
-
-	/**
-	 * Adds functionality to the save button. When clicked it should call the data
-	 * team's method that saves the state of the current game under the name of the
-	 * current player.
-	 * 
-	 * @param save
-	 */
-	private void setAction(Button save) {
-		Button saveButton = save;
-		GameFileWriter gfw = new GameFileWriter("User1", myName);
-		if (myTextField.getText() != null && myTextField.getText() != "") {
-			String currName = myTextField.getText();
-			// TODO: confirm with data team that this is the correct API call
-			saveButton.setOnMouseClicked(e -> gfw.saveData(currName, myLevels));
-			// TODO: Do we want the stage to close on save?
-			System.out.println("Closing window...");
-			myStage.close();
-			System.out.println("...Window closed");
-		}
-	}
-
 }
