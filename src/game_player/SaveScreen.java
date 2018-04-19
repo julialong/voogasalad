@@ -65,7 +65,7 @@ public class SaveScreen {
 	 */
 	private void setAction(Button save) {
 		Button saveButton = save;
-		GameFileWriter gfw = new GameFileWriter(myName);
+		GameFileWriter gfw = new GameFileWriter("User1", myName);
 		if (myTextField.getText() != null && myTextField.getText() != "") {
 			String currName = myTextField.getText();
 			// TODO: confirm with data team that this is the correct API call
