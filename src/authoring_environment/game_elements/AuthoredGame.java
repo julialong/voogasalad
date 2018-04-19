@@ -42,7 +42,7 @@ public class AuthoredGame {
         myLevels = new ArrayList<>();
         Level tempLevel = new BasicLevel(0);
         currentLevel = new AuthoredLevel(tempLevel, new ScrollingGrid());
-        myGameWriter = new GameFileWriter(myName);
+        myGameWriter = new GameFileWriter("User2", myName);
         isReady = false;
     }
 

@@ -12,7 +12,7 @@ import engine.level.BasicLevel;
 public class TestingWriting {
 
 	public static void main(String[] args) {
-		GameFileWriter myWriter = new GameFileWriter("WithAL");
+		GameFileWriter myWriter = new GameFileWriter("User3","WithAL");
 
 		FileWriter fw;
 
