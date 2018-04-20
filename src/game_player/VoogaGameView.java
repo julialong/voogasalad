@@ -2,8 +2,11 @@ package game_player;
 
 import engine.level.Level;
 import game_player_api.GameView;
+import heads_up_display.HeadsUpDisplay;
+import heads_up_display.Hud;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -46,6 +49,8 @@ public class VoogaGameView implements GameView {
 	// parts
 	private Pane myGP;
 	private Controls myControls;
+	private HeadsUpDisplay hud;
+	private Point2D timer = new Point2D(0,0);
 
 	/**
 	 * Creates a grid pane. initializes event listeners
@@ -55,6 +60,7 @@ public class VoogaGameView implements GameView {
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
 		myGP = new Pane();
+		setUpHud();
 		initDisplayMap();
 	}
 
@@ -142,14 +148,13 @@ public class VoogaGameView implements GameView {
 		if (myGameStatus) {
 			myGameLevels.get(myCurrLevel).update();
 			displayObjects();
+			updateHud(elapsedTime);
 		}
 	}
 
 	/**
 	 * Displays the already updated objects that have been determined to be in
 	 * bounds.
-	 * 
-	 * @param toDisplay
 	 */
 	private void displayObjects() {
 		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
@@ -220,5 +225,29 @@ public class VoogaGameView implements GameView {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+
+	/**
+	 * Sets up the heads up display for the game view
+	 * multiple components can be added
+	 */
+	private void setUpHud(){
+		System.out.println(myGP.getLayoutX() + "    " + myGP.getLayoutY());
+		hud = new Hud();
+		//hud.setBindings(myGP.widthProperty(), myGP.heightProperty());
+		timer = new Point2D(0,hud.addComponent(Double.toString(timer.getX())));
+		myGP.getChildren().add(hud.getHUD());
+	}
+
+	/**
+	 * Updates the heads up display during every step
+	 * to make sure important information is kept accurate.
+	 */
+	private void updateHud(Double elapsedTime){
+		timer = timer.add(elapsedTime,0);
+		int minutes = (int)timer.getX() / 60;
+		double seconds = timer.getX() % 60;
+		String output = String.format("%d:%.1f", minutes, seconds);
+		hud.updateComponent((int)timer.getY(),output);
 	}
 }

@@ -1,5 +1,6 @@
 package heads_up_display;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.SubScene;
 
 /**
@@ -45,4 +46,12 @@ public interface HeadsUpDisplay {
      * whose new value is set by the string
      */
     public void updateComponent(int ID, String newValue);
+
+    /**
+     * Sets the bindings of the heads up display to be able to
+     * grow when added to pane objects. The parameters should
+     * correspond to the width and height properties from the
+     * pane object.
+     */
+    public void setBindings(ReadOnlyDoubleProperty width, ReadOnlyDoubleProperty height);
 }

@@ -1,5 +1,7 @@
 package heads_up_display;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
@@ -16,6 +18,8 @@ public class Hud implements HeadsUpDisplay {
     private Group root;
     private Map<Integer, Component> components;
     private int counter;
+    private DoubleProperty width;
+    private DoubleProperty height;
 
     /**
      * No argument constructor, the width and height of the
@@ -64,21 +68,27 @@ public class Hud implements HeadsUpDisplay {
 
 
     /**
-     * Adds the component string into the heads up display
-     * Returns an ID which corresponds to the component in the heads up display,
-     * used for updating this particular component
+     * Simpler version of add component with only a string value.
+     * This call the other addComponent method with parameters
+     * (value, 0, 0). This translates to placing the component at
+     * (0,0). Look to other method for more specific documentation.
      */
     @Override
     public int addComponent(String value) {
-        return addComponent(value, (int)displayBoard.getWidth()/2, (int)displayBoard.getHeight()/2);
+        return addComponent(value, 20, 20);
     }
 
 
     /**
-     * Adds the component string into the heads up display
-     * and return the unique ID corresponding to the component
-     * Parameters for the x and y coordinate will designate
-     * where in the subscene the component is add.
+     * Adds the component to the heads up display with specific coordinates.
+     * If no coordinates are specified the placement defaults to (0,0).
+     * An integer is returned which holds the unique ID for this specific component.
+     * The matching ID is required in order to update the component.
+     *
+     * @param value String text to display on the HUD
+     * @param x The x-coordinate of the hud component
+     * @param y The y-coordinate of the hud component
+     * @return int The unique ID that is REQUIRED to update this component
      */
     @Override
     public int addComponent(String value, int x, int y){
@@ -100,19 +110,26 @@ public class Hud implements HeadsUpDisplay {
         components.get(ID).setComponent(newValue);
     }
 
+    /**
+     * Sets the bindings of the heads up display to be able to
+     * grow when added to pane objects. The parameters should
+     * correspond to the width and height properties from the
+     * pane object.
+     */
+    @Override
+    public void setBindings(ReadOnlyDoubleProperty paneWidth, ReadOnlyDoubleProperty paneHeight) {
+        width.bind(paneWidth);
+        height.bind(paneHeight);
+    }
+
 
     /**
      * Removes the component from the heads up display
      * Requires the unique ID which in order to remove the
      * component which has that same ID
-     *
-     * @param ID
      */
     @Override
     public void removeComponent(int ID) {
         components.remove(ID);
     }
-
-
-
 }
