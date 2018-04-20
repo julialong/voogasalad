@@ -2,6 +2,8 @@ package authoring_environment;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -38,7 +40,7 @@ public class CustomElementSaver {
 	 * @throws TransformerException
 	 */
 
-	public CustomElementSaver(GameElement gameElement, String id, HashMap<String, String> attributes, String imageFile) throws TransformerException{
+	public CustomElementSaver(GameElement gameElement, String id, Map<String, String> attributes, String imageFile) throws TransformerException{
 		elementID= id;
 
 		try {
@@ -51,7 +53,7 @@ public class CustomElementSaver {
 		
 	}
 	
-	private void updateAttributes(HashMap<String, String> attributes, String imageFile) throws TransformerException {
+	private void updateAttributes(Map<String, String> attributes, String imageFile) throws TransformerException {
 		Element customElement = doc.createElement("Attributes");
 		doc.appendChild(customElement);
 		for(String attribute: attributes.keySet()) {

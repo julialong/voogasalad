@@ -54,15 +54,16 @@ public class SaveScreen {
 		TextField textField = new TextField();
 		Button save = new Button("Save");
 		save.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				if(textField.getText() != null && textField.getText() != "") {
-					String currName = textField.getText();
-					GameFileWriter gfw = new GameFileWriter(currName, myName);
-					gfw.saveData(currName, myLevels);
-					myStage.close();
-				}
-			}
+			 @Override
+             public void handle(ActionEvent e) {
+             	if(textField.getText() != null && textField.getText() != "") {
+             		String currName = textField.getText();
+        			GameFileWriter gfw = new GameFileWriter("Playing", myName + "_" + currName);
+        			gfw.saveData(currName, myLevels);
+        			gfw.updateMeta(true, "game being played by " + currName, 0);	// TODO: change 0 to level player wants so end at
+        			myStage.close();
+             	}
+             }	
 		});
 		hbox.getChildren().addAll(textField, save);
 		return hbox;
