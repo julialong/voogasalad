@@ -35,16 +35,6 @@ public class VoogaGameItem extends Label implements GameItem {
     }
 
     /**
-     * This method may be automatically defined for all
-     * GameItem objects, but the difference is dependent on
-     * how the GameItem was created
-     */
-    @Override
-    public void actionOnClick() {
-
-    }
-
-    /**
      * Sets up the Game view application environment
      * with the specific game that this item represents
      */
@@ -56,7 +46,6 @@ public class VoogaGameItem extends Label implements GameItem {
         } catch(NullPointerException e){
             gameView = new PlayerView();
         }
-
         VController gameController = new VController(gameView);
         Scene scene = new Scene(gameView);
         scene.getStylesheets().add("styleSheet.css");

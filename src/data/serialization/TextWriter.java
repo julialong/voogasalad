@@ -32,6 +32,7 @@ public class TextWriter	{
 
 	private static final String DESCRIPTION = "description";
 	private static final String READYTOPLAY = "readyToPlay";
+	private static final String LEVELSTART = "startLevel";
 
 	private Serializer ser = new Serializer();
 
@@ -42,8 +43,8 @@ public class TextWriter	{
 	 * @param ready		whether game is ready or not
 	 * @param desc		description of game
 	 */
-	public TextWriter(File settings, boolean ready, String desc)	{
-		callWrite(settings, ready, desc);
+	public TextWriter(File settings, boolean ready, String desc, int levelStart)	{
+		callWrite(settings, ready, desc, levelStart);
 	}
 
 	/**
@@ -56,12 +57,12 @@ public class TextWriter	{
 		callWrite(level, levelF);
 	}
 
-	private void callWrite(File settings, boolean ready, String desc)	{
+	private void callWrite(File settings, boolean ready, String desc, int levelStart)	{
 		try	{
 			FileWriter fw = new FileWriter(settings);
 		
 			startFile(fw);
-			writeSettings(fw, ready, desc);
+			writeSettings(fw, ready, desc, levelStart);
 			endFile(fw);
 		}
 		catch (IOException e)	{
@@ -89,12 +90,15 @@ public class TextWriter	{
 		}
 	}
 
-	private void writeSettings(FileWriter fw, boolean ready, String desc)	{
+	private void writeSettings(FileWriter fw, boolean ready, String desc, int levelStart)	{
 		try	{
 			fw.write(QUOTE + DESCRIPTION + QUOTE + COLON + QUOTE + desc + QUOTE);
 			fw.write(COMMA);
 			newLine(fw);
 			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + ready);
+			fw.write(COMMA);
+			newLine(fw);
+			fw.write(QUOTE + LEVELSTART + QUOTE + COLON + levelStart);
 			newLine(fw);
 		}
 		catch (IOException e)	{

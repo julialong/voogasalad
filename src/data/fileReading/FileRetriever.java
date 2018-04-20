@@ -62,7 +62,10 @@ public class FileRetriever {
 		List<String> allGamePaths = retrieveAllGamePaths();
 		for(String gamePath: allGamePaths)
 		{
-			if(gamePath.contains(gameName))
+			String regexStart = "^";
+			String regexAny = ".*";
+			String regexEnd = "$";
+			if(gamePath.matches(regexStart + regexAny + gameName + regexEnd))
 			{
 				return gamePath;
 			}	
