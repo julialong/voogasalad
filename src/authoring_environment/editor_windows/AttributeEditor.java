@@ -13,6 +13,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -55,14 +56,12 @@ public class AttributeEditor {
 	private static final int LARGE_FONT = 20;
 
 	private GameElement gameElement;
-	private HashMap<String, List<String>> attributes;
+	private Map<String, List<String>> attributes;
 	private List<ComboBox<String>> attributeBoxes;
-	private HashMap<String, String> chosenAttributes; 
-	private BorderPane myRoot;
+	private Map<String, String> chosenAttributes; 
 	private VBox myAttributePane;
 	private VBox myImagePane;
 	private HBox myTitlePane;
-	private FileChooser filechooser;
 	private ImageView image;
 	private Stage window;
 
@@ -78,7 +77,7 @@ public class AttributeEditor {
 		
 	}
 
-	private HashMap<String, List<String>> loadAttributes() {
+	private Map<String, List<String>> loadAttributes() {
 		HashMap<String, List<String>> attributes = new HashMap<>();
 		ResourceBundle resources = ResourceBundle.getBundle(ATTRIBUTE_RESOURCES);
 		Enumeration<String> attributeOptions = resources.getKeys();
@@ -99,7 +98,7 @@ public class AttributeEditor {
 		return attributes;
 	}
 
-	private void makeComboBoxList(HashMap<String, List<String>> attributes) {
+	private void makeComboBoxList(Map<String, List<String>> attributes) {
 		attributeBoxes = new ArrayList<>();
 		Set<String> categories = new HashSet<>(attributes.keySet());
 		for (String category : categories) {
@@ -118,7 +117,7 @@ public class AttributeEditor {
 	}
 	
 	private void setUpEditorWindow() {
-		myRoot= new BorderPane();
+		BorderPane myRoot= new BorderPane();
 		myRoot.getStyleClass().add("attribute-editor");
 		myAttributePane = new VBox();
 		myImagePane= new VBox();
@@ -162,7 +161,7 @@ public class AttributeEditor {
 	
 	private void organizeEditor() {
 		setUpInputBox();
-		for(ComboBox attributeBox: attributeBoxes) {
+		for(ComboBox<String> attributeBox: attributeBoxes) {
 			myAttributePane.getChildren().add(attributeBox);
 		}
 		
@@ -178,7 +177,7 @@ public class AttributeEditor {
 	public void openFileChooser() throws MalformedURLException {
 		myImagePane.getChildren().remove(image);
 		Stage fileWindow= new Stage();
-		filechooser = new FileChooser();
+		FileChooser filechooser = new FileChooser();
 		filechooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
 		File file= filechooser.showOpenDialog(fileWindow);

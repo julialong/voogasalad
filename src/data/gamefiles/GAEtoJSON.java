@@ -27,6 +27,14 @@ public interface GAEtoJSON	{
 	void updateMeta(boolean ready, String desc);
 
 	/**
+	 * Will change settings file mapping to whether game is ready to play or not
+	 * @param ready			value to change readiness of game to
+	 * @param desc			new description of game
+	 * @param levelStart	level to start at
+	 */
+	void updateMeta(boolean ready, String desc, int levelStart);
+
+	/**
 	 * Method that allows for changes to be reverted to last saved version of game, if user decides to entirely scrap their updats
 	 * @param level	level to revert info for
 	 */

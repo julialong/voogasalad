@@ -63,10 +63,22 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	/**
 	 * Will change settings file mapping to whether game is ready to play or not
 	 * @param ready		value to change readiness of game to
+	 * @param desc		description of game
 	 */
 	@Override
 	public void updateMeta(boolean ready, String desc)	{
-		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), ready, desc);
+		updateMeta(ready, desc, 0);
+	}
+
+	/**
+	 * Will change settings file mapping to whether game is ready to play or not
+	 * @param ready			value to change readiness of game to
+	 * @param desc			description of game
+	 * @param levelStart	level to start game at
+	 */
+	@Override
+	public void updateMeta(boolean ready, String desc, int levelStart)	{
+		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), ready, desc, levelStart);
 	}
 
 	/**
@@ -145,7 +157,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		gameFolder.mkdir();
 
 		if (gameDirectory != null)	{
-			new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), false, "no description");
+			new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), true, "no description", 0);
 		}
 	}
 
