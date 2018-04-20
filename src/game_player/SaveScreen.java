@@ -38,10 +38,9 @@ public class SaveScreen {
 		myStage.setTitle("Save My Progress");
 		myStage.setMinWidth(MIN_WINDOW_WIDTH);
 		Scene scene = new Scene(this.displayFields(), MIN_WINDOW_WIDTH, MIN_WINDOW_WIDTH);
-		scene.getStylesheets().add("../data/styling/styleSheet.css");
+		scene.getStylesheets().add("../data/styling/saveScreenStyle.css");
 		myStage.setScene(scene);
 		myStage.show();
-
 	}
 
 	/**
@@ -51,6 +50,7 @@ public class SaveScreen {
 	 */
 	private HBox displayFields() {
 		HBox hbox = new HBox();
+		hbox.getStyleClass().add("hbox");
 		TextField textField = new TextField();
 		Button save = new Button("Save");
 		save.setOnAction(new EventHandler<ActionEvent>() {
@@ -63,9 +63,10 @@ public class SaveScreen {
         			gfw.updateMeta(true, "game being played by " + currName, 0);	// TODO: change 0 to level player wants so end at
         			myStage.close();
              	}
-             }
+             }	
 		});
 		hbox.getChildren().addAll(textField, save);
 		return hbox;
 	}
+
 }
