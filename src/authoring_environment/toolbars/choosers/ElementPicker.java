@@ -20,9 +20,12 @@ import javafx.scene.layout.GridPane;
  */
 
 public class ElementPicker {
-	private static final int ELEMENT_SIZE = 40;
 	private static final int MAX_GRID_COLUMN_INDEX = 2;
-	
+	private static final int PADDING  = 19;
+	private static final int MIN_HEIGHT = 300;
+	private static final int MAX_WIDTH = 200;
+	private static final int GAP = 20;
+
 	private GridPane myElementGrid;
 	private ScrollPane myScrollPane;
 	private ArrayList<ImageView> myElementImages;
@@ -32,11 +35,11 @@ public class ElementPicker {
 		
 		myElementGrid = new GridPane();
 		myScrollPane = new ScrollPane(myElementGrid);
-		myScrollPane.setMinHeight(300);
-		myScrollPane.setMaxWidth(200);
-		myElementGrid.setPadding(new Insets(19,19,19,19));
-		myElementGrid.setHgap(20);
-		myElementGrid.setVgap(20);
+		myScrollPane.setMinHeight(MIN_HEIGHT);
+		myScrollPane.setMaxWidth(MAX_WIDTH);
+		myElementGrid.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
+		myElementGrid.setHgap(GAP);
+		myElementGrid.setVgap(GAP);
 		myElementImages = new ArrayList<ImageView>();
 		updateTypeChoice();
 		loadImages(myTypeChoice);
@@ -49,8 +52,8 @@ public class ElementPicker {
 	}
 	
 	private void loadImages(String type) {
-		File folder = new File("./data/" + type);
-		String[] imageExtensions = new String[]{".jpg", ".jpeg", ".png", ".gif"};
+		File folder = new File("./data/authoredElementData/");
+		String[] imageExtensions = new String[]{".xml"};
 		File[] imageFiles = folder.listFiles((folder1, name) -> {
             for (String extension : imageExtensions) {
                 if (name.endsWith(extension)) {
@@ -60,8 +63,9 @@ public class ElementPicker {
             return (false);
         });
 		for(File file : imageFiles) {
-			Image image = new Image("file:data/" + myTypeChoice + "/" + file.getName(), 40, 40, true, true);
-			PickableElement element = new PickableElement(image, myTypeChoice, file.getName());
+			String fileName = file.getName();
+			String ID = fileName.substring(0, fileName.lastIndexOf('.'));
+			PickableElement element = new PickableElement(ID);
 			myElementImages.add(element);
 		}
 		
@@ -69,7 +73,7 @@ public class ElementPicker {
 	
 	private void updateTypeChoice() {
 		//TODO: Load type choice from combo box
-		myTypeChoice = "ExampleElementPictures";
+		myTypeChoice = "Block";
 	}
 	
 	private void setElements() {

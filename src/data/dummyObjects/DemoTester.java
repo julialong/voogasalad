@@ -20,7 +20,7 @@ public class DemoTester {
 	public static void main(String[] args) {
 		
 		//Writing
-		GameFileWriter gameForDemo = new GameFileWriter("DemoGame");
+		GameFileWriter gameForDemo = new GameFileWriter("User3","DemoGame");
 		
 		Map<Level, List<GameEntity>> objsOrganized = new HashMap<>();
 		List<GameEntity> objsToWrite = new ArrayList<>();

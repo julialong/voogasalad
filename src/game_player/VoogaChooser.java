@@ -1,7 +1,7 @@
 package game_player;
 
-import data.gamefiles.GameFileReader;
-import data.gamefiles.JSONtoObject;
+import data.fileReading.GPGameFileReader;
+import data.fileReading.JSONtoGP;
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
 
@@ -24,7 +24,7 @@ import java.util.Map;
 public class VoogaChooser implements GameChooser {
     private Stage myStage;
     private BorderPane myView =  new BorderPane();
-    private JSONtoObject reader = new GameFileReader();
+    private JSONtoGP reader = new GPGameFileReader();
     private ListView<GameItem> playableGames = new ListView<>();
 
 

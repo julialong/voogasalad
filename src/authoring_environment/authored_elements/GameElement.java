@@ -1,6 +1,7 @@
 package authoring_environment.authored_elements;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.transform.TransformerException;
 
@@ -20,10 +21,8 @@ import authoring_environment.authored_elements.AuthoredElement;
 public class GameElement implements AuthoredElement {
 	
 	private String elementID;
-	private double xLocation;
-	private double yLocation;
-	
-	private HashMap<String, String> attributes;
+
+	private Map<String, String> attributes;
 	private String imageFile;
 	
 	/**
@@ -42,7 +41,7 @@ public class GameElement implements AuthoredElement {
 		
 	}
 
-	public void updateAttributes(HashMap<String, String> newAttributes) {
+	public void updateAttributes(Map<String, String> newAttributes) {
 		attributes = newAttributes;
 		try {
 			CustomElementSaver saver = new CustomElementSaver(this, elementID, newAttributes, imageFile);
