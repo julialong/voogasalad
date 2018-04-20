@@ -215,15 +215,12 @@ public class VoogaGameView implements GameView {
 	 */
 	public void changeBinding(String propKey, KeyCode keyCode) {
 		try {
+			//TODO: Fix this deprecated code eventually
 			Object instance = Class.forName("engine.controls."+propKey).newInstance();
 			Action a = (Action) instance;
 			myControls.setBinding(keyCode, a);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Key binding failed!");
 		}
 	}
 
@@ -232,9 +229,7 @@ public class VoogaGameView implements GameView {
 	 * multiple components can be added
 	 */
 	private void setUpHud(){
-		System.out.println(myGP.getLayoutX() + "    " + myGP.getLayoutY());
 		hud = new Hud();
-		//hud.setBindings(myGP.widthProperty(), myGP.heightProperty());
 		timer = new Point2D(0,hud.addComponent(Double.toString(timer.getX())));
 		myGP.getChildren().add(hud.getHUD());
 	}
