@@ -43,7 +43,6 @@ public class LevelCreator {
     private BorderPane myRoot;
     private AuthoredLevel newLevel;
     private CreatorView myWindow;
-
     private Pane right;
     private Pane center;
 

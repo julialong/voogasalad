@@ -2,6 +2,8 @@ package authoring_environment.toolbars.choosers;
 
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
+import authoring_environment.grid.ScrollingGrid;
+import engine.level.BasicLevel;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
@@ -61,6 +63,9 @@ public class LevelChooser extends ListView<AuthoredLevel> {
                     }
                 });
                 }
+            else {
+                setText("");
+            }
             }
         }
 
@@ -79,6 +84,6 @@ public class LevelChooser extends ListView<AuthoredLevel> {
 
     private void setDeleteBehavior(AuthoredLevel level) {
         myWindow.getGame().removeLevel(level);
+        myScrollPane.setContent(new ScrollingGrid());
     }
-
 }

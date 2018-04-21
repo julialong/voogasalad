@@ -27,7 +27,6 @@ public class AuthoredGame {
     private String myName;
     private String myDescription;
     private ObservableList<AuthoredLevel> myLevels;
-    //private List<AuthoredLevel> myLevels;
     private AuthoredLevel currentLevel;
     private GAEtoJSON myGameWriter;
     private boolean isReady;
@@ -170,7 +169,7 @@ public class AuthoredGame {
      */
     public void update() {
         try {
-            // myGameWriter.update(myLevels);
+            myGameWriter.update(myLevels);
             myGameWriter.updateMeta(isReady, myDescription);
             System.out.println("level saved");
         }
