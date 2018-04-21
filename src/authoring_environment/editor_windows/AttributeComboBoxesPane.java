@@ -25,11 +25,11 @@ public class AttributeComboBoxesPane {
 	 * @param attributes
 	 * @param chosenAttributes
 	 */
-	public AttributeComboBoxesPane(Map<String, List<String>> attributes, Map<String, String> chosenAttributes) {
-		attributeBoxes = makeComboBoxList(attributes, chosenAttributes);
+	public AttributeComboBoxesPane(Map<String, List<String>> attributes, AttributeEditor editor) {
+		attributeBoxes = makeComboBoxList(attributes, editor );
 	}
 	
-	private List<ComboBox<String>> makeComboBoxList(Map<String, List<String>> attributes,  Map<String, String> chosenAttributes) {
+	private List<ComboBox<String>> makeComboBoxList(Map<String, List<String>> attributes,  AttributeEditor editor) {
 		List<ComboBox<String>> boxes = new ArrayList<>();
 		Set<String> categories = new HashSet<>(attributes.keySet());
 		for (String category : categories) {
@@ -38,7 +38,7 @@ public class AttributeComboBoxesPane {
 			attributeBox.getSelectionModel().select(category);
 			attributeBox.getStyleClass().add("combobox");
 			attributeBox.setOnAction(e -> {try {
-				updateAttribute(category, attributeBox.getValue(), chosenAttributes);
+				editor.updateAttribute(category, attributeBox.getValue() );
 			} catch (TransformerException e1) {
 				// TODO Handle this exception
 				e1.printStackTrace();
@@ -55,10 +55,5 @@ public class AttributeComboBoxesPane {
 	public List<ComboBox<String>> getAttributeBoxes(){
 		return attributeBoxes;
 	}
-	
-	private void updateAttribute(String category, String chosenAttribute,  Map<String, String> chosenAttributes) throws TransformerException {
-		chosenAttributes.put(category, chosenAttribute);
-	}
-	
 	
 }
