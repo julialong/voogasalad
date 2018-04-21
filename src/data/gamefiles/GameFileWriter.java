@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
 import data.fileReading.GAEGameFileReader;
+import data.resources.DataFileException;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import data.serialization.TextWriter;
@@ -111,10 +112,11 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Cancels any edits made to a game since last save
 	 * @param level	level to cancel changes to
 	 * @return	new, replacement instance of level
+	 * @throws DataFileException 
 	 */
 	@Override
 	@Deprecated
-	public Level revertChanges(Level level)	{
+	public Level revertChanges(Level level) throws DataFileException	{
 		GAEGameFileReader reader = new GAEGameFileReader();
 		String levelName = level.getName();
 		return reader.loadAuthoredGameLevel(gameName, levelName).getLevel();
@@ -124,9 +126,10 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Cancels any edits made to a game since last save
 	 * @param level	level to cancel changes to
 	 * @return new, replacement instance of level
+	 * @throws DataFileException 
 	 */
 	@Override
-	public AuthoredLevel revertChanges(AuthoredLevel level)	{
+	public AuthoredLevel revertChanges(AuthoredLevel level) throws DataFileException	{
 		GAEGameFileReader reader = new GAEGameFileReader();
 		String levelName = level.getName();
 		return reader.loadAuthoredGameLevel(gameName, levelName);

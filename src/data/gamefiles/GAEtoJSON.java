@@ -1,6 +1,7 @@
 package data.gamefiles;
 
 import authoring_environment.game_elements.AuthoredLevel;
+import data.resources.DataFileException;
 import engine.level.Level;
 
 import java.util.List;
@@ -34,15 +35,17 @@ public interface GAEtoJSON	{
 	/**
 	 * Method that allows for changes to be reverted to last saved version of game, if user decides to entirely scrap their updats
 	 * @param level	level to revert info for
+	 * @throws DataFileException 
 	 */
 	@Deprecated
-	Level revertChanges(Level level);
+	Level revertChanges(Level level) throws DataFileException;
 
 	/**
 	 * Method that allows for changes to be reverted to last saved version of game, if user decides to entirely scrap their updats
 	 * @param level	level to revert info for
+	 * @throws DataFileException 
 	 */
-	AuthoredLevel revertChanges(AuthoredLevel level);
+	AuthoredLevel revertChanges(AuthoredLevel level) throws DataFileException;
 
 	/**
 	 * Method to rename a game (folder)
