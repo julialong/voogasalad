@@ -1,7 +1,11 @@
 package engine.controls;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
+import engine.controls.resources.Bindings;
 import engine.entity.Player;
 import javafx.scene.input.KeyCode;
 /**
@@ -11,7 +15,9 @@ import javafx.scene.input.KeyCode;
 public class Controls {
 	private Player player;
 	private Map<KeyCode, Action> keyBindings = new HashMap<>();
+	private ArrayList<KeyCode> pressedKeys = new ArrayList<>();
 	private boolean allowJump = true;
+	private Bindings bindingsToFile = new Bindings();;
 
 	/**
 	 * Default key bindings:<br>
@@ -24,26 +30,25 @@ public class Controls {
 	 * @param player
 	 */
 	public Controls(Player player){
-		this(player, KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.SPACE, KeyCode.P);
-	}
-
-	public Controls(Player player, KeyCode up, KeyCode down, KeyCode left, KeyCode right, KeyCode jump, KeyCode attac){
 		this.player = player;
-		keyBindings.put(up, new MoveUp());
-		keyBindings.put(down, new MoveDown());
-		keyBindings.put(left, new MoveLeft());
-		keyBindings.put(right, new MoveRight());
-		keyBindings.put(jump, new Jump());
-		keyBindings.put(attac, new Attack());
+		keyBindings.put(bindingsToFile.getKey("MoveUp"), new MoveUp());
+		keyBindings.put(bindingsToFile.getKey("MoveDown"), new MoveDown());
+		keyBindings.put(bindingsToFile.getKey("MoveLeft"), new MoveLeft());
+		keyBindings.put(bindingsToFile.getKey("MoveRight"), new MoveRight());
+		keyBindings.put(bindingsToFile.getKey("Jump"), new Jump());
+		keyBindings.put(bindingsToFile.getKey("Attack"), new Attack());
 	}
 
 	/**
 	 * Sets the binding of KeyCode to Action class
 	 * @param key - the KeyCode
 	 * @param action - associated instance of action class
+	 * @throws IOException 
 	 */
-	public void setBinding(KeyCode key, Action action){
+	public void setBinding(KeyCode key, Action action) throws IOException{
+		keyBindings.remove(key);
 		keyBindings.put(key, action);
+		bindingsToFile.updatePropertiesFile(key, action);
 	}
 
 	/**
@@ -51,6 +56,10 @@ public class Controls {
 	 * @param key - the KeyCode
 	 */
 	public void activate(KeyCode key) {
+		//System.out.println("Activate: " + key.getName());
+		if(!pressedKeys.contains(key)) {
+			pressedKeys.add(key);
+		}	
 		if(keyBindings.keySet().contains(key)) {
 			if(keyBindings.get(key) instanceof Jump) {
 				if(allowJump) {
@@ -68,11 +77,26 @@ public class Controls {
 	 * Stops the player from accelerating. Likely needs some work.
 	 */
 	public void deactivate(KeyCode key) {
+		//System.out.println("Deactivate: " + key.getName());
+		pressedKeys.remove(key);
 		if(keyBindings.get(key) instanceof Jump) {
 			allowJump = true;
 		}
 		else {
-			new Stop().execute(player);
+			if(pressedKeys.isEmpty()) {
+				new Stop().execute(player);
+				//System.out.println("Stop");
+			}
+			else {
+				if((keyBindings.get(pressedKeys.get(0)) instanceof Jump)){
+					new Stop().execute(player);
+					//System.out.println("Stop");
+				}
+				else {
+					activate(pressedKeys.get(0));
+					//System.out.println("activate: " + pressedKeys.get(0).getName());
+				}
+			}
 		}
 	}
 }

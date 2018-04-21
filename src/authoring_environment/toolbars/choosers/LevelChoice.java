@@ -1,12 +1,8 @@
 package authoring_environment.toolbars.choosers;
 
-import engine.level.Level;
-import javafx.geometry.Insets;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import authoring_environment.game_elements.AuthoredLevel;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 
 /**
@@ -24,7 +20,7 @@ public class LevelChoice extends HBox{
      * Creates a new LevelChoice object
      * @param level
      */
-    public LevelChoice(Level level) {
+    public LevelChoice(AuthoredLevel level) {
         super();
         setStyle();
         // TODO: add level icon to object

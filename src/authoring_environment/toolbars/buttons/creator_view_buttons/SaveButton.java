@@ -1,6 +1,8 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-import authoring_environment.AuthoredGame;
+import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.editor_windows.LevelSaver;
+import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.editor_windows.GameSaver;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -16,7 +18,7 @@ import javafx.scene.control.MenuItem;
  */
 public class SaveButton extends MenuButton {
 
-    private AuthoredGame myGame;
+    private CreatorView myWindow;
 
     private static final String SAVE = "Save";
     private static final String GAME = "Game";
@@ -25,22 +27,21 @@ public class SaveButton extends MenuButton {
     /**
      * Creates a simple Save menu button with the appropriate drop down items
      */
-    public SaveButton(AuthoredGame game) {
+    public SaveButton(CreatorView window) {
         super(SAVE);
-        myGame = game;
+        myWindow = window;
         this.getItems().addAll(createGameItem(), createLevelItem());
     }
 
     private MenuItem createGameItem() {
         MenuItem gameItem = new MenuItem(GAME);
-        gameItem.setOnAction(e -> new GameSaver(myGame));
+        gameItem.setOnAction(e -> new GameSaver(myWindow));
         return gameItem;
     }
 
     private MenuItem createLevelItem() {
         MenuItem levelItem = new MenuItem(LEVEL);
-        // TODO: open level saver when menu item is clicked
-        // gameItem.setOnAction(e -> new LevelSaver());
+        levelItem.setOnAction(e -> new LevelSaver(myWindow));
         return levelItem;
     }
 

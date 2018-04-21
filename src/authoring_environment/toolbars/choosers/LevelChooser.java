@@ -1,15 +1,15 @@
 package authoring_environment.toolbars.choosers;
 
-import authoring_environment.AuthoredGame;
-import authoring_environment.toolbars.RightBar;
-import engine.level.Level;
+import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.game_elements.AuthoredLevel;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.Side;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.util.List;
-
 
 /**
  * The level chooser allows users to select an available level to edit.
@@ -19,24 +19,24 @@ import java.util.List;
  */
 public class LevelChooser extends VBox {
 
-    private AuthoredGame myGame;
+    private CreatorView myWindow;
     private ScrollPane myScrollPane;
 
     private int notify;
 
     /**
      * Creates a scrollpane that allows users to choose a level to edit.
-     * @param game is the current game
+     * @param window is the current window
      */
-    public LevelChooser(AuthoredGame game, ScrollPane grid, RightBar rightBar) {
+    public LevelChooser(CreatorView window, ScrollPane grid) {
         super();
-        myGame = game;
+        myWindow = window;
         myScrollPane = grid;
         addListener();
     }
 
     private void addListener() {
-        myGame.getObservableLevels().addListener((ListChangeListener<Level>) change -> {
+        myWindow.getGame().getObservableLevels().addListener((ListChangeListener<AuthoredLevel>) change -> {
             while (change.next())
                 if (change.wasAdded()) {
                     update();
@@ -49,17 +49,37 @@ public class LevelChooser extends VBox {
      */
     public void update() {
         this.getChildren().removeAll(this.getChildren());
-        System.out.println("size " + myGame.getLevels().size());
-        for (Level level : myGame.getLevels()) {
-            System.out.println(level.getName());
+        for (AuthoredLevel level : myWindow.getGame().getLevels()) {
             Pane thisLevelChoice = new LevelChoice(level);
             thisLevelChoice.setOnMouseClicked(e -> {
-                myGame.setCurrentLevel(level);
-                System.out.println("Current level: " + myGame.getCurrentLevel().getName());
-                myScrollPane.setContent(myGame.getCurrentLevel().getGrid());
+                if (e.getButton() == MouseButton.PRIMARY) {
+                    if (e.isControlDown()) {
+                        addRightClickButtonBehavior(thisLevelChoice, level);
+                    }
+                    else {
+                        addClickButtonBehavior(level);
+                    }
+                }
             });
             this.getChildren().add(thisLevelChoice);
         }
+    }
+
+    private void addClickButtonBehavior(AuthoredLevel level) {
+        myWindow.getGame().setCurrentLevel(level);
+        myScrollPane.setContent(myWindow.getGame().getCurrentLevel().getScrollingGrid());
+    }
+
+    private void addRightClickButtonBehavior(Pane levelChoice, AuthoredLevel level) {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem delete = new MenuItem("Delete level");
+        delete.setOnAction(e -> setDeleteBehavior(level));
+        contextMenu.getItems().add(delete);
+        contextMenu.show(levelChoice, Side.RIGHT, 0 ,0 );
+    }
+
+    private void setDeleteBehavior(AuthoredLevel level) {
+        myWindow.getGame().removeLevel(level);
     }
 
 }

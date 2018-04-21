@@ -12,6 +12,7 @@ public class Kinematics {
 	private double yVel;
 	private double xAcc;
 	private double yAcc;
+	private double gravitionalConstant;
 	private double frictionConstant;
 	
 	/**
@@ -38,6 +39,7 @@ public class Kinematics {
 		xAcc = xa;
 		yAcc = ya;
 		frictionConstant = 0;
+		gravitionalConstant = 9.81*10*4;
 	}
 	
 	/**
@@ -150,5 +152,21 @@ public class Kinematics {
 	 */
 	public void setFrictionConstant(double fc) {
 		frictionConstant = fc;
+	}
+	
+	/**
+	 * Returns the gravitational constant
+	 * @return gravitionalConstant
+	 */
+	public double getGravitationalConstant() {
+		return gravitionalConstant;
+	}
+	
+	/**
+	 * Sets the gravitational constant
+	 * @param gc
+	 */
+	public void setGravitationalConstant(double gc) {
+		gravitionalConstant = gc;
 	}
 }

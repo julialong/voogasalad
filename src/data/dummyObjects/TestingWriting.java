@@ -1,64 +1,50 @@
-
 package data.dummyObjects;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.FileWriter;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
+import authoring_environment.game_elements.AuthoredLevel;
+import authoring_environment.grid.ScrollingGrid;
 import data.gamefiles.GameFileWriter;
-import engine.controls.Controls;
-import engine.controls.resources.Bindings;
+import data.resources.DataFileException;
 import engine.entity.*;
 import engine.level.Level;
 import engine.level.BasicLevel;
 
-// public class TestingWriting {
-//package data.dummyObjects;
-//
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//import data.gamefiles.GameFileWriter;
-//import engine.controls.Controls;
-//import engine.controls.resources.Bindings;
-//import engine.entity.*;
-//import engine.level.Level;
-//import engine.level.BasicLevel;
-//
-//public class TestingWriting {
-//
-//	public static void main(String[] args) {
-//		GameFileWriter myWriter = new GameFileWriter("TestGame");
-//
-//		myWriter.update(makeDummyObjects());
-//
-//		System.out.println(new Controls(new Player(), Bindings.getKey("up"), Bindings.getKey("down"), Bindings.getKey("left"),
-//				Bindings.getKey("right"), Bindings.getKey("jump"), Bindings.getKey("attac")));
-//	}
-//
-//	private static Map<Level, List<GameEntity>> makeDummyObjects()	{
-//		Map<Level, List<GameEntity>> objsOrganized = new HashMap<>();
-//		List<GameEntity> objsToWrite = new ArrayList<>();
-//
-//		Player p = new Player();
-//		objsToWrite.add(new Block());
-//		objsToWrite.add(new Foes(p));
-//		objsToWrite.add(new Flag());
-//		objsToWrite.add(new Player());
-//		objsToWrite.add(new Block());
-//		objsToWrite.add(new Flag());
-//		objsToWrite.add(new Foes(p));
-//
-//		Level one = new BasicLevel();
-//		objsOrganized.put(one, new ArrayList<GameEntity>());
-//		for (GameEntity obj:objsToWrite)	{
-//			objsOrganized.get(one).add(obj);
-//		}
-//
-//		return objsOrganized;
-//	}
-//
-//}
+public class TestingWriting {
+
+	public static void main(String[] args) {
+		try	{
+			GameFileWriter myWriter = new GameFileWriter("User3","TestB");
+
+			FileWriter fw;
+
+			myWriter.saveIndivLevel(makeDummyObjects());
+			myWriter.saveData(makeDummyObjects());
+		}
+		catch (DataFileException e)	{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle(e.getCause().toString());
+			alert.setContentText(e.getMessage());
+			alert.show();
+		}
+	}
+
+	private static AuthoredLevel makeDummyObjects()	{
+		Level one = new BasicLevel();
+		AuthoredLevel oneA = new AuthoredLevel(one, new ScrollingGrid());
+
+		Player p = new Player();
+		one.addObject(new Block());
+		one.addObject(new Foes());
+		one.addObject(new Flag());
+		one.addObject(new Player());
+		one.addObject(new Block());
+		one.addObject(new Flag());
+		one.addObject(new Foes());
+
+		return oneA;
+	}
+
+}

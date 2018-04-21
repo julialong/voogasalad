@@ -3,11 +3,17 @@ package data.gamefiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
+import data.fileReading.GAEGameFileReader;
+import data.resources.DataFileException;
+import authoring_environment.game_elements.AuthoredLevel;
+import authoring_environment.grid.ScrollingGrid;
+import data.fileReading.GAEGameFileReader;
+import data.resources.DataFileException;
 import data.serialization.TextWriter;
-import engine.entity.GameEntity;
 import engine.level.Level;
+
+import javax.xml.crypto.Data;
 
 /**
  * @author Maya Messinger
@@ -18,21 +24,29 @@ import engine.level.Level;
  * not and connects to the GameFile object.
  */
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
-	private static final String NEST = "/";
+	private static final String GAMEDATA = "./data/gameData/";
+	private static final String LEVELDATA = "./data/levelData/";
+	private static final String NEST = File.separator;
 	private static final String SETTINGS = "Settings";
 	private static final String EXTENSION = ".json";
 
+	private String userDirectory;
+	private File userDirectoryFile;
 	private String gameDirectory;
 	private File gameDirectoryFile;
+	private String gameName;
 
 	/**
 	 * Class Constructor.
 	 * Creates or loads the appropriate GameFile object for a game.
 	 * @param gameName
 	 */
-	public GameFileWriter(String gameName)	{
-		gameDirectory = "./data/gameData/" + gameName;
-		gameDirectoryFile = retrieveGame();
+	public GameFileWriter(String user, String gameName) throws DataFileException	{
+		this.gameName = gameName;
+		userDirectory = GAMEDATA + user;
+		userDirectoryFile = retrieveFolder(userDirectory);
+		gameDirectory = userDirectory + NEST + gameName;
+		gameDirectoryFile = retrieveFolder(gameDirectory);
 	}
 
 	/**
@@ -40,49 +54,87 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param changes	Map of Levels linked to all the items in them
 	 */
 	@Override
-	public void update(List<Level> changes)	{
-		for (Level aLevel:changes)	{
-			saveData(aLevel, aLevel.getObjects());
-		}
-	}
-
-	/**
-	 * For testing only
-	 */
-	public void update(Map<Level, List<GameEntity>> changes)	{
-		for (Level aLevel:changes.keySet())	{
-			saveData(aLevel, changes.get(aLevel));
+	public void update(List<AuthoredLevel> changes) throws DataFileException	{
+		for (AuthoredLevel aLevel:changes)	{
+			saveData(aLevel);
 		}
 	}
 
 	/**
 	 * Will change settings file mapping to whether game is ready to play or not
 	 * @param ready		value to change readiness of game to
+	 * @param desc		description of game
 	 */
 	@Override
-	public void updateMeta(boolean ready, String desc)	{
-		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), ready, desc);
+	public void updateMeta(boolean ready, String desc) throws DataFileException	{
+		updateMeta(ready, desc, 0);
+	}
+
+	/**
+	 * Will change settings file mapping to whether game is ready to play or not
+	 * @param ready			value to change readiness of game to
+	 * @param desc			description of game
+	 * @param levelStart	level to start game at
+	 */
+	@Override
+	public void updateMeta(boolean ready, String desc, int levelStart) throws DataFileException	{
+		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), ready, desc, levelStart);
 	}
 
 	/**
 	 * Saves state of level being played, for use with checkpoints
 	 * @param level			name of level to save
-	 * @param itemsInLevel	List (potentially list of lists of different types of objects) if items in level to save stats of
 	 */
 	@Override
-	public void saveData(Level level, List itemsInLevel)	{
-		new TextWriter(level, getLevel(level), itemsInLevel);
+	@Deprecated
+	public void saveData(Level level) throws DataFileException	{
+		new TextWriter(new AuthoredLevel(level, new ScrollingGrid()), getLevel(level));
+	}
+
+	/**
+	 * Saves state of level being played, for use with checkpoints
+	 * @param level			name of level to save
+	 */
+	public void saveData(AuthoredLevel level) throws DataFileException	{
+		new TextWriter(level, getLevel(level.getLevel()));
+	}
+
+	/**
+	 * Saves state of level being played, for use with checkpoints
+	 * @param player			name of level to save
+	 */
+	@Override
+	public void saveData(String player, List<Level> levels) throws DataFileException	{
+		for (Level aLevel:levels)	{
+			new TextWriter(new AuthoredLevel(aLevel, new ScrollingGrid()), getLevel(aLevel, player));
+		}
 	}
 
 	/**
 	 * Cancels any edits made to a game since last save
-	 * @param level	name of level to chancel changes to
-	 * @return	List of objects in level from JSON file of level
+	 * @param level	level to cancel changes to
+	 * @return	new, replacement instance of level
+	 * @throws DataFileException 
 	 */
 	@Override
-	public List<Object> revertChanges(Level level)	{
-		// jsonToObject(getLevel(level));
-		return null;
+	@Deprecated
+	public Level revertChanges(Level level) throws DataFileException	{
+		GAEGameFileReader reader = new GAEGameFileReader();
+		String levelName = level.getName();
+		return reader.loadAuthoredGameLevel(gameName, levelName).getLevel();
+	}
+
+	/**
+	 * Cancels any edits made to a game since last save
+	 * @param level	level to cancel changes to
+	 * @return new, replacement instance of level
+	 * @throws DataFileException 
+	 */
+	@Override
+	public AuthoredLevel revertChanges(AuthoredLevel level) throws DataFileException	{
+		GAEGameFileReader reader = new GAEGameFileReader();
+		String levelName = level.getName();
+		return reader.loadAuthoredGameLevel(gameName, levelName);
 	}
 
 	/**
@@ -95,39 +147,55 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 
 		gameDirectoryFile.renameTo(newDir);
 	}
+
+	/**
+	 * Allows for saving individual level as a "stray", not part of a game
+	 * @author Maya Messinger
+	 * @param level		level to save separately
+	 */
+	public void saveIndivLevel(AuthoredLevel level) throws DataFileException	{
+		String tempGameDir = gameDirectory;
+
+		gameDirectory = LEVELDATA;
+
+		saveData(level);
+
+		gameDirectory = tempGameDir;
+	}
 	
-	private File retrieveGame()	{
-		File gameFolder = new File(gameDirectory);
-		if (!gameExists(gameFolder))
-		{
-			makeNewGame(gameFolder);
+	private File retrieveFolder(String lookFor) throws DataFileException	{
+		File folder = new File(lookFor);
+		if (!gameExists(folder))	{
+			makeNewGame(folder);
 		}
-		return gameFolder;
+		return folder;
 	}
 
 	private boolean gameExists(File gameFolder)	{
-		if (!gameFolder.exists() && !gameFolder.isDirectory())	{
-			return false;
-		}
-		return true;
+		 return gameFolder.exists() && gameFolder.isDirectory();
 	}
 
-	private void makeNewGame(File gameFolder)	{
+	private void makeNewGame(File gameFolder) throws DataFileException	{
 		gameFolder.mkdir();
 
-		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), false, "no description");
+		if (gameDirectory != null)	{
+			new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), true, "no description", 0);
+		}
 	}
 
-	private File getLevel(Level level)	{
-		File newLevel = new File(gameDirectory + NEST + level.getName() + EXTENSION);
+	private File getLevel(Level level) throws DataFileException	{
+		return (getLevel(level, ""));
+	}
+
+	private File getLevel(Level level, String user) throws DataFileException {
+		File newLevel = new File(gameDirectory + NEST + level.getName() + user + EXTENSION);
 
 		if(!newLevel.exists())	{
 			try {
 				newLevel.createNewFile();
 			} 
 			catch (IOException e) {
-				// TODO proper error
-				e.printStackTrace();
+				throw new DataFileException("Could not get or make file " + newLevel.toString(), new Throwable("IOException in GameFileWriter"));
 			}
 		}
 

@@ -1,8 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-import authoring_environment.AuthoredGame;
-import authoring_environment.ScrollingGrid;
-import authoring_environment.editor_windows.LevelCreator;
+import authoring_environment.grid.ScrollingGrid;
 import javafx.scene.control.Button;
 
 public class DeleteGridCellButton extends Button {

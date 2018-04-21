@@ -1,11 +1,15 @@
 package game_player;
 
-import data.gamefiles.GameFileReader;
-import data.gamefiles.JSONtoObject;
+import data.fileReading.GPGameFileReader;
+import data.fileReading.JSONtoGP;
+import data.resources.DataFileException;
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
 
 import javafx.collections.FXCollections;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -21,12 +25,32 @@ import java.util.Map;
  * @Author Dorian Barber
  */
 public class VoogaChooser implements GameChooser {
+    private Stage myStage;
     private BorderPane myView =  new BorderPane();
-    private JSONtoObject reader = new GameFileReader();
+    private JSONtoGP reader = new GPGameFileReader();
     private ListView<GameItem> playableGames = new ListView<>();
+
 
     public VoogaChooser(){
         myView.setMinWidth(550);
+    }
+
+    public VoogaChooser(Stage stage){
+        myStage = stage;
+        setUpStage();
+    }
+
+    /**
+     * Sets up the stage for the
+     */
+    private void setUpStage(){
+        myStage.setTitle("Game Chooser");
+        //myStage.setMaximized(true);
+        myStage.setMinWidth(600);
+        Scene scene = new Scene(this.displayChoices());
+        scene.getStylesheets().add("../data/styling/styleSheet.css");
+        myStage.setScene(scene);
+        myStage.show();
     }
 
     /**
@@ -75,11 +99,21 @@ public class VoogaChooser implements GameChooser {
         gameChoices.setOnMouseClicked(event -> {
             try{
                 GameItem game = gameChoices.getSelectionModel().getSelectedItem();
-                //game.setUpGame(reader.loadCompleteGame(game.toString()));
+                System.out.println(game.getGameName());
+                game.setUpGame(reader.loadCompleteGame(game.getGameName()), game.getGameName());
                 Stage currentStage = (Stage) myView.getScene().getWindow();
                 currentStage.close();
             }
-            catch(NullPointerException e){}
+            catch(NullPointerException e){
+                e.printStackTrace();
+            }
+            catch(DataFileException e)
+            {
+            	Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle(e.getCause().toString());
+                alert.setContentText(e.getMessage());
+                alert.show();
+            }
         });
     }
 }

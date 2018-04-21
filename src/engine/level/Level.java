@@ -2,9 +2,8 @@ package engine.level;
 
 import java.util.List;
 
-import authoring_environment.ScrollingGrid;
+import authoring_environment.grid.ScrollingGrid;
 import engine.entity.GameEntity;
-import javafx.scene.layout.GridPane;
 
 /**
  * The level interface is to be extended by each level class. There will likely be one level class
@@ -56,18 +55,18 @@ public interface Level {
 	 */
 	String getName();
 
-	/**
-	 * Sets the current state of the grid for the level
-	 * @param grid is the grid to update to
-	 */
-	void updateGrid(ScrollingGrid grid);
-
-	/**
-	 * Gets the GridPane associated with the level
-	 * @return the grid of the level
-	 */
-	ScrollingGrid getGrid();
-
+//	/**
+//	 * Sets the current state of the grid for the level
+//	 * @param grid is the grid to update to
+//	 */
+//	void updateGrid(ScrollingGrid grid);
+//
+//	/**
+//	 * Gets the GridPane associated with the level
+//	 * @return the grid of the level
+//	 */
+//	ScrollingGrid getGrid();
+//
 	/**
 	 * Sets the x size of the grid.
 	 * @param X is the new x size
@@ -78,6 +77,6 @@ public interface Level {
     /**
      * Updates the contents of the level
      */
-     public void update();
+     void update();
 
 }

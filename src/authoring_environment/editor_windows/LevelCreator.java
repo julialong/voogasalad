@@ -1,7 +1,7 @@
 package authoring_environment.editor_windows;
 
-import authoring_environment.AuthoredGame;
-import authoring_environment.ScrollingGrid;
+import authoring_environment.game_elements.AuthoredLevel;
+import authoring_environment.grid.ScrollingGrid;
 import engine.level.BasicLevel;
 import engine.level.Level;
 import javafx.geometry.Insets;
@@ -11,7 +11,17 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -31,8 +41,8 @@ public class LevelCreator {
     private Stage myStage;
     private Scene myScene;
     private BorderPane myRoot;
-    private Level newLevel;
-    private AuthoredGame myGame;
+    private AuthoredLevel newLevel;
+    private CreatorView myWindow;
 
     private Pane right;
     private Pane center;
@@ -48,12 +58,14 @@ public class LevelCreator {
     private static final String CHOOSE_COLOR = "Choose background color";
     private static final String SET_SIZE = "Set size";
     private static final String SAVE_LEVEL = "Save level";
+    private static final int SMALL_FONT = 15;
+    private static final int LARGE_FONT = 20;
 
     /**
      * Creates and launches a new LevelCreator window
      */
-    public LevelCreator(AuthoredGame game) {
-        myGame = game;
+    public LevelCreator(CreatorView window) {
+        myWindow = window;
         createNewLevel();
         myStage = new Stage();
         myRoot = new BorderPane();
@@ -70,8 +82,8 @@ public class LevelCreator {
      * Creates a new level with default size.
      */
     private void createNewLevel() {
-        System.out.println(myGame.getName());
-        newLevel = new BasicLevel(myGame.getLevels().size() +1);
+        Level createdLevel = new BasicLevel(myWindow.getGame().getLevels().size()+1);
+        newLevel = new AuthoredLevel(createdLevel, new ScrollingGrid());
     }
 
     /**
@@ -87,7 +99,7 @@ public class LevelCreator {
         HBox box = new HBox();
         box.getStyleClass().add("level-top");
         Label instruction = new Label(LEVEL_NAME);
-        instruction.setFont(new Font(15));
+        instruction.setFont(new Font(SMALL_FONT));
         box.getChildren().add(instruction);
         TextField name = new TextField();
         box.getChildren().add(name);
@@ -108,10 +120,7 @@ public class LevelCreator {
     private Pane createCenter() {
         center = new HBox();
         center.getStyleClass().add("level-center");
-        ScrollingGrid tempGrid = newLevel.getGrid();
-        tempGrid.setMaxHeight(300);
-        tempGrid.setMaxWidth(300);
-        //center.getChildren().add(tempGrid);
+        // TODO: show grid preview
         return center;
     }
 
@@ -120,7 +129,7 @@ public class LevelCreator {
         submitButton.setOnAction(e -> {
             box.getChildren().removeAll(name,submitButton,instruction);
             Text levelName = new Text(name.getText());
-            levelName.setFont(new Font(20));
+            levelName.setFont(new Font(LARGE_FONT));
             box.getChildren().add(levelName);
             newLevel.setName(name.getText());
         });
@@ -134,14 +143,14 @@ public class LevelCreator {
             imageChooser.getExtensionFilters().add(
                     new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
             selectedImageFile =  imageChooser.showOpenDialog(myStage);
-            newLevel.getGrid().setBackground(new Background(new BackgroundImage(new Image(selectedImageFile.toURI().toString()),
+            newLevel.setBackground(new Background(new BackgroundImage(new Image(selectedImageFile.toURI().toString()),
                                                                             BackgroundRepeat.NO_REPEAT,
                                                                             BackgroundRepeat.NO_REPEAT,
                                                                             BackgroundPosition.DEFAULT,
                                                                             BackgroundSize.DEFAULT)));
         });
         Text uploadImage = new Text(UPLOAD_BACKGROUND_IMAGE);
-        uploadImage.setFont(new Font(15));
+        uploadImage.setFont(new Font(SMALL_FONT));
         pane.getChildren().add(uploadImage);
         pane.getChildren().add(backgroundImage);
     }
@@ -150,10 +159,10 @@ public class LevelCreator {
         ColorPicker colorPicker = new ColorPicker();
         colorPicker.setOnAction(e -> {
             Color chosenColor = colorPicker.getValue();
-            newLevel.getGrid().setBackground(new Background(new BackgroundFill(chosenColor, CornerRadii.EMPTY, Insets.EMPTY)));
+            newLevel.setBackground(new Background(new BackgroundFill(chosenColor, CornerRadii.EMPTY, Insets.EMPTY)));
         });
         Text chooseColor = new Text(CHOOSE_COLOR);
-        chooseColor.setFont(new Font(15));
+        chooseColor.setFont(new Font(SMALL_FONT));
         pane.getChildren().add(chooseColor);
         pane.getChildren().add(colorPicker);
     }
@@ -166,14 +175,14 @@ public class LevelCreator {
             newLevel.setSize(Double.parseDouble(xNumber.getText()), Double.parseDouble(yNumber.getText()));
         });
         Text setSize = new Text(SET_SIZE);
-        setSize.setFont(new Font(15));
+        setSize.setFont(new Font(SMALL_FONT));
         pane.getChildren().addAll(setSize, xNumber, yNumber, submit);
     }
 
     private void createSaveButton(Pane pane) {
         Button saveButton = new Button(SAVE_LEVEL);
         saveButton.setOnAction(e -> {
-            myGame.addLevel(newLevel);
+            myWindow.getGame().addLevel(newLevel);
             myStage.close();
         });
         pane.getChildren().add(saveButton);

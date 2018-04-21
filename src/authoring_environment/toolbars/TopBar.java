@@ -1,10 +1,8 @@
 package authoring_environment.toolbars;
 
-import authoring_environment.AuthoredGame;
-import authoring_environment.toolbars.buttons.creator_view_buttons.InsertButton;
-import authoring_environment.toolbars.buttons.creator_view_buttons.LoadButton;
-import authoring_environment.toolbars.buttons.creator_view_buttons.SaveButton;
-import authoring_environment.toolbars.buttons.creator_view_buttons.SettingsButton;
+import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.game_elements.AuthoredGame;
+import authoring_environment.toolbars.buttons.creator_view_buttons.*;
 import javafx.scene.control.ToolBar;
 
 /**
@@ -17,14 +15,14 @@ import javafx.scene.control.ToolBar;
  */
 public class TopBar extends ToolBar{
 
-    private AuthoredGame myGame;
+    private CreatorView myWindow;
 
     /**
      * Creates the basic TopBar toolbar and adds the necessary buttons
      */
-    public TopBar(AuthoredGame game) {
+    public TopBar(CreatorView window) {
         super();
-        myGame = game;
+        myWindow = window;
         addButtons();
     }
 
@@ -32,9 +30,10 @@ public class TopBar extends ToolBar{
      * Adds desired buttons to the toolbar
      */
     private void addButtons() {
-        this.getItems().addAll( new LoadButton(),
-                                new SaveButton(myGame),
-                                new InsertButton(myGame),
-                                new SettingsButton(myGame));
+        this.getItems().addAll( new NewGameButton(),
+                                new LoadButton(),
+                                new SaveButton(myWindow),
+                                new InsertButton(myWindow),
+                                new SettingsButton(myWindow));
     }
 }
