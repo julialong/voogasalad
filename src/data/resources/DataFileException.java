@@ -1,7 +1,5 @@
 package data.resources;
 
-import java.lang.Exception;
-
 public class DataFileException extends Exception {
 	public DataFileException()	{
 		super();
