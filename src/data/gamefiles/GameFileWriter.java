@@ -3,16 +3,12 @@ package data.gamefiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import data.serialization.TextWriter;
-import engine.entity.GameEntity;
 import engine.level.Level;
 
 /**
@@ -147,10 +143,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	}
 
 	private boolean gameExists(File gameFolder)	{
-		if (!gameFolder.exists() && !gameFolder.isDirectory())	{
-			return false;
-		}
-		return true;
+		 return gameFolder.exists() && gameFolder.isDirectory();
 	}
 
 	private void makeNewGame(File gameFolder)	{

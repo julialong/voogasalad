@@ -19,6 +19,14 @@ public interface JSONtoGAE {
 	 * @return 
 	 */
 	List<AuthoredLevel> loadCompleteAuthoredGame(String gameName);
+	
+	/**
+	 * 
+	 * @param gameName
+	 * @param levelName
+	 * @return
+	 */
+	AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName);
 
 	/**
 	 * This will load one of the stray levels that an author can

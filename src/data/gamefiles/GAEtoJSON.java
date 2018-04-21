@@ -1,9 +1,6 @@
 package data.gamefiles;
 
-import java.util.Map;
-
 import authoring_environment.game_elements.AuthoredLevel;
-import engine.entity.GameEntity;
 import engine.level.Level;
 
 import java.util.List;
