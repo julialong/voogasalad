@@ -55,18 +55,18 @@ public interface Level {
 	 */
 	String getName();
 
-	/**
-	 * Sets the current state of the grid for the level
-	 * @param grid is the grid to update to
-	 */
-	void updateGrid(ScrollingGrid grid);
-
-	/**
-	 * Gets the GridPane associated with the level
-	 * @return the grid of the level
-	 */
-	ScrollingGrid getGrid();
-
+//	/**
+//	 * Sets the current state of the grid for the level
+//	 * @param grid is the grid to update to
+//	 */
+//	void updateGrid(ScrollingGrid grid);
+//
+//	/**
+//	 * Gets the GridPane associated with the level
+//	 * @return the grid of the level
+//	 */
+//	ScrollingGrid getGrid();
+//
 	/**
 	 * Sets the x size of the grid.
 	 * @param X is the new x size
