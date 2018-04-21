@@ -25,7 +25,7 @@ public class GPGameFileReader implements JSONtoGP{
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private static final String[] SETTINGS_DATA = {"description", "readyToPlay"};
-	private String NEST = "/";
+	private static final String NEST = File.separator;
 	private FileRetriever fileRetriever;
 	
 	/**
@@ -33,10 +33,6 @@ public class GPGameFileReader implements JSONtoGP{
 	 */
 	public GPGameFileReader()
 	{
-		if (System.getProperty("os.name").contains("Windows"))	
-		{
-			NEST = "\\";
-		}
 		fileRetriever = new FileRetriever();
 	}
 	
