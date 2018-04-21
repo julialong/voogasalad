@@ -173,7 +173,6 @@ public class GameFileReader implements JSONtoObject {
 			level.setName(levelName);
 			level.setID(id);
 			level.setObjects(gameObjects);
-			// level.updateGrid(scrollingGrid);
 		}
 		catch(Exception e)
 		{

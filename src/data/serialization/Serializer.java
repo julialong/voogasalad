@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import engine.behavior.Behavior;
 import engine.controls.Action;
+import engine.entity.GameEntity;
 import engine.interaction.Interaction;
 import engine.movement.Movement;
 import engine.powerup.PowerUp;
@@ -45,6 +46,7 @@ public class Serializer {
 		builder.registerTypeAdapter(Interaction.class, new InterfaceAdapter<Interaction>());
 		builder.registerTypeAdapter(PowerUp.class, new InterfaceAdapter<PowerUp>());
 		builder.registerTypeAdapter(Action.class, new InterfaceAdapter<Action>());
+		builder.registerTypeAdapter(GameEntity.class, new InterfaceAdapter<GameEntity>());
 		gson = builder.create();	
 	}
 	
