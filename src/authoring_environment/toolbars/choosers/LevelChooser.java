@@ -7,6 +7,7 @@ import authoring_environment.toolbars.RightBar;
 import engine.level.Level;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
@@ -20,7 +21,7 @@ import javafx.scene.layout.VBox;
  * @author Julia Long
  * Date started: April 04 18
  */
-public class LevelChooser extends VBox {
+public class LevelChooser extends ListView<Level> {
 
     private CreatorView myWindow;
     private ScrollPane myScrollPane;
@@ -30,7 +31,7 @@ public class LevelChooser extends VBox {
      * @param window is the current window
      */
     public LevelChooser(CreatorView window, ScrollPane grid) {
-        super();
+        super(window.getGame().getLevels());
         myWindow = window;
         myScrollPane = grid;
         update();
