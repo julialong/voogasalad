@@ -21,7 +21,7 @@ public class GAEGameFileReader implements JSONtoGAE {
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private static final String LEVEL_FOLDER = "./data/levelData";
-	private String NEST = "/";
+	private static final String NEST = File.separator;
 	private FileRetriever fileRetriever;
 	
 	/**
@@ -29,10 +29,6 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	public GAEGameFileReader() 
 	{
-		if (System.getProperty("os.name").contains("Windows"))	
-		{
-			NEST = "\\";
-		}
 		fileRetriever = new FileRetriever();
 	}
 	
