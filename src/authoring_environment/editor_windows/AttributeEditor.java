@@ -54,8 +54,10 @@ public class AttributeEditor {
 	private static final String SUBMIT= "Submit";
 	private static final int SMALL_FONT = 15;
 	private static final int LARGE_FONT = 20;
+	private static final String GAME_ENTITY = "GameEntity";
 
 	private GameElement gameElement;
+	private String elementID; 
 	private Map<String, List<String>> attributes;
 	private List<ComboBox<String>> attributeBoxes;
 	private Map<String, String> chosenAttributes; 
@@ -64,6 +66,9 @@ public class AttributeEditor {
 	private HBox myTitlePane;
 	private ImageView image;
 	private Stage window;
+	private File imageFile;
+	private URI imageURI;
+	private URL imageURL;
 
 
 
@@ -133,11 +138,11 @@ public class AttributeEditor {
         Button submitButton = new Button(SUBMIT);
         submitButton.setOnAction(e -> {
             myTitlePane.getChildren().removeAll(idNameInput,submitButton,instruction);
-            String id = idNameInput.getText();
-            Text name = new Text("Element ID: " + id);
+            elementID = idNameInput.getText();
+            Text name = new Text("Element ID: " + elementID);
             name.setFont(new Font(LARGE_FONT));
             myTitlePane.getChildren().add(name);
-            gameElement.setID(id);
+            gameElement.setID(elementID);
         });
         myTitlePane.getChildren().add(submitButton);
     }
@@ -163,22 +168,13 @@ public class AttributeEditor {
 		FileChooser filechooser = new FileChooser();
 		filechooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
-		File file= filechooser.showOpenDialog(fileWindow);
-		URI uri= file.toURI();
-		URL url= uri.toURL();
-		Path source = Paths.get(uri);
-		Path target = Paths.get("data/authoredElementImages/" + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("/") + 1));
-		try {
-			Files.copy(source, target);
-		} catch (IOException e) {
-			// TODO: Handle this error
-			e.printStackTrace();
-		}
-		image = new ImageView(url.toString());
+		imageFile= filechooser.showOpenDialog(fileWindow);
+		imageURI = imageFile.toURI();
+		imageURL = imageURI.toURL();
+		image = new ImageView(imageURL.toString());
 		image.setFitHeight(IMAGE_HEIGHT);
 		image.setFitWidth(IMAGE_WIDTH);
 		myImagePane.getChildren().add(image);
-		gameElement.uploadImage(target.toString());
 		
 	}
 	
@@ -197,6 +193,15 @@ public class AttributeEditor {
 	 * to an XML file
 	 */
 	public void saveChanges() {
+		Path source = Paths.get(imageURI);
+		Path target = Paths.get("data/authoredElementImages/" + elementID + imageFile.getAbsolutePath().substring(imageFile.getAbsolutePath().lastIndexOf(".")));
+		try {
+			Files.copy(source, target);
+		} catch (IOException e) {
+			// TODO: Handle this error
+			e.printStackTrace();
+		}
+		gameElement.uploadImage(target.toString());
 		gameElement.updateAttributes(chosenAttributes);
 		window.close();
 	}
