@@ -50,7 +50,7 @@ public class VoogaGameView implements GameView {
 	private Pane myGP;
 	private Controls myControls;
 	private HeadsUpDisplay hud;
-	private Point2D timer = new Point2D(0,0);
+	private Point2D timer = new Point2D(0, 0);
 
 	/**
 	 * Creates a grid pane. initializes event listeners
@@ -73,7 +73,7 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustXCord(double x) {
 		// TODO: adjust this factor based on sensitivity
-		return x * (myWidth / 4000.0) + (myWidth / 2.0);
+		return x * (myWidth / 400.0);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustYCord(double y) {
 		// TODO: adjust this factor based on sensitivity
-		return (myHeight / 2.0) - y * (myHeight / 4800.0);
+		return y * (myHeight / 400.0);
 	}
 
 	/**
@@ -110,8 +110,13 @@ public class VoogaGameView implements GameView {
 				ge.setFrictionConstant(200);
 				ge.setJumpFactor(75);
 			}
-			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath), ge.getSizeX() + 50,
-					ge.getSizeY() + 50, true, true));
+			// System.out.println(ge);
+			// System.out.println("\t"+ge.getSizeX());
+			// System.out.println("\t"+ge.getSizeY());
+			// System.out.println("\t"+ge.getScenePosition()[0]);
+			// System.out.println("\t"+ge.getScenePosition()[1]);
+			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath),
+					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 			// TODO: uncomment below once GAE sends us actual data
 			// if (ge.getClass().equals(new Player().getClass())) {
 			// myControls = new Controls((Player) ge);
@@ -120,11 +125,22 @@ public class VoogaGameView implements GameView {
 			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
 			// ge.getSizeY(), true, true));
 
-			entityImage.setX(adjustXCord(ge.getPosition()[0]));
-			entityImage.setY(adjustYCord(ge.getPosition()[1]));
+			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
+			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
 			myDispMap.put(ge, entityImage);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}
+		// for (GameEntity gee : myDispMap.keySet()) {
+		// System.out.println(gee);
+		// System.out.println("Position[0]: " + gee.getPosition()[0]);
+		// System.out.println("Position[1]: " + gee.getPosition()[1]);
+		// System.out.println("ScenePosition[0]: " + gee.getScenePosition()[0]);
+		// System.out.println("ScenePosition[1]: " + gee.getScenePosition()[1]);
+		// System.out.println("AdjScenePosition[0]: " +
+		// adjustXCord(gee.getScenePosition()[0]));
+		// System.out.println("AdjScenePosition[1]: " +
+		// adjustYCord(gee.getScenePosition()[1]));
+		// }
 	}
 
 	/**
@@ -154,12 +170,24 @@ public class VoogaGameView implements GameView {
 
 	/**
 	 * Displays the already updated objects that have been determined to be in
-	 * bounds.
+	 * bounds. Removes the objects that have been destroyed after the level is
+	 * updated.
 	 */
 	private void displayObjects() {
-		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
-			myDispMap.get(ge).setX(adjustXCord(ge.getPosition()[0]));
-			myDispMap.get(ge).setY(adjustYCord(ge.getPosition()[1]));
+		Level level = myGameLevels.get(myCurrLevel);
+		ArrayList<GameEntity> toRemove = new ArrayList<>();
+		for (GameEntity ge : level.getObjects()) {
+			if (level.getObjects().contains(ge)) {
+				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
+				myDispMap.get(ge).setY(adjustYCord(ge.getScenePosition()[1]));
+
+			} else {
+				toRemove.add(ge);
+				myGP.getChildren().remove(myDispMap.get(ge));
+			}
+		}
+		for (GameEntity ge : toRemove) {
+			myDispMap.remove(ge);
 		}
 	}
 
@@ -215,8 +243,8 @@ public class VoogaGameView implements GameView {
 	 */
 	public void changeBinding(String propKey, KeyCode keyCode) {
 		try {
-			//TODO: Fix this deprecated code eventually
-			Object instance = Class.forName("engine.controls."+propKey).newInstance();
+			// TODO: Fix this deprecated code eventually
+			Object instance = Class.forName("engine.controls." + propKey).newInstance();
 			Action a = (Action) instance;
 			myControls.setBinding(keyCode, a);
 		} catch (Exception e) {
@@ -225,24 +253,24 @@ public class VoogaGameView implements GameView {
 	}
 
 	/**
-	 * Sets up the heads up display for the game view
-	 * multiple components can be added
+	 * Sets up the heads up display for the game view multiple components can be
+	 * added
 	 */
-	private void setUpHud(){
+	private void setUpHud() {
 		hud = new Hud();
-		timer = new Point2D(0,hud.addComponent(Double.toString(timer.getX())));
+		timer = new Point2D(0, hud.addComponent(Double.toString(timer.getX())));
 		myGP.getChildren().add(hud.getHUD());
 	}
 
 	/**
-	 * Updates the heads up display during every step
-	 * to make sure important information is kept accurate.
+	 * Updates the heads up display during every step to make sure important
+	 * information is kept accurate.
 	 */
-	private void updateHud(Double elapsedTime){
-		timer = timer.add(elapsedTime,0);
-		int minutes = (int)timer.getX() / 60;
+	private void updateHud(Double elapsedTime) {
+		timer = timer.add(elapsedTime, 0);
+		int minutes = (int) timer.getX() / 60;
 		double seconds = timer.getX() % 60;
 		String output = String.format("%d:%.1f", minutes, seconds);
-		hud.updateComponent((int)timer.getY(),output);
+		hud.updateComponent((int) timer.getY(), output);
 	}
 }
