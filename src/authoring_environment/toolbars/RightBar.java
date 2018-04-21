@@ -53,7 +53,7 @@ public class RightBar extends SplitPane{
     }
 
     public void update() {
-        myLevelChooser.update();
+        //myLevelChooser.update();
         myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
         myDeleteButton.changeGrid(myGrid);
     }
@@ -82,17 +82,11 @@ public class RightBar extends SplitPane{
     }
 
     private void addScrollScreens() {
-        Button updateButton = new Button("Update levels");
         LevelChooser levelChooser = new LevelChooser(myWindow, myScrollPane);
-        updateButton.setOnAction(e -> levelChooser.update());
-        ScrollPane levelChooserPane = new ScrollPane();
-        levelChooserPane.setContent(levelChooser);
-        levelPane.getChildren().add(updateButton);
-        levelPane.getChildren().add(levelChooserPane);
+        levelPane.getChildren().add(levelChooser);
     	ElementPicker elementPicker = new ElementPicker();
     	ScrollPane pickerPane = elementPicker.getElementPane();
         elementPane.getChildren().add(pickerPane);
-        levelPane.getChildren().add(myLevelChooser);
     }
     
 }
