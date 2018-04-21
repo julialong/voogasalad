@@ -112,12 +112,6 @@ public class EngineTestVisual extends Application{
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
-		enemy.setHealth(1);
-		enemy2.setHealth(1);
-		enemy3.setHealth(1);
-		//player.setHealth(1);
-		block.setHealth(1);
-		wall.setHealth(1);
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		level.addObject(block);
