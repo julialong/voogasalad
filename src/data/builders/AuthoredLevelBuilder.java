@@ -15,6 +15,7 @@ import com.google.gson.JsonSyntaxException;
 
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
+import data.resources.DataFileException;
 import data.serialization.LevelSerializer;
 import engine.level.Level;
 /**
@@ -44,7 +45,7 @@ public class AuthoredLevelBuilder {
 	 * Returns an authored level made up of a Level object and a ScrollingGrid
 	 * @return
 	 */
-	public AuthoredLevel buildAuthoredLevel()
+	public AuthoredLevel buildAuthoredLevel() throws DataFileException
 	{
 		LevelBuilder levelBuilder = new LevelBuilder(levelFile);
 		Level levelForAuthoredLevel = levelBuilder.buildLevel();
@@ -60,7 +61,7 @@ public class AuthoredLevelBuilder {
 	 * @param levelFile
 	 * @return
 	 */
-	private ScrollingGrid retrieveScrollingGrid(File levelFile) 
+	private ScrollingGrid retrieveScrollingGrid(File levelFile) throws DataFileException
 	{
 		JsonParser jsonParser = new JsonParser();
 		ScrollingGrid scrollingGrid = new ScrollingGrid();
@@ -74,13 +75,14 @@ public class AuthoredLevelBuilder {
 		} 
 		catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) 
 		{
+			throw new DataFileException("Could not find the file to load for AuthoredLevel", e);
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(new JFrame(),
-					 "Could not find the file to load for AuthoredLevel",
-					    "File Reader Exception",
-				    JOptionPane.WARNING_MESSAGE);
+//			JOptionPane.showMessageDialog(new JFrame(),
+//					 "Could not find the file to load for AuthoredLevel",
+//					    "File Reader Exception",
+//				    JOptionPane.WARNING_MESSAGE);
 			// TODO remove print stack trace
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return scrollingGrid;
 	}

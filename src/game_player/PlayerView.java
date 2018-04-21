@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 import data.fileReading.GPGameFileReader;
 import data.fileReading.JSONtoGP;
+import data.resources.DataFileException;
 
 /**
  * The main application for the game player. Here is where the MVC design pattern is used.
@@ -54,7 +55,14 @@ public class PlayerView extends VBox{
 	 * Reloads the game materials;
 	 */
 	private void resetGView() {
-		myGameView = new VoogaGameView(reader.loadCompleteGame(myName));
+		try
+		{
+			myGameView = new VoogaGameView(reader.loadCompleteGame(myName));
+		}
+		catch(DataFileException e)
+		{
+			
+		}
 	}
 	
 	
