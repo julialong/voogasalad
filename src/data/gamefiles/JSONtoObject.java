@@ -22,6 +22,7 @@ public interface JSONtoObject {
 	 * @param gameName
 	 * @return 
 	 */
+	@Deprecated
 	List<Level> loadCompleteGame(String gameName);
 
 	/**

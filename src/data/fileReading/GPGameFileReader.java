@@ -78,6 +78,8 @@ public class GPGameFileReader implements JSONtoGP{
 	public Level loadLevel(String gameName, String levelName) {
 		File currentLevel = fileRetriever.retrieveLevel(gameName, levelName);
 		LevelBuilder levelBuilder = new LevelBuilder(currentLevel);
+		System.out.println("level");
+		System.out.println(levelBuilder.buildLevel().getObjects());
 		return levelBuilder.buildLevel();
 	}
 

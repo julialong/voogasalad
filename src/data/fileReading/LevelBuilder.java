@@ -146,6 +146,7 @@ public class LevelBuilder {
 			}
 		}
 		level.setObjects(gameObjects);
+//		System.out.println(gameObjects);
 	}
 
 	/**
@@ -160,6 +161,7 @@ public class LevelBuilder {
 		JsonArray jarray = jobject.getAsJsonArray(objectType);
 		for(int i = 0; i < jarray.size(); i++)
 		{
+			//System.out.println((GameEntity)convertToObject(jarray.get(i).getAsJsonObject(), objectType));
 			newObjectsOfType.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
 		}
 		return newObjectsOfType;
@@ -176,8 +178,7 @@ public class LevelBuilder {
 	 */
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
-		JsonObject j = toConvert;
-		return deserializer.deserialize(j.toString(), objectTypes.get(objectType));
+		return deserializer.deserialize(toConvert.toString(), objectTypes.get(objectType));
 	}
 	
 }
