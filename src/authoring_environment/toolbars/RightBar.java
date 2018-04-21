@@ -1,9 +1,11 @@
 package authoring_environment.toolbars;
 
 import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.editor_windows.EditorWindow;
 import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.choosers.ElementPicker;
+import authoring_environment.toolbars.choosers.ElementTypeBox;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddElementButton;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddLevelButton;
 import authoring_environment.toolbars.buttons.creator_view_buttons.DeleteGridCellButton;
@@ -18,7 +20,7 @@ import javafx.scene.layout.*;
  * The right pane manages adding various elements and dealing with the structure of levels
  * within the game.
  *
- * @author Julia Long
+ * @author Julia Long, Michael Acker
  * Date started: April 01 18
  */
 public class RightBar extends SplitPane{
@@ -30,15 +32,17 @@ public class RightBar extends SplitPane{
     private Pane elementPane;
     private Pane levelPane;
     private DeleteGridCellButton myDeleteButton;
-    private CreatorView myWindow;
+    private ElementTypeBox myTypeBox;
+    private EditorWindow myWindow;
     private ScrollingGrid myGrid;
     private ScrollPane myScrollPane;
     private LevelChooser myLevelChooser;
+    private ElementPicker myElementPicker;
 
     /**
      * Creates a new right toolbar with appropriate buttons and panels.
      */
-    public RightBar(CreatorView window, ScrollingGrid grid, ScrollPane scroller) {
+    public RightBar(EditorWindow window, ScrollPane scroller) {
         super();
         this.getStylesheets().add(CSS);
         this.getStyleClass().add("rightbar");
@@ -75,7 +79,9 @@ public class RightBar extends SplitPane{
     private void addButtons() {
         Button elementButton = new AddElementButton();
         myDeleteButton = new DeleteGridCellButton(myGrid);
+        myTypeBox = new ElementTypeBox(this);
         elementPane.getChildren().add(elementButton);
+        elementPane.getChildren().add(myTypeBox);
         elementPane.getChildren().add(myDeleteButton);
         Button levelButton = new AddLevelButton(myWindow);
         levelPane.getChildren().add(levelButton);
@@ -89,10 +95,14 @@ public class RightBar extends SplitPane{
         levelChooserPane.setContent(levelChooser);
         levelPane.getChildren().add(updateButton);
         levelPane.getChildren().add(levelChooserPane);
-    	ElementPicker elementPicker = new ElementPicker();
-    	ScrollPane pickerPane = elementPicker.getElementPane();
+    	myElementPicker = new ElementPicker(this);
+    	ScrollPane pickerPane = myElementPicker.getElementPane();
         elementPane.getChildren().add(pickerPane);
         levelPane.getChildren().add(myLevelChooser);
+    }
+    
+    public ElementPicker getElementPicker() {
+    	return myElementPicker;
     }
     
 }
