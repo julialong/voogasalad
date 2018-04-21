@@ -2,6 +2,7 @@ package data.gamefiles;
 
 import java.util.List;
 
+import data.resources.DataFileException;
 import engine.level.Level;
 
 /**
@@ -13,7 +14,7 @@ public interface GEtoJSON	{
 	 * @param player		name of player
 	 * @param levels		list of levels to save
 	 */
-	void saveData(String player, List<Level> levels);
+	void saveData(String player, List<Level> levels) throws DataFileException;
 
 	/**
 	 * Called by Game Engine, updates database with data as it is currently in the play environment
@@ -22,5 +23,5 @@ public interface GEtoJSON	{
 	 * @param level		level to save
 	 */
 	@Deprecated
-	void saveData(Level levels);
+	void saveData(Level level) throws DataFileException;
 }

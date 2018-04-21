@@ -2,10 +2,13 @@ package game_player;
 
 import java.util.List;
 import data.gamefiles.GameFileWriter;
+import data.resources.DataFileException;
 import engine.level.Level;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -56,13 +59,21 @@ public class SaveScreen {
 		save.setOnAction(new EventHandler<ActionEvent>() {
 			 @Override
              public void handle(ActionEvent e) {
-             	if(textField.getText() != null && textField.getText() != "") {
-             		String currName = textField.getText();
-        			GameFileWriter gfw = new GameFileWriter("Playing", myName + "_" + currName);
-        			gfw.saveData(currName, myLevels);
-        			gfw.updateMeta(true, "game being played by " + currName, 0);	// TODO: change 0 to level player wants so end at
-        			myStage.close();
-             	}
+				try	{
+					if(textField.getText() != null && textField.getText() != "") {
+						String currName = textField.getText();
+						GameFileWriter gfw = new GameFileWriter("Playing", myName + "_" + currName);
+						gfw.saveData(currName, myLevels);
+						gfw.updateMeta(true, "game being played by " + currName, 0);	// TODO: change 0 to level player wants so end at
+						myStage.close();
+					}
+				}
+				catch (DataFileException err)	{
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle(err.getCause().toString());
+					alert.setContentText(err.getMessage());
+					alert.show();
+				}
              }
 		});
 		hbox.getChildren().addAll(textField, save);
