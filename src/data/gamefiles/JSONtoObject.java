@@ -22,6 +22,7 @@ public interface JSONtoObject {
 	 * @param gameName
 	 * @return 
 	 */
+	@Deprecated
 	List<Level> loadCompleteGame(String gameName);
 
 	/**
@@ -33,6 +34,7 @@ public interface JSONtoObject {
 	 * @param levelName
 	 * @return
 	 */
+	@Deprecated
 	Level loadLevel(String gameName, String levelName);
 
 	/**
@@ -43,6 +45,7 @@ public interface JSONtoObject {
 	 * @param gameName
 	 * @return
 	 */
+	@Deprecated
 	Map<String,String> loadSettings(String gameName);
 
 	/**
@@ -51,6 +54,7 @@ public interface JSONtoObject {
 	 * 
 	 * @return
 	 */
+	@Deprecated
 	Map<String,String> getGameNames();
 
 }

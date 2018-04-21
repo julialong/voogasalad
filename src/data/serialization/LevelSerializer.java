@@ -21,11 +21,9 @@ public class LevelSerializer	{
 	private static final String ID = "id";
 	private static final String SIZE = "size";
 	private static final String SG = "ScrollingGrid";
-
-	private int cellSize;
-	private int rowNumber;
-	private int columnNumber;
-	private GridCell[][] cellArray;
+	
+	public LevelSerializer() {
+	}
 
 	/**
 	 * @param fw	FileWriter that is linked to file to write to (this method is called when file is already being edited)

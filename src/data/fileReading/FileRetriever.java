@@ -16,17 +16,12 @@ public class FileRetriever {
 	private static final String GAME_FOLDER = "./data/gameData";
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
-	private String NEST = "/";
+	private static final String NEST = File.separator;
 	
 	/**
 	 * Class Constructor
 	 */
-	public FileRetriever()
-	{
-		if (System.getProperty("os.name").contains("Windows"))	
-		{
-			NEST = "\\";
-		}
+	public FileRetriever(){
 	}
 	
 	/**

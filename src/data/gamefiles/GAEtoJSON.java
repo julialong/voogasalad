@@ -1,9 +1,6 @@
 package data.gamefiles;
 
-import java.util.Map;
-
 import authoring_environment.game_elements.AuthoredLevel;
-import engine.entity.GameEntity;
 import engine.level.Level;
 
 import java.util.List;
@@ -38,7 +35,14 @@ public interface GAEtoJSON	{
 	 * Method that allows for changes to be reverted to last saved version of game, if user decides to entirely scrap their updats
 	 * @param level	level to revert info for
 	 */
-	Level revertChanges(AuthoredLevel level);
+	@Deprecated
+	Level revertChanges(Level level);
+
+	/**
+	 * Method that allows for changes to be reverted to last saved version of game, if user decides to entirely scrap their updats
+	 * @param level	level to revert info for
+	 */
+	AuthoredLevel revertChanges(AuthoredLevel level);
 
 	/**
 	 * Method to rename a game (folder)

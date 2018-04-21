@@ -3,16 +3,13 @@ package data.gamefiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
+import data.fileReading.GAEGameFileReader;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import data.serialization.TextWriter;
-import engine.entity.GameEntity;
 import engine.level.Level;
 
 /**
@@ -26,7 +23,7 @@ import engine.level.Level;
 public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static final String GAMEDATA = "./data/gameData/";
 	private static final String LEVELDATA = "./data/levelData/";
-	private static final String NEST = "/";
+	private static final String NEST = File.separator;
 	private static final String SETTINGS = "Settings";
 	private static final String EXTENSION = ".json";
 
@@ -85,6 +82,16 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Saves state of level being played, for use with checkpoints
 	 * @param level			name of level to save
 	 */
+	@Override
+	@Deprecated
+	public void saveData(Level level)	{
+		new TextWriter(new AuthoredLevel(level, new ScrollingGrid()), getLevel(level));
+	}
+
+	/**
+	 * Saves state of level being played, for use with checkpoints
+	 * @param level			name of level to save
+	 */
 	public void saveData(AuthoredLevel level)	{
 		new TextWriter(level, getLevel(level.getLevel()));
 	}
@@ -106,10 +113,23 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @return	new, replacement instance of level
 	 */
 	@Override
-	public Level revertChanges(AuthoredLevel level)	{
-		GameFileReader reader = new GameFileReader();
+	@Deprecated
+	public Level revertChanges(Level level)	{
+		GAEGameFileReader reader = new GAEGameFileReader();
 		String levelName = level.getName();
-		return reader.loadLevel(gameName, levelName);
+		return reader.loadAuthoredGameLevel(gameName, levelName).getLevel();
+	}
+
+	/**
+	 * Cancels any edits made to a game since last save
+	 * @param level	level to cancel changes to
+	 * @return new, replacement instance of level
+	 */
+	@Override
+	public AuthoredLevel revertChanges(AuthoredLevel level)	{
+		GAEGameFileReader reader = new GAEGameFileReader();
+		String levelName = level.getName();
+		return reader.loadAuthoredGameLevel(gameName, levelName);
 	}
 
 	/**
@@ -147,10 +167,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	}
 
 	private boolean gameExists(File gameFolder)	{
-		if (!gameFolder.exists() && !gameFolder.isDirectory())	{
-			return false;
-		}
-		return true;
+		 return gameFolder.exists() && gameFolder.isDirectory();
 	}
 
 	private void makeNewGame(File gameFolder)	{
