@@ -21,7 +21,7 @@ public class GAEGameFileReader implements JSONtoGAE {
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private static final String LEVEL_FOLDER = "./data/levelData";
-	private String NEST = "/";
+	private static final String NEST = File.separator;
 	private FileRetriever fileRetriever;
 	
 	/**
@@ -29,10 +29,6 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	public GAEGameFileReader() 
 	{
-		if (System.getProperty("os.name").contains("Windows"))	
-		{
-			NEST = "\\";
-		}
 		fileRetriever = new FileRetriever();
 	}
 	
@@ -57,13 +53,26 @@ public class GAEGameFileReader implements JSONtoGAE {
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
 				if(!levelName.equals(SETTINGS))
 				{
-					File level = fileRetriever.retrieveLevel(gameName, levelName);
-					AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
-					completeGame.add(authoredBuilder.buildAuthoredLevel());
+					completeGame.add(loadAuthoredGameLevel(gameName, levelName));
 				}		
 		}
 		return completeGame;
-		// TODO Auto-generated method stub
+	}
+	
+	/**
+	 * This will load an existing level in an existing game as an AuthoredLevel
+	 * for use by the game authoring environment. Also used by GameFileWriter for 
+	 * reverting changes.
+	 * 
+	 * @param gameName
+	 * @param levelName
+	 * @return
+	 */
+	@Override
+	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) {
+		File level = fileRetriever.retrieveLevel(gameName, levelName);
+		AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
+		return authoredBuilder.buildAuthoredLevel();
 	}
 
 	/**
@@ -90,12 +99,6 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public Map<String, GameEntity> loadAuthorCustomObjects(String author) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

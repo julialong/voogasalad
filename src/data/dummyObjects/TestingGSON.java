@@ -30,9 +30,10 @@ public class TestingGSON {
 //		Level l = lb.buildLevel();
 //		System.out.println(l.getObjects());
 		
-		GPGameFileReader gp = new GPGameFileReader();
-		gp.loadCompleteGame("TestA");
+//		GPGameFileReader gp = new GPGameFileReader();
+//		gp.loadCompleteGame("TestA");
 		
+		System.out.println(File.separator);
 		
 	}
 }
