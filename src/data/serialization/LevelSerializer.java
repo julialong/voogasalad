@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.grid.GridCell;
+import data.resources.DataFileException;
 
 import engine.level.Level;
 
@@ -29,7 +30,7 @@ public class LevelSerializer	{
 	 * @param fw	FileWriter that is linked to file to write to (this method is called when file is already being edited)
 	 * @param level	Level to write out
 	 */
-	public void serialize(FileWriter fw, Level level, ScrollingGrid grid)	{
+	public void serialize(FileWriter fw, Level level, ScrollingGrid grid) throws DataFileException	{
 		writeKeyValue(fw, NAME, level.getName());
 		writeKeyValue(fw, ID, 1);// level.getID());
 		writeKeyValue(fw, SIZE, 1);// level.getSize());
@@ -60,7 +61,7 @@ public class LevelSerializer	{
 		}
 	}
 
-	private void writeGrid(FileWriter fw, ScrollingGrid grid)	{
+	private void writeGrid(FileWriter fw, ScrollingGrid grid) throws DataFileException	{
 		TextWriter.startArray(fw, SG);
 
 		for (int i = 0; i < grid.getCellArray().length; i++)	{

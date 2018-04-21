@@ -37,7 +37,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Creates or loads the appropriate GameFile object for a game.
 	 * @param gameName
 	 */
-	public GameFileWriter(String user, String gameName)	{
+	public GameFileWriter(String user, String gameName) throws DataFileException	{
 		this.gameName = gameName;
 		userDirectory = GAMEDATA + user;
 		userDirectoryFile = retrieveFolder(userDirectory);
@@ -50,7 +50,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param changes	Map of Levels linked to all the items in them
 	 */
 	@Override
-	public void update(List<AuthoredLevel> changes)	{
+	public void update(List<AuthoredLevel> changes) throws DataFileException	{
 		for (AuthoredLevel aLevel:changes)	{
 			saveData(aLevel);
 		}
@@ -62,7 +62,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param desc		description of game
 	 */
 	@Override
-	public void updateMeta(boolean ready, String desc)	{
+	public void updateMeta(boolean ready, String desc) throws DataFileException	{
 		updateMeta(ready, desc, 0);
 	}
 
@@ -73,7 +73,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param levelStart	level to start game at
 	 */
 	@Override
-	public void updateMeta(boolean ready, String desc, int levelStart)	{
+	public void updateMeta(boolean ready, String desc, int levelStart) throws DataFileException	{
 		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), ready, desc, levelStart);
 	}
 
@@ -83,7 +83,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	@Override
 	@Deprecated
-	public void saveData(Level level)	{
+	public void saveData(Level level) throws DataFileException	{
 		new TextWriter(new AuthoredLevel(level, new ScrollingGrid()), getLevel(level));
 	}
 
@@ -91,7 +91,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Saves state of level being played, for use with checkpoints
 	 * @param level			name of level to save
 	 */
-	public void saveData(AuthoredLevel level)	{
+	public void saveData(AuthoredLevel level) throws DataFileException	{
 		new TextWriter(level, getLevel(level.getLevel()));
 	}
 
@@ -100,7 +100,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param player			name of level to save
 	 */
 	@Override
-	public void saveData(String player, List<Level> levels)	{
+	public void saveData(String player, List<Level> levels) throws DataFileException	{
 		for (Level aLevel:levels)	{
 			new TextWriter(new AuthoredLevel(aLevel, new ScrollingGrid()), getLevel(aLevel, player));
 		}
@@ -147,7 +147,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @author Maya Messinger
 	 * @param level		level to save separately
 	 */
-	public void saveIndivLevel(AuthoredLevel level)	{
+	public void saveIndivLevel(AuthoredLevel level) throws DataFileException	{
 		String tempGameDir = gameDirectory;
 
 		gameDirectory = LEVELDATA;
@@ -157,7 +157,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		gameDirectory = tempGameDir;
 	}
 	
-	private File retrieveFolder(String lookFor)	{
+	private File retrieveFolder(String lookFor) throws DataFileException	{
 		File folder = new File(lookFor);
 		if (!gameExists(folder))	{
 			makeNewGame(folder);
@@ -169,7 +169,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		 return gameFolder.exists() && gameFolder.isDirectory();
 	}
 
-	private void makeNewGame(File gameFolder)	{
+	private void makeNewGame(File gameFolder) throws DataFileException	{
 		gameFolder.mkdir();
 
 		if (gameDirectory != null)	{
