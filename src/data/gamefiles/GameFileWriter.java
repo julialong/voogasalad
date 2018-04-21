@@ -11,6 +11,8 @@ import data.resources.DataFileException;
 import data.serialization.TextWriter;
 import engine.level.Level;
 
+import javax.xml.crypto.Data;
+
 /**
  * @author Maya Messinger
  * @author Belanie Nagiel
@@ -177,11 +179,11 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		}
 	}
 
-	private File getLevel(Level level)	{
+	private File getLevel(Level level) throws DataFileException	{
 		return (getLevel(level, ""));
 	}
 
-	private File getLevel(Level level, String user)	{
+	private File getLevel(Level level, String user) throws DataFileException {
 		File newLevel = new File(gameDirectory + NEST + level.getName() + user + EXTENSION);
 
 		if(!newLevel.exists())	{
