@@ -53,7 +53,7 @@ public class RightBar extends SplitPane{
     }
 
     public void update() {
-        myLevelChooser.update();
+        //myLevelChooser.update();
         myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
         myDeleteButton.changeGrid(myGrid);
     }
@@ -87,7 +87,6 @@ public class RightBar extends SplitPane{
     	ElementPicker elementPicker = new ElementPicker();
     	ScrollPane pickerPane = elementPicker.getElementPane();
         elementPane.getChildren().add(pickerPane);
-        levelPane.getChildren().add(myLevelChooser);
     }
     
 }

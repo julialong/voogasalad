@@ -3,11 +3,13 @@ package authoring_environment.toolbars.choosers;
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
 import javafx.geometry.Side;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Pane;
+import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 /**
  * The level chooser allows users to select an available level to edit.
@@ -22,8 +24,7 @@ public class LevelChooser extends ListView<AuthoredLevel> {
     private ScrollPane myScrollPane;
 
     private static final int FONT_SIZE = 15;
-
-    private int notify;
+    private static final String DELETE_LEVEL = "Delete level";
 
     /**
      * Creates a scrollpane that allows users to choose a level to edit.
@@ -31,6 +32,8 @@ public class LevelChooser extends ListView<AuthoredLevel> {
      */
     public LevelChooser(CreatorView window, ScrollPane grid) {
         super();
+        myWindow = window;
+        myScrollPane = grid;
         this.setItems(window.getGame().getObservableLevels());
         changeFormat();
     }
@@ -39,49 +42,39 @@ public class LevelChooser extends ListView<AuthoredLevel> {
         this.setCellFactory(param -> new levelNameCell());
     }
 
-    static class levelNameCell extends ListCell<AuthoredLevel> {
+    /**
+     * Overrides the default ListView Cell to display the level name
+     */
+    class levelNameCell extends ListCell<AuthoredLevel> {
         @Override
         public void updateItem(AuthoredLevel item, boolean empty) {
             super.updateItem(item, empty);
             if (!empty) {
-                Text text = new Text(item.getName());
-                text.setFont(new Font(FONT_SIZE));
-            }
-            }
-        }
-
-    /**
-     * Updates the current list of levels
-     */
-    public void update() {
-        this.getChildren().removeAll(this.getChildren());
-        for (AuthoredLevel level : myWindow.getGame().getLevels()) {
-            Pane thisLevelChoice = new LevelChoice(level);
-            thisLevelChoice.setOnMouseClicked(e -> {
-                if (e.getButton() == MouseButton.PRIMARY) {
+                setText(item.getName());
+                setFont(new Font(FONT_SIZE));
+                setOnMouseClicked(e -> {
                     if (e.isControlDown()) {
-                        addRightClickButtonBehavior(thisLevelChoice, level);
+                        addRightClickButtonBehavior(this, item);
                     }
                     else {
-                        addClickButtonBehavior(level);
+                        addClickButtonBehavior(item);
                     }
+                });
                 }
-            });
-            this.getChildren().add(thisLevelChoice);
+            }
         }
-    }
 
     private void addClickButtonBehavior(AuthoredLevel level) {
         myWindow.getGame().setCurrentLevel(level);
         myScrollPane.setContent(myWindow.getGame().getCurrentLevel().getScrollingGrid());
     }
 
-    private void addRightClickButtonBehavior(Pane levelChoice, AuthoredLevel level) {
+    private void addRightClickButtonBehavior(Node cell, AuthoredLevel level) {
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem delete = new MenuItem("Delete level");
+        MenuItem delete = new MenuItem(DELETE_LEVEL);
         delete.setOnAction(e -> setDeleteBehavior(level));
         contextMenu.getItems().add(delete);
-        contextMenu.show(levelChoice, Side.RIGHT, 0 ,0 );
+        contextMenu.show(cell, Side.RIGHT, 0, 0);
     }
 
     private void setDeleteBehavior(AuthoredLevel level) {
