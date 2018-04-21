@@ -21,6 +21,9 @@ public interface JSONtoGAE {
 	List<AuthoredLevel> loadCompleteAuthoredGame(String gameName);
 	
 	/**
+	 * This will load an existing level in an existing game as an AuthoredLevel
+	 * for use by the game authoring environment. Also used by GameFileWriter for 
+	 * reverting changes.
 	 * 
 	 * @param gameName
 	 * @param levelName
