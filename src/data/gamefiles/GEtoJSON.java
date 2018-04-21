@@ -2,7 +2,6 @@ package data.gamefiles;
 
 import java.util.List;
 
-import engine.entity.GameEntity;
 import engine.level.Level;
 
 /**

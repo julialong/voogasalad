@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import authoring_environment.game_elements.AuthoredLevel;
+import data.builders.AuthoredLevelBuilder;
 import engine.entity.GameEntity;
 import engine.level.Level;
 /**
@@ -89,6 +90,12 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public Map<String, GameEntity> loadAuthorCustomObjects(String author) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

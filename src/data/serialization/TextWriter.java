@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 
 import authoring_environment.game_elements.AuthoredLevel;
 import engine.entity.GameEntity;
-import engine.level.Level;
 
 /**
  * @author Maya Messinger
