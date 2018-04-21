@@ -9,7 +9,6 @@ import authoring_environment.game_elements.AuthoredLevel;
 import data.builders.AuthoredLevelBuilder;
 import data.resources.DataFileException;
 import engine.entity.GameEntity;
-import engine.level.Level;
 /**
  * This class holds the implementation for the methods that allow the GAE to load games and files
  * for continued editing or use.
