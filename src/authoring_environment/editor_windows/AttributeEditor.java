@@ -45,6 +45,7 @@ import javafx.stage.Stage;
  *
  */
 // TODO: refactor this class into smaller classes to reduce number of dependencies
+// TODO: get rid of strings in methods 
 public class AttributeEditor {
 
 	private static final String ATTRIBUTE_RESOURCES = "resources/attributes";
@@ -55,6 +56,8 @@ public class AttributeEditor {
 	private static final int SMALL_FONT = 15;
 	private static final int LARGE_FONT = 20;
 	private static final String GAME_ENTITY = "GameEntity";
+	private static final String CUSTOM_IMAGES_FOLDER = "data/authoredElementImages/";
+	private static final String  SLASH = "/";
 
 	private GameElement gameElement;
 	private String elementID; 
@@ -194,7 +197,7 @@ public class AttributeEditor {
 	 */
 	public void saveChanges() {
 		Path source = Paths.get(imageURI);
-		Path target = Paths.get("data/authoredElementImages/" + elementID + imageFile.getAbsolutePath().substring(imageFile.getAbsolutePath().lastIndexOf(".")));
+		Path target = Paths.get(CUSTOM_IMAGES_FOLDER + chosenAttributes.get(GAME_ENTITY) + SLASH + elementID + imageFile.getAbsolutePath().substring(imageFile.getAbsolutePath().lastIndexOf(".")));
 		try {
 			Files.copy(source, target);
 		} catch (IOException e) {
