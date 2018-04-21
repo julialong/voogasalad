@@ -78,12 +78,6 @@ public class LevelBuilder {
 			catch (ClassNotFoundException e) 
 			{
 				throw new DataFileException("Could not find object class for reflection",e);
-				// TODO Auto-generated catch block
-//				JOptionPane.showMessageDialog(new JFrame(),
-//						 "Could not find object class for reflection",
-//						    "Class Not Found Exception",
-//					    JOptionPane.WARNING_MESSAGE);
-//				e.printStackTrace();
 			}
 		}
 	}
@@ -109,11 +103,6 @@ public class LevelBuilder {
 		catch(JsonIOException | JsonSyntaxException | FileNotFoundException e)
 		{
 			throw new DataFileException("Could not find the file to load for Level", e);
-//			JOptionPane.showMessageDialog(new JFrame(),
-//					 "Could not find the file to load for Level",
-//					    "File Reader Exception",
-//				    JOptionPane.WARNING_MESSAGE);
-//			e.printStackTrace();
 		}
 		return level;	
 	}
@@ -151,7 +140,6 @@ public class LevelBuilder {
 			}
 		}
 		level.setObjects(gameObjects);
-//		System.out.println(gameObjects);
 	}
 
 	/**
@@ -166,7 +154,6 @@ public class LevelBuilder {
 		JsonArray jarray = jobject.getAsJsonArray(objectType);
 		for(int i = 0; i < jarray.size(); i++)
 		{
-			//System.out.println((GameEntity)convertToObject(jarray.get(i).getAsJsonObject(), objectType));
 			newObjectsOfType.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
 		}
 		return newObjectsOfType;

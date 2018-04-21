@@ -76,13 +76,6 @@ public class AuthoredLevelBuilder {
 		catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) 
 		{
 			throw new DataFileException("Could not find the file to load for AuthoredLevel", e);
-			// TODO Auto-generated catch block
-//			JOptionPane.showMessageDialog(new JFrame(),
-//					 "Could not find the file to load for AuthoredLevel",
-//					    "File Reader Exception",
-//				    JOptionPane.WARNING_MESSAGE);
-			// TODO remove print stack trace
-//			e.printStackTrace();
 		}
 		return scrollingGrid;
 	}
