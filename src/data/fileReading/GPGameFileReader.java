@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import data.builders.LevelBuilder;
+import data.resources.DataFileException;
 import engine.level.Level;
 /**
  *  This class holds the implementation for the methods that allow the Game Player to load games and files
@@ -43,21 +44,25 @@ public class GPGameFileReader implements JSONtoGP{
 	 * 
 	 * @param gameName
 	 * @return 
+	 * @throws DataFileException 
 	 */
 	@Override
-	public List<Level> loadCompleteGame(String gameName) {
+	public List<Level> loadCompleteGame(String gameName) throws DataFileException {
 		List<Level> completeGame = new ArrayList<>();
 		File currentGame = new File(fileRetriever.retrieveCurrentGamePath(gameName));
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
+			if(!gameFile.isDirectory())
+			{
 				int index = gameFile.toString().lastIndexOf(NEST) + 1;
 				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
 				if(!levelName.equals(SETTINGS))
 				{
 					completeGame.add(loadLevel(gameName, levelName));
-				}		
+				}
+			}			
 		}
 		return completeGame;
 	}
@@ -70,9 +75,10 @@ public class GPGameFileReader implements JSONtoGP{
 	 * @param gameName
 	 * @param levelName
 	 * @return
+	 * @throws DataFileException 
 	 */
 	@Override
-	public Level loadLevel(String gameName, String levelName) {
+	public Level loadLevel(String gameName, String levelName) throws DataFileException {
 		File currentLevel = fileRetriever.retrieveLevel(gameName, levelName);
 		LevelBuilder levelBuilder = new LevelBuilder(currentLevel);
 		return levelBuilder.buildLevel();

@@ -35,6 +35,7 @@ public interface GAEtoJSON	{
 	/**
 	 * Method that allows for changes to be reverted to last saved version of game, if user decides to entirely scrap their updats
 	 * @param level	level to revert info for
+	 * @throws DataFileException 
 	 */
 	@Deprecated
 	Level revertChanges(Level level) throws DataFileException;
@@ -42,6 +43,7 @@ public interface GAEtoJSON	{
 	/**
 	 * Method that allows for changes to be reverted to last saved version of game, if user decides to entirely scrap their updats
 	 * @param level	level to revert info for
+	 * @throws DataFileException 
 	 */
 	AuthoredLevel revertChanges(AuthoredLevel level) throws DataFileException;
 

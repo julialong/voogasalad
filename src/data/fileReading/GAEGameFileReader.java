@@ -7,6 +7,7 @@ import java.util.Map;
 
 import authoring_environment.game_elements.AuthoredLevel;
 import data.builders.AuthoredLevelBuilder;
+import data.resources.DataFileException;
 import engine.entity.GameEntity;
 import engine.level.Level;
 /**
@@ -40,9 +41,10 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 * 
 	 * @param gameName
 	 * @return 
+	 * @throws DataFileException 
 	 */
 	@Override
-	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) {
+	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) throws DataFileException {
 		List<AuthoredLevel> completeGame = new ArrayList<>();
 		File currentGame = new File(fileRetriever.retrieveCurrentGamePath(gameName));
 		File[] gameFiles = currentGame.listFiles();
@@ -67,9 +69,10 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 * @param gameName
 	 * @param levelName
 	 * @return
+	 * @throws DataFileException 
 	 */
 	@Override
-	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) {
+	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) throws DataFileException {
 		File level = fileRetriever.retrieveLevel(gameName, levelName);
 		AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
 		return authoredBuilder.buildAuthoredLevel();
@@ -81,9 +84,10 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 * 
 	 * @param levelName
 	 * @return
+	 * @throws DataFileException 
 	 */
 	@Override
-	public AuthoredLevel loadAuthoredLevel(String levelName) {
+	public AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException {
 		File level = new File(LEVEL_FOLDER + NEST + levelName);
 		AuthoredLevelBuilder levelBuilder = new AuthoredLevelBuilder(level);
 		return levelBuilder.buildAuthoredLevel();

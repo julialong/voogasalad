@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import authoring_environment.game_elements.AuthoredLevel;
+import data.resources.DataFileException;
 import engine.entity.GameEntity;
 import engine.level.Level;
 
@@ -17,8 +18,9 @@ public interface JSONtoGAE {
 	 * 
 	 * @param gameName
 	 * @return 
+	 * @throws DataFileException 
 	 */
-	List<AuthoredLevel> loadCompleteAuthoredGame(String gameName);
+	List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) throws DataFileException;
 	
 	/**
 	 * This will load an existing level in an existing game as an AuthoredLevel
@@ -28,8 +30,9 @@ public interface JSONtoGAE {
 	 * @param gameName
 	 * @param levelName
 	 * @return
+	 * @throws DataFileException 
 	 */
-	AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName);
+	AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) throws DataFileException;
 
 	/**
 	 * This will load one of the stray levels that an author can
@@ -37,8 +40,9 @@ public interface JSONtoGAE {
 	 * 
 	 * @param levelName
 	 * @return
+	 * @throws DataFileException 
 	 */
-	AuthoredLevel loadAuthoredLevel(String levelName);
+	AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException;
 
 	/**
 	 * This will load the author settings for a specific author in the 
