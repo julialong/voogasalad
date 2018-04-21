@@ -51,13 +51,16 @@ public class GPGameFileReader implements JSONtoGP{
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
+			if(!gameFile.isDirectory())
+			{
 				int index = gameFile.toString().lastIndexOf(NEST) + 1;
 				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
 				if(!levelName.equals(SETTINGS))
 				{
 					completeGame.add(loadLevel(gameName, levelName));
-				}		
+				}
+			}			
 		}
 		return completeGame;
 	}

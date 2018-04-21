@@ -17,6 +17,8 @@ public class FileRetriever {
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private static final String NEST = File.separator;
+	private static final String PLAYER_FOLDER = "Playing";
+	private static final String PLAYER_SEPARATOR = "_";
 	
 	/**
 	 * Class Constructor
@@ -79,6 +81,20 @@ public class FileRetriever {
 	{
 		String gameDirectory = retrieveCurrentGamePath(gameName);
 		return new File(gameDirectory + NEST + level + JSON_EXTENSION);
+	}
+	
+	/**
+	 * Return the file for the specific player's version of a level
+	 * 
+	 * @param gameName
+	 * @param level
+	 * @param player
+	 * @return
+	 */
+	public File retrievePlayerLevel(String gameName, String level, String player)
+	{
+		String gameDirectory = retrieveCurrentGamePath(gameName);
+		return new File(gameDirectory + NEST + PLAYER_FOLDER + NEST + level + PLAYER_SEPARATOR + player + JSON_EXTENSION);
 	}
 	
 	/**
