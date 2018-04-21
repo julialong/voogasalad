@@ -31,7 +31,7 @@ public class LevelSaver {
     private static final String DESCRIPTION = "File description:";
 
     /**
-     * Creates a new Level Saver windoe
+     * Creates a new Level Saver window
      * @param window is the new window
      */
     public LevelSaver(CreatorView window) {
