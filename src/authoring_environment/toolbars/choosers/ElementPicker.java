@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 
+import authoring_environment.editor_windows.EditorWindow;
 import authoring_environment.editor_windows.PickableElement;
+import authoring_environment.toolbars.RightBar;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -30,9 +32,11 @@ public class ElementPicker {
 	private ScrollPane myScrollPane;
 	private ArrayList<ImageView> myElementImages;
 	private String myTypeChoice;
+	private RightBar myRightBar;
 	
-	public ElementPicker() {
+	public ElementPicker(RightBar bar) {
 		
+		myRightBar = bar;
 		myElementGrid = new GridPane();
 		myScrollPane = new ScrollPane(myElementGrid);
 		myScrollPane.setMinHeight(MIN_HEIGHT);
@@ -41,7 +45,6 @@ public class ElementPicker {
 		myElementGrid.setHgap(GAP);
 		myElementGrid.setVgap(GAP);
 		myElementImages = new ArrayList<ImageView>();
-		updateTypeChoice();
 		loadImages(myTypeChoice);
 		setElements();
 		
@@ -52,28 +55,32 @@ public class ElementPicker {
 	}
 	
 	private void loadImages(String type) {
-		File folder = new File("./data/authoredElementData/");
-		String[] imageExtensions = new String[]{".xml"};
-		File[] imageFiles = folder.listFiles((folder1, name) -> {
-            for (String extension : imageExtensions) {
-                if (name.endsWith(extension)) {
-                    return (true);
-                }
-            }
-            return (false);
-        });
-		for(File file : imageFiles) {
-			String fileName = file.getName();
-			String ID = fileName.substring(0, fileName.lastIndexOf('.'));
-			PickableElement element = new PickableElement(ID);
-			myElementImages.add(element);
+		myElementImages.clear();
+		if (myTypeChoice != null) {
+			File folder = new File("./data/authoredElementImages/" + myTypeChoice + "/");
+			String[] imageExtensions = new String[]{".jpg",".jpeg",".png",".gif"};
+			File[] imageFiles = folder.listFiles((folder1, name) -> {
+	            for (String extension : imageExtensions) {
+	                if (name.endsWith(extension)) {
+	                    return (true);
+	                }
+	            }
+	            return (false);
+	        });
+			for(File file : imageFiles) {
+				String fileName = file.getName();
+				String ID = fileName.substring(0, fileName.lastIndexOf('.'));
+				PickableElement element = new PickableElement(ID);
+				myElementImages.add(element);
+			}
 		}
-		
 	}
 	
-	private void updateTypeChoice() {
-		//TODO: Load type choice from combo box
-		myTypeChoice = "Block";
+	public void updateTypeChoice(String type) {
+		myTypeChoice = type;
+		loadImages(myTypeChoice);
+		myElementGrid.getChildren().clear();
+		setElements();
 	}
 	
 	private void setElements() {

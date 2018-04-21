@@ -9,6 +9,12 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 
+/**
+ * 
+ * @author Michael Acker
+ * Date Started: 4/2/2018
+ *
+ */
 public class PickableElement extends ImageView implements DocumentGetter {
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	private static final int REQUESTED_WIDTH = 40;

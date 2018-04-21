@@ -105,6 +105,7 @@ public class GridCell extends HBox {
 		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
 		myType = myDataDoc.getDocumentElement().getAttribute("GameEntity");
 		myCellView.setImage(new Image("file:" + path));
+		if(selected) {deselect();}
 	}
 	
 	public String getType() {
