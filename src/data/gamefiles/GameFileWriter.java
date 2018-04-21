@@ -3,12 +3,11 @@ package data.gamefiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JFrame;
 
-import data.fileReading.GAEGameFileReader;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
+import data.fileReading.GAEGameFileReader;
+import data.resources.DataFileException;
 import data.serialization.TextWriter;
 import engine.level.Level;
 
@@ -190,10 +189,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 				newLevel.createNewFile();
 			} 
 			catch (IOException e) {
-				JOptionPane.showMessageDialog(new JFrame(),
-				    "Could not get or make file " + newLevel.toString(),
-				    "IOException",
-				    JOptionPane.WARNING_MESSAGE);
+				throw new DataFileException("Could not get or make file " + newLevel.toString(), new Throwable("IOException in GameFileWriter"));
 			}
 		}
 

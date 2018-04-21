@@ -36,7 +36,7 @@ public class LevelSerializer	{
 		writeGrid(fw, grid);
 	}
 
-	private void writeKeyValue(FileWriter fw, String key, String value)	{
+	private void writeKeyValue(FileWriter fw, String key, String value) throws DataFileException	{
 		try	{
 			TextWriter.writeKey(fw, key);
 			TextWriter.writeValue(fw, value);
@@ -48,7 +48,7 @@ public class LevelSerializer	{
 		}
 	}
 
-	private void writeKeyValue(FileWriter fw, String key, int value)	{
+	private void writeKeyValue(FileWriter fw, String key, int value) throws DataFileException	{
 		try	{
 			TextWriter.writeKey(fw, key);
 			TextWriter.writeValue(fw, value);
