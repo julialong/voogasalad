@@ -116,7 +116,7 @@ public class GridCell extends HBox {
 		this.setEffect(new InnerShadow(mySize/2 , Color.web("#99ebff") ));
 	}
 	
-	private void deselect() {
+	void deselect() {
 		selected = false;
 		this.setEffect(null);
 	}
@@ -181,6 +181,7 @@ public class GridCell extends HBox {
 		if (db.hasString()) {
 			myGrid.setCellElement(this, db.getString());
 			success = true;
+			deselect();
 		}
 		event.setDropCompleted(success);
 		event.consume();
