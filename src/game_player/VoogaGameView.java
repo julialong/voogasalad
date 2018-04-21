@@ -14,16 +14,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import data.gamefiles.GameFileReader;
-import data.gamefiles.JSONtoObject;
 import engine.controls.*;
 import engine.entity.GameEntity;
 import engine.entity.Player;
@@ -104,19 +98,11 @@ public class VoogaGameView implements GameView {
 			if (ge instanceof Player) {
 				myControls = new Controls((Player) ge);
 				imgPath = "trump.gif";
-				ge.setSpeedFactor(1000);
-				ge.setMaxXVelocity(50);
-				ge.setMaxYVelocity(500);
-				ge.setFrictionConstant(200);
-				ge.setJumpFactor(75);
 			}
-			// System.out.println(ge);
-			// System.out.println("\t"+ge.getSizeX());
-			// System.out.println("\t"+ge.getSizeY());
-			// System.out.println("\t"+ge.getScenePosition()[0]);
-			// System.out.println("\t"+ge.getScenePosition()[1]);
+
 			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath),
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
+	
 			// TODO: uncomment below once GAE sends us actual data
 			// if (ge.getClass().equals(new Player().getClass())) {
 			// myControls = new Controls((Player) ge);
@@ -130,17 +116,6 @@ public class VoogaGameView implements GameView {
 			myDispMap.put(ge, entityImage);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}
-		// for (GameEntity gee : myDispMap.keySet()) {
-		// System.out.println(gee);
-		// System.out.println("Position[0]: " + gee.getPosition()[0]);
-		// System.out.println("Position[1]: " + gee.getPosition()[1]);
-		// System.out.println("ScenePosition[0]: " + gee.getScenePosition()[0]);
-		// System.out.println("ScenePosition[1]: " + gee.getScenePosition()[1]);
-		// System.out.println("AdjScenePosition[0]: " +
-		// adjustXCord(gee.getScenePosition()[0]));
-		// System.out.println("AdjScenePosition[1]: " +
-		// adjustYCord(gee.getScenePosition()[1]));
-		// }
 	}
 
 	/**
@@ -176,17 +151,17 @@ public class VoogaGameView implements GameView {
 	private void displayObjects() {
 		Level level = myGameLevels.get(myCurrLevel);
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
-		for (GameEntity ge : level.getObjects()) {
+		for (GameEntity ge : myDispMap.keySet()) {
 			if (level.getObjects().contains(ge)) {
 				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
 				myDispMap.get(ge).setY(adjustYCord(ge.getScenePosition()[1]));
-
 			} else {
 				toRemove.add(ge);
 				myGP.getChildren().remove(myDispMap.get(ge));
 			}
 		}
 		for (GameEntity ge : toRemove) {
+			myGP.getChildren().remove(myDispMap.get(ge));
 			myDispMap.remove(ge);
 		}
 	}
