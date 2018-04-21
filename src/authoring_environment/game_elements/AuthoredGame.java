@@ -3,11 +3,15 @@ package authoring_environment.game_elements;
 import authoring_environment.grid.ScrollingGrid;
 import data.gamefiles.GAEtoJSON;
 import data.gamefiles.GameFileWriter;
+import data.resources.DataFileException;
 import engine.level.BasicLevel;
 import engine.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * The Authored Game class holds the current state of the game, including the current levels
@@ -33,13 +37,21 @@ public class AuthoredGame {
      * @param gameName is the name of the game
      */
     public AuthoredGame(String gameName) {
-        myName = gameName;
-        myDescription = DEFAULT_DESCRIPTION;
-        myLevels = new ArrayList<>();
-        Level tempLevel = new BasicLevel(0);
-        currentLevel = new AuthoredLevel(tempLevel, new ScrollingGrid());
-        myGameWriter = new GameFileWriter(myName);
-        isReady = false;
+        try {
+            myName = gameName;
+            myDescription = DEFAULT_DESCRIPTION;
+            myLevels = new ArrayList<>();
+            Level tempLevel = new BasicLevel(0);
+            currentLevel = new AuthoredLevel(tempLevel, new ScrollingGrid());
+            myGameWriter = new GameFileWriter("User2", myName);
+            isReady = false;
+        }
+        catch (DataFileException e) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle(e.getCause().toString());
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     /**
@@ -54,8 +66,16 @@ public class AuthoredGame {
      * @param name is the new name for the game
      */
     public void rename(String name) {
-        myName = name;
-        myGameWriter.renameGame(name);
+        try {
+            myName = name;
+            myGameWriter.renameGame(name);
+        }
+        catch (DataFileException e)    {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle(e.getCause().toString());
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     /**
@@ -142,8 +162,16 @@ public class AuthoredGame {
      * Updates the state of the game
      */
     public void update() {
-        // myGameWriter.update(myLevels);
-        myGameWriter.updateMeta(isReady, myDescription);
-        System.out.println("level saved");
+        try {
+            // myGameWriter.update(myLevels);
+            myGameWriter.updateMeta(isReady, myDescription);
+            System.out.println("level saved");
+        }
+        catch (DataFileException e)    {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle(e.getCause().toString());
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 }

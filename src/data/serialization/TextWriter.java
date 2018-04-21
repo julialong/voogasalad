@@ -8,8 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import authoring_environment.game_elements.AuthoredLevel;
+import data.resources.DataFileException;
 import engine.entity.GameEntity;
-import engine.level.Level;
 
 /**
  * @author Maya Messinger
@@ -24,10 +25,11 @@ public class TextWriter	{
 	public static final String COLON = ":";
 	public static final String COMMA = ",";
 	public static final String QUOTE = "\"";
-	private static final String WRITEERRORSTATEMENT = "Could not write to file";
+	private static final String WRITEERRORSTATEMENT = "Could not write content in file ";
 
 	private static final String DESCRIPTION = "description";
 	private static final String READYTOPLAY = "readyToPlay";
+	private static final String LEVELSTART = "startLevel";
 
 	private Serializer ser = new Serializer();
 
@@ -38,65 +40,68 @@ public class TextWriter	{
 	 * @param ready		whether game is ready or not
 	 * @param desc		description of game
 	 */
-	public TextWriter(File settings, boolean ready, String desc)	{
-		callWrite(settings, ready, desc);
+	public TextWriter(File settings, boolean ready, String desc, int levelStart) throws DataFileException	{
+		callWrite(settings, ready, desc, levelStart);
 	}
 
 	/**
 	 * @author Maya Messinger
 	 * Constructor for class. Calls the writing, so making a new TextWriter writes to a file
-	 * @param level			File of level to write
-	 * @param itemsInLevel	items to serialize and write
+	 * @param level			level to write
+	 * @param levelF		File if level to write
 	 */
-	public TextWriter(Level level, File levelF, List itemsInLevel)	{
-		callWrite(level, levelF, itemsInLevel);
+	public TextWriter(AuthoredLevel level, File levelF) throws DataFileException	{
+		callWrite(level, levelF);
 	}
 
-	private void callWrite(File settings, boolean ready, String desc)	{
+	private void callWrite(File settings, boolean ready, String desc, int levelStart) throws DataFileException	{
 		try	{
 			FileWriter fw = new FileWriter(settings);
 		
 			startFile(fw);
-			writeSettings(fw, ready, desc);
+			writeSettings(fw, ready, desc, levelStart);
 			endFile(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			throw new DataFileException("Could not create FileWriter with file " + settings.toString(), new Throwable("IOException in TextWriter"));
 		}
 	}
 
-	private void callWrite(Level level, File levelF, List<GameEntity> itemsInLevel)	{
+	private void callWrite(AuthoredLevel level, File levelF) throws DataFileException	{
 		try	{
 			FileWriter fw = new FileWriter(levelF);
 		
 			startFile(fw);
 			serializeLevel(fw, level);
-			writeObjects(fw, itemsInLevel);
+			writeObjects(fw, level.getLevel().getObjects());
 			endFile(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			throw new DataFileException("Could not create FileWriter with file " + level.toString(), new Throwable("IOException in TextWriter"));
 		}
 	}
 
-	private void writeSettings(FileWriter fw, boolean ready, String desc)	{
+	private void writeSettings(FileWriter fw, boolean ready, String desc, int levelStart) throws DataFileException	{
 		try	{
 			fw.write(QUOTE + DESCRIPTION + QUOTE + COLON + QUOTE + desc + QUOTE);
 			fw.write(COMMA);
 			newLine(fw);
 			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + ready);
+			fw.write(COMMA);
+			newLine(fw);
+			fw.write(QUOTE + LEVELSTART + QUOTE + COLON + levelStart);
 			newLine(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
-	private void serializeLevel(FileWriter fw, Level level)	{
-		new LevelSerializer().serialize(fw, level);
+	private void serializeLevel(FileWriter fw, AuthoredLevel level) throws DataFileException	{
+		new LevelSerializer().serialize(fw, level.getLevel(), level.getScrollingGrid());
 	}
 
-	private void writeObjects(FileWriter fw, List<GameEntity> items)	{
+	private void writeObjects(FileWriter fw, List<GameEntity> items) throws DataFileException	{
 		int entryIndex = 0;
 		Map<String, List<Object>> objsOrganized = sortObjects(items);
 		for (Map.Entry entry:objsOrganized.entrySet())	{
@@ -125,27 +130,27 @@ public class TextWriter	{
 		return objsOrganized;
 	}
 
-	protected static void startFile(FileWriter fw)	{
+	protected static void startFile(FileWriter fw) throws DataFileException	{
 		try	{
 			fw.write(CURLYBRACKETOPEN);
 			newLine(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			throw new DataFileException("Could not start file with FileWriter " + fw.toString(), new Throwable("IOException in TextWriter"));
 		}
 	}
 
-	private static void endFile(FileWriter fw)	{
+	private static void endFile(FileWriter fw) throws DataFileException	{
 		try	{
 			fw.write(CURLYBRACKETCLOSE);
 			fw.close();
 		}
 		catch (IOException e)	{
-			error(e);
+			throw new DataFileException("Could not end file with FileWriter " + fw.toString(), new Throwable("IOException in TextWriter"));
 		}
 	}
 
-	protected static void startArray(FileWriter fw, String title)	{
+	protected static void startArray(FileWriter fw, String title) throws DataFileException	{
 		try	{
 			if (title != null && !title.equals(""))	{
 				writeKey(fw, title);
@@ -155,22 +160,22 @@ public class TextWriter	{
 			newLine(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
-	protected static void closeArray(FileWriter fw, int entryIndex, int mapSize)	{
+	protected static void closeArray(FileWriter fw, int entryIndex, int mapSize) throws DataFileException	{
 		try	{
 			fw.write(BRACKETCLOSE);
 			checkWriteComma(fw, entryIndex, mapSize);
 			newLine(fw);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
-	private void writeArray(FileWriter fw, List toWrite)	{
+	private void writeArray(FileWriter fw, List toWrite) throws DataFileException	{
 		try	{
 			for (Object obj:toWrite)	{
 				fw.write(ser.serialize(obj));
@@ -179,58 +184,58 @@ public class TextWriter	{
 			}
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
-	protected static void newLine(FileWriter fw)	{
+	protected static void newLine(FileWriter fw) throws DataFileException	{
 		try	{
 			fw.write(System.lineSeparator());
 		}
 		catch(IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
-	protected static void writeKey(FileWriter fw, String key)	{
+	protected static void writeKey(FileWriter fw, String key) throws DataFileException	{
 		try	{
 			fw.write(QUOTE + key + QUOTE + COLON);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
-	protected static void writeValue(FileWriter fw, String value)	{
+	protected static void writeValue(FileWriter fw, String value) throws DataFileException	{
 		try	{
 			fw.write(QUOTE + value + QUOTE);
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
-	protected static void writeValue(FileWriter fw, int value)	{
+	protected static void writeValue(FileWriter fw, int value) throws DataFileException	{
 		try	{
 			fw.write(Integer.toString(value));
 		}
 		catch (IOException e)	{
-			error(e);
+			error(e, fw);
 		}
 	}
 
-	protected static void checkWriteComma(FileWriter fw, int index, int size)	{
+	protected static void checkWriteComma(FileWriter fw, int index, int size) throws DataFileException	{
 		if (index < size - 1)	{
 			try	{
 				fw.write(COMMA);
 			}
 			catch (IOException e)	{
-				error(e);
+				error(e, fw);
 			}
 		}
 	}
 
-	protected static void error(IOException e)	{
-		System.out.println(WRITEERRORSTATEMENT);
+	protected static void error(IOException e, FileWriter fw) throws DataFileException	{
+		throw new DataFileException(WRITEERRORSTATEMENT + fw.toString(), new Throwable("IOException in TextWriter"));
 	}
 }

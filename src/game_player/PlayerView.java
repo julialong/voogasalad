@@ -1,9 +1,14 @@
 package game_player;
 
-
 import engine.level.Level;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import java.util.List;
+import data.fileReading.GPGameFileReader;
+import data.fileReading.JSONtoGP;
+import data.resources.DataFileException;
 
 /**
  * The main application for the game player. Here is where the MVC design pattern is used.
@@ -16,31 +21,60 @@ public class PlayerView extends VBox{
 	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
 	private VoogaGameView myGameView;
+    private JSONtoGP reader = new GPGameFileReader();
+	private String myName;
+	private ScoreKeeper myHighScores = new ScoreKeeper();
 	
-//	public PlayerView() {
-//		super();
-//		createMenuBar();
-//		createGView();
-//		setViewTop();
-//		setMiddle();
-//	}
-
-	public PlayerView(List<Level> game){
+	public PlayerView() {
 		super();
-		gameMaterial = game;
-		createMenuBar();
 		createGView();
+		createMenuBar();
 		setViewTop();
 		setMiddle();
 	}
 
-	//	public PlayerView(String name){
-	//		this();
-	//		System.out.println(name);
-	//	}
+	public PlayerView(List<Level> game, String name){
+		super();
+		gameMaterial = game;
+		myName = name;
+		createGView();
+		createMenuBar();
+		setViewTop();
+		setMiddle();
+	}
 	
+	/**
+	 * Resets the game
+	 */
+	private void resetGame() {
+		this.getChildren().remove(myGameView.getNode());
+		resetGView();
+		setMiddle();
+	}
+	
+	
+	/**
+	 * Reloads the game materials;
+	 */
+	private void resetGView() {
+		try
+		{
+			myGameView = new VoogaGameView(reader.loadCompleteGame(myName));
+		}
+		catch(DataFileException e)
+		{
+			Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle(e.getCause().toString());
+            alert.setContentText(e.getMessage());
+            alert.show();
+		}
+	}
+	
+	
+	/**
+	 * Creates the view where the game is displayed.
+	 */
 	private void createGView() {
-		// TODO Auto-generated method stub
 		myGameView = new VoogaGameView(gameMaterial);
 	}
 
@@ -57,12 +91,33 @@ public class PlayerView extends VBox{
 	 * add buttons to my menubar
 	 */
 	private void addButtons() {
-		// TODO Auto-generated method stub
-		myMenuBar.addButton(new VButton("High Scores"));
-		myMenuBar.addButton(new VButton("Replay"));
+		
 		myMenuBar.addButton(new VButton("Switch Game"));
-		myMenuBar.addButton(new VButton("Save Game"));
-		myMenuBar.addButton(new VButton("Set Preferences"));
+		
+		VButton saveButton = new VButton("Save Game");
+		saveButton.setOnMouseClicked(e -> new SaveScreen(gameMaterial, myName));
+		myMenuBar.addButton(saveButton);
+		
+		VButton scoresButton = new VButton("High Scores");
+		scoresButton.setOnMouseClicked(e -> myHighScores.setUpStage());
+		
+		myMenuBar.addButton(scoresButton);
+		VButton resumeButton = new VButton("Resume Game");
+		resumeButton.setOnMouseClicked(e -> myGameView.resumeGame());
+		myMenuBar.addButton(resumeButton);
+		
+		VButton pauseButton = new VButton("Pause Game");
+		pauseButton.setOnMouseClicked(e -> myGameView.pauseGame());
+		myMenuBar.addButton(pauseButton);
+		
+		//TODO: new interface here
+		VButton keysButton = new VButton("Change Bindings");
+		keysButton.setOnMouseClicked(e -> new KeyBindingWindow(myGameView));
+		myMenuBar.addButton(keysButton);
+		
+		VButton resetButton = new VButton("Reset");
+		resetButton.setOnMouseClicked(e -> resetGame());
+		myMenuBar.addButton(resetButton);
 	}
 
 	/**
@@ -82,12 +137,13 @@ public class PlayerView extends VBox{
 		myGameView.startGame();
 		//TODO: gameView class
 	}
-	
-	/**
-	 * update the game view
-	 * 
-	 */
-	public void updateView() {
-		myGameView.updateGame();
+		
+	public void startKey(KeyCode keyCode) {
+		myGameView.keyPressed(keyCode);
 	}
+	
+	public void endKey(KeyCode keyCode) {
+		myGameView.keyUnPressed(keyCode);
+	}
+	
 }

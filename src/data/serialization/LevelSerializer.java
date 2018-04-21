@@ -5,8 +5,10 @@ import java.io.FileWriter;
 
 import com.google.gson.JsonArray;
 
+import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.grid.GridCell;
+import data.resources.DataFileException;
 
 import engine.level.Level;
 
@@ -20,24 +22,22 @@ public class LevelSerializer	{
 	private static final String ID = "id";
 	private static final String SIZE = "size";
 	private static final String SG = "ScrollingGrid";
-
-	private int cellSize;
-	private int rowNumber;
-	private int columnNumber;
-	private GridCell[][] cellArray;
+	
+	public LevelSerializer() {
+	}
 
 	/**
 	 * @param fw	FileWriter that is linked to file to write to (this method is called when file is already being edited)
 	 * @param level	Level to write out
 	 */
-	public void serialize(FileWriter fw, Level level)	{
+	public void serialize(FileWriter fw, Level level, ScrollingGrid grid) throws DataFileException	{
 		writeKeyValue(fw, NAME, level.getName());
 		writeKeyValue(fw, ID, 1);// level.getID());
 		writeKeyValue(fw, SIZE, 1);// level.getSize());
-		writeGrid(fw, level.getGrid());
+		writeGrid(fw, grid);
 	}
 
-	private void writeKeyValue(FileWriter fw, String key, String value)	{
+	private void writeKeyValue(FileWriter fw, String key, String value) throws DataFileException	{
 		try	{
 			TextWriter.writeKey(fw, key);
 			TextWriter.writeValue(fw, value);
@@ -45,11 +45,11 @@ public class LevelSerializer	{
 			fw.write(System.lineSeparator());
 		}
 		catch (IOException e)	{
-			e.printStackTrace();
+			TextWriter.error(e, fw);
 		}
 	}
 
-	private void writeKeyValue(FileWriter fw, String key, int value)	{
+	private void writeKeyValue(FileWriter fw, String key, int value) throws DataFileException	{
 		try	{
 			TextWriter.writeKey(fw, key);
 			TextWriter.writeValue(fw, value);
@@ -57,11 +57,11 @@ public class LevelSerializer	{
 			fw.write(System.lineSeparator());
 		}
 		catch (IOException e)	{
-			e.printStackTrace();
+			TextWriter.error(e, fw);
 		}
 	}
 
-	private void writeGrid(FileWriter fw, ScrollingGrid grid)	{
+	private void writeGrid(FileWriter fw, ScrollingGrid grid) throws DataFileException	{
 		TextWriter.startArray(fw, SG);
 
 		for (int i = 0; i < grid.getCellArray().length; i++)	{

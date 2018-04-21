@@ -1,17 +1,22 @@
-.list-cell {
-    -fx-background-color: linear-gradient(#ADF0F8 0%, #A3F1FA 25%, #94EFF9 75%, #90EEF9 100%);
-    -fx-border-width: 2;
-    -fx-border-color: #8a8a8a;
-    -fx-font-weight: bold;
+.label {
+    -fx-text-alignment: center;
+    -fx-content-display: center;
     -fx-text-fill: #000000;
 }
 
-.list-cell:filled:hover {
-    -fx-background-color: #0093ff;
+.list-cell {
+    -fx-background-color: #d3d3d3;
+    /*linear-gradient(#ADF0F8 0%, #A3F1FA 25%, #94EFF9 75%, #90EEF9 100%);*/
+    -fx-border-width: 2;
+    -fx-border-color: #8a8a8a;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-text-color: #ffffff;
 }
 
 .list-cell:empty {
-    -fx-opacity: 0;
+    -fx-background-color: #d3d3d3;
+    -fx-border-color: #d3d3d3;
 }
 
 .button {

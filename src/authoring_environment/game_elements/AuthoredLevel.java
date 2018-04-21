@@ -71,6 +71,14 @@ public class AuthoredLevel implements DocumentGetter {
     }
 
     /**
+     * Gets current Level
+     * @return this Level
+     */
+    public Level getLevel() {
+        return myLevel;
+    }
+
+    /**
      * Gets current Scrolling Grid
      * @return Scrolling Grid
      */
