@@ -72,7 +72,8 @@ public class AttributeEditor {
 		gameElement= element;
 		setUpEditorWindow();
 		attributes = loadAttributes();
-		makeComboBoxList(attributes);
+		AttributeComboBoxesPane boxesPane = new AttributeComboBoxesPane(attributes, this);
+		attributeBoxes = boxesPane.getAttributeBoxes();
 		organizeEditor();
 		
 	}
@@ -96,24 +97,6 @@ public class AttributeEditor {
 			}
 		}
 		return attributes;
-	}
-
-	private void makeComboBoxList(Map<String, List<String>> attributes) {
-		attributeBoxes = new ArrayList<>();
-		Set<String> categories = new HashSet<>(attributes.keySet());
-		for (String category : categories) {
-			ComboBox<String> attributeBox = new ComboBox<>();
-			attributeBox.getItems().addAll(attributes.get(category));
-			attributeBox.getSelectionModel().select(category);
-			attributeBox.getStyleClass().add("combobox");
-			attributeBox.setOnAction(e -> {try {
-				updateAttribute(category, attributeBox.getValue());
-			} catch (TransformerException e1) {
-				// TODO Handle this exception
-				e1.printStackTrace();
-			}});
-			attributeBoxes.add(attributeBox);
-		}
 	}
 	
 	private void setUpEditorWindow() {
@@ -184,7 +167,7 @@ public class AttributeEditor {
 		URI uri= file.toURI();
 		URL url= uri.toURL();
 		Path source = Paths.get(uri);
-		Path target = Paths.get("data/authoredElementData/" + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("/") + 1));
+		Path target = Paths.get("data/authoredElementImages/" + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("/") + 1));
 		try {
 			Files.copy(source, target);
 		} catch (IOException e) {
@@ -199,7 +182,13 @@ public class AttributeEditor {
 		
 	}
 	
-	private void updateAttribute(String category, String chosenAttribute) throws TransformerException {
+	/**
+	 * 
+	 * @param category
+	 * @param chosenAttribute
+	 * @throws TransformerException
+	 */
+	public void updateAttribute(String category, String chosenAttribute) throws TransformerException {
 		chosenAttributes.put(category, chosenAttribute);
 	}
 	
