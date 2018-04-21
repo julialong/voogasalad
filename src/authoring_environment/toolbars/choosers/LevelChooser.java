@@ -2,25 +2,26 @@ package authoring_environment.toolbars.choosers;
 
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
-import javafx.collections.ListChangeListener;
 import javafx.geometry.Side;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * The level chooser allows users to select an available level to edit.
  *
  * @author Julia Long
  * Date started: April 04 18
+ * Resources used: https://docs.oracle.com/javafx/2/ui_controls/list-view.htm
  */
-public class LevelChooser extends VBox {
+public class LevelChooser extends ListView<AuthoredLevel> {
 
     private CreatorView myWindow;
     private ScrollPane myScrollPane;
+
+    private static final int FONT_SIZE = 15;
 
     private int notify;
 
@@ -30,19 +31,24 @@ public class LevelChooser extends VBox {
      */
     public LevelChooser(CreatorView window, ScrollPane grid) {
         super();
-        myWindow = window;
-        myScrollPane = grid;
-        addListener();
+        this.setItems(window.getGame().getObservableLevels());
+        changeFormat();
     }
 
-    private void addListener() {
-        myWindow.getGame().getObservableLevels().addListener((ListChangeListener<AuthoredLevel>) change -> {
-            while (change.next())
-                if (change.wasAdded()) {
-                    update();
-                }
-        });
+    private void changeFormat() {
+        this.setCellFactory(param -> new levelNameCell());
     }
+
+    static class levelNameCell extends ListCell<AuthoredLevel> {
+        @Override
+        public void updateItem(AuthoredLevel item, boolean empty) {
+            super.updateItem(item, empty);
+            if (!empty) {
+                Text text = new Text(item.getName());
+                text.setFont(new Font(FONT_SIZE));
+            }
+            }
+        }
 
     /**
      * Updates the current list of levels
