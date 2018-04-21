@@ -28,9 +28,9 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
     private static final int FONT_SIZE = 15;
     private static final String DELETE_LEVEL = "Delete level";
 
-    LevelChoice(CreatorView window, ScrollPane scrollPane) {
+    LevelChoice(CreatorView window) {
         myWindow = window;
-        myScrollPane = scrollPane;
+        myScrollPane = myWindow.getPane();
     }
 
     @Override

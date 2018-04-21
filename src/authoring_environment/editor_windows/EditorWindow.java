@@ -45,6 +45,11 @@ public class EditorWindow implements CreatorView {
 		return myGame;
 	}
 
+	@Override
+	public ScrollPane getPane() {
+		return myScrollPane;
+	}
+
 	/**
 	 * Opens a new window to allow for multi-window editing of the same level or
 	 * different levels of the game

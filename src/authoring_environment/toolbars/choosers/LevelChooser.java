@@ -2,6 +2,7 @@ package authoring_environment.toolbars.choosers;
 
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 
@@ -15,21 +16,20 @@ import javafx.scene.control.ScrollPane;
 public class LevelChooser extends ListView<AuthoredLevel> {
 
     private CreatorView myWindow;
-    private ScrollPane myScrollPane;
+
 
     /**
      * Creates a scrollpane that allows users to choose a level to edit.
      * @param window is the current window
      */
-    public LevelChooser(CreatorView window, ScrollPane grid) {
+    public LevelChooser(CreatorView window) {
         super(window.getGame().getObservableLevels());
         myWindow = window;
-        myScrollPane = grid;
         this.setItems(window.getGame().getObservableLevels());
         changeFormat();
     }
 
     private void changeFormat() {
-        this.setCellFactory(param -> new LevelChoice(myWindow, myScrollPane));
+        this.setCellFactory(param -> new LevelChoice(myWindow));
     }
 }

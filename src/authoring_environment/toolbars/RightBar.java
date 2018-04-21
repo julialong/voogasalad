@@ -1,7 +1,6 @@
 package authoring_environment.toolbars;
 
 import authoring_environment.editor_windows.CreatorView;
-import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.choosers.ElementPicker;
 import authoring_environment.toolbars.buttons.creator_view_buttons.AddElementButton;
@@ -25,15 +24,11 @@ public class RightBar extends SplitPane{
 
     private static String CSS = "GAE.css";
 
-    private static final int PANE_WIDTH = 300;
-
     private Pane elementPane;
     private Pane levelPane;
     private DeleteGridCellButton myDeleteButton;
     private CreatorView myWindow;
     private ScrollingGrid myGrid;
-    private ScrollPane myScrollPane;
-    private LevelChooser myLevelChooser;
 
     /**
      * Creates a new right toolbar with appropriate buttons and panels.
@@ -44,8 +39,6 @@ public class RightBar extends SplitPane{
         this.getStyleClass().add("rightbar");
         myWindow = window;
         myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
-        myScrollPane = scroller;
-        myLevelChooser = new LevelChooser(myWindow, myScrollPane);
         splitPanes();
         addLabels();
         addButtons();
@@ -82,7 +75,7 @@ public class RightBar extends SplitPane{
     }
 
     private void addScrollScreens() {
-        LevelChooser levelChooser = new LevelChooser(myWindow, myScrollPane);
+        LevelChooser levelChooser = new LevelChooser(myWindow);
         levelPane.getChildren().add(levelChooser);
     	ElementPicker elementPicker = new ElementPicker();
     	ScrollPane pickerPane = elementPicker.getElementPane();
