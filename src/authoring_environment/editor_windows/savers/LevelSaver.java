@@ -1,5 +1,6 @@
-package authoring_environment.editor_windows;
+package authoring_environment.editor_windows.savers;
 
+import authoring_environment.editor_windows.CreatorView;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;

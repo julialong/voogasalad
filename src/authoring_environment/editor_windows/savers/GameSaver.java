@@ -1,8 +1,8 @@
-package authoring_environment.editor_windows;
+package authoring_environment.editor_windows.savers;
 
+import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.editor_windows.buttons.SaveGameButton;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
