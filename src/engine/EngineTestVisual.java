@@ -64,7 +64,7 @@ public class EngineTestVisual extends Application{
 	}
 
 	private void setupLevel() {
-		level.setSize(400, 400);
+		//level.setSize(400, 400);
 		Foes enemy = new Foes();
 		Foes enemy2 = new Foes();
 		Foes enemy3 = new Foes();
