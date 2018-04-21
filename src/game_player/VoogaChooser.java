@@ -2,11 +2,14 @@ package game_player;
 
 import data.fileReading.GPGameFileReader;
 import data.fileReading.JSONtoGP;
+import data.resources.DataFileException;
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
 
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -103,6 +106,13 @@ public class VoogaChooser implements GameChooser {
             }
             catch(NullPointerException e){
                 e.printStackTrace();
+            }
+            catch(DataFileException e)
+            {
+            	Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle(e.getCause().toString());
+                alert.setContentText(e.getMessage());
+                alert.show();
             }
         });
     }

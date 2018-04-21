@@ -1,6 +1,8 @@
 package game_player;
 
 import engine.level.Level;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import java.util.List;
@@ -61,7 +63,10 @@ public class PlayerView extends VBox{
 		}
 		catch(DataFileException e)
 		{
-			
+			Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle(e.getCause().toString());
+            alert.setContentText(e.getMessage());
+            alert.show();
 		}
 	}
 	
