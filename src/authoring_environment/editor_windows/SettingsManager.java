@@ -1,5 +1,6 @@
 package authoring_environment.editor_windows;
 
+import authoring_environment.editor_windows.buttons.SaveSettingsButton;
 import authoring_environment.editor_windows.savers.MetaManager;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,23 +40,24 @@ public class SettingsManager implements MetaManager {
         myScene.getStylesheets().add(CSS);
         myRoot.getStyleClass().add("game-saver");
         myWindow = window;
-
         myStage.setScene(myScene);
         myStage.setTitle(SETTINGS_MANAGER);
         myStage.show();
         myStage.centerOnScreen();
-
-        setName(fileName, myWindow.getGame(), myRoot);
-        saveSettings();
+        fileName = new TextField();
+        myRoot.getChildren().add(fileName);
+        //setName(fileName, myWindow.getGame(), myRoot);
+        SaveSettingsButton saveButton = new SaveSettingsButton(myWindow, myRoot, fileName);
+        myRoot.getChildren().add(saveButton);
     }
 
     private void saveSettings() {
-        Button submitButton = new Button(SUBMIT);
+        /*Button submitButton = new Button(SUBMIT);
         submitButton.setOnAction(e -> {
             myWindow.getGame().rename(fileName.getText());
 
         });
-        System.out.println(myWindow.getGame().getName());
+        System.out.println(myWindow.getGame().getName());*/
     }
 
 }
