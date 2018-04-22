@@ -26,7 +26,7 @@ import engine.level.Level;
  * Creates levels to return to the Game Player when a 
  * game is going to be played
  * 
- * @author belanie.nagiel
+ * @author Belanie Nagiel
  *
  */
 public class LevelBuilder {
