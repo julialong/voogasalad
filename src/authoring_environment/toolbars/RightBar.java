@@ -1,8 +1,6 @@
 package authoring_environment.toolbars;
 
-import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.editor_windows.EditorWindow;
-import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.choosers.ElementPicker;
 import authoring_environment.toolbars.choosers.ElementTypeBox;
@@ -27,16 +25,12 @@ public class RightBar extends SplitPane{
 
     private static String CSS = "GAE.css";
 
-    private static final int PANE_WIDTH = 300;
-
     private Pane elementPane;
     private Pane levelPane;
     private DeleteGridCellButton myDeleteButton;
     private ElementTypeBox myTypeBox;
     private EditorWindow myWindow;
     private ScrollingGrid myGrid;
-    private ScrollPane myScrollPane;
-    private LevelChooser myLevelChooser;
     private ElementPicker myElementPicker;
 
     /**
@@ -48,8 +42,6 @@ public class RightBar extends SplitPane{
         this.getStyleClass().add("rightbar");
         myWindow = window;
         myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
-        myScrollPane = scroller;
-        myLevelChooser = new LevelChooser(myWindow, myScrollPane);
         splitPanes();
         addLabels();
         addButtons();
@@ -57,7 +49,7 @@ public class RightBar extends SplitPane{
     }
 
     public void update() {
-        myLevelChooser.update();
+        //myLevelChooser.update();
         myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
         myDeleteButton.changeGrid(myGrid);
     }
@@ -88,17 +80,11 @@ public class RightBar extends SplitPane{
     }
 
     private void addScrollScreens() {
-        Button updateButton = new Button("Update levels");
-        LevelChooser levelChooser = new LevelChooser(myWindow, myScrollPane);
-        updateButton.setOnAction(e -> levelChooser.update());
-        ScrollPane levelChooserPane = new ScrollPane();
-        levelChooserPane.setContent(levelChooser);
-        levelPane.getChildren().add(updateButton);
-        levelPane.getChildren().add(levelChooserPane);
+        LevelChooser levelChooser = new LevelChooser(myWindow);
+        levelPane.getChildren().add(levelChooser);
     	myElementPicker = new ElementPicker(this);
     	ScrollPane pickerPane = myElementPicker.getElementPane();
         elementPane.getChildren().add(pickerPane);
-        levelPane.getChildren().add(myLevelChooser);
     }
     
     public ElementPicker getElementPicker() {

@@ -1,6 +1,6 @@
 package authoring_environment.editor_windows;
 
-import authoring_environment.game_elements.AuthoredGame;
+import authoring_environment.editor_windows.savers.MetaManager;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
