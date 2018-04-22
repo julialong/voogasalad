@@ -38,16 +38,18 @@ public interface JSONtoGP {
 	 * 
 	 * @param gameName
 	 * @return
+	 * @throws DataFileException 
 	 */
-	Map<String,String> loadSettings(String gameName);
+	Map<String,String> loadSettings(String gameName) throws DataFileException;
 
 	/**
 	 * This returns a Map of the names of the ready to play games and their
 	 * descriptions.
 	 * 
 	 * @return
+	 * @throws DataFileException 
 	 */
-	Map<String,String> getGameNames();
+	Map<String,String> getGameNames() throws DataFileException;
 	
 	//Something with players?
 
