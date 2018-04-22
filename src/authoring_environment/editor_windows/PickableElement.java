@@ -9,6 +9,12 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 
+/**
+ * 
+ * @author Michael Acker
+ * Date Started: 4/2/2018
+ *
+ */
 public class PickableElement extends ImageView implements DocumentGetter {
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	private static final int REQUESTED_WIDTH = 40;
@@ -50,7 +56,7 @@ public class PickableElement extends ImageView implements DocumentGetter {
 
 	/**
 	 * TODO: why can't we have all of the parsing done by
-	 * TODO: these methods, and return a contructed object?
+	 * TODO: these methods, and return a constructed object?
 	 * Gets the Document associated with a given ID
 	 * @param ID is the ID of the object to get
 	 * @return the XML Document associated with the ID

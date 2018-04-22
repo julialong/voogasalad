@@ -10,6 +10,8 @@ import engine.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -24,7 +26,7 @@ public class AuthoredGame {
 
     private String myName;
     private String myDescription;
-    private List<AuthoredLevel> myLevels;
+    private ObservableList<AuthoredLevel> myLevels;
     private AuthoredLevel currentLevel;
     private GAEtoJSON myGameWriter;
     private boolean isReady;
@@ -40,17 +42,14 @@ public class AuthoredGame {
         try {
             myName = gameName;
             myDescription = DEFAULT_DESCRIPTION;
-            myLevels = new ArrayList<>();
+            myLevels = FXCollections.observableArrayList();
             Level tempLevel = new BasicLevel(0);
             currentLevel = new AuthoredLevel(tempLevel, new ScrollingGrid());
             myGameWriter = new GameFileWriter("User2", myName);
             isReady = false;
         }
         catch (DataFileException e) {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle(e.getCause().toString());
-            alert.setContentText(e.getMessage());
-            alert.show();
+            saveAlert(e);
         }
     }
 
@@ -143,6 +142,14 @@ public class AuthoredGame {
     }
 
     /**
+     * Gets the observable list of levels in the game
+     * @return the observable list of level objects
+     */
+    public ObservableList<AuthoredLevel> getObservableLevels() {
+        return myLevels;
+    }
+
+    /**
      * Sets the current level
      * @param currentLevel is the level to set as the current level
      */
@@ -158,12 +165,21 @@ public class AuthoredGame {
         return currentLevel;
     }
 
+    public void saveLevel(AuthoredLevel level) {
+        try {
+            myGameWriter.saveIndivLevel(level);
+        }
+        catch (Exception e) {
+            saveAlert(e);
+        }
+    }
+
     /**
      * Updates the state of the game
      */
     public void update() {
         try {
-            // myGameWriter.update(myLevels);
+            myGameWriter.update(myLevels);
             myGameWriter.updateMeta(isReady, myDescription);
             System.out.println("level saved");
         }
@@ -173,5 +189,12 @@ public class AuthoredGame {
             alert.setContentText(e.getMessage());
             alert.show();
         }
+    }
+
+    private void saveAlert(Exception e) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(e.getCause().toString());
+        alert.setContentText(e.getMessage());
+        alert.show();
     }
 }
