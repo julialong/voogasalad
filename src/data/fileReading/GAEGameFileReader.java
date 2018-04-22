@@ -91,6 +91,27 @@ public class GAEGameFileReader implements JSONtoGAE {
 		AuthoredLevelBuilder levelBuilder = new AuthoredLevelBuilder(level);
 		return levelBuilder.buildAuthoredLevel();
 	}
+	
+	/**
+	 * This will load the names of all of the stray levels so that a user in the authoring
+	 * environment can load a pre-existing level.
+	 * 
+	 * @return
+	 */
+	@Override
+	public List<String> loadAuthoredLevelNames() {
+		List<String> levelNames = new ArrayList<>();
+		File strayLevelFolder = new File(LEVEL_FOLDER);
+		File[] strayLevels = strayLevelFolder.listFiles();
+		for(File strayLevel: strayLevels)
+		{
+			int index = strayLevel.toString().lastIndexOf(NEST) + 1;
+			String levelName = strayLevel.toString().substring(index).trim();
+			levelNames.add(levelName);
+		}
+		return levelNames;
+	}
+	
 
 	/**
 	 * This will load the author settings for a specific author in the 
@@ -105,5 +126,6 @@ public class GAEGameFileReader implements JSONtoGAE {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
