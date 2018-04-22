@@ -1,6 +1,7 @@
 package data.fileReading;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import data.builders.LevelBuilder;
 import data.resources.DataFileException;
@@ -91,23 +94,25 @@ public class GPGameFileReader implements JSONtoGP{
 	 * 
 	 * @param gameName
 	 * @return
+	 * @throws DataFileException 
 	 */
 	@Override
-	public Map<String, String> loadSettings(String gameName) {
+	public Map<String, String> loadSettings(String gameName) throws DataFileException {
 		Map<String,String> settingsDetails = new HashMap<>();
 		File settings = fileRetriever.retrieveSettings(gameName);
 		try {
 			JsonParser jsonParser = new JsonParser();
-			JsonElement jelement = jsonParser.parse(new FileReader(settings));
+			JsonElement jelement;
+			jelement = jsonParser.parse(new FileReader(settings));
 			JsonObject  jobject = jelement.getAsJsonObject();
 			for(String metadata: SETTINGS_DATA)
 			{
 				String info = jobject.get(metadata).getAsString();
 				settingsDetails.put(metadata, info);
 			}
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
+		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) 
+		{
+			throw new DataFileException("Could not find settings file for" + gameName, e);
 		}
 		return settingsDetails;
 	}
@@ -117,9 +122,10 @@ public class GPGameFileReader implements JSONtoGP{
 	 * descriptions.
 	 * 
 	 * @return
+	 * @throws DataFileException 
 	 */
 	@Override
-	public Map<String, String> getGameNames() {
+	public Map<String, String> getGameNames() throws DataFileException {
 		Map<String,String> gameNames = new HashMap<>();
 		List<String> allGamePaths = fileRetriever.retrieveAllGamePaths();
 		for(String gamePath: allGamePaths)

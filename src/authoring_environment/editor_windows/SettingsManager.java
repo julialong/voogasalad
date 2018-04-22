@@ -37,7 +37,7 @@ public class SettingsManager implements MetaManager {
         myRoot = new VBox();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
-        myRoot.getStyleClass().add("game_saver");
+        myRoot.getStyleClass().add("game-saver");
         myWindow = window;
 
         myStage.setScene(myScene);
@@ -45,7 +45,7 @@ public class SettingsManager implements MetaManager {
         myStage.show();
         myStage.centerOnScreen();
 
-        //setName(fileName, myGame, myRoot);
+        setName(fileName, myWindow.getGame(), myRoot);
         saveSettings();
     }
 
@@ -55,6 +55,7 @@ public class SettingsManager implements MetaManager {
             myWindow.getGame().rename(fileName.getText());
 
         });
+        System.out.println(myWindow.getGame().getName());
     }
 
 }

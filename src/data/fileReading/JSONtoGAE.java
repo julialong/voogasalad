@@ -6,7 +6,6 @@ import java.util.Map;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.resources.DataFileException;
 import engine.entity.GameEntity;
-import engine.level.Level;
 
 public interface JSONtoGAE {
 	

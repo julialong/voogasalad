@@ -68,16 +68,26 @@ public class VoogaChooser implements GameChooser {
      */
     @Override
     public BorderPane displayChoices() {
-        Map<String, String> names = reader.getGameNames();
-        List<GameItem> gamesToPlay = new ArrayList<>();
-        for(String gameName : names.keySet()){
-            GameItem game = new VoogaGameItem(gameName, names.get(gameName));
-            gamesToPlay.add(game);
-        }
-        playableGames.setItems(FXCollections.observableArrayList(gamesToPlay));
-        setListener(playableGames);
-        myView.setCenter(playableGames);
-        return myView;
+    	try
+    	{
+	        Map<String, String> names = reader.getGameNames();
+	        List<GameItem> gamesToPlay = new ArrayList<>();
+	        for(String gameName : names.keySet()){
+	            GameItem game = new VoogaGameItem(gameName, names.get(gameName));
+	            gamesToPlay.add(game);
+	        }
+	        playableGames.setItems(FXCollections.observableArrayList(gamesToPlay));
+	        setListener(playableGames);
+	        myView.setCenter(playableGames);  
+    	}
+    	catch(DataFileException e)
+    	{
+    		Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle(e.getCause().toString());
+            alert.setContentText(e.getMessage());
+            alert.show();
+    	}
+    	return myView;
     }
 
     /**
