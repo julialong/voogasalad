@@ -63,7 +63,7 @@ public class TextWriter	{
 			endFile(fw);
 		}
 		catch (IOException e)	{
-			throw new DataFileException("Could not create FileWriter with file " + settings.toString(), new Throwable("IOException in TextWriter"));
+			throw new DataFileException("Could not create FileWriter with file " + settings.toString(), e);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class TextWriter	{
 			endFile(fw);
 		}
 		catch (IOException e)	{
-			throw new DataFileException("Could not create FileWriter with file " + level.toString(), new Throwable("IOException in TextWriter"));
+			throw new DataFileException("Could not create FileWriter with file " + level.toString(), e);
 		}
 	}
 
@@ -136,7 +136,7 @@ public class TextWriter	{
 			newLine(fw);
 		}
 		catch (IOException e)	{
-			throw new DataFileException("Could not start file with FileWriter " + fw.toString(), new Throwable("IOException in TextWriter"));
+			throw new DataFileException("Could not start file with FileWriter " + fw.toString(), e);
 		}
 	}
 
@@ -146,7 +146,7 @@ public class TextWriter	{
 			fw.close();
 		}
 		catch (IOException e)	{
-			throw new DataFileException("Could not end file with FileWriter " + fw.toString(), new Throwable("IOException in TextWriter"));
+			throw new DataFileException("Could not end file with FileWriter " + fw.toString(), e);
 		}
 	}
 
@@ -236,6 +236,6 @@ public class TextWriter	{
 	}
 
 	protected static void error(IOException e, FileWriter fw) throws DataFileException	{
-		throw new DataFileException(WRITEERRORSTATEMENT + fw.toString(), new Throwable("IOException in TextWriter"));
+		throw new DataFileException(WRITEERRORSTATEMENT + fw.toString(), e);
 	}
 }
