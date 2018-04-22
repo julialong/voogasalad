@@ -45,6 +45,7 @@ import javafx.stage.Stage;
  *
  */
 // TODO: refactor this class into smaller classes to reduce number of dependencies
+// TODO: get rid of strings in methods 
 public class AttributeEditor {
 
 	private static final String ATTRIBUTE_RESOURCES = "resources/attributes";
@@ -54,8 +55,12 @@ public class AttributeEditor {
 	private static final String SUBMIT= "Submit";
 	private static final int SMALL_FONT = 15;
 	private static final int LARGE_FONT = 20;
+	private static final String GAME_ENTITY = "GameEntity";
+	private static final String CUSTOM_IMAGES_FOLDER = "data/authoredElementImages/";
+	private static final String  SLASH = "/";
 
 	private GameElement gameElement;
+	private String elementID; 
 	private Map<String, List<String>> attributes;
 	private List<ComboBox<String>> attributeBoxes;
 	private Map<String, String> chosenAttributes; 
@@ -64,6 +69,9 @@ public class AttributeEditor {
 	private HBox myTitlePane;
 	private ImageView image;
 	private Stage window;
+	private File imageFile;
+	private URI imageURI;
+	private URL imageURL;
 
 
 
@@ -72,7 +80,8 @@ public class AttributeEditor {
 		gameElement= element;
 		setUpEditorWindow();
 		attributes = loadAttributes();
-		makeComboBoxList(attributes);
+		AttributeComboBoxesPane boxesPane = new AttributeComboBoxesPane(attributes, this);
+		attributeBoxes = boxesPane.getAttributeBoxes();
 		organizeEditor();
 		
 	}
@@ -96,24 +105,6 @@ public class AttributeEditor {
 			}
 		}
 		return attributes;
-	}
-
-	private void makeComboBoxList(Map<String, List<String>> attributes) {
-		attributeBoxes = new ArrayList<>();
-		Set<String> categories = new HashSet<>(attributes.keySet());
-		for (String category : categories) {
-			ComboBox<String> attributeBox = new ComboBox<>();
-			attributeBox.getItems().addAll(attributes.get(category));
-			attributeBox.getSelectionModel().select(category);
-			attributeBox.getStyleClass().add("combobox");
-			attributeBox.setOnAction(e -> {try {
-				updateAttribute(category, attributeBox.getValue());
-			} catch (TransformerException e1) {
-				// TODO Handle this exception
-				e1.printStackTrace();
-			}});
-			attributeBoxes.add(attributeBox);
-		}
 	}
 	
 	private void setUpEditorWindow() {
@@ -150,11 +141,11 @@ public class AttributeEditor {
         Button submitButton = new Button(SUBMIT);
         submitButton.setOnAction(e -> {
             myTitlePane.getChildren().removeAll(idNameInput,submitButton,instruction);
-            String id = idNameInput.getText();
-            Text name = new Text("Element ID: " + id);
+            elementID = idNameInput.getText();
+            Text name = new Text("Element ID: " + elementID);
             name.setFont(new Font(LARGE_FONT));
             myTitlePane.getChildren().add(name);
-            gameElement.setID(id);
+            gameElement.setID(elementID);
         });
         myTitlePane.getChildren().add(submitButton);
     }
@@ -180,26 +171,23 @@ public class AttributeEditor {
 		FileChooser filechooser = new FileChooser();
 		filechooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
-		File file= filechooser.showOpenDialog(fileWindow);
-		URI uri= file.toURI();
-		URL url= uri.toURL();
-		Path source = Paths.get(uri);
-		Path target = Paths.get("data/authoredElementData/" + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("/") + 1));
-		try {
-			Files.copy(source, target);
-		} catch (IOException e) {
-			// TODO: Handle this error
-			e.printStackTrace();
-		}
-		image = new ImageView(url.toString());
+		imageFile= filechooser.showOpenDialog(fileWindow);
+		imageURI = imageFile.toURI();
+		imageURL = imageURI.toURL();
+		image = new ImageView(imageURL.toString());
 		image.setFitHeight(IMAGE_HEIGHT);
 		image.setFitWidth(IMAGE_WIDTH);
 		myImagePane.getChildren().add(image);
-		gameElement.uploadImage(target.toString());
 		
 	}
 	
-	private void updateAttribute(String category, String chosenAttribute) throws TransformerException {
+	/**
+	 * 
+	 * @param category
+	 * @param chosenAttribute
+	 * @throws TransformerException
+	 */
+	public void updateAttribute(String category, String chosenAttribute) throws TransformerException {
 		chosenAttributes.put(category, chosenAttribute);
 	}
 	
@@ -208,6 +196,15 @@ public class AttributeEditor {
 	 * to an XML file
 	 */
 	public void saveChanges() {
+		Path source = Paths.get(imageURI);
+		Path target = Paths.get(CUSTOM_IMAGES_FOLDER + chosenAttributes.get(GAME_ENTITY) + SLASH + elementID + imageFile.getAbsolutePath().substring(imageFile.getAbsolutePath().lastIndexOf(".")));
+		try {
+			Files.copy(source, target);
+		} catch (IOException e) {
+			// TODO: Handle this error
+			e.printStackTrace();
+		}
+		gameElement.uploadImage(target.toString());
 		gameElement.updateAttributes(chosenAttributes);
 		window.close();
 	}

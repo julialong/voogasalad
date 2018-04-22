@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class BasicLevel implements Level {
 
-    private ScrollingGrid myGrid;
+    //private ScrollingGrid myGrid;
     private List<GameEntity> myObjects;
     private int myID;
     private String myName;
@@ -43,12 +43,12 @@ public class BasicLevel implements Level {
      * @param ySize is the desired y size of the grid
      */
     public BasicLevel(int xSize, int ySize, int sceneX, int sceneY, int ID) {
-        myGrid = new ScrollingGrid();
+        //myGrid = new ScrollingGrid();
         myXSize = xSize;
         myYSize = ySize;
         this.sceneX = sceneX;
         this.sceenY = sceneY;
-        myGrid.setPrefSize(myXSize, myYSize);
+        //myGrid.setPrefSize(myXSize, myYSize);
         myObjects = new ArrayList<>();
         myID = ID;
         myName = DEFAULT;
@@ -107,19 +107,20 @@ public class BasicLevel implements Level {
         return myName;
     }
 
-    @Override
-    public void updateGrid(ScrollingGrid grid) {
-        myGrid = grid;
-    }
-
-    @Override
-    public ScrollingGrid getGrid() {
-        return myGrid;
-    }
-
+//    @Override
+//    public void updateGrid(ScrollingGrid grid) {
+//        myGrid = grid;
+//    }
+//
+//    @Override
+//    public ScrollingGrid getGrid() {
+//        return myGrid;
+//    }
+//
     @Override
     public void setSize(double X, double Y) {
-        myGrid.setPrefSize(X, Y);
+        myXSize = (int) X;
+        myYSize = (int) Y;
     }
     
     @Override

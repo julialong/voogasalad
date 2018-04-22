@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  * EditorWindow implements the CreatorView interface and manages the UI of the
  * editing environment
  *
- * @author Julia Long, Judi Sanchez
+ * @author Julia Long, Judi Sanchez, Michael Acker
  * Date started: March 30 18
  */
 public class EditorWindow implements CreatorView {
@@ -43,6 +43,11 @@ public class EditorWindow implements CreatorView {
 	@Override
 	public AuthoredGame getGame() {
 		return myGame;
+	}
+
+	@Override
+	public ScrollPane getPane() {
+		return myScrollPane;
 	}
 
 	/**
@@ -75,7 +80,7 @@ public class EditorWindow implements CreatorView {
 	}
 
 	private SplitPane setRightBar() {
-		SplitPane rightBar = new RightBar(this, myGrid, myScrollPane);
+		SplitPane rightBar = new RightBar(this, myScrollPane);
 		rightBar.getStyleClass().add("side-pane");
 		return rightBar;
 	}
@@ -85,4 +90,5 @@ public class EditorWindow implements CreatorView {
     	 myScrollPane.getStyleClass().add("center-pane");
     	 return myScrollPane;
     }
+	
 }

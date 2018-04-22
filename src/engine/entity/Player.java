@@ -16,13 +16,6 @@ import javafx.scene.image.ImageView;
 public class Player extends PlayerCharacter{
     private Weapon weaponType;
     private ArrayList<PowerUp> powerupArrayList = new ArrayList<>();
-    //private ArrayList<Interaction> interactionList = new ArrayList<>();
-    //private double speedFactor;
-    //private double jumpFactor;
-    //private double maxVelocityX;
-    //private double maxVelocityY;
-    //private ImageView myImageView;
-    //private String myElementID;
 
     public Player() {
         this(0,0);
@@ -38,17 +31,14 @@ public class Player extends PlayerCharacter{
         maxVelocityY = 50; // arbitrary for now
     }
     
-	@Override
 	public void setWeapon(Weapon weapon) {
         weaponType = weapon;		
 	}
 
-	@Override
 	public void useWeapon() {
 		//weaponType.attack();// TODO temporary fix to compilation errors will be replaced later
 	}
 
-	@Override
 	public void addPowerUp(PowerUp power) {
         if(powerupArrayList.contains(power)){
             powerupArrayList.remove(power);
@@ -56,48 +46,7 @@ public class Player extends PlayerCharacter{
         powerupArrayList.add(power);
 	}
 
-	@Override
 	public void removePowerUp(PowerUp power) {
         powerupArrayList.remove(power);
-	}
-
-	@Override
-	public Movement getMovementType() {
-		return movementType;
-	}
-
-	@Override
-	public void setMaxXVelocity(double velocity) {
-		maxVelocityX = velocity;
-	}
-
-	@Override
-	public void setMaxYVelocity(double velocity) {
-		maxVelocityY = velocity;		
-	}
-
-	@Override
-	public void setFrictionConstant(double frictionConstant) {
-		kinematics.setFrictionConstant(frictionConstant);
-	}
-	
-	@Override
-	public Kinematics getKinematics() {
-		return kinematics;
-	}
-	
-	@Override
-	public void update() {
-		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
-	}
-
-	@Override
-	public void setElementID(String ID) {
-		myElementID = ID;
-	}
-
-	@Override
-	public String getElementID() {
-		return myElementID;
 	}
 }

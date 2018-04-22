@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import authoring_environment.game_elements.AuthoredLevel;
+import data.builders.AuthoredLevelBuilder;
+import data.resources.DataFileException;
 import engine.entity.GameEntity;
-import engine.level.Level;
 /**
  * This class holds the implementation for the methods that allow the GAE to load games and files
  * for continued editing or use.
@@ -20,7 +21,7 @@ public class GAEGameFileReader implements JSONtoGAE {
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
 	private static final String LEVEL_FOLDER = "./data/levelData";
-	private String NEST = "/";
+	private static final String NEST = File.separator;
 	private FileRetriever fileRetriever;
 	
 	/**
@@ -28,10 +29,6 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	public GAEGameFileReader() 
 	{
-		if (System.getProperty("os.name").contains("Windows"))	
-		{
-			NEST = "\\";
-		}
 		fileRetriever = new FileRetriever();
 	}
 	
@@ -43,9 +40,10 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 * 
 	 * @param gameName
 	 * @return 
+	 * @throws DataFileException 
 	 */
 	@Override
-	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) {
+	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) throws DataFileException {
 		List<AuthoredLevel> completeGame = new ArrayList<>();
 		File currentGame = new File(fileRetriever.retrieveCurrentGamePath(gameName));
 		File[] gameFiles = currentGame.listFiles();
@@ -56,13 +54,27 @@ public class GAEGameFileReader implements JSONtoGAE {
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
 				if(!levelName.equals(SETTINGS))
 				{
-					File level = fileRetriever.retrieveLevel(gameName, levelName);
-					AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
-					completeGame.add(authoredBuilder.buildAuthoredLevel());
+					completeGame.add(loadAuthoredGameLevel(gameName, levelName));
 				}		
 		}
 		return completeGame;
-		// TODO Auto-generated method stub
+	}
+	
+	/**
+	 * This will load an existing level in an existing game as an AuthoredLevel
+	 * for use by the game authoring environment. Also used by GameFileWriter for 
+	 * reverting changes.
+	 * 
+	 * @param gameName
+	 * @param levelName
+	 * @return
+	 * @throws DataFileException 
+	 */
+	@Override
+	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) throws DataFileException {
+		File level = fileRetriever.retrieveLevel(gameName, levelName);
+		AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
+		return authoredBuilder.buildAuthoredLevel();
 	}
 
 	/**
@@ -71,13 +83,35 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 * 
 	 * @param levelName
 	 * @return
+	 * @throws DataFileException 
 	 */
 	@Override
-	public AuthoredLevel loadAuthoredLevel(String levelName) {
+	public AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException {
 		File level = new File(LEVEL_FOLDER + NEST + levelName);
 		AuthoredLevelBuilder levelBuilder = new AuthoredLevelBuilder(level);
 		return levelBuilder.buildAuthoredLevel();
 	}
+	
+	/**
+	 * This will load the names of all of the stray levels so that a user in the authoring
+	 * environment can load a pre-existing level.
+	 * 
+	 * @return
+	 */
+	@Override
+	public List<String> loadAuthoredLevelNames() {
+		List<String> levelNames = new ArrayList<>();
+		File strayLevelFolder = new File(LEVEL_FOLDER);
+		File[] strayLevels = strayLevelFolder.listFiles();
+		for(File strayLevel: strayLevels)
+		{
+			int index = strayLevel.toString().lastIndexOf(NEST) + 1;
+			String levelName = strayLevel.toString().substring(index).trim();
+			levelNames.add(levelName);
+		}
+		return levelNames;
+	}
+	
 
 	/**
 	 * This will load the author settings for a specific author in the 
@@ -92,5 +126,6 @@ public class GAEGameFileReader implements JSONtoGAE {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
