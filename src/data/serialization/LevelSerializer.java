@@ -5,7 +5,6 @@ import java.io.FileWriter;
 
 import com.google.gson.JsonArray;
 
-import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.grid.GridCell;
 import data.resources.DataFileException;
@@ -24,6 +23,7 @@ public class LevelSerializer	{
 	private static final String SG = "ScrollingGrid";
 	
 	public LevelSerializer() {
+		// empty because design checklist gets mad if constructor doesn't exist
 	}
 
 	/**
