@@ -1,0 +1,40 @@
+.label {
+    -fx-text-alignment: center;
+    -fx-content-display: center;
+    -fx-text-fill: #000000;
+}
+
+.list-cell {
+    -fx-background-color: #d3d3d3;
+    -fx-border-width: 2;
+    -fx-border-color: #8a8a8a;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-text-color: #ffffff;
+}
+
+.list-cell:empty {
+    -fx-background-color: #d3d3d3;
+    -fx-border-color: #d3d3d3;
+}
+
+.list-cell:hover {
+    -fx-background-color: #a9a9a9;
+}
+
+.button {
+    -fx-background-color: linear-gradient(#cbe5f8 0%, #d8ecf9 100%);
+    -fx-border-width: 2;
+    -fx-border-color: #71acd6;
+}
+
+.button:hover {
+    -fx-background-color: #71acd6;
+}
+
+.menubar {
+    -fx-background-color: linear-gradient(#d0d0d0 0%, #d7d7d7 100%);/*, #e7e7e7 85%, #efefef 100% -fx-border-insets: 1;*/
+    -fx-border-width: 2;
+    -fx-border-color: #8a8a8a;
+    -fx-spacing: 1;
+}

@@ -5,6 +5,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
 import java.util.List;
 import data.fileReading.GPGameFileReader;
 import data.fileReading.JSONtoGP;
@@ -92,7 +95,9 @@ public class PlayerView extends VBox{
 	 */
 	private void addButtons() {
 		
-		myMenuBar.addButton(new VButton("Switch Game"));
+		VButton homeButton = new VButton("Home");
+		homeButton.setOnMouseClicked(e -> goHome());
+		myMenuBar.addButton(homeButton);
 		
 		VButton saveButton = new VButton("Save Game");
 		saveButton.setOnMouseClicked(e -> new SaveScreen(gameMaterial, myName));
@@ -112,7 +117,10 @@ public class PlayerView extends VBox{
 		
 		//TODO: new interface here
 		VButton keysButton = new VButton("Change Bindings");
-		keysButton.setOnMouseClicked(e -> new KeyBindingWindow(myGameView));
+		keysButton.setOnMouseClicked(e -> {
+			myGameView.pauseGame();
+			new KeyBindingWindow(myGameView);
+			});
 		myMenuBar.addButton(keysButton);
 		
 		VButton resetButton = new VButton("Reset");
@@ -120,6 +128,23 @@ public class PlayerView extends VBox{
 		myMenuBar.addButton(resetButton);
 	}
 
+	
+    /**
+     * launches a new homescreen
+     * 
+     * @param gameApplication2
+     */
+    private void goHome() {
+    	OverViewDriver relaunch = new OverViewDriver();
+    	try {
+			relaunch.start(new Stage());
+		} catch (Exception e) {
+			System.out.println("Failed to relaunch");
+		};
+	}
+	
+	
+	
 	/**
 	 * Adds the menubar to the top of the game player UI.
 	 */
