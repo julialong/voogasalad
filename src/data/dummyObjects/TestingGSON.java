@@ -5,6 +5,7 @@ import java.io.File;
 
 import data.builders.LevelBuilder;
 import data.fileReading.FileRetriever;
+import data.fileReading.GAEGameFileReader;
 import data.fileReading.GPGameFileReader;
 import data.gamefiles.GameFileReader;
 import engine.level.Level;
@@ -33,7 +34,10 @@ public class TestingGSON {
 //		GPGameFileReader gp = new GPGameFileReader();
 //		gp.loadCompleteGame("TestA");
 		
-		System.out.println(File.separator);
+//		System.out.println(File.separator);
+		
+		GAEGameFileReader gae = new GAEGameFileReader();
+		System.out.println(gae.loadAuthoredLevelNames());
 		
 	}
 }

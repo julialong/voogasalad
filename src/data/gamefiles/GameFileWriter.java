@@ -3,12 +3,11 @@ package data.gamefiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JFrame;
 
-import data.fileReading.GAEGameFileReader;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
+import data.fileReading.GAEGameFileReader;
+import data.resources.DataFileException;
 import data.serialization.TextWriter;
 import engine.level.Level;
 
@@ -38,7 +37,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Creates or loads the appropriate GameFile object for a game.
 	 * @param gameName
 	 */
-	public GameFileWriter(String user, String gameName)	{
+	public GameFileWriter(String user, String gameName) throws DataFileException	{
 		this.gameName = gameName;
 		userDirectory = GAMEDATA + user;
 		userDirectoryFile = retrieveFolder(userDirectory);
@@ -51,7 +50,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param changes	Map of Levels linked to all the items in them
 	 */
 	@Override
-	public void update(List<AuthoredLevel> changes)	{
+	public void update(List<AuthoredLevel> changes) throws DataFileException	{
 		for (AuthoredLevel aLevel:changes)	{
 			saveData(aLevel);
 		}
@@ -63,7 +62,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param desc		description of game
 	 */
 	@Override
-	public void updateMeta(boolean ready, String desc)	{
+	public void updateMeta(boolean ready, String desc) throws DataFileException	{
 		updateMeta(ready, desc, 0);
 	}
 
@@ -74,7 +73,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param levelStart	level to start game at
 	 */
 	@Override
-	public void updateMeta(boolean ready, String desc, int levelStart)	{
+	public void updateMeta(boolean ready, String desc, int levelStart) throws DataFileException	{
 		new TextWriter(new File(gameDirectory + NEST + SETTINGS + EXTENSION), ready, desc, levelStart);
 	}
 
@@ -84,7 +83,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	@Override
 	@Deprecated
-	public void saveData(Level level)	{
+	public void saveData(Level level) throws DataFileException	{
 		new TextWriter(new AuthoredLevel(level, new ScrollingGrid()), getLevel(level));
 	}
 
@@ -92,7 +91,8 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Saves state of level being played, for use with checkpoints
 	 * @param level			name of level to save
 	 */
-	public void saveData(AuthoredLevel level)	{
+	@Override
+	public void saveData(AuthoredLevel level) throws DataFileException	{
 		new TextWriter(level, getLevel(level.getLevel()));
 	}
 
@@ -101,7 +101,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param player			name of level to save
 	 */
 	@Override
-	public void saveData(String player, List<Level> levels)	{
+	public void saveData(String player, List<Level> levels) throws DataFileException	{
 		for (Level aLevel:levels)	{
 			new TextWriter(new AuthoredLevel(aLevel, new ScrollingGrid()), getLevel(aLevel, player));
 		}
@@ -111,10 +111,11 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Cancels any edits made to a game since last save
 	 * @param level	level to cancel changes to
 	 * @return	new, replacement instance of level
+	 * @throws DataFileException 
 	 */
 	@Override
 	@Deprecated
-	public Level revertChanges(Level level)	{
+	public Level revertChanges(Level level) throws DataFileException	{
 		GAEGameFileReader reader = new GAEGameFileReader();
 		String levelName = level.getName();
 		return reader.loadAuthoredGameLevel(gameName, levelName).getLevel();
@@ -124,9 +125,10 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Cancels any edits made to a game since last save
 	 * @param level	level to cancel changes to
 	 * @return new, replacement instance of level
+	 * @throws DataFileException 
 	 */
 	@Override
-	public AuthoredLevel revertChanges(AuthoredLevel level)	{
+	public AuthoredLevel revertChanges(AuthoredLevel level) throws DataFileException	{
 		GAEGameFileReader reader = new GAEGameFileReader();
 		String levelName = level.getName();
 		return reader.loadAuthoredGameLevel(gameName, levelName);
@@ -148,7 +150,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @author Maya Messinger
 	 * @param level		level to save separately
 	 */
-	public void saveIndivLevel(AuthoredLevel level)	{
+	public void saveIndivLevel(AuthoredLevel level) throws DataFileException	{
 		String tempGameDir = gameDirectory;
 
 		gameDirectory = LEVELDATA;
@@ -158,7 +160,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		gameDirectory = tempGameDir;
 	}
 	
-	private File retrieveFolder(String lookFor)	{
+	private File retrieveFolder(String lookFor) throws DataFileException	{
 		File folder = new File(lookFor);
 		if (!gameExists(folder))	{
 			makeNewGame(folder);
@@ -170,7 +172,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		 return gameFolder.exists() && gameFolder.isDirectory();
 	}
 
-	private void makeNewGame(File gameFolder)	{
+	private void makeNewGame(File gameFolder) throws DataFileException	{
 		gameFolder.mkdir();
 
 		if (gameDirectory != null)	{
@@ -178,11 +180,11 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		}
 	}
 
-	private File getLevel(Level level)	{
+	private File getLevel(Level level) throws DataFileException	{
 		return (getLevel(level, ""));
 	}
 
-	private File getLevel(Level level, String user)	{
+	private File getLevel(Level level, String user) throws DataFileException {
 		File newLevel = new File(gameDirectory + NEST + level.getName() + user + EXTENSION);
 
 		if(!newLevel.exists())	{
@@ -190,10 +192,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 				newLevel.createNewFile();
 			} 
 			catch (IOException e) {
-				JOptionPane.showMessageDialog(new JFrame(),
-				    "Could not get or make file " + newLevel.toString(),
-				    "IOException",
-				    JOptionPane.WARNING_MESSAGE);
+				throw new DataFileException("Could not get or make file " + newLevel.toString(), e);
 			}
 		}
 

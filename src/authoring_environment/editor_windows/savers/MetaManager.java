@@ -1,4 +1,4 @@
-package authoring_environment.editor_windows;
+package authoring_environment.editor_windows.savers;
 
 import authoring_environment.game_elements.AuthoredGame;
 import javafx.scene.control.TextField;
@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
  * @author Julia Long
  * Date started: April 10 18
  */
-interface MetaManager {
+public interface MetaManager {
 
     String UPDATE_FILE_NAME = "File name:";
 

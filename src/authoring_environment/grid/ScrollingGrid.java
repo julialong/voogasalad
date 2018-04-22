@@ -133,6 +133,7 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 				if (checkCell.isSelected()) {
 					checkCell.setObject(myLevel.addObject(ID, checkCell.getPosition().getX(), checkCell.getPosition().getY()));
 					checkCell.setImage(ID);
+					checkCell.deselect();
 				}
 			}
 		}

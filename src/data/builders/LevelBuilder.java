@@ -10,15 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import data.resources.DataFileException;
 import data.serialization.Serializer;
 import engine.entity.GameEntity;
 import engine.level.BasicLevel;
@@ -28,7 +26,7 @@ import engine.level.Level;
  * Creates levels to return to the Game Player when a 
  * game is going to be played
  * 
- * @author belanie.nagiel
+ * @author Belanie Nagiel
  *
  */
 public class LevelBuilder {
@@ -45,8 +43,9 @@ public class LevelBuilder {
 	 * GameObjects
 	 * 
 	 * @param level
+	 * @throws DataFileException 
 	 */
-	public LevelBuilder(File level) 
+	public LevelBuilder(File level) throws DataFileException 
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
@@ -58,9 +57,10 @@ public class LevelBuilder {
 	/**
 	 * Reads in a properties file of game objects to their appropriate classes
 	 * in order to make a map for later deserialization.
+	 * @throws DataFileException 
 	 * 
 	 */
-	private void createObjectToClassMap()
+	private void createObjectToClassMap() throws DataFileException
 	{
 		ResourceBundle gameObjects = ResourceBundle.getBundle(RESOURCE_FILE);
 		Enumeration<String> objectNames = gameObjects.getKeys();
@@ -74,12 +74,7 @@ public class LevelBuilder {
 			} 
 			catch (ClassNotFoundException e) 
 			{
-				// TODO Auto-generated catch block
-				JOptionPane.showMessageDialog(new JFrame(),
-						 "Could not find object class for reflection",
-						    "Class Not Found Exception",
-					    JOptionPane.WARNING_MESSAGE);
-				e.printStackTrace();
+				throw new DataFileException("Could not find object class for reflection",e);
 			}
 		}
 	}
@@ -89,8 +84,9 @@ public class LevelBuilder {
 	 * game objects.
 	 * 
 	 * @return
+	 * @throws DataFileException 
 	 */
-	public Level buildLevel()
+	public Level buildLevel() throws DataFileException
 	{
 		BasicLevel level = new BasicLevel();
 		try 
@@ -103,11 +99,7 @@ public class LevelBuilder {
 		}
 		catch(JsonIOException | JsonSyntaxException | FileNotFoundException e)
 		{
-			JOptionPane.showMessageDialog(new JFrame(),
-					 "Could not find the file to load for Level",
-					    "File Reader Exception",
-				    JOptionPane.WARNING_MESSAGE);
-			e.printStackTrace();
+			throw new DataFileException("Could not find the file to load for Level", e);
 		}
 		return level;	
 	}
@@ -145,7 +137,6 @@ public class LevelBuilder {
 			}
 		}
 		level.setObjects(gameObjects);
-//		System.out.println(gameObjects);
 	}
 
 	/**
@@ -160,7 +151,6 @@ public class LevelBuilder {
 		JsonArray jarray = jobject.getAsJsonArray(objectType);
 		for(int i = 0; i < jarray.size(); i++)
 		{
-			//System.out.println((GameEntity)convertToObject(jarray.get(i).getAsJsonObject(), objectType));
 			newObjectsOfType.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
 		}
 		return newObjectsOfType;

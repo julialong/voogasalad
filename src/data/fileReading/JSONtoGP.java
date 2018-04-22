@@ -3,6 +3,7 @@ package data.fileReading;
 import java.util.List;
 import java.util.Map;
 
+import data.resources.DataFileException;
 import engine.level.Level;
 
 public interface JSONtoGP {
@@ -14,8 +15,9 @@ public interface JSONtoGP {
 	 * 
 	 * @param gameName
 	 * @return 
+	 * @throws DataFileException 
 	 */
-	List<Level> loadCompleteGame(String gameName);
+	List<Level> loadCompleteGame(String gameName) throws DataFileException;
 
 	/**
 	 * This will load a specific level within a game based on the game name 
@@ -25,8 +27,9 @@ public interface JSONtoGP {
 	 * @param gameName
 	 * @param levelName
 	 * @return
+	 * @throws DataFileException 
 	 */
-	Level loadLevel(String gameName, String levelName);
+	Level loadLevel(String gameName, String levelName) throws DataFileException;
 
 	/**
 	 * This will load the different settings associated with a game, i.e the 
@@ -35,16 +38,18 @@ public interface JSONtoGP {
 	 * 
 	 * @param gameName
 	 * @return
+	 * @throws DataFileException 
 	 */
-	Map<String,String> loadSettings(String gameName);
+	Map<String,String> loadSettings(String gameName) throws DataFileException;
 
 	/**
 	 * This returns a Map of the names of the ready to play games and their
 	 * descriptions.
 	 * 
 	 * @return
+	 * @throws DataFileException 
 	 */
-	Map<String,String> getGameNames();
+	Map<String,String> getGameNames() throws DataFileException;
 	
 	//Something with players?
 
