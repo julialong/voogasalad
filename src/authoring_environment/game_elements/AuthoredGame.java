@@ -126,6 +126,7 @@ public class AuthoredGame {
      */
     public void addLevel(AuthoredLevel level) {
         myLevels.add(level);
+        shiftLevels();
     }
 
     /**
@@ -134,6 +135,7 @@ public class AuthoredGame {
      */
     public void removeLevel(AuthoredLevel level) {
         myLevels.remove(level);
+        shiftLevels();
     }
 
     /**
@@ -178,6 +180,12 @@ public class AuthoredGame {
             alert.setTitle(e.getCause().toString());
             alert.setContentText(e.getMessage());
             alert.show();
+        }
+    }
+
+    private void shiftLevels() {
+        for (int i = 0; i < myLevels.size(); i++) {
+            myLevels.get(i).setID(i);
         }
     }
 }

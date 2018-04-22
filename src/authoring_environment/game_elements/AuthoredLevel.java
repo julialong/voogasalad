@@ -62,6 +62,14 @@ public class AuthoredLevel implements DocumentGetter {
     }
 
     /**
+     * Sets the order of the level.
+     * @param id is the new ID of the level.
+     */
+    public void setID(int id) {
+        myLevel.setID(id);
+    }
+
+    /**
      * Sets the new size of the level
      * @param x
      * @param y
