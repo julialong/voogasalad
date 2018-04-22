@@ -116,6 +116,17 @@ public class VoogaGameView implements GameView {
 			myDispMap.put(ge, entityImage);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}
+		// for (GameEntity gee : myDispMap.keySet()) {
+		// System.out.println(gee);
+		// System.out.println("Position[0]: " + gee.getPosition()[0]);
+		// System.out.println("Position[1]: " + gee.getPosition()[1]);
+		// System.out.println("ScenePosition[0]: " + gee.getScenePosition()[0]);
+		// System.out.println("ScenePosition[1]: " + gee.getScenePosition()[1]);
+		// System.out.println("AdjScenePosition[0]: " +
+		// adjustXCord(gee.getScenePosition()[0]));
+		// System.out.println("AdjScenePosition[1]: " +
+		// adjustYCord(gee.getScenePosition()[1]));
+		// }
 	}
 
 	/**
