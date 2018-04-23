@@ -28,6 +28,8 @@ public class GPGameFileReader implements JSONtoGP{
 
 	private static final String JSON_EXTENSION = ".json";
 	private static final String SETTINGS = "Settings";
+	private static final String DESCRIPTION = "description";
+	private static final String READY = "readyToPlay";
 	private static final String[] SETTINGS_DATA = {"description", "readyToPlay"};
 	private static final String NEST = File.separator;
 	private FileRetriever fileRetriever;
@@ -133,9 +135,9 @@ public class GPGameFileReader implements JSONtoGP{
 			int index = gamePath.lastIndexOf(NEST) + 1;
 			String gameName = gamePath.substring(index).trim();
 			Map<String,String> gameSettings = loadSettings(gameName);
-			if(gameSettings.get("readyToPlay").equals("true"))
+			if(gameSettings.get(READY).equals("true"))
 			{
-				gameNames.put(gameName, gameSettings.get("description"));
+				gameNames.put(gameName, gameSettings.get(DESCRIPTION));
 			}
 		}
 		return gameNames;
