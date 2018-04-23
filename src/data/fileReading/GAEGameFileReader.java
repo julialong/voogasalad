@@ -110,8 +110,7 @@ public class GAEGameFileReader implements JSONtoGAE {
 			levelNames.add(levelName);
 		}
 		return levelNames;
-	}
-	
+	}	
 
 	/**
 	 * This will load the author settings for a specific author in the 
