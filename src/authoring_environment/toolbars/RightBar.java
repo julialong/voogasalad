@@ -25,16 +25,12 @@ public class RightBar extends SplitPane{
 
     private static String CSS = "GAE.css";
 
-    private static final int PANE_WIDTH = 300;
-
     private Pane elementPane;
     private Pane levelPane;
     private DeleteGridCellButton myDeleteButton;
     private ElementTypeBox myTypeBox;
     private EditorWindow myWindow;
     private ScrollingGrid myGrid;
-    private ScrollPane myScrollPane;
-    private LevelChooser myLevelChooser;
     private ElementPicker myElementPicker;
 
     /**
@@ -46,8 +42,6 @@ public class RightBar extends SplitPane{
         this.getStyleClass().add("rightbar");
         myWindow = window;
         myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
-        myScrollPane = scroller;
-        myLevelChooser = new LevelChooser(myWindow, myScrollPane);
         splitPanes();
         addLabels();
         addButtons();
@@ -86,7 +80,7 @@ public class RightBar extends SplitPane{
     }
 
     private void addScrollScreens() {
-        LevelChooser levelChooser = new LevelChooser(myWindow, myScrollPane);
+        LevelChooser levelChooser = new LevelChooser(myWindow);
         levelPane.getChildren().add(levelChooser);
     	myElementPicker = new ElementPicker(this);
     	ScrollPane pickerPane = myElementPicker.getElementPane();

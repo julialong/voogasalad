@@ -23,7 +23,7 @@ public class ElementTypeBox extends ComboBox {
 		myTypes = getTypes();
 		myRightBar = bar;
 		this.getItems().addAll(myTypes);
-		this.setPromptText("Elelemt Type");
+		this.setPromptText("Element Type");
 		this.setOnAction(e -> select());
 	}
 	

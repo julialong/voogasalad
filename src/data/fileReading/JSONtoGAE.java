@@ -42,6 +42,14 @@ public interface JSONtoGAE {
 	 * @throws DataFileException 
 	 */
 	AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException;
+	
+	/**
+	 * This will load the names of all of the stray levels so that a user in the authoring
+	 * environment can load a pre-existing level.
+	 * 
+	 * @return
+	 */
+	List<String> loadAuthoredLevelNames();
 
 	/**
 	 * This will load the author settings for a specific author in the 

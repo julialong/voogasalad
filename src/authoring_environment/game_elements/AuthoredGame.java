@@ -49,10 +49,7 @@ public class AuthoredGame {
             isReady = false;
         }
         catch (DataFileException e) {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle(e.getCause().toString());
-            alert.setContentText(e.getMessage());
-            alert.show();
+            saveAlert(e);
         }
     }
 
@@ -146,6 +143,10 @@ public class AuthoredGame {
         return myLevels;
     }
 
+    /**
+     * Gets the observable list of levels in the game
+     * @return the observable list of level objects
+     */
     public ObservableList<AuthoredLevel> getObservableLevels() {
         return myLevels;
     }
@@ -164,6 +165,15 @@ public class AuthoredGame {
      */
     public AuthoredLevel getCurrentLevel() {
         return currentLevel;
+    }
+
+    public void saveLevel(AuthoredLevel level) {
+        try {
+            myGameWriter.saveIndivLevel(level);
+        }
+        catch (Exception e) {
+            saveAlert(e);
+        }
     }
 
     /**
@@ -187,5 +197,12 @@ public class AuthoredGame {
         for (int i = 0; i < myLevels.size(); i++) {
             myLevels.get(i).setID(i);
         }
+    }
+
+    private void saveAlert(Exception e) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(e.getCause().toString());
+        alert.setContentText(e.getMessage());
+        alert.show();
     }
 }

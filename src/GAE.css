@@ -121,3 +121,29 @@
 	-fx-min-width: 400;
 	-fx-min-height: 300;
 }
+
+.level-saver {
+	-fx-background-color: #ffffff;
+	-fx-alignment: top-center;
+	-fx-text-alignment: center;
+	-fx-padding: 30;
+	-fx-margin: 20px;
+	-fx-pref-height: 200;
+	-fx-pref-width: 600;
+}
+
+.settings-saver {
+	-fx-background-color: #000000;
+	-fx-alignment: top-center;
+	-fx-text-alignment: center;
+	-fx-padding: 30;
+	-fx-margin: 20px;
+	-fx-pref-height: 600;
+	-fx-pref-width: 600;
+	-fx-spacing: 10px;
+	
+}
+
+.description-field{
+	 -fx-min-height: 100;
+}

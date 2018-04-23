@@ -41,11 +41,12 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
 
     private static final int FONT_SIZE = 15;
     private static final String DELETE_LEVEL = "Delete level";
+    private static final String SAVE_LEVEL = "Save level";
 
-    LevelChoice(CreatorView window, ScrollPane scrollPane) {
+    LevelChoice(CreatorView window) {
         super();
         myWindow = window;
-        myScrollPane = scrollPane;
+        myScrollPane = myWindow.getPane();
         setDragDrop();
     }
 
@@ -87,7 +88,10 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem delete = new MenuItem(DELETE_LEVEL);
         delete.setOnAction(e -> setDeleteBehavior(level));
+        MenuItem save = new MenuItem(SAVE_LEVEL);
+        save.setOnAction(e -> setSaveBehavior(level));
         contextMenu.getItems().add(delete);
+        contextMenu.getItems().add(save);
         contextMenu.show(cell, Side.RIGHT, 0, 0);
         }
 
@@ -167,5 +171,9 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
         event.setDropCompleted(success);
 
         event.consume();
+    }
+
+    private void setSaveBehavior(AuthoredLevel level) {
+        myWindow.getGame().saveLevel(level);
     }
 }

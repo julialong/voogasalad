@@ -1,13 +1,5 @@
 package data.dummyObjects;
-
-
-import java.io.File;
-
-import data.builders.LevelBuilder;
-import data.fileReading.FileRetriever;
-import data.fileReading.GPGameFileReader;
-import data.gamefiles.GameFileReader;
-import engine.level.Level;
+import data.fileReading.GAEGameFileReader;
 
 /**
  * Class used for testing serialization.
@@ -33,7 +25,10 @@ public class TestingGSON {
 //		GPGameFileReader gp = new GPGameFileReader();
 //		gp.loadCompleteGame("TestA");
 		
-		System.out.println(File.separator);
+//		System.out.println(File.separator);
+		
+		GAEGameFileReader gae = new GAEGameFileReader();
+		System.out.println(gae.loadAuthoredLevelNames());
 		
 	}
 }
