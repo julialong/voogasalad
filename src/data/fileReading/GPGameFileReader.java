@@ -30,7 +30,7 @@ public class GPGameFileReader implements JSONtoGP{
 	private static final String SETTINGS = "Settings";
 	private static final String DESCRIPTION = "description";
 	private static final String READY = "readyToPlay";
-	private static final String[] SETTINGS_DATA = {"description", "readyToPlay"};
+	private static final String[] SETTINGS_DATA = {DESCRIPTION, READY};
 	private static final String NEST = File.separator;
 	private FileRetriever fileRetriever;
 	
