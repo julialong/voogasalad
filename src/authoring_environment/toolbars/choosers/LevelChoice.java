@@ -4,18 +4,26 @@ import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -31,40 +39,25 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
     private CreatorView myWindow;
     private ScrollPane myScrollPane;
 
+    private ObservableList<AuthoredLevel> levels;
+    private Map<String, AuthoredLevel> levelMap;
+
     private static final int FONT_SIZE = 15;
     private static final String DELETE_LEVEL = "Delete level";
 
     LevelChoice(CreatorView window, ScrollPane scrollPane) {
+        super();
         myWindow = window;
         myScrollPane = scrollPane;
         setDragDrop();
     }
 
-    public void setDragDrop() {
-        setOnDragDetected(event -> {
-            if (getItem() == null) {
-                return;
-            }
+    private void setDragDrop() {
 
-            ObservableList<AuthoredLevel> items = getListView().getItems();
-
-            Dragboard dragboard = startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent content = new ClipboardContent();
-            //content.put(getItem());
-            dragboard.setDragView(
-                    birdImages.get(
-                            items.indexOf(
-                                    getItem()
-                            )
-                    )
-            );
-            dragboard.setContent(content);
-
-            event.consume();
-        });
+        setOnDragDetected(this::handleDragDetected);
 
         setOnDragOver(event -> {
-            if (event.getGestureSource() != thisCell &&
+            if (event.getGestureSource() != this &&
                     event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.MOVE);
             }
@@ -73,14 +66,14 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
         });
 
         setOnDragEntered(event -> {
-            if (event.getGestureSource() != thisCell &&
+            if (event.getGestureSource() != this &&
                     event.getDragboard().hasString()) {
                 setOpacity(0.3);
             }
         });
 
         setOnDragExited(event -> {
-            if (event.getGestureSource() != thisCell &&
+            if (event.getGestureSource() != this &&
                     event.getDragboard().hasString()) {
                 setOpacity(1);
             }
@@ -95,19 +88,18 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
             boolean success = false;
 
             if (db.hasString()) {
-                ObservableList<String> items = getListView().getItems();
-                int draggedIdx = items.indexOf(db.getString());
-                int thisIdx = items.indexOf(getItem());
+                int draggedIdx = levels.indexOf(levelMap.get(db.getString()));
+                int thisIdx = levels.indexOf(getItem());
 
-                Image temp = birdImages.get(draggedIdx);
-                birdImages.set(draggedIdx, birdImages.get(thisIdx));
-                birdImages.set(thisIdx, temp);
+                AuthoredLevel temp = levels.get(draggedIdx);
+                levels.set(draggedIdx, levels.get(thisIdx));
+                levels.set(thisIdx, temp);
 
-                items.set(draggedIdx, getItem());
-                items.set(thisIdx, db.getString());
+                levels.set(draggedIdx, getItem());
+                levels.set(thisIdx, levelMap.get(db.getString()));
 
-                List<String> itemscopy = new ArrayList<>(getListView().getItems());
-                getListView().getItems().setAll(itemscopy);
+                List<AuthoredLevel> copy = new ArrayList<>(getListView().getItems());
+                getListView().getItems().setAll(copy);
 
                 success = true;
             }
@@ -116,7 +108,7 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
             event.consume();
         });
 
-        setOnDragDone(DragEvent::consume);
+        setOnDragDone(Event::consume);
     }
 
     @Override
@@ -155,5 +147,26 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
     private void setDeleteBehavior(AuthoredLevel level) {
         myWindow.getGame().removeLevel(level);
         myScrollPane.setContent(new ScrollingGrid());
+    }
+
+    private Map<String, AuthoredLevel> makeMap() {
+        Map<String, AuthoredLevel> nameMap = new HashMap<>();
+        for (AuthoredLevel level : getListView().getItems()){
+            nameMap.put(level.getName(), level);
+        }
+        return nameMap;
+    }
+
+    private void handleDragDetected(Event e) {
+        levels = getListView().getItems();
+        levelMap = makeMap();
+        if (getItem() == null) {
+            return;
+        }
+        Dragboard dragboard = startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        content.put(new DataFormat(getItem().getName()), getItem().getName());
+        dragboard.setContent(content);
+        e.consume();
     }
 }

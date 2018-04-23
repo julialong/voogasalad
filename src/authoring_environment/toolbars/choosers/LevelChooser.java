@@ -2,6 +2,7 @@ package authoring_environment.toolbars.choosers;
 
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 

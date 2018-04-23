@@ -70,6 +70,14 @@ public class AuthoredLevel implements DocumentGetter {
     }
 
     /**
+     *
+     * @return
+     */
+    public int getID() {
+        return myLevel.getID();
+    }
+
+    /**
      * Sets the new size of the level
      * @param x
      * @param y
