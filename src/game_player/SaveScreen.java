@@ -41,7 +41,7 @@ public class SaveScreen {
 		myStage.setTitle("Save My Progress");
 		myStage.setMinWidth(MIN_WINDOW_WIDTH);
 		Scene scene = new Scene(this.displayFields(), MIN_WINDOW_WIDTH, MIN_WINDOW_WIDTH);
-		scene.getStylesheets().add("../data/styling/saveScreenStyle.css");
+		scene.getStylesheets().add("./game.player.styling/saveScreenStyle.css");
 		myStage.setScene(scene);
 		myStage.show();
 	}
