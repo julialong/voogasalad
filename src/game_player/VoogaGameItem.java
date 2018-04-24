@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.Map;
  * game authoring environment. Each VoogaGame has a Name, Description, access path, and
  * author.
  *
- * @Author Dorian Barber
+ * @Author Dorian Barber, Kelley Scroggs
  */
 public class VoogaGameItem extends Label implements GameItem {
     private String gameName;
@@ -31,20 +32,11 @@ public class VoogaGameItem extends Label implements GameItem {
         gameName = name;
         gameDescription = description;
         setFutureBounds(gameApplication);
+        handleCloseRequest(gameApplication);
         super.setText(this.toString());
     }
 
-    /**
-     * This method may be automatically defined for all
-     * GameItem objects, but the difference is dependent on
-     * how the GameItem was created
-     */
-    @Override
-    public void actionOnClick() {
-
-    }
-
-    /**
+	/**
      * Sets up the Game view application environment
      * with the specific game that this item represents
      */
@@ -56,10 +48,9 @@ public class VoogaGameItem extends Label implements GameItem {
         } catch(NullPointerException e){
             gameView = new PlayerView();
         }
-
         VController gameController = new VController(gameView);
         Scene scene = new Scene(gameView);
-        scene.getStylesheets().add("styleSheet.css");
+        scene.getStylesheets().add("./game.player.styling/styleSheet.css");
         gameApplication.setScene(scene);
         gameApplication.setTitle(gameName);
         gameApplication.show();
@@ -79,6 +70,21 @@ public class VoogaGameItem extends Label implements GameItem {
         primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
     }
 
+    /**
+     * Go back to the chooser when you close out of the game
+     * 
+     * @param gameApplication2
+     */
+    private void handleCloseRequest(Stage primaryStage) {
+        primaryStage.setOnCloseRequest((WindowEvent event1) -> {
+        	Driver relaunch = new Driver();
+        	try {
+				relaunch.start(new Stage());
+			} catch (Exception e) {
+				System.out.println("Failed to relaunch");
+			};
+        });
+	}
 
     /**
      * Alters toString method to return a properly formatted

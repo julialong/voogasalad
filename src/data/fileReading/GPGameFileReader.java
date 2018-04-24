@@ -120,7 +120,7 @@ public class GPGameFileReader implements JSONtoGP{
 	/**
 	 * This returns a Map of the names of the ready to play games and their
 	 * descriptions.
-	 * 
+	 *
 	 * @return
 	 * @throws DataFileException 
 	 */
@@ -140,5 +140,4 @@ public class GPGameFileReader implements JSONtoGP{
 		}
 		return gameNames;
 	}
-
 }

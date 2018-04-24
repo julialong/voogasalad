@@ -27,7 +27,7 @@ public class OverViewDriver extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("SuperSaladSquad");
         Scene scene = new Scene(getScene(primaryStage));
-        scene.getStylesheets().add("../data/styling/overview.css");
+        scene.getStylesheets().add("./game.player.styling/overview.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

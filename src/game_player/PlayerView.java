@@ -5,26 +5,30 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
 import java.util.List;
 import data.fileReading.GPGameFileReader;
 import data.fileReading.JSONtoGP;
 import data.resources.DataFileException;
 
 /**
- * The main application for the game player. Here is where the MVC design pattern is used.
- * The Player contains a menubar and a game view for buttons and to display the actual game.
- * This class simply acts as the container for those parts.
+ * The main application for the game player. Here is where the MVC design
+ * pattern is used. The Player contains a menubar and a game view for buttons
+ * and to display the actual game. This class simply acts as the container for
+ * those parts.
  *
  * @Author Dorian Barber, Kelley Scroggs
  */
-public class PlayerView extends VBox{
+public class PlayerView extends VBox {
 	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
 	private VoogaGameView myGameView;
-    private JSONtoGP reader = new GPGameFileReader();
+	private JSONtoGP reader = new GPGameFileReader();
 	private String myName;
 	private ScoreKeeper myHighScores = new ScoreKeeper();
-	
+
 	public PlayerView() {
 		super();
 		createGView();
@@ -33,7 +37,7 @@ public class PlayerView extends VBox{
 		setMiddle();
 	}
 
-	public PlayerView(List<Level> game, String name){
+	public PlayerView(List<Level> game, String name) {
 		super();
 		gameMaterial = game;
 		myName = name;
@@ -42,7 +46,7 @@ public class PlayerView extends VBox{
 		setViewTop();
 		setMiddle();
 	}
-	
+
 	/**
 	 * Resets the game
 	 */
@@ -51,26 +55,21 @@ public class PlayerView extends VBox{
 		resetGView();
 		setMiddle();
 	}
-	
-	
+
 	/**
 	 * Reloads the game materials;
 	 */
 	private void resetGView() {
-		try
-		{
+		try {
 			myGameView = new VoogaGameView(reader.loadCompleteGame(myName));
-		}
-		catch(DataFileException e)
-		{
+		} catch (DataFileException e) {
 			Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle(e.getCause().toString());
-            alert.setContentText(e.getMessage());
-            alert.show();
+			alert.setTitle(e.getCause().toString());
+			alert.setContentText(e.getMessage());
+			alert.show();
 		}
 	}
-	
-	
+
 	/**
 	 * Creates the view where the game is displayed.
 	 */
@@ -91,59 +90,105 @@ public class PlayerView extends VBox{
 	 * add buttons to my menubar
 	 */
 	private void addButtons() {
-		
-		myMenuBar.addButton(new VButton("Switch Game"));
-		
+		// Home button
+		VButton homeButton = new VButton("Home");
+		homeButton.setOnMouseClicked(e -> {
+			myGameView.pauseGame();
+			goHome();
+		});
+		myMenuBar.addButton(homeButton);
+
+		// Save button
 		VButton saveButton = new VButton("Save Game");
-		saveButton.setOnMouseClicked(e -> new SaveScreen(gameMaterial, myName));
+		saveButton.setOnMouseClicked(e -> {
+			myGameView.pauseGame();
+			new SaveScreen(gameMaterial, myName);
+		});
 		myMenuBar.addButton(saveButton);
-		
+
+		// High Scores button
 		VButton scoresButton = new VButton("High Scores");
-		scoresButton.setOnMouseClicked(e -> myHighScores.setUpStage());
-		
+		scoresButton.setOnMouseClicked(e -> {
+			myGameView.pauseGame();
+			myHighScores.setUpStage();
+		});
 		myMenuBar.addButton(scoresButton);
+
+		// Resume game
 		VButton resumeButton = new VButton("Resume Game");
 		resumeButton.setOnMouseClicked(e -> myGameView.resumeGame());
 		myMenuBar.addButton(resumeButton);
-		
+
+		// Pause game
 		VButton pauseButton = new VButton("Pause Game");
 		pauseButton.setOnMouseClicked(e -> myGameView.pauseGame());
 		myMenuBar.addButton(pauseButton);
-		
-		//TODO: new interface here
+
+		// Change Bindings
+		// TODO: new interface here
 		VButton keysButton = new VButton("Change Bindings");
-		keysButton.setOnMouseClicked(e -> new KeyBindingWindow(myGameView));
+		keysButton.setOnMouseClicked(e -> {
+			myGameView.pauseGame();
+			new KeyBindingWindow(myGameView);
+		});
 		myMenuBar.addButton(keysButton);
-		
+
+		// Reset game
 		VButton resetButton = new VButton("Reset");
 		resetButton.setOnMouseClicked(e -> resetGame());
 		myMenuBar.addButton(resetButton);
 	}
 
 	/**
+	 * launches a new homescreen
+	 * 
+	 * @param gameApplication2
+	 */
+	private void goHome() {
+		OverViewDriver relaunch = new OverViewDriver();
+		try {
+			relaunch.start(new Stage());
+		} catch (Exception e) {
+			System.out.println("Failed to relaunch");
+		}
+		;
+	}
+
+	/**
 	 * Adds the menubar to the top of the game player UI.
 	 */
 	private void setViewTop() {
-		//this.setTop(new Rectangle(100, 100, Color.BLUE));
-		//TODO: menubar class
+		// this.setTop(new Rectangle(100, 100, Color.BLUE));
+		// TODO: menubar class
 		this.getChildren().add(myMenuBar.getNode());
 	}
-	
+
 	/**
 	 * Adds the game image to the middle of the game player UI.
 	 */
 	private void setMiddle() {
 		this.getChildren().add(myGameView.getNode());
 		myGameView.startGame();
-		//TODO: gameView class
+		// TODO: gameView class
 	}
-		
+
+	/**
+	 * Calls the game views keyPressed method. Called from the controller when the
+	 * user presses a key.
+	 * 
+	 * @param keyCode
+	 */
 	public void startKey(KeyCode keyCode) {
 		myGameView.keyPressed(keyCode);
 	}
-	
+
+	/**
+	 * Calls the game views keyUnPressed method. Called from the controller when the
+	 * user unpresses a key.
+	 * 
+	 * @param keyCode
+	 */
 	public void endKey(KeyCode keyCode) {
 		myGameView.keyUnPressed(keyCode);
 	}
-	
 }
