@@ -38,6 +38,7 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
 
     private ObservableList<AuthoredLevel> levels;
     private Map<String, AuthoredLevel> levelMap;
+    private Map<String, DataFormat> dataMap;
 
     private static final int FONT_SIZE = 15;
     private static final String DELETE_LEVEL = "Delete level";
@@ -51,6 +52,7 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
     }
 
     private void setDragDrop() {
+        makeMaps();
         setOnDragDetected(this::handleDragDetected);
         setOnDragOver(this::handleDragOver);
         setOnDragEntered(this::handleDragEntered);
@@ -100,23 +102,24 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
         myScrollPane.setContent(new ScrollingGrid());
     }
 
-    private Map<String, AuthoredLevel> makeMap() {
-        Map<String, AuthoredLevel> nameMap = new HashMap<>();
+    private void makeMaps() {
+        levelMap = new HashMap<>();
+        dataMap = new HashMap<>();
         for (AuthoredLevel level : getListView().getItems()){
-            nameMap.put(level.getName(), level);
+            levelMap.put(level.getName(), level);
+            dataMap.put(level.getName(), new DataFormat(level.getName()));
         }
-        return nameMap;
     }
 
     private void handleDragDetected(Event event) {
         levels = getListView().getItems();
-        levelMap = makeMap();
+        makeMaps();
         if (getItem() == null) {
             return;
         }
         Dragboard dragboard = startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
-        content.put(new DataFormat(getItem().getName()), getItem().getName());
+        content.put(dataMap.get(getItem().getName()), getItem().getName());
         dragboard.setContent(content);
         event.consume();
     }
