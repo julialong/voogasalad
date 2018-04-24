@@ -89,10 +89,10 @@ public class VoogaGameView implements GameView {
 		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
 			// TODO: below is filler for actual data, delete once gae sends us the real
 			// stuff
-			System.out.println("IV: "+ ge.getImageView());
+			//System.out.println("IV: "+ ge.getImageView());
 			String imgPath;
 			if (ge.getImageView() == null || ge.getImageView() == "") {
-				imgPath = "brick.png";
+				imgPath = "./game_player/brick.png";
 			} else {
 				imgPath = ge.getImageView();
 			}
@@ -100,10 +100,9 @@ public class VoogaGameView implements GameView {
 				myControls = new Controls((Player) ge);
 				//imgPath = "trump.gif";
 			}
-
-			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath),
+			System.out.println("imgPath: "+imgPath);
+			ImageView entityImage = new ImageView(new Image(imgPath,
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
-	
 			// TODO: uncomment below once GAE sends us actual data
 			// if (ge.getClass().equals(new Player().getClass())) {
 			// myControls = new Controls((Player) ge);
