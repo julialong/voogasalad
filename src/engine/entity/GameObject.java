@@ -15,7 +15,7 @@ public abstract class GameObject implements GameEntity{
 	protected int id;
 	protected Movement movementType;
 	protected Kinematics kinematics;
-	protected int health;
+	protected int health = 1;
 	protected double jumpFactor;
 	protected double speedFactor;
 	protected double maxVelocityX;

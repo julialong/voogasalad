@@ -2,12 +2,15 @@ package game_player;
 
 import data.fileReading.GPGameFileReader;
 import data.fileReading.JSONtoGP;
+import data.resources.DataFileException;
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
 
 import javafx.collections.FXCollections;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -67,17 +70,27 @@ public class VoogaChooser implements GameChooser {
      */
     @Override
     public Parent displayChoices() {
-        Map<String, String> names = reader.getGameNames();
-        List<GameItem> gamesToPlay = new ArrayList<>();
-        for(String gameName : names.keySet()){
-            GameItem game = new VoogaGameItem(gameName, names.get(gameName));
-            gamesToPlay.add(game);
-        }
-        playableGames.setItems(FXCollections.observableArrayList(gamesToPlay));
-        setListener(playableGames);
-        myView.getChildren().add(createText());
-        myView.getChildren().add(playableGames);
-        return myView;
+    	try
+    	{
+	        Map<String, String> names = reader.getGameNames();
+	        List<GameItem> gamesToPlay = new ArrayList<>();
+	        for(String gameName : names.keySet()){
+	            GameItem game = new VoogaGameItem(gameName, names.get(gameName));
+	            gamesToPlay.add(game);
+	        }
+	        playableGames.setItems(FXCollections.observableArrayList(gamesToPlay));
+	        setListener(playableGames);
+	        myView.getChildren().add(createText());
+	        myView.getChildren().add(playableGames);
+    	}
+    	catch(DataFileException e)
+    	{
+    		Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle(e.getCause().toString());
+            alert.setContentText(e.getMessage());
+            alert.show();
+    	}
+    	return myView;
     }
 
 
@@ -96,6 +109,13 @@ public class VoogaChooser implements GameChooser {
             }
             catch(NullPointerException e){
                 event.consume();
+            }
+            catch(DataFileException e)
+            {
+            	Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle(e.getCause().toString());
+                alert.setContentText(e.getMessage());
+                alert.show();
             }
         });
     }
