@@ -24,5 +24,7 @@ https://firebase.google.com/docs/database/admin/start#admin-sdk-setup
 https://stackoverflow.com/questions/15112590/get-the-class-instance-variables-and-print-their-values-using-reflection
 https://groups.google.com/forum/#!topic/firebase-talk/LEFeJYcR92Q
 https://firebase.google.com/docs/admin/setup
+https://developers.google.com/api-client-library/java/google-api-java-client/download
+https://stackoverflow.com/questions/7421612/slf4j-failed-to-load-class-org-slf4j-impl-staticloggerbinder
 
 GET RID OF PRINTSTACKTRACES!!!
