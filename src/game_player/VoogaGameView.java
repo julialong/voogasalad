@@ -89,6 +89,7 @@ public class VoogaGameView implements GameView {
 		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
 			// TODO: below is filler for actual data, delete once gae sends us the real
 			// stuff
+			System.out.println("IV: "+ ge.getImageView());
 			String imgPath;
 			if (ge.getImageView() == null || ge.getImageView() == "") {
 				imgPath = "brick.png";
@@ -97,7 +98,7 @@ public class VoogaGameView implements GameView {
 			}
 			if (ge instanceof Player) {
 				myControls = new Controls((Player) ge);
-				imgPath = "trump.gif";
+				//imgPath = "trump.gif";
 			}
 
 			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath),
@@ -116,17 +117,6 @@ public class VoogaGameView implements GameView {
 			myDispMap.put(ge, entityImage);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}
-		// for (GameEntity gee : myDispMap.keySet()) {
-		// System.out.println(gee);
-		// System.out.println("Position[0]: " + gee.getPosition()[0]);
-		// System.out.println("Position[1]: " + gee.getPosition()[1]);
-		// System.out.println("ScenePosition[0]: " + gee.getScenePosition()[0]);
-		// System.out.println("ScenePosition[1]: " + gee.getScenePosition()[1]);
-		// System.out.println("AdjScenePosition[0]: " +
-		// adjustXCord(gee.getScenePosition()[0]));
-		// System.out.println("AdjScenePosition[1]: " +
-		// adjustYCord(gee.getScenePosition()[1]));
-		// }
 	}
 
 	/**
