@@ -1,20 +1,25 @@
 package authoring_environment.editor_windows;
 
+
+import authoring_environment.editor_windows.buttons.SaveSettingsButton;
 import authoring_environment.editor_windows.savers.MetaManager;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.paint.Color;
 
 /**
  * The settings manager allows the user to change the settings for the current game they
  * are editing.
  *
  * @author Julia Long
+ * @author Judi Sanchez 
  * Date started: April 04 18
  */
+// TODO: Fix Styling 
 public class SettingsManager implements MetaManager {
 
     private Stage myStage;
@@ -22,12 +27,15 @@ public class SettingsManager implements MetaManager {
     private Scene myScene;
 
     private CreatorView myWindow;
-    private TextField fileName;
+    private TextField gameNameField;
+    private TextField descriptionField;
 
     private static final String CSS = "GAE.css";
     private static final String SETTINGS_MANAGER = "Settings Manager";
-    //private static final String UPDATE_FILE_NAME = "File name:";
-    private static final String SUBMIT = "Submit";
+    private static final String GAME_NAME_PROMPT =  "Game Name: ";
+    private static final String DESCRIPTION_PROMPT =  "Description: ";
+    private static final Color TEXT_COLOR = Color.WHITE;
+    
 
     /**
      * Creates a new settings manager window.
@@ -37,25 +45,35 @@ public class SettingsManager implements MetaManager {
         myRoot = new VBox();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
-        myRoot.getStyleClass().add("game-saver");
+        myRoot.getStyleClass().add("settings-saver");
         myWindow = window;
-
         myStage.setScene(myScene);
         myStage.setTitle(SETTINGS_MANAGER);
         myStage.show();
         myStage.centerOnScreen();
-
-        setName(fileName, myWindow.getGame(), myRoot);
-        saveSettings();
+        addNameBox();
+        addDescriptionBox();
+        SaveSettingsButton saveButton = new SaveSettingsButton(myWindow, myStage, gameNameField, descriptionField);
+        myRoot.getChildren().add(saveButton);
     }
-
-    private void saveSettings() {
-        Button submitButton = new Button(SUBMIT);
-        submitButton.setOnAction(e -> {
-            myWindow.getGame().rename(fileName.getText());
-
-        });
-        System.out.println(myWindow.getGame().getName());
+    
+    private void addNameBox() {
+    	 	Text prompt = new Text(GAME_NAME_PROMPT);
+         prompt.setFill(TEXT_COLOR);
+         myRoot.getChildren().add(prompt);
+         gameNameField = new TextField(myWindow.getGame().getName());
+         myRoot.getChildren().add(gameNameField);
     }
+    
+    private void addDescriptionBox() {
+   	 	Text descriptionPrompt = new Text(DESCRIPTION_PROMPT);
+        descriptionPrompt.setFill(TEXT_COLOR);
+        myRoot.getChildren().add(descriptionPrompt);
+        descriptionField = new TextField(myWindow.getGame().getDescription());
+        descriptionField.getStyleClass().add("description-field");
+        myRoot.getChildren().add(descriptionField);
+   }
+
+  
 
 }
