@@ -1,10 +1,14 @@
 package authoring_environment.editor_windows;
 
+import data.fileReading.GAEGameFileReader;
+import data.fileReading.JSONtoGAE;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.Map;
 
 /**
  *
@@ -37,5 +41,8 @@ public class GameChooser {
         myRoot.getChildren().add(chooseText);
     }
 
-    
+    private void getGames() {
+        JSONtoGAE gameReader = new GAEGameFileReader();
+        //Map <String, String> gameNames = gameReader.getGameNames();
+    }
 }
