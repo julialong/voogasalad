@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import com.google.auth.oauth2.GoogleCredentials;
 
@@ -48,8 +49,6 @@ public class FirebaseAuthentication {
 					FirebaseDatabase db = FirebaseDatabase.getInstance();
 					DatabaseReference ref = db.getReference("restricted_access/secret_document");
 					
-					
-					
 					ref.addListenerForSingleValueEvent(new ValueEventListener() {
 						
 					  @Override
@@ -69,20 +68,51 @@ public class FirebaseAuthentication {
 				{
 					e.printStackTrace();
 				}
-
 				// As an admin, the app has access to read and write all data, regardless of Security Rules
 				return null;
 	}
 	
 	public void testAdd()
 	{
-		DatabaseReference ref = db.getReference("server/saving-data/fireblog");
-		
+		FirebaseDatabase db2 = FirebaseDatabase.getInstance();
+		DatabaseReference ref = db2.getReference("/");
+		System.out.println(ref);
 		DatabaseReference testing = ref.child("test");
+		System.out.println(testing);
 		Map<String, String> ex = new HashMap<>();
 		
 		ex.put("hello", "testing");
+		System.out.println(ex);
 		
-		testing.setValueAsync(ex);
-	}
+		CountDownLatch countDownLatch = new CountDownLatch(1);
+        testing.setValue(ex, new DatabaseReference.CompletionListener() {
+
+            @Override
+            public void onComplete(DatabaseError de, DatabaseReference dr) {
+                System.out.println("Record saved!");
+                // decrement countDownLatch value and application will be continues its execution.
+                countDownLatch.countDown();
+            }
+        });
+        try {
+            //wait for firebase to saves record.
+            countDownLatch.await();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+//		testing.setValueAsync(ex);
+		
+//		testing.setValue(ex, new DatabaseReference.CompletionListener() {
+//		    @Override
+//		    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+//		    	System.out.println("here");
+//		        if (databaseError != null) {
+//		            System.out.println("Data could not be saved " + databaseError.getMessage());
+//		        } else {
+//		            System.out.println("Data saved successfully.");
+//		        }
+//		    }
+//		});
 }
