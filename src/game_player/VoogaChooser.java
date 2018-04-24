@@ -50,7 +50,6 @@ public class VoogaChooser implements GameChooser {
     private void setUpStage(){
         myStage.setTitle("Game Chooser");
         Scene scene = new Scene(this.displayChoices());
-        scene.getStylesheets().add("../data/styling/styleSheet.css");
         myStage.setScene(scene);
         myStage.show();
     }
@@ -123,7 +122,7 @@ public class VoogaChooser implements GameChooser {
 
     private VBox createText(){
         VBox container = new VBox();
-        Image img = new Image(getClass().getResourceAsStream("pick_game.png"));
+        Image img = new Image("./game.player.styling/pick_game.png");
         ImageView image = new ImageView(img);
         container.getChildren().add(image);
         return container;

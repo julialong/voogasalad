@@ -31,7 +31,7 @@ public class Hud implements HeadsUpDisplay {
         double width = screen.getWidth();
         double height = screen.getHeight();
         displayBoard = new SubScene(root, width, height);
-        displayBoard.setUserAgentStylesheet("../data/styling/hudStyleSheet.css");
+        displayBoard.setUserAgentStylesheet("./game.player.styling/hudStyleSheet.css");
     }
 
 
@@ -43,7 +43,7 @@ public class Hud implements HeadsUpDisplay {
     public Hud(int width, int height){
         initializeFields();
         displayBoard = new SubScene(root, width, height);
-        displayBoard.setUserAgentStylesheet("../data/styling/hudStyleSheet.css");
+        displayBoard.setUserAgentStylesheet("./game.player.styling/hudStyleSheet.css");
     }
 
 

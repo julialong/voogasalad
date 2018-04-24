@@ -19,12 +19,17 @@ import engine.level.BasicLevel;
 public class TestingWriting {
 
 	public static void main(String[] args) {
-		GameFileWriter myWriter = new GameFileWriter("Kelley", "TestD");
+		try {
+		GameFileWriter myWriter = new GameFileWriter("Kelley", "TestImage");
 
 		FileWriter fw;
 
 		myWriter.saveIndivLevel(makeDummyObjects());
 		myWriter.saveData(makeDummyObjects());
+		} catch (Exception e) {
+			System.out.println("not my job");
+			e.printStackTrace();
+		}
 	}
 
 	private static AuthoredLevel makeDummyObjects() {
@@ -43,7 +48,9 @@ public class TestingWriting {
 		player.setMaxXVelocity(50);
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
-		player.setJumpFactor(300);
+		player.setJumpFactor(150);
+		player.setImageView("./game.player.styling/mario_running.gif");
+		System.out.println(player.getImageView());
 		one.addObject(player);
 
 		// big block that player stands on
@@ -93,7 +100,7 @@ public class TestingWriting {
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
 		// line below causes data error
-		enemy2.addBehavior(new MoveForward(new Player()));
+		//enemy2.addBehavior(new MoveForward(new Player()));
 		enemy2.addInteraction(new DamageOnStomp());
 		enemy2.addInteraction(new KnockBack());
 		enemy2.setHealth(1);
