@@ -24,13 +24,13 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class FirebaseAuthentication {
 	
-	private DatabaseReference ref;
+	private FirebaseDatabase db;
 	
 	public FirebaseAuthentication() {
-		ref = setUp();
+		db = setUp();
 	}
 	
-	private DatabaseReference setUp()
+	private FirebaseDatabase setUp()
 	{
 		// Fetch the service account key JSON file content
 				try
@@ -63,7 +63,7 @@ public class FirebaseAuthentication {
 					  }
 					});	
 					
-					return ref;
+					return db;
 				}
 				catch(IOException e)
 				{
@@ -76,10 +76,12 @@ public class FirebaseAuthentication {
 	
 	public void testAdd()
 	{
-		DatabaseReference testing = ref.child("test");
-		Map<String, SampleObject> ex = new HashMap<>();
+		DatabaseReference ref = db.getReference("server/saving-data/fireblog");
 		
-		ex.put("hello", new SampleObject("a","b"));
+		DatabaseReference testing = ref.child("test");
+		Map<String, String> ex = new HashMap<>();
+		
+		ex.put("hello", "testing");
 		
 		testing.setValueAsync(ex);
 	}
