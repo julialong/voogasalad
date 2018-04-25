@@ -1,12 +1,18 @@
 package authoring_environment.editor_windows;
 
 import data.fileReading.GAEGameFileReader;
+import data.fileReading.GPGameFileReader;
 import data.fileReading.JSONtoGAE;
+import data.fileReading.JSONtoGP;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.ListView;
 
 import java.util.Map;
 
@@ -39,10 +45,27 @@ public class GameChooser {
         myRoot.getStyleClass().add("game-chooser");
         Text chooseText = new Text(CHOOSE);
         myRoot.getChildren().add(chooseText);
+        getGames();
     }
 
     private void getGames() {
         JSONtoGAE gameReader = new GAEGameFileReader();
-        //Map <String, String> gameNames = gameReader.getGameNames();
+        // TODO: delete JSONtoGP
+        JSONtoGP fakeGameReader = new GPGameFileReader();
+        try {
+            Map<String, String> gameNames = fakeGameReader.getGameNames();
+            myRoot.getChildren().add(showGames(gameNames));
+        }
+        catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(e.getCause().toString());
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+    }
+
+    private ListView<String> showGames(Map<String, String> games) {
+        ObservableList<String> gameNames = FXCollections.observableArrayList(games.keySet());
+        return new ListView<>(gameNames);
     }
 }
