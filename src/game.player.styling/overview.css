@@ -4,7 +4,6 @@
     -fx-background-color: linear-gradient(#C8C8C8 0%, #D0D0D0 25%, #D3D3D3 50%, #D8D8D8 75%, #DCDCDC 100%);
     -fx-border-width: 50;
     -fx-border-color: linear-gradient(#C8C8C8 0%, #D0D0D0 25%, #D3D3D3 50%, #D8D8D8 75%, #DCDCDC 100%);
-
 }
 
 .hbox {
@@ -24,4 +23,8 @@
 .button:hover {
     -fx-effect: dropshadow(three-pass-box, #ffffff, 10, 0.5, 1, 1);
     -fx-background-color: #606060;
+}
+
+.title-text {
+    -fx-font-size: 30;
 }
