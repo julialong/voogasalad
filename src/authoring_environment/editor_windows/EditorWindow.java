@@ -46,6 +46,11 @@ public class EditorWindow implements CreatorView {
 	}
 
 	@Override
+	public void changeCurrentGame(AuthoredGame newGame) {
+		myGame = newGame;
+	}
+
+	@Override
 	public ScrollPane getPane() {
 		return myScrollPane;
 	}

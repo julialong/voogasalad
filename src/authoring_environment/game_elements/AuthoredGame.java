@@ -54,6 +54,26 @@ public class AuthoredGame {
     }
 
     /**
+     * A separate constructor that allows the recreation of a game that has already been saved
+     * @param gameName is the name of the game to reedit
+     * @param gameDescription is the description of the game to reedit
+     * @param levels is the list of levels
+     */
+    public AuthoredGame(String gameName, String gameDescription, List<AuthoredLevel> levels) {
+        try {
+            myName = gameName;
+            myDescription = gameDescription;
+            myLevels = FXCollections.observableArrayList(levels);
+            currentLevel = myLevels.get(0);
+            myGameWriter = new GameFileWriter("User2", myName);
+            isReady = true;
+        }
+        catch (Exception e) {
+            saveAlert(e);
+        }
+    }
+
+    /**
      * Creates a new authored game with a default name.
      */
     public AuthoredGame() {
@@ -192,9 +212,10 @@ public class AuthoredGame {
     }
 
     private void saveAlert(Exception e) {
+        e.printStackTrace();
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(e.getCause().toString());
-        alert.setContentText(e.getMessage());
+        alert.setTitle("Alert");
+        alert.setContentText("Bad");
         alert.show();
     }
 }
