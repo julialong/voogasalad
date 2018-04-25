@@ -22,6 +22,7 @@ public class GameChooser {
     private Stage myStage;
     private Pane myRoot;
     private Scene myScene;
+    private List<Text> myOptions;
 
     private static final String CSS = "GAE.css";
     private static final String LOAD_GAME = "Load Game";
@@ -37,7 +38,9 @@ public class GameChooser {
         myStage.setTitle(LOAD_GAME);
         myStage.show();
         myStage.centerOnScreen();
-        fetchGameNames();
+        List<String> names = fetchGameNames();
+        addOptions(names);
+        myRoot.getChildren().addAll(myOptions);
     }
 
     private void addFields() {
@@ -54,6 +57,14 @@ public class GameChooser {
     			gameNames.add((gamePath.substring(gamePath.lastIndexOf("/")+1)));
     		}
     		return gameNames;
+    }
+    
+    private void addOptions(List<String> gameNames) {
+    		myOptions= new ArrayList<Text>();
+    		for(String gameName: gameNames) {
+    			myOptions.add(new Text(gameName));
+    			System.out.println(gameName);
+    		}
     }
 
     
