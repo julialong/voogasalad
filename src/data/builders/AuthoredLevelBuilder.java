@@ -25,6 +25,7 @@ import engine.level.Level;
  */
 public class AuthoredLevelBuilder {
 	
+	private final static String SCROLLING_GRID = "ScrollingGrid";
 	private File levelFile;
 	
 	/**
@@ -66,7 +67,7 @@ public class AuthoredLevelBuilder {
 		{
 			JsonObject jobject;
 			jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
-			JsonArray gridCells = jobject.getAsJsonArray("ScrollingGrid");
+			JsonArray gridCells = jobject.getAsJsonArray(SCROLLING_GRID);
 			LevelSerializer ls = new LevelSerializer();
 			scrollingGrid = ls.deserialize(gridCells);
 		} 
