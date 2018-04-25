@@ -2,8 +2,8 @@ package authoring_environment.editor_windows;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -11,30 +11,30 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring_environment.editor_windows.buttons.GameChooserButton;
 import data.fileReading.FileRetriever;
-import data.fileReading.GAEGameFileReader;
 
 /**
- * @autho Julia Long
+ * @author Julia Long
  * @author Judi Sanchez 
  * Date started: April 24 2018
  */
+// TODO: edit styling and move styling specifications to css
 public class GameChooser {
 
     private Stage myStage;
     private Pane myRoot;
     private Scene myScene;
     private List<String> gameNames;
-    private List<HBox> rows;
+    private TilePane myTiles;
 
     private static final String CSS = "GAE.css";
     private static final String LOAD_GAME = "Load Game";
     private static final String CHOOSE = "Choose a game to edit:";
-    private static final int BUTTONS_PER_ROW = 5;
-    private static final int BUTTON_SIZE = 50;
+    private static final int BUTTON_SIZE = 120;
 
     /**
-     * 
+     * This class opens the window to choose a previously created game for re-editing 
      */
     public GameChooser() {
         myStage = new Stage();
@@ -46,8 +46,9 @@ public class GameChooser {
         myStage.setTitle(LOAD_GAME);
         myStage.show();
         myStage.centerOnScreen();
+        myTiles = new TilePane();
+        myRoot.getChildren().add(myTiles);
         gameNames = fetchGameNames();
-        createHBoxes();
         addButtons();
     }
 
@@ -57,6 +58,10 @@ public class GameChooser {
         myRoot.getChildren().add(chooseText);
     }
     
+    /**
+     * Gets a list of all of the current games names by looking at the FileRetriever's file paths for
+     * games and removing all but the name
+     */
     private List<String> fetchGameNames() {
     		gameNames= new ArrayList<String>();
     		FileRetriever fileRetriever = new FileRetriever();
@@ -67,26 +72,18 @@ public class GameChooser {
     		return gameNames;
     }
     
-    private void createHBoxes() {
-    		rows = new ArrayList<HBox>();
-    		for(int i=0; i < gameNames.size()/BUTTONS_PER_ROW; i++){
-    			rows.add(new HBox());
-    		}
-    		myRoot.getChildren().addAll(rows);
-    }
-    
+    /**
+     * Creates a tile representation of the buttons to choose a game to re-load 
+     * The method to actually load the chosen game is in GameChooserButton
+     */
     private void addButtons() {
-    		for(int i =0; i< rows.size(); i++) {
-    			HBox box = rows.get(i);
-    			for(int j=0; j<BUTTONS_PER_ROW; j++) {
-    				Button button = new Button(gameNames.get(i*BUTTONS_PER_ROW + j));
+    		for(String gameName: gameNames) {
+    				Button button = new GameChooserButton(gameName);
     				button.setMinSize(BUTTON_SIZE, BUTTON_SIZE);
-    				box.getChildren().add(button);
-    				
-    			}
-    			
+    				button.setMaxSize(BUTTON_SIZE, BUTTON_SIZE);
+    				myTiles.getChildren().add(button);
     		}
+    				
     }
 
-    
 }
