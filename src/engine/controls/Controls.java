@@ -46,6 +46,12 @@ public class Controls {
 	 * @throws IOException 
 	 */
 	public void setBinding(KeyCode key, Action action) throws IOException{
+		for(KeyCode k : keyBindings.keySet()) {
+			if(keyBindings.get(k).getClass() == action.getClass()) {
+				keyBindings.remove(k);
+				break;
+			}
+		}
 		keyBindings.remove(key);
 		keyBindings.put(key, action);
 		bindingsToFile.updatePropertiesFile(key, action);
