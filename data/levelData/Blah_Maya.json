@@ -1,5 +1,5 @@
 {
-"name":"Default",
+"name":"Blah_Maya",
 "id":1,
 "size":1,
 "ScrollingGrid":[
@@ -43,7 +43,7 @@
 "null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ],
 [
-"null","null","null","Cobble","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
+"null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ],
 [
 "null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
@@ -153,8 +153,5 @@
 [
 "null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ]
-]
-,"Block":[
-{"id":0,"kinematics":{"xCor":3.0,"yCor":13.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":0.0,"height":0.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/Cobble.png","behaviorList":[],"interactionList":[null],"interactionsMap":{}}
-]
+],
 }
