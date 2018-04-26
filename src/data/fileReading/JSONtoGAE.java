@@ -60,5 +60,13 @@ public interface JSONtoGAE {
 	 * @return
 	 */
 	Map<String,GameEntity> loadAuthorCustomObjects(String author);
+	
+	/**
+	 * This returns a Map of the names of the games for continued editing.
+	 * 
+	 * @return
+	 * @throws DataFileException 
+	 */
+	Map<String,String> getGameNames() throws DataFileException;
 
 }

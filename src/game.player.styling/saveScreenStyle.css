@@ -1,0 +1,20 @@
+.text-field {
+    -fx-font-weight: bold;
+    -fx-scale-x: 1.25;
+    -fx-scale-y: 1.25;
+}
+
+.hbox {
+    -fx-background-color: linear-gradient(#DCDCDC 0%, #E8E8E8 25%, #F5F5F5 50%, #E8E8E8 75%, #DCDCDC 100%);
+    -fx-alignment: center;
+    -fx-spacing: 30;
+}
+
+
+.button {
+    -fx-background-color: #D3D3D3;
+}
+
+.button:hover {
+    -fx-effect: dropshadow(gaussian, #D0D0D0, 10, 0.5, 1, 1);
+}

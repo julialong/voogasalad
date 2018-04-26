@@ -2,9 +2,9 @@ package data.dummyObjects;
 
 
 import java.io.File;
+import java.lang.reflect.Field;
 
 import data.builders.LevelBuilder;
-import data.fileReading.FileRetriever;
 import data.fileReading.GAEGameFileReader;
 import data.fileReading.GPGameFileReader;
 import engine.level.Level;
@@ -35,8 +35,23 @@ public class TestingGSON {
 		
 //		System.out.println(File.separator);
 		
-		GAEGameFileReader gae = new GAEGameFileReader();
-		System.out.println(gae.loadAuthoredLevelNames());
+//		GAEGameFileReader gae = new GAEGameFileReader();
+//		System.out.println(gae.loadAuthoredLevelNames());
+		
+		try
+		{
+			Field[] fields = Class.forName("engine.level.BasicLevel").getDeclaredFields();
+			for (Field field : fields) {
+				System.out.println(field);
+//			    NotNull notNull = field.getAnnotation(NotNull.class);
+//			    field.setAccessible(true);
+			}	
+		} 
+		catch (SecurityException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 }
