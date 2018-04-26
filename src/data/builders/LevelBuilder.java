@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -94,8 +95,8 @@ public class LevelBuilder {
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
-			JsonObject jobject;
-			jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
+			JsonElement jelement = jsonParser.parse(new FileReader(levelFile));
+			JsonObject jobject = jelement.getAsJsonObject();
 			addMetaData(level, jobject);
 			addGameObjects(level,jobject);
 		}

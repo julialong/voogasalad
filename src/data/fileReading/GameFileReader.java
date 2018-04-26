@@ -73,10 +73,13 @@ public abstract class GameFileReader {
 		List<String> allGamePaths = getAllGamePaths();
 		for(String gamePath: allGamePaths)
 		{
-			String regexStart = "^";
-			String regexAny = ".*";
-			String regexEnd = "$";
-			if(gamePath.matches(regexStart + regexAny + gameName + regexEnd))
+//			String regexStart = "^";
+//			String regexAny = ".*";
+//			String regexEnd = "$";
+			int index = gamePath.lastIndexOf(NEST) + 1;
+			String game = gamePath.substring(index);
+			System.out.println("gameName " + game);
+			if(game.equals(gameName))
 			{
 				return gamePath;
 			}	
