@@ -44,7 +44,6 @@ import javafx.stage.Stage;
  * Date started: April 3 2018
  *
  */
-// TODO: refactor this class into smaller classes to reduce number of dependencies
 // TODO: get rid of strings in methods 
 public class AttributeEditor {
 

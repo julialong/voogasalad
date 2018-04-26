@@ -5,7 +5,6 @@ import java.io.File;
 import java.lang.reflect.Field;
 
 import data.builders.LevelBuilder;
-import data.fileReading.FileRetriever;
 import data.fileReading.GAEGameFileReader;
 import data.fileReading.GPGameFileReader;
 import engine.level.Level;

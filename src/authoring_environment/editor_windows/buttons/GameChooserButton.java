@@ -50,7 +50,10 @@ public class GameChooserButton extends Button{
 		for (AuthoredLevel level: levels) {
 			game.addLevel(level);
 		}
-		game.setCurrentLevel(levels.get(0));
+		//game.setCurrentLevel(levels.get(0));
+		game.rename(gameName);
+		System.out.println(gameName);
+		System.out.println(game.getName());
 		game.getDescription();
 	}
 
