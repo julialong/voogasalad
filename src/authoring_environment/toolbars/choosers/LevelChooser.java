@@ -2,9 +2,7 @@ package authoring_environment.toolbars.choosers;
 
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 
 /**
  * The level chooser allows users to select an available level to edit.

@@ -107,7 +107,7 @@
 }
 
 .game-saver {
-	-fx-background-color: #000000;
+	-fx-background-color: #fdfdfd;
 	-fx-alignment: top-center;
 	-fx-text-alignment: center;
 	-fx-padding: 30;

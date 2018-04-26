@@ -43,12 +43,36 @@ public class AuthoredGame {
             myName = gameName;
             myDescription = DEFAULT_DESCRIPTION;
             myLevels = FXCollections.observableArrayList();
-            Level tempLevel = new BasicLevel(0);
-            currentLevel = new AuthoredLevel(tempLevel, new ScrollingGrid());
+            currentLevel = new AuthoredLevel(new BasicLevel(0), new ScrollingGrid());
             myGameWriter = new GameFileWriter("User2", myName);
             isReady = false;
         }
         catch (DataFileException e) {
+            saveAlert(e);
+        }
+    }
+
+    /**
+     * A separate constructor that allows the recreation of a game that has already been saved
+     * @param gameName is the name of the game to reedit
+     * @param gameDescription is the description of the game to reedit
+     * @param levels is the list of levels
+     */
+    public AuthoredGame(String gameName, String gameDescription, List<AuthoredLevel> levels) {
+        try {
+            myName = gameName;
+            myDescription = gameDescription;
+            myLevels = FXCollections.observableArrayList(levels);
+            if (myLevels.size() > 0) {
+                currentLevel = myLevels.get(0);
+            }
+            else {
+                currentLevel = new AuthoredLevel(new BasicLevel(), new ScrollingGrid());
+            }
+            myGameWriter = new GameFileWriter("User2", myName);
+            isReady = true;
+        }
+        catch (Exception e) {
             saveAlert(e);
         }
     }
@@ -192,9 +216,10 @@ public class AuthoredGame {
     }
 
     private void saveAlert(Exception e) {
+        e.printStackTrace();
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(e.getCause().toString());
-        alert.setContentText(e.getMessage());
+        alert.setTitle("Alert");
+        alert.setContentText("Bad");
         alert.show();
     }
 }
