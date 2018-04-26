@@ -133,7 +133,7 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 		for(String gameName: allGameNames)
 		{
 			Map<String,String> gameSettings = getSettingsMap(gameName);
-			gameNames.put(gameName, gameSettings.get("description"));
+			gameNames.put(gameName, gameSettings.get(DESCRIPTION));
 		}
 		return gameNames;
 	}

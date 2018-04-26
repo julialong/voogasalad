@@ -21,7 +21,9 @@ public abstract class GameFileReader {
 	protected static final String GAME_FOLDER = "./data/gameData";
 	protected static final String JSON_EXTENSION = ".json";
 	protected static final String SETTINGS = "Settings";
-	protected static final String[] SETTINGS_DATA = {"description", "readyToPlay"};
+	protected static final String DESCRIPTION = "description";
+	protected static final String READY = "readyToPlay";
+	protected static final String[] SETTINGS_DATA = {DESCRIPTION, READY};
 	protected static final String NEST = File.separator;
 	protected static final String PLAYER_FOLDER = "Playing";
 	protected static final String PLAYER_SEPARATOR = "_";
