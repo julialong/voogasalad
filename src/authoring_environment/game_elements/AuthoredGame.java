@@ -62,7 +62,8 @@ public class AuthoredGame {
         try {
             myName = gameName;
             myDescription = gameDescription;
-            myLevels = FXCollections.observableArrayList(levels);
+            myLevels = FXCollections.observableArrayList();
+            myLevels.addAll(levels);
             if (myLevels.size() > 0) {
                 currentLevel = myLevels.get(0);
             }

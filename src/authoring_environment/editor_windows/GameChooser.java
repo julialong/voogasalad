@@ -93,11 +93,7 @@ public class GameChooser {
         try {
             String chosenGame = myView.getSelectionModel().getSelectedItem();
             List<AuthoredLevel> loadLevels = myReader.loadCompleteAuthoredGame(chosenGame);
-            // TODO: delete this
-            for (AuthoredLevel level : loadLevels) {
-                System.out.println("Level here");
-            }
-            myWindow.changeCurrentGame(new AuthoredGame(chosenGame, myChoices.get(chosenGame), loadLevels));
+            new EditorWindow(new Stage(), new AuthoredGame(chosenGame, myChoices.get(chosenGame), loadLevels));
             myStage.close();
         }
         catch (Exception e) {

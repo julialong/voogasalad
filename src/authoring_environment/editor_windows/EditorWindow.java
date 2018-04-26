@@ -2,6 +2,7 @@ package authoring_environment.editor_windows;
 
 import authoring_environment.authored_elements.AuthoredElement;
 import authoring_environment.game_elements.AuthoredGame;
+import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.RightBar;
 import authoring_environment.toolbars.TopBar;
@@ -29,15 +30,24 @@ public class EditorWindow implements CreatorView {
 	private AuthoredGame myGame;
 
 	/**
-	 * Creates a new EditorWindow
+	 * Creates a new EditorWindow with a specific game
+	 * @param stage is the stage where EditorWindow should be presented
+	 * @param game is the game to load
+	 */
+	public EditorWindow(Stage stage, AuthoredGame game) {
+		myStage = stage;
+		myGame = game;
+		openNewWindow();
+	}
+
+	/**
+	 * Creates a new EditorWindow with no game
 	 * 
 	 * @param stage
 	 *            The stage where EditorWindow should be presented
 	 */
 	public EditorWindow(Stage stage) {
-		myStage = stage;
-		myGame = new AuthoredGame();
-		openNewWindow();
+		this(stage, new AuthoredGame());
 	}
 
 	@Override
