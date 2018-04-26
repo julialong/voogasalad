@@ -2,6 +2,7 @@ package data.fileReading;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,20 +17,13 @@ import engine.entity.GameEntity;
  * @author Belanie Nagiel
  *
  */
-public class GAEGameFileReader implements JSONtoGAE {
-	
-	private static final String JSON_EXTENSION = ".json";
-	private static final String SETTINGS = "Settings";
-	private static final String LEVEL_FOLDER = "./data/levelData";
-	private static final String NEST = File.separator;
-	private FileRetriever fileRetriever;
+public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	
 	/**
 	 * Class Constructor
 	 */
 	public GAEGameFileReader() 
 	{
-		fileRetriever = new FileRetriever();
 	}
 	
 	/**
@@ -45,7 +39,7 @@ public class GAEGameFileReader implements JSONtoGAE {
 	@Override
 	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) throws DataFileException {
 		List<AuthoredLevel> completeGame = new ArrayList<>();
-		File currentGame = new File(fileRetriever.retrieveCurrentGamePath(gameName));
+		File currentGame = new File(getCurrentGamePath(gameName));
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
@@ -72,7 +66,7 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) throws DataFileException {
-		File level = fileRetriever.retrieveLevel(gameName, levelName);
+		File level = getLevel(gameName, levelName);
 		AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
 		return authoredBuilder.buildAuthoredLevel();
 	}
@@ -125,6 +119,24 @@ public class GAEGameFileReader implements JSONtoGAE {
 	public Map<String, GameEntity> loadAuthorCustomObjects(String author) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * This returns a Map of the names of the games for continued editing.
+	 * 
+	 * @return
+	 * @throws DataFileException 
+	 */
+	@Override
+	public Map<String, String> getGameNames() throws DataFileException {
+		Map<String,String> gameNames = new HashMap<>();
+		List<String> allGameNames = getAllGameNames();
+		for(String gameName: allGameNames)
+		{
+			Map<String,String> gameSettings = getSettingsMap(gameName);
+			gameNames.put(gameName, gameSettings.get("description"));
+		}
+		return gameNames;
 	}
 
 
