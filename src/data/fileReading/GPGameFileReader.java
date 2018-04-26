@@ -108,9 +108,9 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 		for(String gameName: allGameNames)
 		{
 			Map<String,String> gameSettings = loadSettings(gameName);
-			if(gameSettings.get("readyToPlay").equals("true"))
+			if(gameSettings.get(READY).equals("true"))
 			{
-				gameNames.put(gameName, gameSettings.get("description"));
+				gameNames.put(gameName, gameSettings.get(DESCRIPTION));
 			}
 		}
 		return gameNames;

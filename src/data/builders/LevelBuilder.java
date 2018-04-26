@@ -32,6 +32,8 @@ import engine.level.Level;
 public class LevelBuilder {
 
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
+	private static final String NAME = "name";
+	private static final String ID = "id";
 	private Map<String,Class<?>> objectTypes;
 	private Serializer deserializer; 
 	private File levelFile;
@@ -112,8 +114,8 @@ public class LevelBuilder {
 	 */
 	private void addMetaData(Level level, JsonObject jobject)
 	{
-		String levelName = jobject.get("name").getAsString();
-		int id = jobject.get("id").getAsInt();
+		String levelName = jobject.get(NAME).getAsString();
+		int id = jobject.get(ID).getAsInt();
 		
 		level.setName(levelName);
 		level.setID(id);
