@@ -91,6 +91,7 @@ public class GameSaver implements MetaManager {
     }
 
     private void addSaveButton() {
+        System.out.println(fileName.getText() + ", " + fileDescription.getText());
         myRoot.getChildren().add(new SaveGameButton(myWindow, myStage, fileName.getText(),
                 fileDescription.getText(), playableGame.isSelected()));
     }

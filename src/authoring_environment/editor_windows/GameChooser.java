@@ -44,15 +44,11 @@ public class GameChooser {
 
     public GameChooser(CreatorView window) {
         myWindow = window;
-        setScreen();
-        addFields();
-    }
-
-    private void setScreen() {
         myStage = new Stage();
         myRoot = new VBox();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
+        addFields();
         myStage.setScene(myScene);
         myStage.setTitle(LOAD_GAME);
         myStage.show();
