@@ -65,10 +65,8 @@ public class GameChooser {
 
     private void getGames() {
         myReader = new GAEGameFileReader();
-        // TODO: delete JSONtoGP
-        JSONtoGP fakeGameReader = new GPGameFileReader();
         try {
-            myChoices = fakeGameReader.getGameNames();
+            myChoices = myReader.getGameNames();
             showGames();
             myRoot.getChildren().add(myView);
         }
