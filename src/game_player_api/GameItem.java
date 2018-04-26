@@ -18,13 +18,6 @@ import java.util.Map;
 public interface GameItem {
 
     /**
-     * This method may be automatically defined for all
-     * GameItem objects, but the difference is dependent on
-     * how the GameItem was created
-     */
-    public void actionOnClick();
-
-    /**
      * Sets up the Game view application environment
      * with the specific game that this item represents
      * @param string 

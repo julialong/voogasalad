@@ -155,6 +155,9 @@
 ]
 ],
 "Player":[
-{"weaponType":{"type":"engine.weapon.NoWeapon","data":{}},"powerupArrayList":[],"id":0,"movementType":{"type":"engine.movement.Grounded","data":{"physics":{"previousGeKinematicsMap":{}}}},"kinematics":{"xCor":0.0,"yCor":-1086.4233333333327,"xVel":0.0,"yVel":-500.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":200.0},"health":0,"jumpFactor":75.0,"speedFactor":1000.0,"maxVelocityX":50.0,"maxVelocityY":500.0,"width":0.0,"height":0.0,"sceneX":200.0,"sceneY":1236.4233333333327,"behaviorList":[],"interactionList":[],"interactionsMap":{}}
+{"weaponType":{"type":"engine.weapon.NoWeapon","data":{}},"powerupArrayList":[],"id":0,"movementType":{"type":"engine.movement.Grounded","data":{"physics":{"previousGeKinematicsMap":{}}}},"kinematics":{"xCor":-380.0,"yCor":0.0,"xVel":0.0,"yVel":-500.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":200.0},"health":0,"jumpFactor":150.0,"speedFactor":1000.0,"maxVelocityX":50.0,"maxVelocityY":500.0,"width":13.0,"height":26.0,"sceneX":200.0,"sceneY":598.9480000000002,"behaviorList":[],"interactionList":[],"interactionsMap":{}}
+],
+"Block":[
+{"id":0,"movementType":{"type":"engine.movement.Static","data":{}},"kinematics":{"xCor":-400.0,"yCor":-90.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":0,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":800.0,"height":10.0,"sceneX":0.0,"sceneY":0.0,"behaviorList":[],"interactionList":["engine.interaction.PreventClipping"],"interactionsMap":{}}
 ]
 }
