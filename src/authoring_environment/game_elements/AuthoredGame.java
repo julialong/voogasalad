@@ -43,8 +43,7 @@ public class AuthoredGame {
             myName = gameName;
             myDescription = DEFAULT_DESCRIPTION;
             myLevels = FXCollections.observableArrayList();
-            Level tempLevel = new BasicLevel(0);
-            currentLevel = new AuthoredLevel(tempLevel, new ScrollingGrid());
+            currentLevel = new AuthoredLevel(new BasicLevel(0), new ScrollingGrid());
             myGameWriter = new GameFileWriter("User2", myName);
             isReady = false;
         }
@@ -64,7 +63,12 @@ public class AuthoredGame {
             myName = gameName;
             myDescription = gameDescription;
             myLevels = FXCollections.observableArrayList(levels);
-            currentLevel = myLevels.get(0);
+            if (myLevels.size() > 0) {
+                currentLevel = myLevels.get(0);
+            }
+            else {
+                currentLevel = new AuthoredLevel(new BasicLevel(), new ScrollingGrid());
+            }
             myGameWriter = new GameFileWriter("User2", myName);
             isReady = true;
         }

@@ -41,7 +41,7 @@ public class LoadButton extends MenuButton {
     private MenuItem createLevelItem() {
         MenuItem levelItem = new MenuItem(LEVEL);
         // TODO: open level chooser when menu item is clicked
-        // gameItem.setOnAction(e -> new LevelChooser());
+        // gameItem.setOnAction(e -> new LevelLoader());
         return levelItem;
     }
 }
