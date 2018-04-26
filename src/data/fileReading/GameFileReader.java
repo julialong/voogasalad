@@ -129,9 +129,7 @@ public abstract class GameFileReader {
 		File settings = getSettings(gameName);
 		try {
 			JsonParser jsonParser = new JsonParser();
-			JsonElement jelement;
-			jelement = jsonParser.parse(new FileReader(settings));
-			JsonObject  jobject = jelement.getAsJsonObject();
+			JsonObject  jobject = jsonParser.parse(new FileReader(settings)).getAsJsonObject();
 			for(String metadata: SETTINGS_DATA)
 			{
 				String info = jobject.get(metadata).getAsString();
