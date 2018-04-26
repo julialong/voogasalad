@@ -23,7 +23,6 @@ import java.util.Map;
 public class VoogaGameItem extends Label implements GameItem {
     private String gameName;
     private String gameDescription;
-    private String gameAccessPath;
     private Stage gameApplication = new Stage();
 
     public VoogaGameItem(String name, String description){
@@ -73,16 +72,12 @@ public class VoogaGameItem extends Label implements GameItem {
     /**
      * Go back to the chooser when you close out of the game
      * 
-     * @param gameApplication2
+     * @param primaryStage the current stage whose close request needs to be caught
      */
     private void handleCloseRequest(Stage primaryStage) {
-        primaryStage.setOnCloseRequest((WindowEvent event1) -> {
-        	Driver relaunch = new Driver();
-        	try {
-				relaunch.start(new Stage());
-			} catch (Exception e) {
-				System.out.println("Failed to relaunch");
-			};
+        primaryStage.setOnCloseRequest(event -> {
+            Stage stage = new Stage();
+            new VoogaChooser(stage);
         });
 	}
 
