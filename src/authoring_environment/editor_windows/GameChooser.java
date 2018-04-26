@@ -22,7 +22,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Allows the user to pick a saved game to load into their authoring environment.
  *
+ * @author Julia Long
+ *
+ * Date started: April 24 18
  */
 public class GameChooser {
 
