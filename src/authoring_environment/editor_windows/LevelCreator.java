@@ -48,6 +48,10 @@ public class LevelCreator {
 
     private File selectedImageFile;
 
+    private TextField indexInput;
+    private TextField xSizeInput;
+    private TextField ySizeInput;
+
     private static final String CSS = "GAE.css";
     private static final String LEVEL_CREATOR = "Level Creator";
     private static final String LEVEL_NAME = "Level name";
@@ -112,6 +116,7 @@ public class LevelCreator {
         createUploadImageButton(right);
         createBackgroundColorPicker(right);
         createSizeChooser(right);
+        createIndexChooser(right);
         createSaveButton(right);
         return right;
     }
@@ -168,21 +173,30 @@ public class LevelCreator {
     }
 
     private void createSizeChooser(Pane pane) {
-        TextField xNumber = new TextField("X size");
-        TextField yNumber = new TextField("Y size");
-        Button submit = new Button("Set size");
-        submit.setOnAction(e -> {
-            newLevel.setSize(Double.parseDouble(xNumber.getText()), Double.parseDouble(yNumber.getText()));
-        });
+        Text xField = new Text("X size: ");
+        xSizeInput = new TextField("50");
+        HBox x = new HBox(xField, xSizeInput);
+        Text yField = new Text("Y size: ");
+        ySizeInput = new TextField("100");
+        HBox y = new HBox(yField, ySizeInput);
         Text setSize = new Text(SET_SIZE);
         setSize.setFont(new Font(SMALL_FONT));
-        pane.getChildren().addAll(setSize, xNumber, yNumber, submit);
+        pane.getChildren().addAll(setSize, x, y);
+    }
+
+    private void createIndexChooser(Pane pane) {
+        Label chooseLocation = new Label("Location");
+        chooseLocation.setFont(new Font(SMALL_FONT));
+        indexInput = new TextField(Integer.toString(myWindow.getGame().getLevels().size()));
+        pane.getChildren().addAll(chooseLocation, indexInput);
     }
 
     private void createSaveButton(Pane pane) {
         Button saveButton = new Button(SAVE_LEVEL);
         saveButton.setOnAction(e -> {
-            myWindow.getGame().addLevel(newLevel);
+            AuthoredLevel newLevel = new AuthoredLevel(new BasicLevel(), new ScrollingGrid());
+            newLevel.setSize(Integer.parseInt(xSizeInput.getText()), Integer.parseInt(ySizeInput.getText()));
+            myWindow.getGame().addLevel(Integer.parseInt(indexInput.getText()), newLevel);
             myStage.close();
         });
         pane.getChildren().add(saveButton);
