@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.behavior.JumpALot;
 import engine.behavior.MoveForward;
 import engine.controls.Controls;
 import engine.entity.Block;
@@ -91,6 +92,8 @@ public class EngineTestVisual extends Application{
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
 		//enemy2.addInteraction(new Pushable());
+		//enemy.addBehavior(new JumpALot());
+		//enemy.setJumpFactor(150);
 		enemy2.addBehavior(new MoveForward(new Player()));
 		enemy2.addInteraction(new DamageOnStomp());
 		enemy2.addInteraction(new KnockBack());
