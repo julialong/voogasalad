@@ -94,8 +94,7 @@ public class LevelBuilder {
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
-			JsonObject jobject;
-			jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
+			JsonObject jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
 			addMetaData(level, jobject);
 			addGameObjects(level,jobject);
 		}

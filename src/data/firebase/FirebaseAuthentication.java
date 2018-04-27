@@ -1,8 +1,10 @@
 package data.firebase;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -17,6 +19,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+
 
 /**
  * https://firebase.google.com/docs/database/admin/start#admin-sdk-setup
@@ -26,13 +35,11 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class FirebaseAuthentication {
 	
-	private FirebaseDatabase db;
-	
 	public FirebaseAuthentication() {
-		db = setUp();
+		setUp();
 	}
 	
-	private FirebaseDatabase setUp()
+	private void setUp()
 	{
 		// Fetch the service account key JSON file content
 				try
@@ -47,6 +54,7 @@ public class FirebaseAuthentication {
 					// Initialize the app with a service account, granting admin privileges
 					FirebaseApp.initializeApp(options);
 					
+					// As an admin, the app has access to read and write all data, regardless of Security Rules
 					FirebaseDatabase db = FirebaseDatabase.getInstance();
 					DatabaseReference ref = db.getReference("restricted_access/secret_document");
 					
@@ -63,26 +71,61 @@ public class FirebaseAuthentication {
 					  }
 					});	
 					
-					return db;
 				}
 				catch(IOException e)
 				{
 					e.printStackTrace();
 				}
-				// As an admin, the app has access to read and write all data, regardless of Security Rules
-				return null;
+
 	}
 	
 	public void testAdd()
 	{
 		FirebaseDatabase db2 = FirebaseDatabase.getInstance();
-		DatabaseReference ref = db2.getReference("/");
+		DatabaseReference ref = db2.getReference("/hello");
 		System.out.println(ref);
-		DatabaseReference testing = ref.child("test");
+		DatabaseReference testing = ref.child("test2");
 		System.out.println(testing);
+//		String result = "";
+//		try
+//		{
+//		    BufferedReader reader = new BufferedReader(new FileReader(new File("./data/levelData/Default.json")));
+//		    String         line = null;
+//		    StringBuilder  stringBuilder = new StringBuilder();
+//		    String         ls = System.getProperty("line.separator");
+//
+//		    try {
+//		        while((line = reader.readLine()) != null) {
+//		            stringBuilder.append(line);
+//		            stringBuilder.append(ls);
+//		        }
+//
+//		        result = stringBuilder.toString();
+//		    } finally {
+//		        reader.close();
+//		    }
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println(result);
+		JsonElement jelement = null;
+		try
+		{
+			File level = new File("./data/levelData/Default.json");
+			JsonParser jsonParser = new JsonParser();
+			jelement = jsonParser.parse(new FileReader(level));
+//					.getAsJsonPrimitive();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		Map<String, String> ex = new HashMap<>();
 		
-		ex.put("hello", "testing");
+		ex.put("trying file", "testing");
 		System.out.println(ex);
 		
 		CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -101,19 +144,7 @@ public class FirebaseAuthentication {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 	
 //		testing.setValueAsync(ex);
-		
-//		testing.setValue(ex, new DatabaseReference.CompletionListener() {
-//		    @Override
-//		    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//		    	System.out.println("here");
-//		        if (databaseError != null) {
-//		            System.out.println("Data could not be saved " + databaseError.getMessage());
-//		        } else {
-//		            System.out.println("Data saved successfully.");
-//		        }
-//		    }
-//		});
+	}
 }
