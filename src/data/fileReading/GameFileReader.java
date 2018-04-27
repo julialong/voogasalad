@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -74,10 +73,13 @@ public abstract class GameFileReader {
 		List<String> allGamePaths = getAllGamePaths();
 		for(String gamePath: allGamePaths)
 		{
-			String regexStart = "^";
-			String regexAny = ".*";
-			String regexEnd = "$";
-			if(gamePath.matches(regexStart + regexAny + gameName + regexEnd))
+//			String regexStart = "^";
+//			String regexAny = ".*";
+//			String regexEnd = "$";
+			int index = gamePath.lastIndexOf(NEST) + 1;
+			String game = gamePath.substring(index);
+			System.out.println("gameName " + game);
+			if(game.equals(gameName))
 			{
 				return gamePath;
 			}	
@@ -129,9 +131,7 @@ public abstract class GameFileReader {
 		File settings = getSettings(gameName);
 		try {
 			JsonParser jsonParser = new JsonParser();
-			JsonElement jelement;
-			jelement = jsonParser.parse(new FileReader(settings));
-			JsonObject  jobject = jelement.getAsJsonObject();
+			JsonObject  jobject = jsonParser.parse(new FileReader(settings)).getAsJsonObject();
 			for(String metadata: SETTINGS_DATA)
 			{
 				String info = jobject.get(metadata).getAsString();
