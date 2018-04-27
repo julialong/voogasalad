@@ -9,10 +9,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import authoring_environment.editor_windows.buttons.GameChooserButton;
-import data.fileReading.FileRetriever;
+import data.fileReading.GAEGameFileReader;
+import data.resources.DataFileException;
 
 /**
  * @author Julia Long
@@ -25,7 +27,7 @@ public class GameChooser {
     private Stage myStage;
     private Pane myRoot;
     private Scene myScene;
-    private List<String> gameNames;
+    private Map<String, String> gameNames;
     private TilePane myTiles;
 
     private static final String CSS = "GAE.css";
@@ -35,8 +37,9 @@ public class GameChooser {
 
     /**
      * This class opens the window to choose a previously created game for re-editing 
+     * @throws DataFileException 
      */
-    public GameChooser() {
+    public GameChooser() throws DataFileException {
         myStage = new Stage();
         myRoot = new VBox();
         myScene = new Scene(myRoot);
@@ -61,14 +64,12 @@ public class GameChooser {
     /**
      * Gets a list of all of the current games names by looking at the FileRetriever's file paths for
      * games and removing all but the name
+     * @throws DataFileException 
      */
-    private List<String> fetchGameNames() {
-    		gameNames= new ArrayList<String>();
-    		FileRetriever fileRetriever = new FileRetriever();
-    		List<String> gamePaths= fileRetriever.retrieveAllGamePaths();
-    		for(String gamePath : gamePaths) {
-    			gameNames.add((gamePath.substring(gamePath.lastIndexOf("/")+1)));
-    		}
+    private Map<String, String> fetchGameNames() throws DataFileException {
+    		gameNames= new HashMap<String, String>();
+    		GAEGameFileReader fileRetriever = new GAEGameFileReader();
+    		gameNames= fileRetriever.getGameNames();
     		return gameNames;
     }
     
@@ -77,7 +78,7 @@ public class GameChooser {
      * The method to actually load the chosen game is in GameChooserButton
      */
     private void addButtons() {
-    		for(String gameName: gameNames) {
+    		for(String gameName: gameNames.keySet()) {
     				Button button = new GameChooserButton(gameName);
     				button.setMinSize(BUTTON_SIZE, BUTTON_SIZE);
     				button.setMaxSize(BUTTON_SIZE, BUTTON_SIZE);

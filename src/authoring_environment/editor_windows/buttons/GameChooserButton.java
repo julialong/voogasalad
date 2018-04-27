@@ -32,6 +32,7 @@ public class GameChooserButton extends Button{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			System.out.print("hi");
 		});
 	}
 	
@@ -47,6 +48,7 @@ public class GameChooserButton extends Button{
 		EditorWindow newWindow = new EditorWindow(stage);
 		AuthoredGame game = newWindow.getGame();
 		List<AuthoredLevel> levels = fileReader.loadCompleteAuthoredGame(gameName);
+		System.out.println(levels.size());
 		for (AuthoredLevel level: levels) {
 			game.addLevel(level);
 		}
