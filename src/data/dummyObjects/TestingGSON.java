@@ -1,6 +1,5 @@
 package data.dummyObjects;
 
-
 import java.io.File;
 import java.lang.reflect.Field;
 
@@ -8,7 +7,7 @@ import data.builders.LevelBuilder;
 import data.fileReading.GAEGameFileReader;
 import data.fileReading.GPGameFileReader;
 import data.resources.DataFileException;
-import engine.level.Level;
+
 
 /**
  * Class used for testing serialization.

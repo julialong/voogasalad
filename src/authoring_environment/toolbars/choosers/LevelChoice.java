@@ -12,12 +12,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Font;
 
-
 /**
  * The Level Choice objects hold the relevant information about a class that allows users to choose different
  *
  * @author Julia Long
  * Date started: April 04 18
+ *
+ * setDragDrop method came from: https://stackoverflow.com/questions/20412445/how-to-create-a-reorder-able-tableview-in-javafx
  */
 public class LevelChoice extends ListCell<AuthoredLevel> {
 
@@ -30,9 +31,11 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
     private static final String EDIT_LEVEL = "Edit level";
 
     LevelChoice(CreatorView window) {
+        super();
         myWindow = window;
         myScrollPane = myWindow.getPane();
     }
+
 
     @Override
     public void updateItem(AuthoredLevel item, boolean empty) {
