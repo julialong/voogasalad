@@ -9,6 +9,7 @@ import engine.level.Level;
 import engine.movement.Movement;
 import engine.powerup.PowerUp;
 import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
@@ -59,6 +60,14 @@ public class AuthoredLevel implements DocumentGetter {
      */
     public void setBackground(Background background) {
         myScrollingGrid.setBackground(background);
+    }
+
+    /**
+     * Sets the background color of the level object
+     * @param color is the desired background color
+     */
+    public void setColor(Color color) {
+        myLevel.setColor(color);
     }
 
     /**

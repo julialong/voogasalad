@@ -159,6 +159,7 @@ public class LevelCreator {
         colorPicker.setOnAction(e -> {
             Color chosenColor = colorPicker.getValue();
             newLevel.setBackground(new Background(new BackgroundFill(chosenColor, CornerRadii.EMPTY, Insets.EMPTY)));
+            newLevel.setColor(chosenColor);
         });
         Text chooseColor = new Text(CHOOSE_COLOR);
         chooseColor.setFont(new Font(SMALL_FONT));
