@@ -1,5 +1,7 @@
-package authoring_environment.editor_windows;
+package authoring_environment.editor_windows.game_windows;
 
+import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.editor_windows.EditorWindow;
 import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.fileReading.GAEGameFileReader;
@@ -44,15 +46,11 @@ public class GameChooser {
 
     public GameChooser(CreatorView window) {
         myWindow = window;
-        setScreen();
-        addFields();
-    }
-
-    private void setScreen() {
         myStage = new Stage();
         myRoot = new VBox();
         myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
+        addFields();
         myStage.setScene(myScene);
         myStage.setTitle(LOAD_GAME);
         myStage.show();

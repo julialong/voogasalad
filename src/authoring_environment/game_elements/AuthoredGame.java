@@ -151,6 +151,15 @@ public class AuthoredGame {
     }
 
     /**
+     * Adds a level to the game
+     * @param i is the index at which to add the level
+     * @param level is the new level
+     */
+    public void addLevel(int i, AuthoredLevel level) {
+        myLevels.add(i, level);
+    }
+
+    /**
      * Removes a level from the game
      * @param level is the level to remove
      */

@@ -1,5 +1,6 @@
-package authoring_environment.editor_windows;
+package authoring_environment.editor_windows.level_windows;
 
+import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import engine.level.BasicLevel;
@@ -36,7 +37,7 @@ import java.io.File;
  * @author Julia Long
  * Date started: April 02 18
  */
-public class LevelCreator {
+public class LevelCreator extends LevelModifications{
 
     private Stage myStage;
     private Scene myScene;
@@ -46,19 +47,16 @@ public class LevelCreator {
     private Pane right;
     private Pane center;
 
-    private File selectedImageFile;
+    private TextField indexInput;
+    private TextField xSizeInput;
+    private TextField ySizeInput;
 
     private static final String CSS = "GAE.css";
     private static final String LEVEL_CREATOR = "Level Creator";
     private static final String LEVEL_NAME = "Level name";
-    private static final String SET_NAME = "Set name";
-    private static final String UPLOAD_BACKGROUND_IMAGE = "Upload background image";
-    private static final String CHOOSE_FILE = "Choose file";
-    private static final String CHOOSE_COLOR = "Choose background color";
     private static final String SET_SIZE = "Set size";
     private static final String SAVE_LEVEL = "Save level";
     private static final int SMALL_FONT = 15;
-    private static final int LARGE_FONT = 20;
 
     /**
      * Creates and launches a new LevelCreator window
@@ -102,16 +100,17 @@ public class LevelCreator {
         box.getChildren().add(instruction);
         TextField name = new TextField();
         box.getChildren().add(name);
-        createSubmitButton(box, name, instruction);
+        createSubmitButton(box, newLevel, name, instruction);
         return box;
     }
 
     private Pane createRight() {
         right = new VBox();
         right.getStyleClass().add("level-right");
-        createUploadImageButton(right);
-        createBackgroundColorPicker(right);
+        createUploadImageButton(myStage, newLevel, right);
+        createBackgroundColorPicker(newLevel, right);
         createSizeChooser(right);
+        createIndexChooser(right);
         createSaveButton(right);
         return right;
     }
@@ -123,67 +122,32 @@ public class LevelCreator {
         return center;
     }
 
-    private void createSubmitButton(Pane box, TextField name, Label instruction) {
-        Button submitButton = new Button(SET_NAME);
-        submitButton.setOnAction(e -> {
-            box.getChildren().removeAll(name,submitButton,instruction);
-            Text levelName = new Text(name.getText());
-            levelName.setFont(new Font(LARGE_FONT));
-            box.getChildren().add(levelName);
-            newLevel.setName(name.getText());
-        });
-        box.getChildren().add(submitButton);
-    }
-
-    private void createUploadImageButton(Pane pane) {
-        Button backgroundImage = new Button(CHOOSE_FILE);
-        backgroundImage.setOnAction(e -> {
-            FileChooser imageChooser = new FileChooser();
-            imageChooser.getExtensionFilters().add(
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
-            selectedImageFile =  imageChooser.showOpenDialog(myStage);
-            newLevel.setBackground(new Background(new BackgroundImage(new Image(selectedImageFile.toURI().toString()),
-                                                                            BackgroundRepeat.NO_REPEAT,
-                                                                            BackgroundRepeat.NO_REPEAT,
-                                                                            BackgroundPosition.DEFAULT,
-                                                                            BackgroundSize.DEFAULT)));
-        });
-        Text uploadImage = new Text(UPLOAD_BACKGROUND_IMAGE);
-        uploadImage.setFont(new Font(SMALL_FONT));
-        pane.getChildren().add(uploadImage);
-        pane.getChildren().add(backgroundImage);
-    }
-
-    private void createBackgroundColorPicker(Pane pane) {
-        ColorPicker colorPicker = new ColorPicker();
-        colorPicker.setOnAction(e -> {
-            Color chosenColor = colorPicker.getValue();
-            newLevel.setBackground(new Background(new BackgroundFill(chosenColor, CornerRadii.EMPTY, Insets.EMPTY)));
-        });
-        Text chooseColor = new Text(CHOOSE_COLOR);
-        chooseColor.setFont(new Font(SMALL_FONT));
-        pane.getChildren().add(chooseColor);
-        pane.getChildren().add(colorPicker);
-    }
-
-    private void createSizeChooser(Pane pane) {
-        TextField xNumber = new TextField("X size");
-        TextField yNumber = new TextField("Y size");
-        Button submit = new Button("Set size");
-        submit.setOnAction(e -> {
-            newLevel.setSize(Double.parseDouble(xNumber.getText()), Double.parseDouble(yNumber.getText()));
-        });
-        Text setSize = new Text(SET_SIZE);
-        setSize.setFont(new Font(SMALL_FONT));
-        pane.getChildren().addAll(setSize, xNumber, yNumber, submit);
-    }
-
     private void createSaveButton(Pane pane) {
         Button saveButton = new Button(SAVE_LEVEL);
         saveButton.setOnAction(e -> {
-            myWindow.getGame().addLevel(newLevel);
+            newLevel.setSize(Integer.parseInt(xSizeInput.getText()), Integer.parseInt(ySizeInput.getText()));
+            myWindow.getGame().addLevel(Integer.parseInt(indexInput.getText()), newLevel);
             myStage.close();
         });
         pane.getChildren().add(saveButton);
+    }
+
+    private void createSizeChooser(Pane pane) {
+        Text xField = new Text("X size: ");
+        xSizeInput = new TextField("50");
+        HBox x = new HBox(xField, xSizeInput);
+        Text yField = new Text("Y size: ");
+        ySizeInput = new TextField("100");
+        HBox y = new HBox(yField, ySizeInput);
+        Text setSize = new Text(SET_SIZE);
+        setSize.setFont(new Font(SMALL_FONT));
+        pane.getChildren().addAll(setSize, x, y);
+    }
+
+    private void createIndexChooser(Pane pane) {
+        Label chooseLocation = new Label("Location");
+        chooseLocation.setFont(new Font(SMALL_FONT));
+        indexInput = new TextField(Integer.toString(myWindow.getGame().getLevels().size()));
+        pane.getChildren().addAll(chooseLocation, indexInput);
     }
 }

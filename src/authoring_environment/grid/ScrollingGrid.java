@@ -16,8 +16,8 @@ import javafx.scene.layout.RowConstraints;
  */
 public class ScrollingGrid extends GridPane implements DocumentGetter{
 	// TODO: Change this based on level size
-	private static final int NUMBER_OF_ROWS = 20;
-	private static final int NUMBER_OF_COLUMNS = 50;
+	private static final int DEFAULT_ROWS = 50;
+	private static final int DEFAULT_COLUMNS = 20;
 	private static final int DEFAULT_CELL_SIZE = 50;
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	private static final int CELL_INCREMENT = 5;
@@ -26,18 +26,29 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 	private int cellSize;
 	private GridCell[][] cellArray;
 	private AuthoredLevel myLevel;
+	private int rows;
+	private int cols;
 
 	/**
 	 * Creates a new Scrolling Grid
 	 */
-	public ScrollingGrid() {
+	public ScrollingGrid(int x, int y) {
 		super();
 		cellSize = DEFAULT_CELL_SIZE;
-		cellArray = new GridCell[NUMBER_OF_COLUMNS][NUMBER_OF_ROWS];
+		cellArray = new GridCell[x][y];
+		rows = x;
+		cols = y;
 		initCells();
 		makeGrid();
-
 	}
+
+
+
+	public ScrollingGrid() {
+		this(DEFAULT_ROWS, DEFAULT_COLUMNS);
+	}
+
+
 
 	/**
 	 * Sets the class to notify when an object is added
@@ -53,10 +64,10 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 		this.getColumnConstraints().clear();
 		//TODO: Change it so that a grid is created when a new level is created
 		//this.setGridLinesVisible(true);
-		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
+		for (int i = 0; i < rows; i++) {
 			this.getRowConstraints().add(new RowConstraints(cellSize));
 		}
-		for (int i = 0; i < NUMBER_OF_COLUMNS; i++) {
+		for (int i = 0; i < cols; i++) {
 			this.getColumnConstraints().add(new ColumnConstraints(cellSize));
 		}
 		addCells();
@@ -64,18 +75,18 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 	}
 	
 	private void addCells() {
-		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
-			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
-				GridCell cell = cellArray[j][i];
-				this.add(cell,j,i);
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				GridCell cell = cellArray[i][j];
+				this.add(cell,i,j);
 			}
 		}
 	}
 	
 	private void initCells() {
-		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
-			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
-				cellArray[j][i] = new GridCell(this, cellSize, i, j);
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				cellArray[i][j] = new GridCell(this, cellSize, i, j);
 			}
 		}
 	}
@@ -100,9 +111,9 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 	 * Resets all GridCells in the ScrollingGrid.
 	 */
 	public void deleteCells() {
-		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
-			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
-				GridCell cell = cellArray[j][i];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				GridCell cell = cellArray[i][j];
 				if (cell.isSelected()) {
 					System.out.println("item removed: " + cell.getObject().getClass());
 					myLevel.removeObject(cell.getObject());
@@ -127,9 +138,9 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 	}
 
 	private void checkMultipleCells(String ID) {
-		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
-			for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
-				GridCell checkCell = cellArray[j][i];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				GridCell checkCell = cellArray[i][j];
 				if (checkCell.isSelected()) {
 					checkCell.setObject(myLevel.addObject(ID, checkCell.getPosition().getX(), checkCell.getPosition().getY()));
 					checkCell.setImage(ID);
