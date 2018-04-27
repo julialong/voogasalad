@@ -46,7 +46,6 @@ public abstract class GameFileReader {
 				gamePaths.add(game.toString());
 			}
 		}	
-		// TODO error for no games
 		return gamePaths;
 	}
 	
@@ -73,9 +72,6 @@ public abstract class GameFileReader {
 		List<String> allGamePaths = getAllGamePaths();
 		for(String gamePath: allGamePaths)
 		{
-//			String regexStart = "^";
-//			String regexAny = ".*";
-//			String regexEnd = "$";
 			int index = gamePath.lastIndexOf(NEST) + 1;
 			String game = gamePath.substring(index);
 			System.out.println("gameName " + game);
@@ -84,7 +80,6 @@ public abstract class GameFileReader {
 				return gamePath;
 			}	
 		}
-		// TODO ERROR FOR CAN'T FIND THE FILE
 		return null;
 	}
 	
