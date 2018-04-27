@@ -1,5 +1,6 @@
-package authoring_environment.editor_windows;
+package authoring_environment.editor_windows.level_windows;
 
+import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.fileReading.GAEGameFileReader;
 import data.fileReading.JSONtoGAE;

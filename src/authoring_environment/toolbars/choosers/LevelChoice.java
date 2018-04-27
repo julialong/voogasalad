@@ -1,6 +1,7 @@
 package authoring_environment.toolbars.choosers;
 
 import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.editor_windows.level_windows.LevelEditor;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import javafx.geometry.Side;
@@ -9,9 +10,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 
 /**
@@ -28,6 +27,7 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
     private static final int FONT_SIZE = 15;
     private static final String DELETE_LEVEL = "Delete level";
     private static final String SAVE_LEVEL = "Save level";
+    private static final String EDIT_LEVEL = "Edit level";
 
     LevelChoice(CreatorView window) {
         myWindow = window;
@@ -65,8 +65,11 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
         delete.setOnAction(e -> setDeleteBehavior(level));
         MenuItem save = new MenuItem(SAVE_LEVEL);
         save.setOnAction(e -> setSaveBehavior(level));
+        MenuItem edit = new MenuItem(EDIT_LEVEL);
+        edit.setOnAction(e -> setEditBehavior(level));
         contextMenu.getItems().add(delete);
         contextMenu.getItems().add(save);
+        contextMenu.getItems().add(edit);
         contextMenu.show(cell, Side.RIGHT, 0, 0);
         }
 
@@ -77,5 +80,9 @@ public class LevelChoice extends ListCell<AuthoredLevel> {
 
     private void setSaveBehavior(AuthoredLevel level) {
         myWindow.getGame().saveLevel(level);
+    }
+
+    private void setEditBehavior(AuthoredLevel level) {
+        new LevelEditor(myWindow, level);
     }
 }

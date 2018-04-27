@@ -1,9 +1,8 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
 import authoring_environment.editor_windows.CreatorView;
-import authoring_environment.editor_windows.EditorWindow;
-import authoring_environment.editor_windows.GameChooser;
-import authoring_environment.editor_windows.LevelLoader;
+import authoring_environment.editor_windows.game_windows.GameChooser;
+import authoring_environment.editor_windows.level_windows.LevelLoader;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 

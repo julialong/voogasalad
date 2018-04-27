@@ -1,6 +1,6 @@
 //package authoring_environment;
 //
-//import authoring_environment.editor_windows.LevelCreator;
+//import authoring_environment.editor_windows.level_windows.LevelCreator;
 //import authoring_environment.toolbars.choosers.LevelLoader;
 //import engine.level.BasicLevel;
 //import engine.level.Level;

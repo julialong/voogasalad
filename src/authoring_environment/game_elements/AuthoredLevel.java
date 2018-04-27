@@ -79,6 +79,11 @@ public class AuthoredLevel implements DocumentGetter {
         // TODO: set size of level
     }
 
+    public int[] getSize() {
+        int[] lengthArray = {myScrollingGrid.getCellArray().length, myScrollingGrid.getCellArray()[0].length};
+        return lengthArray;
+    }
+
     /**
      * Gets current Level
      * @return this Level
