@@ -36,7 +36,6 @@ public class BasicLevel implements Level {
     private int myXSize;
     private int myYSize;
     private int myCellSize;
-    private String myColor;
 
     /**
      * Creates a new basic Level.
@@ -118,11 +117,6 @@ public class BasicLevel implements Level {
     public void setSize(double X, double Y) {
         myXSize = (int) X;
         myYSize = (int) Y;
-    }
-
-    @Override
-    public void setColor(Color color) {
-        myColor = color.toString();
     }
     
     @Override
