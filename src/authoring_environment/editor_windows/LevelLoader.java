@@ -5,6 +5,7 @@ import data.fileReading.GAEGameFileReader;
 import data.fileReading.JSONtoGAE;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -27,6 +28,7 @@ public class LevelLoader {
     private static final String CSS = "GAE.css";
     private static final String LOAD_LEVEL = "Load Level";
     private static final String CHOOSE = "Choose a level to add to your game:";
+    private static final String ADD_LEVEL = "Add level to game";
 
     public LevelLoader(CreatorView window) {
         myWindow = window;
@@ -50,6 +52,7 @@ public class LevelLoader {
         Text chooseText = new Text(CHOOSE);
         myRoot.getChildren().add(chooseText);
         getLevels();
+        addButton();
     }
 
     private void getLevels() {
@@ -63,6 +66,22 @@ public class LevelLoader {
         myRoot.getChildren().add(myView);
     }
 
+    private void addButton() {
+        Button addLevelButton = new Button(ADD_LEVEL);
+        addLevelButton.setOnMouseClicked(e -> addLevel());
+        myRoot.getChildren().add(addLevelButton);
+    }
 
+    private void addLevel() {
+        try {
+            AuthoredLevel loadedLevel = myReader.loadAuthoredLevel(myView.getSelectionModel().getSelectedItem());
+            myWindow.getGame().addLevel(loadedLevel);
+            myStage.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            // TODO: pop up button
+        }
+    }
 
 }
