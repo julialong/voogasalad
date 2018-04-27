@@ -27,6 +27,7 @@ public class AuthoredLevelBuilder {
 	
 	private final static String SCROLLING_GRID = "ScrollingGrid";
 	private File levelFile;
+	private int levelID;
 	
 	/**
 	 * Class Constructor
@@ -47,6 +48,7 @@ public class AuthoredLevelBuilder {
 	{
 		LevelBuilder levelBuilder = new LevelBuilder(levelFile);
 		Level levelForAuthoredLevel = levelBuilder.buildLevel();
+		levelID = levelBuilder.getLevelID();
 		
 		ScrollingGrid gridForAuthoredLevel = retrieveScrollingGrid(levelFile);
 		
@@ -77,4 +79,10 @@ public class AuthoredLevelBuilder {
 		}
 		return scrollingGrid;
 	}
+
+	public int getLevelID() 
+	{
+		return levelID;
+	}
+
 }
