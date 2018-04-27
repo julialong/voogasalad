@@ -24,7 +24,6 @@ public class SaveGameButton extends Button{
     }
 
     private void setGameSaved(CreatorView window, Stage current, String name, String description, boolean playable) {
-        System.out.println(name + ", " + description);
         window.getGame().rename(name);
         window.getGame().setDescription(description);
         window.getGame().setPlayable(playable);
