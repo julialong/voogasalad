@@ -6,6 +6,7 @@ import engine.Camera;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.physics.DetectCollision;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class BasicLevel implements Level {
     private Camera camera;
     private double sceneX;
     private double sceenY;
+    private String myColor;
 
     private static final String DEFAULT = "Default";
     private static final int DEFAULT_X_SIZE = 500;
@@ -96,7 +98,15 @@ public class BasicLevel implements Level {
     public int getID() {
         return myID;
     }
+    
+    public void setColor(Color color) {
+    	myColor = color.toString();
+    }
 
+    public String getColor() {
+    	return myColor;
+    }
+    
     @Override
     public void setName(String name) {
         myName = name;
