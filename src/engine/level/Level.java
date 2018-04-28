@@ -73,6 +73,11 @@ public interface Level {
 	 * @param Y is the new y size
 	 */
 	void setSize(double X, double Y);
+	
+	/**
+	 * Returns true if level is complete
+	 */
+	public abstract boolean getLevelComplete();
     
     /**
      * Updates the contents of the level

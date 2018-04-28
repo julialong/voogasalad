@@ -15,6 +15,7 @@ public abstract class TimedPowerUp implements PowerUp{
     
     public void activate(){
     	if(!active) {
+    		counter = 0;
     		effect();
         	active = true;
     	}
@@ -36,8 +37,11 @@ public abstract class TimedPowerUp implements PowerUp{
 	}
     
     public boolean update(){
-        counter++;
+        if(active) {
+            counter++;
+        }
         if(counter > duration){
+        	counter = 0;
             deactivate();
             return true;
         }

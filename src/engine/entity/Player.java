@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 public class Player extends PlayerCharacter{
     private Weapon weaponType;
     private ArrayList<PowerUp> powerupList = new ArrayList<>();
+    private boolean levelComplete = false;
 
     public Player() {
         this(0,0);
@@ -52,15 +53,6 @@ public class Player extends PlayerCharacter{
 	public void removePowerUp(PowerUp power) {
 		powerupList.remove(power);
 	}
-
-	public void setPowerUpsList(List powerupList) {
-		this.powerupList = (ArrayList<PowerUp>) powerupList;
-		
-	}
-
-	public List getPowerUpsList() {
-		return powerupList;
-	}
 	
 	@Override
 	public void update() {
@@ -76,5 +68,15 @@ public class Player extends PlayerCharacter{
 		}
 		toRemove.clear();
 		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
+	}
+
+	@Override
+	public void setLevelComplete(boolean levelComplete) {
+		this.levelComplete = levelComplete;
+	}
+
+	@Override
+	public boolean getLevelComplete() {
+		return levelComplete;
 	}
 }

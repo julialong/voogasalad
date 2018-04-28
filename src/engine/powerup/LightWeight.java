@@ -4,7 +4,7 @@ import engine.entity.Player;
 
 /**
  * A powerup that makes a Player fall slower.
- * @author Robert Gitau
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class LightWeight extends TimedPowerUp{

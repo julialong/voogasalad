@@ -43,13 +43,13 @@ public abstract class PlayerCharacter extends GameObject{
 	public abstract void removePowerUp(PowerUp power);
 	
 	/**
-	 * Sets the power ups list
-	 * @param powerUpsList
+	 * Sets the levelComplete boolean, true if the level is complete
+	 * @param levelComplete - boolean, true if the level is complete
 	 */
-	public abstract void setPowerUpsList(List powerUpsList);
+	public abstract void setLevelComplete(boolean levelComplete);
 	
 	/**
-	 * Returns the power up list
+	 * Gets the levelComplete boolean, true if the level is complete
 	 */
-	public abstract List getPowerUpsList();
+	public abstract boolean getLevelComplete();
 }
