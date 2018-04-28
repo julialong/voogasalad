@@ -138,6 +138,10 @@ public class VoogaGameView implements GameView {
 			myGameLevels.get(myCurrLevel).update();
 			displayObjects();
 			updateHud(elapsedTime);
+			if(myGameLevels.get(myCurrLevel).getLevelComplete()){
+				myCurrLevel++;
+				initDisplayMap();
+			}
 		}
 	}
 
