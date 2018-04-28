@@ -1,8 +1,6 @@
 package authoring_environment.editor_windows;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,10 +17,8 @@ import javafx.scene.control.ComboBox;
  *
  */
 public class AttributeComboBoxesPane {
-	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	
 	private List<ComboBox<String>> attributeBoxes;
-	private List<String> defaults;
 	
 	/**
 	 * 
@@ -32,6 +28,12 @@ public class AttributeComboBoxesPane {
 	public AttributeComboBoxesPane(Map<String, List<String>> attributes, AttributeEditor editor) {
 		attributeBoxes = makeComboBoxList(attributes, editor );
 	}
+	
+	public AttributeComboBoxesPane(Map<String, List<String>> attributes, Map<String, String> chosenAttributes, AttributeEditor editor) {
+		attributeBoxes = makeComboBoxList(attributes, editor );
+		setPreviousChoices(chosenAttributes);
+	}
+	
 	
 	private List<ComboBox<String>> makeComboBoxList(Map<String, List<String>> attributes,  AttributeEditor editor) {
 		List<ComboBox<String>> boxes = new ArrayList<>();
@@ -60,16 +62,11 @@ public class AttributeComboBoxesPane {
 		return attributeBoxes;
 	}
 	
-	/*private void setDefaults() {
-		File parentFolder = new File(ELEMENT_DATA_PATH);
-		List<File> files = Arrays.asList(parentFolder.listFiles());
-		List<String> fileNames = new ArrayList<String>();
-		for (File file : files) {
-			file.to
+	private void setPreviousChoices(Map<String, String> choices) {
+		for( ComboBox<String> box : attributeBoxes) {
+			String category = box.getValue();
+			box.getSelectionModel().select(choices.get(category));
 		}
-		if(files.contains(File("hi"))){
-			
-		}
-	}*/
+	}
 	
 }

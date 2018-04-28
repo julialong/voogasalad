@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 
 import javax.xml.transform.TransformerException;
 
+import authoring_environment.AttributeGetter;
 import authoring_environment.authored_elements.GameElement;
 import authoring_environment.toolbars.buttons.AddImageButton;
 import authoring_environment.toolbars.buttons.CloseAttributeEditorButton;
@@ -43,9 +44,8 @@ import javafx.stage.Stage;
  *
  */
 // TODO: get rid of strings in methods 
-public class AttributeEditor  {
+public class AttributeEditor implements AttributeGetter  {
 
-	private static final String ATTRIBUTE_RESOURCES = "resources/attributes";
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
 	private static final String INPUT_ID = "Please enter a custom element ID: ";
@@ -77,42 +77,34 @@ public class AttributeEditor  {
 	private String yDim;
 
 
-
-	public AttributeEditor(GameElement element) {
+	/**
+	 * 
+	 */
+	public AttributeEditor() {
+		setUpEditorWindow();
 		xDim = DEFAULT;
 		yDim = DEFAULT;
 		chosenAttributes = new HashMap<>() ;
-		gameElement= element;
-		setUpEditorWindow();
+		gameElement= new GameElement();
 		attributes = loadAttributes();
-		setDefaults();
 		AttributeComboBoxesPane boxesPane = new AttributeComboBoxesPane(attributes, this);
 		attributeBoxes = boxesPane.getAttributeBoxes();
 		organizeEditor();
 		
 	}
-
-	private Map<String, List<String>> loadAttributes() {
-		HashMap<String, List<String>> attributes = new HashMap<>();
-		ResourceBundle resources = ResourceBundle.getBundle(ATTRIBUTE_RESOURCES);
-		Enumeration<String> attributeOptions = resources.getKeys();
-		while (attributeOptions.hasMoreElements()) {
-			String option = attributeOptions.nextElement();
-			String type = resources.getString(option);
-			if(attributes.containsKey(type)) {
-				List<String> optionList = attributes.get(type);
-				optionList.add(option);
-				attributes.put(type, optionList);
-			}
-			else {
-				List<String> optionList = new ArrayList<>();
-				optionList.add(option);
-				attributes.put(type, optionList);
-			}
-		}
-		return attributes;
-	}
 	
+	public AttributeEditor(GameElement element) {
+		gameElement = element;
+		chosenAttributes = gameElement.getAttributes();
+		xDim = gameElement.getDimensions().get(0);
+		yDim = gameElement.getDimensions().get(1);
+		AttributeComboBoxesPane boxesPane = new AttributeComboBoxesPane(attributes, chosenAttributes, this);
+		attributeBoxes = boxesPane.getAttributeBoxes();
+		setUpEditorWindow();
+		organizeEditor();
+		
+	}
+
 	private void setUpEditorWindow() {
 		BorderPane myRoot= new BorderPane();
 		myRoot.getStyleClass().add("attribute-editor");
@@ -244,10 +236,6 @@ public class AttributeEditor  {
 		gameElement.uploadImage(target.toString());
 		gameElement.updateAttributes(chosenAttributes);
 		window.close();
-	}
-	
-	private void setDefaults() {
-		
 	}
 	
 }
