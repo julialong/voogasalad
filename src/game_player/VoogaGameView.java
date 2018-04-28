@@ -1,5 +1,7 @@
 package game_player;
 
+import engine.controls.Action;
+import engine.controls.Controls;
 import engine.level.Level;
 import game_player_api.GameView;
 import heads_up_display.HeadsUpDisplay;
@@ -18,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import engine.controls.*;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 
