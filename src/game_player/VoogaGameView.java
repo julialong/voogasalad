@@ -1,5 +1,7 @@
 package game_player;
 
+import engine.controls.Action;
+import engine.controls.Controls;
 import engine.level.Level;
 import game_player_api.GameView;
 import heads_up_display.HeadsUpDisplay;
@@ -20,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import engine.controls.*;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 
@@ -37,6 +38,8 @@ public class VoogaGameView implements GameView {
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private final double myHeight = Screen.getPrimary().getVisualBounds().getHeight();
 	private final double myWidth = Screen.getPrimary().getVisualBounds().getWidth();
+	private static final int SECONDS_PER_MINUTE = 60;
+	private static final double ADJUST_FACTOR = 400.0;
 	// variables
 	private boolean myGameStatus = false;
 	private int myCurrLevel = 0;
@@ -69,7 +72,7 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustXCord(double x) {
 		// TODO: adjust this factor based on sensitivity
-		return x * (myWidth / 400.0);
+		return x * (myWidth / ADJUST_FACTOR);
 	}
 
 	/**
@@ -81,7 +84,7 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustYCord(double y) {
 		// TODO: adjust this factor based on sensitivity
-		return y * (myHeight / 400.0);
+		return y * (myHeight / ADJUST_FACTOR);
 	}
 
 	/**
@@ -220,7 +223,6 @@ public class VoogaGameView implements GameView {
 	 */
 	public void changeBinding(String propKey, KeyCode keyCode) {
 		try {
-			// TODO: Fix this deprecated code eventually
 			Object instance = Class.forName("engine.controls." + propKey).newInstance();
 			Action a = (Action) instance;
 			myControls.setBinding(keyCode, a);
@@ -245,8 +247,8 @@ public class VoogaGameView implements GameView {
 	 */
 	private void updateHud(Double elapsedTime) {
 		timer = timer.add(elapsedTime, 0);
-		int minutes = (int) timer.getX() / 60;
-		double seconds = timer.getX() % 60;
+		int minutes = (int) timer.getX() / SECONDS_PER_MINUTE;
+		double seconds = timer.getX() % SECONDS_PER_MINUTE;
 		String output = String.format("%d:%.1f", minutes, seconds);
 		hud.updateComponent((int) timer.getY(), output);
 	}
