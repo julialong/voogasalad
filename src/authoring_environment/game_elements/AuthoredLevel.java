@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 
 
 /**
@@ -131,7 +130,7 @@ public class AuthoredLevel implements DocumentGetter {
             ySize = 1;
         }
 
-        newEntity = createObject(type, x, y);
+        newEntity = createObject(type, x * cellSize, y * cellSize);
         if (newEntity == null) {
             return null;
         }
@@ -143,6 +142,8 @@ public class AuthoredLevel implements DocumentGetter {
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
+        System.out.println("size: " + newEntity.getSizeX() + ", " + newEntity.getSizeY());
+        System.out.println("location: " + newEntity.getKinematics().getX() + ", " + newEntity.getKinematics().getY());
         return newEntity;
     }
 
