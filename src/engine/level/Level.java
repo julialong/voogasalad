@@ -69,6 +69,9 @@ public interface Level {
 	 */
 	boolean getLevelComplete();
 
+
+	void setColor(Color color);
+
 	/**
 	 * Retrieves the background color of the level
 	 * @return color of level
