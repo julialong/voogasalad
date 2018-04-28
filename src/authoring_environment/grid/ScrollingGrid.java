@@ -79,7 +79,6 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				GridCell cell = cellArray[i][j];
-				System.out.println(i+ ", " + j);
 				this.add(cell,i,j);
 			}
 		}
@@ -93,15 +92,15 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 		}
 	}
 
-	public void resize(int x, int y) {
-		GridCell[][] newCells = new GridCell[x][y];
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
+	public void resize(int newRowNum, int newColNum) {
+		GridCell[][] newCells = new GridCell[newRowNum][newColNum];
+		for (int i = 0; i < newRowNum; i++) {
+			for (int j = 0; j < newColNum; j++) {
 				newCells = assignCell(newCells, i, j);
 			}
 		}
-		rows = x;
-		cols = y;
+		rows = newRowNum;
+		cols = newColNum;
 		cellArray = newCells;
 		makeGrid();
 	}
