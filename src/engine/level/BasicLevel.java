@@ -1,7 +1,6 @@
 package engine.level;
 
 
-import authoring_environment.grid.ScrollingGrid;
 import engine.Camera;
 import engine.entity.GameEntity;
 import engine.entity.Player;
@@ -18,7 +17,6 @@ import java.util.List;
  */
 public class BasicLevel implements Level {
 
-    //private ScrollingGrid myGrid;
     private List<GameEntity> myObjects;
     private int myID;
     private String myName;
@@ -45,12 +43,10 @@ public class BasicLevel implements Level {
      * @param ySize is the desired y size of the grid
      */
     public BasicLevel(int xSize, int ySize, int sceneX, int sceneY, int ID) {
-        //myGrid = new ScrollingGrid();
         myXSize = xSize;
         myYSize = ySize;
         this.sceneX = sceneX;
         this.sceenY = sceneY;
-        //myGrid.setPrefSize(myXSize, myYSize);
         myObjects = new ArrayList<>();
         myID = ID;
         myName = DEFAULT;
@@ -117,16 +113,6 @@ public class BasicLevel implements Level {
         return myName;
     }
 
-//    @Override
-//    public void updateGrid(ScrollingGrid grid) {
-//        myGrid = grid;
-//    }
-//
-//    @Override
-//    public ScrollingGrid getGrid() {
-//        return myGrid;
-//    }
-//
     @Override
     public void setSize(double X, double Y) {
         myXSize = (int) X;

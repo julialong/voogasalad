@@ -1,6 +1,5 @@
 package game_player;
 
-import data.gamefiles.JSONtoObject;
 import engine.level.Level;
 import game_player_api.GameItem;
 import javafx.geometry.Rectangle2D;
@@ -12,6 +11,8 @@ import javafx.stage.WindowEvent;
 
 import java.util.List;
 import java.util.Map;
+
+import data.fileReading.JSONtoObject;
 
 /**
  * Each instance of VoogaGame represents a single developed game created from the

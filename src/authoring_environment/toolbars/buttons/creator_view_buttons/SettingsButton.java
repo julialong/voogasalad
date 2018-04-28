@@ -1,8 +1,7 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
 import authoring_environment.editor_windows.CreatorView;
-import authoring_environment.game_elements.AuthoredGame;
-import authoring_environment.editor_windows.SettingsManager;
+import authoring_environment.editor_windows.game_windows.SettingsManager;
 import javafx.scene.control.Button;
 
 /**
