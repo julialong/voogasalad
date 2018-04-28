@@ -8,10 +8,7 @@ import data.gamefiles.GameFileWriter;
 import engine.behavior.MoveForward;
 import engine.controls.Controls;
 import engine.entity.*;
-import engine.interaction.DamageOnStomp;
-import engine.interaction.KnockBack;
-import engine.interaction.PreventClipping;
-import engine.interaction.Pushable;
+import engine.interaction.*;
 import engine.level.Level;
 import engine.movement.Grounded;
 import engine.level.BasicLevel;
@@ -20,7 +17,7 @@ public class TestingWriting {
 
 	public static void main(String[] args) {
 		try {
-		GameFileWriter myWriter = new GameFileWriter("Belanie", "ErrorWithEnemies");
+		GameFileWriter myWriter = new GameFileWriter("Dorian", "TestingGoal");
 
 		FileWriter fw;
 
@@ -70,16 +67,7 @@ public class TestingWriting {
 		wall.addInteraction(new PreventClipping());
 		one.addObject(wall);
 
-		// small block that can be pushed on the right side of the big block
-		Foes enemy = new Foes();
-		enemy.overridePosition(30, -170);
-		enemy.setSizeX(10);
-		enemy.setSizeY(30);
-		enemy.setMaxXVelocity(30);
-		enemy.setMaxYVelocity(500);
-		enemy.addInteraction(new Pushable());
-		enemy.setHealth(1);
-		one.addObject(enemy);
+
 
 		// small block that can be pushed on the left side of the big block
 		Foes enemy3 = new Foes();
@@ -105,6 +93,14 @@ public class TestingWriting {
 		enemy2.addInteraction(new KnockBack());
 		enemy2.setHealth(1);
 		one.addObject(enemy2);
+
+		//Testing the goal interaction
+		Block goal = new Block(200, -142);
+		goal.setSizeX(10);
+		goal.setSizeY(48);
+		goal.setHealth(1);
+		goal.addInteraction(new Goal());
+		one.addObject(goal);
 
 		return oneA;
 	}

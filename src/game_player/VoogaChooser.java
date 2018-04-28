@@ -103,7 +103,8 @@ public class VoogaChooser implements GameChooser {
             }
             catch(DataFileException|NullPointerException|IndexOutOfBoundsException e)
             {
-            	showAlert(e);
+            	//showAlert(e);
+                e.printStackTrace();
             }
         });
     }

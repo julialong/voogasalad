@@ -34,6 +34,7 @@ public class GameElement implements AuthoredElement {
 	 */
 	public GameElement() {
 		attributes = new HashMap<>();
+	
 		
 	}
 
@@ -79,9 +80,9 @@ public class GameElement implements AuthoredElement {
 		return elementID; 
 	}
 	
-	
 	public void updateDimensions(String x, String y) {
 		xDimension = x;
 		yDimension = y;
 	}
+	
 }

@@ -6,7 +6,7 @@ import engine.physics.Kinematics;
 
 /**
  * The source causes the target to get knocked away from the source
- * @author Robert Gitau
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class KnockBack implements Interaction{

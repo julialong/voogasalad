@@ -5,6 +5,11 @@ import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.physics.DetectCollision;
 
+/**
+ * Makes the source able to be pushed around
+ * @author Marcus Oertle and Robert Gitau
+ *
+ */
 public class Pushable implements Interaction {
 
 	@Override
