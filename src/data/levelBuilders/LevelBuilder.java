@@ -26,48 +26,51 @@ import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
-import javafx.scene.paint.Color;
 
 /**
- * Creates levels to return to the Game Player when a 
+ * Creates levels to return to the Game Player when a
  * game is going to be played
- * 
+ *
  * @author Belanie Nagiel
  *
  */
 public class LevelBuilder {
 
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
+	private static final String BEHAVIOR_SKIPS = "data.resources/behaviorsToSkip";
 	private static final String NAME = "name";
 	private static final String COLOR = "color";
 	private Map<String,Class<?>> objectTypes;
-	private Serializer deserializer; 
+	private List<String> behaviorsToSkip;
+	private Serializer deserializer;
 	private File levelFile;
 	private Player player;
-	
+
 	/**
 	 * Class Constructor
-	 * 
+	 *
 	 * Takes in a level file and creates the object to class map for all of the
 	 * GameObjects
-	 * 
+	 *
 	 * @param level
-	 * @throws DataFileException 
+	 * @throws DataFileException
 	 */
-	public LevelBuilder(File level) throws DataFileException 
+	public LevelBuilder(File level) throws DataFileException
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
+//		behaviorsToSkip = new ArrayList<>();
+//		buildBehaviorSkipMap();
 		deserializer = new Serializer();
-		
+
 		levelFile = level;
 	}
-	
+
 	/**
 	 * Reads in a properties file of game objects to their appropriate classes
 	 * in order to make a map for later deserialization.
-	 * @throws DataFileException 
-	 * 
+	 * @throws DataFileException
+	 *
 	 */
 	private void createObjectToClassMap() throws DataFileException
 	{
@@ -76,29 +79,29 @@ public class LevelBuilder {
 		while(objectNames.hasMoreElements())
 		{
 			String objectName = objectNames.nextElement();
-			try 
+			try
 			{
 				Class<?> objectClass = Class.forName(gameObjects.getString(objectName));
 				objectTypes.put(objectName, objectClass);
-			} 
-			catch (ClassNotFoundException e) 
+			}
+			catch (ClassNotFoundException e)
 			{
 				throw new DataFileException("Could not find object class for reflection",e);
 			}
 		}
 	}
-	
+
 	/**
-	 * Returns a new BasicLevel with the appropriate data and 
+	 * Returns a new BasicLevel with the appropriate data and
 	 * game objects.
-	 * 
+	 *
 	 * @return
-	 * @throws DataFileException 
+	 * @throws DataFileException
 	 */
 	public Level buildLevel() throws DataFileException
 	{
 		BasicLevel level = new BasicLevel();
-		try 
+		try
 		{
 			JsonParser jsonParser = new JsonParser();
 			JsonElement jelement = jsonParser.parse(new FileReader(levelFile));
@@ -110,12 +113,12 @@ public class LevelBuilder {
 		{
 			throw new DataFileException("Could not find the file to load for Level", e);
 		}
-		return level;	
+		return level;
 	}
-	
+
 	/**
 	 * Adds the relevant instance variables to the level
-	 * 
+	 *
 	 * @param level
 	 * @param jobject
 	 */
@@ -123,21 +126,21 @@ public class LevelBuilder {
 	{
 		String levelName = jobject.get(NAME).getAsString();
 //		Color color = Color.web(jobject.get(COLOR).getAsString());
-		
+
 		level.setName(levelName);
 //		level.setColor(color);
 	}
-	
+
 	/**
 	 * Adds the game objects to the level
-	 * 
+	 *
 	 * @param level
 	 * @param jobject
 	 */
 	private void addGameObjects(Level level, JsonObject jobject)
 	{
 		List<GameEntity> gameObjects = new ArrayList<>();
-		
+
 		for(String objectType: objectTypes.keySet())
 		{
 			if(jobject.has(objectType))
@@ -150,7 +153,7 @@ public class LevelBuilder {
 
 	/**
 	 * Returns a list of game objects associated with the given object type
-	 * 
+	 *
 	 * @param jobject
 	 * @param objectType
 	 * @return
@@ -160,44 +163,91 @@ public class LevelBuilder {
 		JsonArray jarray = jobject.getAsJsonArray(objectType);
 		for(int i = 0; i < jarray.size(); i++)
 		{
-			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
+//			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
+//			checkPlayer(ge);
 			if(ge.getClass().equals(Player.class))
 			{
-				System.out.println("HERE OMG: " + ge);
+//				System.out.println("HERE OMG: " + ge);
 				player = (Player) ge;
 			}
+//			checkFoe(ge);
 			if(ge.getClass().equals(Foes.class))
 			{
+//				System.out.println("IM DOING THE THING AND SETTING IT");
 				for(Behavior b: ((Foes)ge).getBehaviorList())
 				{
+					System.out.println(b.getClass().toString());
+//					if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
+//					{
 					if(b.getClass().equals(MoveForward.class))
 					{
-						System.out.println("IS THERE ACTUALLY EVER A MOVE FORWARD LMK");
+//						System.out.println("THIS IS A MOVE FORWARD ALERT");
 						((MoveForward)b).setPlayer(player);
 					}
 				}
-////				MoveForward mf = (MoveForward) ge;
-//				ge = (GameEntity) new MoveForward(player);
 			}
+//			System.out.println(ge.getScenePosition());
 			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
 	}
 
+	private void checkPlayer(GameEntity ge)
+	{
+//		System.out.println("CHECKING THE PLAYER " + ge.getClass());
+		if(ge.getClass().equals(Player.class))
+		{
+//			System.out.println("HERE OMG: " + ge);
+			player = (Player) ge;
+		}
+	}
+
+	private void checkFoe(GameEntity ge)
+	{
+//		System.out.println("CHECKING THE FOE " + ge.getClass());
+		if(ge.getClass().equals(Foes.class))
+		{
+//			System.out.println("IM DOING THE THING AND SETTING IT");
+			for(Behavior b: ((Foes)ge).getBehaviorList())
+			{
+				System.out.println(b.getClass().toString());
+//				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
+//				{
+				if(b.getClass().equals(MoveForward.class))
+				{
+//					System.out.println("THIS IS A MOVE FORWARD ALERT");
+					((MoveForward)b).setPlayer(player);
+				}
+			}
+		}
+	}
+
+	private void buildBehaviorSkipMap()
+	{
+
+		ResourceBundle behaviors = ResourceBundle.getBundle(BEHAVIOR_SKIPS);
+		Enumeration<String> behaviorNames = behaviors.getKeys();
+		while(behaviorNames.hasMoreElements())
+		{
+			String behaviorName = behaviorNames.nextElement();
+			behaviorsToSkip.add(behaviors.getString(behaviorName));
+		}
+	}
+
 	/**
 	 * Given the JSON object that will be converted into the game object
-	 * and the type of the game object, returns the GameObject object for 
+	 * and the type of the game object, returns the GameObject object for
 	 * the JSON text.
-	 * 
+	 *
 	 * @param toConvert
 	 * @param objectType
 	 * @return
 	 */
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
-		System.out.println();
-		System.out.println("toConvert " + toConvert + "objectType " + objectType);
+//		System.out.println();
+//		System.out.println("toConvert " + toConvert + "objectType " + objectType);
 		return deserializer.deserialize(toConvert.toString(), objectTypes.get(objectType));
 	}
 }
