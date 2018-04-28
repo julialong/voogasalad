@@ -140,7 +140,7 @@ public class PlayerView extends VBox {
 		gaeButton.setOnMouseClicked(e ->{
 			myGameView.pauseGame();
 			Stage stage = new Stage();
-			EditorWindow window = new EditorWindow(stage, myName, myDescription);
+			new EditorWindow(stage, myName, myDescription);
 
 		});
 		myMenuBar.addButton(gaeButton);
@@ -149,6 +149,13 @@ public class PlayerView extends VBox {
 		VButton resetButton = new VButton("Reset");
 		resetButton.setOnMouseClicked(e -> resetGame());
 		myMenuBar.addButton(resetButton);
+		
+		VButton replayButton = new VButton("Replay");
+		replayButton.setOnAction(e -> {
+			myGameView.pauseGame();
+			new ReplayScreen(myGameView.getReplayList());
+		});
+		myMenuBar.addButton(replayButton);
 	}
 
 	/**
