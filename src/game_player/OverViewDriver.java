@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -35,6 +36,7 @@ public class OverViewDriver extends Application {
         Scene scene = new Scene(getScene(primaryStage));
         scene.getStylesheets().add(getResourceValue("sceneStyle"));
         primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image("./game.player.styling/game_icon.png"));
         primaryStage.show();
     }
 
@@ -98,11 +100,13 @@ public class OverViewDriver extends Application {
     private void setButtonActions(HBox buttonContainer, Stage stage){
         Button gae = new Button(getResourceValue("gaeText"));
         gae.setOnAction(event -> {
-            new EditorWindow(stage);
+            new EditorWindow(new Stage());
+            stage.close();
         });
         Button gp = new Button(getResourceValue("gpText"));
         gp.setOnAction(event -> {
-            new VoogaChooser(stage);
+            new VoogaChooser(new Stage());
+            stage.close();
         });
         buttonContainer.getChildren().add(gae);
         buttonContainer.getChildren().add(gp);

@@ -5,7 +5,6 @@ import data.fileReading.JSONtoGP;
 import data.resources.DataFileException;
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
-
 import javafx.collections.FXCollections;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,9 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Application for running the Game Chooser. The purpose is to let
@@ -33,26 +30,26 @@ public class VoogaChooser implements GameChooser {
     private HBox myView =  new HBox();
     private JSONtoGP reader = new GPGameFileReader();
     private ListView<GameItem> playableGames = new ListView<>();
-
-
-    public VoogaChooser(){
-        myView.setMinWidth(550);
-    }
+    private ResourceBundle rb;
 
     public VoogaChooser(Stage stage){
+        rb = ResourceBundle.getBundle("game_player.resources.chooser");
         myStage = stage;
         setUpStage();
     }
 
+
     /**
-     * Sets up the stage for the
+     * Sets up the stage for the game chooser application
      */
     private void setUpStage(){
-        myStage.setTitle("Game Chooser");
+        myStage.setTitle(getResourceValue("title"));
         Scene scene = new Scene(this.displayChoices());
+        scene.getStylesheets().add(getResourceValue("styling"));
         myStage.setScene(scene);
         myStage.show();
     }
+
 
     /**
      * Occurs once the user has selected the game to play. This method will close the
@@ -62,6 +59,7 @@ public class VoogaChooser implements GameChooser {
     public String sendToGame() {
         return null;
     }
+
 
     /**
      * This will represent the extensive list of developed games that the
@@ -84,10 +82,7 @@ public class VoogaChooser implements GameChooser {
     	}
     	catch(DataFileException e)
     	{
-    		Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle(e.getCause().toString());
-            alert.setContentText(e.getMessage());
-            alert.show();
+    		showAlert(e);
     	}
     	return myView;
     }
@@ -102,29 +97,49 @@ public class VoogaChooser implements GameChooser {
             try{
                 GameItem game = gameChoices.getSelectionModel().getSelectedItem();
                 System.out.println(game.getGameName());
-                game.setUpGame(reader.loadCompleteGame(game.getGameName()), game.getGameName());
+                game.setUpGame(reader.loadCompleteGame(game.getGameName()));
                 Stage currentStage = (Stage) myView.getScene().getWindow();
                 currentStage.close();
             }
-            catch(NullPointerException e){
-                event.consume();
-            }
-            catch(DataFileException e)
+            catch(DataFileException|NullPointerException|IndexOutOfBoundsException e)
             {
-            	Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle(e.getCause().toString());
-                alert.setContentText(e.getMessage());
-                alert.show();
+            	showAlert(e);
             }
         });
     }
 
 
+    /**
+     * Creates the display on the left side of the screen
+     */
     private VBox createText(){
         VBox container = new VBox();
-        Image img = new Image("./game.player.styling/pick_game.png");
+        Image img = new Image(getResourceValue("image"));
         ImageView image = new ImageView(img);
         container.getChildren().add(image);
         return container;
+    }
+
+    /**
+     * Shows an alert whose content is dependent on the exception that occurred
+     */
+    private void showAlert(Exception e){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(e.toString());
+        alert.setHeaderText(e.getMessage());
+        alert.show();
+    }
+
+    /**
+     * Returns the information withheld in the overview.properties file
+     * The parameter is a string which represents the key for the properties file.
+     */
+    private String getResourceValue(String key){
+        try{
+            return rb.getString(key);
+        }
+        catch (NullPointerException|MissingResourceException |ClassCastException e){
+            return "";
+        }
     }
 }
