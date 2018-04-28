@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 /**
  * The interface used for saving the current status of the game
+ *
+ * @Author Dorian Barber, Kelley Scroggs
  */
 public class SaveScreen {
 	private static final int MIN_WINDOW_WIDTH = 600;
