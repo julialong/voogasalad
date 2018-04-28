@@ -1,13 +1,9 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
 import authoring_environment.editor_windows.CreatorView;
-<<<<<<< HEAD
 import authoring_environment.editor_windows.GameChooser;
 import data.resources.DataFileException;
-=======
-import authoring_environment.editor_windows.game_windows.GameChooser;
 import authoring_environment.editor_windows.level_windows.LevelLoader;
->>>>>>> 1409256eea8f979e35d97150101010cc7c573a25
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
@@ -38,7 +34,6 @@ public class LoadButton extends MenuButton {
 
     private MenuItem createGameItem() {
         MenuItem gameItem = new MenuItem(GAME);
-<<<<<<< HEAD
         // TODO: open game chooser when menu item is clicked
         gameItem.setOnAction(e -> {
 			try {
@@ -48,9 +43,6 @@ public class LoadButton extends MenuButton {
 				e1.printStackTrace();
 			}
 		});
-=======
-        gameItem.setOnAction(e -> new GameChooser(myWindow));
->>>>>>> 1409256eea8f979e35d97150101010cc7c573a25
         return gameItem;
     }
 

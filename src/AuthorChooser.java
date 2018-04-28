@@ -2,7 +2,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,20 +30,23 @@ public class AuthorChooser {
 	/**
 	 * This constructor
 	 */
-	public AuthorChooser() {
-		openChooserWindow();
+	public AuthorChooser(Stage stage) {
+		openChooserWindow(stage);
 		
 	}
 	
 	/**
 	 * This method opens the window that allows the user to select their profile 
 	 */
-	private void openChooserWindow() {
+	private void openChooserWindow(Stage stage) {
 		myRoot = new VBox();
 		myScene = new Scene(myRoot);
-		myStage = new Stage();
+		myStage = stage;
 		myStage.setScene(myScene);
-		myAuthorList = addAuthorList();
+		myAuthorList = createAuthorList();
+		ObservableList<String> names = FXCollections.observableArrayList(myAuthorList);
+		ListView<String> listviewOfAuthors = new ListView<String>(names);
+		myRoot.getChildren().add(listviewOfAuthors);
 		
 	}
 	
@@ -69,15 +75,19 @@ public class AuthorChooser {
 		directory.mkdir();
 	}
 	
-	private List<String> addAuthorList(){
+	private List<String> createAuthorList(){
 		List<String> listOfAuthors = new ArrayList<String>();
 		File folder = new File(GAMEDATA);
 		listOfAuthors.addAll(makeFolderList(folder));
-		
 		return listOfAuthors;
 		
 	}
 	
+	/**
+	 * Take a folder and converts all of the sub folders of that folder into a list of strings
+	 * @param parentFolder the File that is the parent folder
+	 * @return list of strings of names of sub folders
+	 */
 	private List<String> makeFolderList(File parentFolder){
 		List<String> folderList = new ArrayList<String>();
 		File[] folders = parentFolder.listFiles();
