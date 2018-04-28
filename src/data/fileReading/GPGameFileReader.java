@@ -1,18 +1,10 @@
 package data.fileReading;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
 
 import data.builders.LevelBuilder;
 import data.resources.DataFileException;
@@ -24,20 +16,13 @@ import engine.level.Level;
  * @author Belanie Nagiel
  *
  */
-public class GPGameFileReader implements JSONtoGP{
-
-	private static final String JSON_EXTENSION = ".json";
-	private static final String SETTINGS = "Settings";
-	private static final String[] SETTINGS_DATA = {"description", "readyToPlay"};
-	private static final String NEST = File.separator;
-	private FileRetriever fileRetriever;
-	
+public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 	/**
 	 * Class Constructor
 	 */
 	public GPGameFileReader()
 	{
-		fileRetriever = new FileRetriever();
+
 	}
 	
 	/**
@@ -52,7 +37,7 @@ public class GPGameFileReader implements JSONtoGP{
 	@Override
 	public List<Level> loadCompleteGame(String gameName) throws DataFileException {
 		List<Level> completeGame = new ArrayList<>();
-		File currentGame = new File(fileRetriever.retrieveCurrentGamePath(gameName));
+		File currentGame = new File(getCurrentGamePath(gameName));
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
@@ -82,7 +67,7 @@ public class GPGameFileReader implements JSONtoGP{
 	 */
 	@Override
 	public Level loadLevel(String gameName, String levelName) throws DataFileException {
-		File currentLevel = fileRetriever.retrieveLevel(gameName, levelName);
+		File currentLevel = getLevel(gameName, levelName);
 		LevelBuilder levelBuilder = new LevelBuilder(currentLevel);
 		return levelBuilder.buildLevel();
 	}
@@ -98,47 +83,28 @@ public class GPGameFileReader implements JSONtoGP{
 	 */
 	@Override
 	public Map<String, String> loadSettings(String gameName) throws DataFileException {
-		Map<String,String> settingsDetails = new HashMap<>();
-		File settings = fileRetriever.retrieveSettings(gameName);
-		try {
-			JsonParser jsonParser = new JsonParser();
-			JsonElement jelement;
-			jelement = jsonParser.parse(new FileReader(settings));
-			JsonObject  jobject = jelement.getAsJsonObject();
-			for(String metadata: SETTINGS_DATA)
-			{
-				String info = jobject.get(metadata).getAsString();
-				settingsDetails.put(metadata, info);
-			}
-		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) 
-		{
-			throw new DataFileException("Could not find settings file for" + gameName, e);
-		}
-		return settingsDetails;
+		return getSettingsMap(gameName);
 	}
 
 	/**
 	 * This returns a Map of the names of the ready to play games and their
 	 * descriptions.
-	 * 
+	 *
 	 * @return
 	 * @throws DataFileException 
 	 */
 	@Override
 	public Map<String, String> getGameNames() throws DataFileException {
 		Map<String,String> gameNames = new HashMap<>();
-		List<String> allGamePaths = fileRetriever.retrieveAllGamePaths();
-		for(String gamePath: allGamePaths)
+		List<String> allGameNames = getAllGameNames();
+		for(String gameName: allGameNames)
 		{
-			int index = gamePath.lastIndexOf(NEST) + 1;
-			String gameName = gamePath.substring(index).trim();
 			Map<String,String> gameSettings = loadSettings(gameName);
-			if(gameSettings.get("readyToPlay").equals("true"))
+			if(Boolean.parseBoolean(gameSettings.get(READY)))
 			{
-				gameNames.put(gameName, gameSettings.get("description"));
+				gameNames.put(gameName, gameSettings.get(DESCRIPTION));
 			}
 		}
 		return gameNames;
 	}
-
 }

@@ -2,8 +2,11 @@ package game_player;
 
 import engine.level.Level;
 import game_player_api.GameView;
+import heads_up_display.HeadsUpDisplay;
+import heads_up_display.Hud;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,16 +14,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import data.gamefiles.GameFileReader;
-import data.gamefiles.JSONtoObject;
 import engine.controls.*;
 import engine.entity.GameEntity;
 import engine.entity.Player;
@@ -46,6 +43,8 @@ public class VoogaGameView implements GameView {
 	// parts
 	private Pane myGP;
 	private Controls myControls;
+	private HeadsUpDisplay hud;
+	private Point2D timer = new Point2D(0, 0);
 
 	/**
 	 * Creates a grid pane. initializes event listeners
@@ -55,6 +54,7 @@ public class VoogaGameView implements GameView {
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
 		myGP = new Pane();
+		setUpHud();
 		initDisplayMap();
 	}
 
@@ -67,7 +67,7 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustXCord(double x) {
 		// TODO: adjust this factor based on sensitivity
-		return x * (myWidth / 4000.0) + (myWidth / 2.0);
+		return x * (myWidth / 400.0);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustYCord(double y) {
 		// TODO: adjust this factor based on sensitivity
-		return (myHeight / 2.0) - y * (myHeight / 4800.0);
+		return y * (myHeight / 400.0);
 	}
 
 	/**
@@ -89,23 +89,20 @@ public class VoogaGameView implements GameView {
 		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
 			// TODO: below is filler for actual data, delete once gae sends us the real
 			// stuff
+			//System.out.println("IV: "+ ge.getImageView());
 			String imgPath;
 			if (ge.getImageView() == null || ge.getImageView() == "") {
-				imgPath = "brick.png";
+				imgPath = "./game_player/brick.png";
 			} else {
 				imgPath = ge.getImageView();
 			}
 			if (ge instanceof Player) {
 				myControls = new Controls((Player) ge);
-				imgPath = "trump.gif";
-				ge.setSpeedFactor(1000);
-				ge.setMaxXVelocity(50);
-				ge.setMaxYVelocity(500);
-				ge.setFrictionConstant(200);
-				ge.setJumpFactor(75);
+				//imgPath = "trump.gif";
 			}
-			ImageView entityImage = new ImageView(new Image(getClass().getResourceAsStream(imgPath), ge.getSizeX() + 50,
-					ge.getSizeY() + 50, true, true));
+			System.out.println("imgPath: "+imgPath);
+			ImageView entityImage = new ImageView(new Image(imgPath,
+					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 			// TODO: uncomment below once GAE sends us actual data
 			// if (ge.getClass().equals(new Player().getClass())) {
 			// myControls = new Controls((Player) ge);
@@ -114,8 +111,8 @@ public class VoogaGameView implements GameView {
 			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
 			// ge.getSizeY(), true, true));
 
-			entityImage.setX(adjustXCord(ge.getPosition()[0]));
-			entityImage.setY(adjustYCord(ge.getPosition()[1]));
+			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
+			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
 			myDispMap.put(ge, entityImage);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}
@@ -142,19 +139,30 @@ public class VoogaGameView implements GameView {
 		if (myGameStatus) {
 			myGameLevels.get(myCurrLevel).update();
 			displayObjects();
+			updateHud(elapsedTime);
 		}
 	}
 
 	/**
 	 * Displays the already updated objects that have been determined to be in
-	 * bounds.
-	 * 
-	 * @param toDisplay
+	 * bounds. Removes the objects that have been destroyed after the level is
+	 * updated.
 	 */
 	private void displayObjects() {
-		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
-			myDispMap.get(ge).setX(adjustXCord(ge.getPosition()[0]));
-			myDispMap.get(ge).setY(adjustYCord(ge.getPosition()[1]));
+		Level level = myGameLevels.get(myCurrLevel);
+		ArrayList<GameEntity> toRemove = new ArrayList<>();
+		for (GameEntity ge : myDispMap.keySet()) {
+			if (level.getObjects().contains(ge)) {
+				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
+				myDispMap.get(ge).setY(adjustYCord(ge.getScenePosition()[1]));
+			} else {
+				toRemove.add(ge);
+				myGP.getChildren().remove(myDispMap.get(ge));
+			}
+		}
+		for (GameEntity ge : toRemove) {
+			myGP.getChildren().remove(myDispMap.get(ge));
+			myDispMap.remove(ge);
 		}
 	}
 
@@ -210,15 +218,34 @@ public class VoogaGameView implements GameView {
 	 */
 	public void changeBinding(String propKey, KeyCode keyCode) {
 		try {
-			Object instance = Class.forName("engine.controls."+propKey).newInstance();
+			// TODO: Fix this deprecated code eventually
+			Object instance = Class.forName("engine.controls." + propKey).newInstance();
 			Action a = (Action) instance;
 			myControls.setBinding(keyCode, a);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Key binding failed!");
 		}
+	}
+
+	/**
+	 * Sets up the heads up display for the game view multiple components can be
+	 * added
+	 */
+	private void setUpHud() {
+		hud = new Hud();
+		timer = new Point2D(0, hud.addComponent(Double.toString(timer.getX())));
+		myGP.getChildren().add(hud.getHUD());
+	}
+
+	/**
+	 * Updates the heads up display during every step to make sure important
+	 * information is kept accurate.
+	 */
+	private void updateHud(Double elapsedTime) {
+		timer = timer.add(elapsedTime, 0);
+		int minutes = (int) timer.getX() / 60;
+		double seconds = timer.getX() % 60;
+		String output = String.format("%d:%.1f", minutes, seconds);
+		hud.updateComponent((int) timer.getY(), output);
 	}
 }

@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -26,12 +27,14 @@ import engine.level.Level;
  * Creates levels to return to the Game Player when a 
  * game is going to be played
  * 
- * @author belanie.nagiel
+ * @author Belanie Nagiel
  *
  */
 public class LevelBuilder {
 
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
+	private static final String NAME = "name";
+	private static final String ID = "id";
 	private Map<String,Class<?>> objectTypes;
 	private Serializer deserializer; 
 	private File levelFile;
@@ -92,8 +95,8 @@ public class LevelBuilder {
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
-			JsonObject jobject;
-			jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
+			JsonElement jelement = jsonParser.parse(new FileReader(levelFile));
+			JsonObject jobject = jelement.getAsJsonObject();
 			addMetaData(level, jobject);
 			addGameObjects(level,jobject);
 		}
@@ -112,8 +115,8 @@ public class LevelBuilder {
 	 */
 	private void addMetaData(Level level, JsonObject jobject)
 	{
-		String levelName = jobject.get("name").getAsString();
-		int id = jobject.get("id").getAsInt();
+		String levelName = jobject.get(NAME).getAsString();
+		int id = jobject.get(ID).getAsInt();
 		
 		level.setName(levelName);
 		level.setID(id);

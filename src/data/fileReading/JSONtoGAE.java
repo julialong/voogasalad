@@ -42,15 +42,21 @@ public interface JSONtoGAE {
 	 * @throws DataFileException 
 	 */
 	AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException;
-
+	
 	/**
-	 * This will load the author settings for a specific author in the 
-	 * game authoring environment. It will return the map of image paths 
-	 * to custom game entities. 
+	 * This will load the names of all of the stray levels so that a user in the authoring
+	 * environment can load a pre-existing level.
 	 * 
-	 * @param author
 	 * @return
 	 */
-	Map<String,GameEntity> loadAuthorCustomObjects(String author);
+	List<String> loadAuthoredLevelNames();
+	
+	/**
+	 * This returns a Map of the names of the games for continued editing.
+	 * 
+	 * @return
+	 * @throws DataFileException 
+	 */
+	Map<String,String> getGameNames() throws DataFileException;
 
 }

@@ -2,6 +2,7 @@ package data.fileReading;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,20 +17,13 @@ import engine.entity.GameEntity;
  * @author Belanie Nagiel
  *
  */
-public class GAEGameFileReader implements JSONtoGAE {
-	
-	private static final String JSON_EXTENSION = ".json";
-	private static final String SETTINGS = "Settings";
-	private static final String LEVEL_FOLDER = "./data/levelData";
-	private static final String NEST = File.separator;
-	private FileRetriever fileRetriever;
+public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	
 	/**
 	 * Class Constructor
 	 */
 	public GAEGameFileReader() 
 	{
-		fileRetriever = new FileRetriever();
 	}
 	
 	/**
@@ -45,15 +39,19 @@ public class GAEGameFileReader implements JSONtoGAE {
 	@Override
 	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) throws DataFileException {
 		List<AuthoredLevel> completeGame = new ArrayList<>();
-		File currentGame = new File(fileRetriever.retrieveCurrentGamePath(gameName));
+		File currentGame = new File(getCurrentGamePath(gameName));
+		System.out.println("current game " + currentGame.toString());
 		File[] gameFiles = currentGame.listFiles();
+		System.out.println("current game files " + gameFiles);
 		for(File gameFile: gameFiles)
 		{
+				System.out.println("gameFile " + gameFile.toString());
 				int index = gameFile.toString().lastIndexOf(NEST) + 1;
 				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
 				if(!levelName.equals(SETTINGS))
 				{
+					System.out.println("level name " +levelName);
 					completeGame.add(loadAuthoredGameLevel(gameName, levelName));
 				}		
 		}
@@ -72,7 +70,8 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) throws DataFileException {
-		File level = fileRetriever.retrieveLevel(gameName, levelName);
+		File level = getLevel(gameName, levelName);
+		System.out.println("authored level " + level);
 		AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
 		return authoredBuilder.buildAuthoredLevel();
 	}
@@ -87,23 +86,49 @@ public class GAEGameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException {
-		File level = new File(LEVEL_FOLDER + NEST + levelName);
+		File level = new File(LEVEL_FOLDER + NEST + levelName + JSON_EXTENSION);
 		AuthoredLevelBuilder levelBuilder = new AuthoredLevelBuilder(level);
 		return levelBuilder.buildAuthoredLevel();
 	}
-
+	
 	/**
-	 * This will load the author settings for a specific author in the 
-	 * game authoring environment. It will return the map of image paths 
-	 * to custom game entities. 
+	 * This will load the names of all of the stray levels so that a user in the authoring
+	 * environment can load a pre-existing level.
 	 * 
-	 * @param author
 	 * @return
 	 */
 	@Override
-	public Map<String, GameEntity> loadAuthorCustomObjects(String author) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> loadAuthoredLevelNames() {
+		List<String> levelNames = new ArrayList<>();
+		File strayLevelFolder = new File(LEVEL_FOLDER);
+		File[] strayLevels = strayLevelFolder.listFiles();
+		for(File strayLevel: strayLevels)
+		{
+			int index = strayLevel.toString().lastIndexOf(NEST) + 1;
+			int endIndex = strayLevel.toString().lastIndexOf(JSON_EXTENSION);
+			String levelName = strayLevel.toString().substring(index, endIndex).trim();
+			levelNames.add(levelName);
+		}
+		return levelNames;
+	}	
+
+	/**
+	 * This returns a Map of the names of the games for continued editing.
+	 * 
+	 * @return
+	 * @throws DataFileException 
+	 */
+	@Override
+	public Map<String, String> getGameNames() throws DataFileException {
+		Map<String,String> gameNames = new HashMap<>();
+		List<String> allGameNames = getAllGameNames();
+		for(String gameName: allGameNames)
+		{
+			Map<String,String> gameSettings = getSettingsMap(gameName);
+			gameNames.put(gameName, gameSettings.get(DESCRIPTION));
+		}
+		return gameNames;
 	}
+
 
 }

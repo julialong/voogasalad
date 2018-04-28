@@ -36,7 +36,7 @@ public class ScoreKeeper {
 		stage.setTitle("My High Scores");
 		stage.setMinWidth(MIN_WINDOW_WIDTH);
 		Scene scene = new Scene(this.displayScores(), MIN_WINDOW_WIDTH, MIN_WINDOW_WIDTH);
-		scene.getStylesheets().add("../data/styling/styleSheet.css");
+		scene.getStylesheets().add("./game.player.styling/styleSheet.css");
 		stage.setScene(scene);
 		stage.show();
 	}

@@ -1,6 +1,5 @@
 package game_player;
 
-import data.gamefiles.JSONtoObject;
 import engine.level.Level;
 import game_player_api.GameItem;
 import javafx.geometry.Rectangle2D;
@@ -8,21 +7,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.List;
 import java.util.Map;
+
+import data.fileReading.JSONtoObject;
 
 /**
  * Each instance of VoogaGame represents a single developed game created from the
  * game authoring environment. Each VoogaGame has a Name, Description, access path, and
  * author.
  *
- * @Author Dorian Barber
+ * @Author Dorian Barber, Kelley Scroggs
  */
 public class VoogaGameItem extends Label implements GameItem {
     private String gameName;
     private String gameDescription;
-    private String gameAccessPath;
     private Stage gameApplication = new Stage();
 
     public VoogaGameItem(String name, String description){
@@ -31,20 +32,11 @@ public class VoogaGameItem extends Label implements GameItem {
         gameName = name;
         gameDescription = description;
         setFutureBounds(gameApplication);
+        handleCloseRequest(gameApplication);
         super.setText(this.toString());
     }
 
-    /**
-     * This method may be automatically defined for all
-     * GameItem objects, but the difference is dependent on
-     * how the GameItem was created
-     */
-    @Override
-    public void actionOnClick() {
-
-    }
-
-    /**
+	/**
      * Sets up the Game view application environment
      * with the specific game that this item represents
      */
@@ -56,10 +48,9 @@ public class VoogaGameItem extends Label implements GameItem {
         } catch(NullPointerException e){
             gameView = new PlayerView();
         }
-
         VController gameController = new VController(gameView);
         Scene scene = new Scene(gameView);
-        scene.getStylesheets().add("styleSheet.css");
+        scene.getStylesheets().add("./game.player.styling/styleSheet.css");
         gameApplication.setScene(scene);
         gameApplication.setTitle(gameName);
         gameApplication.show();
@@ -79,6 +70,17 @@ public class VoogaGameItem extends Label implements GameItem {
         primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
     }
 
+    /**
+     * Go back to the chooser when you close out of the game
+     * 
+     * @param primaryStage the current stage whose close request needs to be caught
+     */
+    private void handleCloseRequest(Stage primaryStage) {
+        primaryStage.setOnCloseRequest(event -> {
+            Stage stage = new Stage();
+            new VoogaChooser(stage);
+        });
+	}
 
     /**
      * Alters toString method to return a properly formatted

@@ -7,11 +7,15 @@ import game_player_api.GameChooser;
 import game_player_api.GameItem;
 
 import javafx.collections.FXCollections;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -26,7 +30,7 @@ import java.util.Map;
  */
 public class VoogaChooser implements GameChooser {
     private Stage myStage;
-    private BorderPane myView =  new BorderPane();
+    private HBox myView =  new HBox();
     private JSONtoGP reader = new GPGameFileReader();
     private ListView<GameItem> playableGames = new ListView<>();
 
@@ -45,10 +49,7 @@ public class VoogaChooser implements GameChooser {
      */
     private void setUpStage(){
         myStage.setTitle("Game Chooser");
-        //myStage.setMaximized(true);
-        myStage.setMinWidth(600);
         Scene scene = new Scene(this.displayChoices());
-        scene.getStylesheets().add("../data/styling/styleSheet.css");
         myStage.setScene(scene);
         myStage.show();
     }
@@ -67,7 +68,7 @@ public class VoogaChooser implements GameChooser {
      * user can choose. Choosing a game will prompt the sendToGame method
      */
     @Override
-    public BorderPane displayChoices() {
+    public Parent displayChoices() {
     	try
     	{
 	        Map<String, String> names = reader.getGameNames();
@@ -78,7 +79,8 @@ public class VoogaChooser implements GameChooser {
 	        }
 	        playableGames.setItems(FXCollections.observableArrayList(gamesToPlay));
 	        setListener(playableGames);
-	        myView.setCenter(playableGames);  
+	        myView.getChildren().add(createText());
+	        myView.getChildren().add(playableGames);
     	}
     	catch(DataFileException e)
     	{
@@ -88,16 +90,6 @@ public class VoogaChooser implements GameChooser {
             alert.show();
     	}
     	return myView;
-    }
-
-    /**
-     * Adds the @param gameName to the list of available games to choose.
-     *
-     * @param gameName
-     */
-    @Override
-    public void addChoice(String gameName) {
-
     }
 
 
@@ -115,7 +107,7 @@ public class VoogaChooser implements GameChooser {
                 currentStage.close();
             }
             catch(NullPointerException e){
-                e.printStackTrace();
+                event.consume();
             }
             catch(DataFileException e)
             {
@@ -125,5 +117,14 @@ public class VoogaChooser implements GameChooser {
                 alert.show();
             }
         });
+    }
+
+
+    private VBox createText(){
+        VBox container = new VBox();
+        Image img = new Image("./game.player.styling/pick_game.png");
+        ImageView image = new ImageView(img);
+        container.getChildren().add(image);
+        return container;
     }
 }

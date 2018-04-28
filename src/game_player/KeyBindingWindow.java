@@ -39,7 +39,7 @@ public class KeyBindingWindow {
         //myStage.setMaximized(true);
         myStage.setMinWidth(MIN_WINDOW_WIDTH);
         Scene scene = new Scene(this.displayChoices(),450,450);
-        scene.getStylesheets().add("../data/styling/styleSheet.css");
+        scene.getStylesheets().add("./game.player.styling/styleSheet.css");
         myStage.setScene(scene);
         myStage.show();
     }

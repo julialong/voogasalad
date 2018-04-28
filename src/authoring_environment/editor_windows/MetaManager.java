@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
  * @author Julia Long
  * Date started: April 10 18
  */
-interface MetaManager {
+public interface MetaManager {
 
     String UPDATE_FILE_NAME = "File name:";
 

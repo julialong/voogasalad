@@ -4,16 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import data.fileReading.GAEGameFileReader;
-import data.resources.DataFileException;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import data.fileReading.GAEGameFileReader;
 import data.resources.DataFileException;
 import data.serialization.TextWriter;
 import engine.level.Level;
-
-import javax.xml.crypto.Data;
 
 /**
  * @author Maya Messinger
@@ -56,6 +52,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	@Override
 	public void update(List<AuthoredLevel> changes) throws DataFileException	{
 		for (AuthoredLevel aLevel:changes)	{
+			System.out.println("saved " + aLevel.toString());
 			saveData(aLevel);
 		}
 	}
@@ -95,6 +92,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * Saves state of level being played, for use with checkpoints
 	 * @param level			name of level to save
 	 */
+	@Override
 	public void saveData(AuthoredLevel level) throws DataFileException	{
 		new TextWriter(level, getLevel(level.getLevel()));
 	}
@@ -142,10 +140,13 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param newName	String to rename game to	
 	 */
 	@Override
-	public void renameGame(String newName)	{
+	public void renameGame(String newName) throws DataFileException	{
 		File newDir = new File(gameDirectoryFile.getParent() + NEST + newName);
 
 		gameDirectoryFile.renameTo(newDir);
+		this.gameName = newName;
+		gameDirectory = userDirectory + NEST + gameName;
+		gameDirectoryFile = retrieveFolder(gameDirectory);
 	}
 
 	/**
@@ -195,7 +196,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 				newLevel.createNewFile();
 			} 
 			catch (IOException e) {
-				throw new DataFileException("Could not get or make file " + newLevel.toString(), new Throwable("IOException in GameFileWriter"));
+				throw new DataFileException("Could not get or make file " + newLevel.toString(), e);
 			}
 		}
 

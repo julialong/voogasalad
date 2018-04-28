@@ -56,7 +56,7 @@ public class PickableElement extends ImageView implements DocumentGetter {
 
 	/**
 	 * TODO: why can't we have all of the parsing done by
-	 * TODO: these methods, and return a contructed object?
+	 * TODO: these methods, and return a constructed object?
 	 * Gets the Document associated with a given ID
 	 * @param ID is the ID of the object to get
 	 * @return the XML Document associated with the ID
