@@ -158,7 +158,7 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 		} else {
 			cell.setImage(ID);
 		}
-		cell.setObject(myLevel.addObject(ID, cell.getPosition().getX(), cell.getPosition().getY()));
+		cell.setObject(myLevel.addObject(ID, cell.getPosition().getX(), cell.getPosition().getY(), cellSize));
 	}
 
 	private void checkMultipleCells(String ID) {
@@ -166,7 +166,7 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 			for (int j = 0; j < cols; j++) {
 				GridCell checkCell = cellArray[i][j];
 				if (checkCell.isSelected()) {
-					checkCell.setObject(myLevel.addObject(ID, checkCell.getPosition().getX(), checkCell.getPosition().getY()));
+					checkCell.setObject(myLevel.addObject(ID, checkCell.getPosition().getX(), checkCell.getPosition().getY(), cellSize));
 					checkCell.setImage(ID);
 					checkCell.deselect();
 				}
