@@ -1,5 +1,5 @@
 {
-"name":"level 2",
+"name":"mytestlevel",
 "color":"null",
 "ScrollingGrid":[
 [
@@ -15,13 +15,7 @@
 "null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ],
 [
-"null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
-],
-[
-"null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
-],
-[
-"null","null","null","null","null","finalTester","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
+"null","null","null","null","finalTester","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ],
 [
 "null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
@@ -30,7 +24,13 @@
 "null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ],
 [
-"null","null","null","null","null","Sand","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
+"null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
+],
+[
+"null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
+],
+[
+"null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ],
 [
 "null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
@@ -154,14 +154,6 @@
 ]
 ]
 ,"Block":[
-{"id":0,"movementType":{"type":"engine.movement.Static","data":{}},"kinematics":{"xCor":6.0,"yCor":5.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/finalTester.png","behaviorList":[],"interactionList":[null],"interactionsMap":{}},
-{"id":0,"movementType":{"type":"engine.movement.Static","data":{}},"kinematics":{"xCor":9.0,"yCor":5.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/Sand.jpeg","behaviorList":[],"interactionList":[null],"interactionsMap":{}},
-{"id":0,"movementType":{"type":"engine.movement.Static","data":{}},"kinematics":{"xCor":9.0,"yCor":5.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/Sand.jpeg","behaviorList":[],"interactionList":[null],"interactionsMap":{}},
-{"id":0,"movementType":{"type":"engine.movement.Static","data":{}},"kinematics":{"xCor":6.0,"yCor":5.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/finalTester.png","behaviorList":[],"interactionList":[null],"interactionsMap":{}},
-{"id":0,"movementType":{"type":"engine.movement.Static","data":{}},"kinematics":{"xCor":9.0,"yCor":5.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/Sand.jpeg","behaviorList":[],"interactionList":[null],"interactionsMap":{}},
-{"id":0,"movementType":{"type":"engine.movement.Static","data":{}},"kinematics":{"xCor":300.0,"yCor":250.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/finalTester.png","behaviorList":[],"interactionList":[null],"interactionsMap":{}},
-{"id":0,"movementType":{"type":"engine.movement.Static","data":{}},"kinematics":{"xCor":450.0,"yCor":250.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/Sand.jpeg","behaviorList":[],"interactionList":[null],"interactionsMap":{}},
-{"id":0,"kinematics":{"xCor":300.0,"yCor":250.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/finalTester.png","behaviorList":[],"interactionList":[null],"interactionsMap":{}},
-{"id":0,"kinematics":{"xCor":450.0,"yCor":250.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/Sand.jpeg","behaviorList":[],"interactionList":[null],"interactionsMap":{}}
+{"id":0,"kinematics":{"xCor":200.0,"yCor":200.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":50.0,"height":50.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/finalTester.png","behaviorList":[],"interactionList":[null],"interactionsMap":{}}
 ]
 }
