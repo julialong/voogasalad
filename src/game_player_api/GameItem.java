@@ -1,11 +1,12 @@
 package game_player_api;
 
-import data.gamefiles.JSONtoObject;
 import engine.level.Level;
 import javafx.scene.control.ListCell;
 
 import java.util.List;
 import java.util.Map;
+
+import data.fileReading.JSONtoObject;
 
 /**
  * Represents each individual item within the GameChooser visual display

@@ -1,6 +1,7 @@
-package authoring_environment.editor_windows.savers;
+package authoring_environment.editor_windows.game_windows;
 
 import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.editor_windows.MetaManager;
 import authoring_environment.editor_windows.buttons.SaveGameButton;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
@@ -91,8 +92,8 @@ public class GameSaver implements MetaManager {
     }
 
     private void addSaveButton() {
-        myRoot.getChildren().add(new SaveGameButton(myWindow, myStage, fileName.getText(),
-                fileDescription.getText(), playableGame.isSelected()));
+        myRoot.getChildren().add(new SaveGameButton(myWindow, myStage, fileName,
+                fileDescription, playableGame));
     }
 
 }
