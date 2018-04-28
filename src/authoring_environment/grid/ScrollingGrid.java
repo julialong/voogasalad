@@ -150,7 +150,6 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 			cell.setImage(ID);
 		}
 		cell.setObject(myLevel.addObject(ID, cell.getPosition().getX(), cell.getPosition().getY()));
-		System.out.println(cell.getObject());
 	}
 
 	private void checkMultipleCells(String ID) {
