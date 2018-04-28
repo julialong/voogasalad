@@ -68,6 +68,15 @@ public interface Level {
 	 * Returns true if level is complete
 	 */
 	boolean getLevelComplete();
+
+
+	void setColor(Color color);
+
+	/**
+	 * Retrieves the background color of the level
+	 * @return color of level
+	 */
+	String getColor();
     
     /**
      * Updates the contents of the level
