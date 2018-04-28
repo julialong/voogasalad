@@ -5,6 +5,8 @@ import authoring_environment.toolbars.choosers.ElementPicker;
 
 import org.w3c.dom.Document;
 
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
@@ -77,8 +79,8 @@ public class PickableElement extends ImageView implements DocumentGetter {
 				} else {
 					lock();
 					myPicker.lockElement(myID);
+					this.getScene().setCursor(new ImageCursor(myImage));
 				}
-				
 			}
 		});
 	}
@@ -91,6 +93,7 @@ public class PickableElement extends ImageView implements DocumentGetter {
 	public void unlock() {
 		locked = false;
 		this.setEffect(null);
+		this.getScene().setCursor(Cursor.DEFAULT);
 	}
 	
 	public boolean isLocked() {
