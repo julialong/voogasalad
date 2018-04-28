@@ -95,7 +95,7 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException {
-		File level = new File(LEVEL_FOLDER + NEST + levelName);
+		File level = new File(LEVEL_FOLDER + NEST + levelName + JSON_EXTENSION);
 		AuthoredLevelBuilder levelBuilder = new AuthoredLevelBuilder(level);
 		return levelBuilder.buildAuthoredLevel();
 	}
@@ -114,7 +114,8 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 		for(File strayLevel: strayLevels)
 		{
 			int index = strayLevel.toString().lastIndexOf(NEST) + 1;
-			String levelName = strayLevel.toString().substring(index).trim();
+			int endIndex = strayLevel.toString().lastIndexOf(JSON_EXTENSION);
+			String levelName = strayLevel.toString().substring(index, endIndex).trim();
 			levelNames.add(levelName);
 		}
 		return levelNames;

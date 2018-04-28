@@ -3,6 +3,7 @@ package authoring_environment.grid;
 import authoring_environment.DocumentGetter;
 import authoring_environment.game_elements.AuthoredLevel;
 
+import engine.entity.GameEntity;
 import org.w3c.dom.Document;
 
 import javafx.scene.layout.ColumnConstraints;
@@ -91,6 +92,17 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 		}
 	}
 
+	public void resize(int x, int y) {
+		super.resize(x,y);
+		GridCell[][] newCells = new GridCell[x][y];
+		for (int i = 0; i < x && i < cellArray.length; i++) {
+			for (int j = 0; j < y && j < cellArray[0].length; j++) {
+				newCells[i][j] = cellArray[i][j];
+			}
+		}
+		cellArray = newCells;
+	}
+
 	/**
 	 * Zooms in by making GridCells larger.
 	 */
@@ -135,6 +147,7 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 			cell.setImage(ID);
 		}
 		cell.setObject(myLevel.addObject(ID, cell.getPosition().getX(), cell.getPosition().getY()));
+		System.out.println(cell.getObject());
 	}
 
 	private void checkMultipleCells(String ID) {
