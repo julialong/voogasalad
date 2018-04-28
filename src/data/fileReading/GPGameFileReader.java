@@ -22,7 +22,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 	 */
 	public GPGameFileReader()
 	{
-
+		//Constructor is empty
 	}
 	
 	/**
@@ -72,6 +72,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 		return levelBuilder.buildLevel();
 	}
 
+	//DOES GP NEED THIS???
 	/**
 	 * This will load the different settings associated with a game, i.e the 
 	 * description of the game and whether or not it is ready to be played.
@@ -99,7 +100,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 		List<String> allGameNames = getAllGameNames();
 		for(String gameName: allGameNames)
 		{
-			Map<String,String> gameSettings = loadSettings(gameName);
+			Map<String,String> gameSettings = getSettingsMap(gameName);
 			if(Boolean.parseBoolean(gameSettings.get(READY)))
 			{
 				gameNames.put(gameName, gameSettings.get(DESCRIPTION));

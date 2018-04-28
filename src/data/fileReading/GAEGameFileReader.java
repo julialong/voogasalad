@@ -24,6 +24,7 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	 */
 	public GAEGameFileReader() 
 	{
+		//Constructor is empty
 	}
 	
 	/**
@@ -40,18 +41,14 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) throws DataFileException {
 		List<AuthoredLevel> completeGame = new ArrayList<>();
 		File currentGame = new File(getCurrentGamePath(gameName));
-		System.out.println("current game " + currentGame.toString());
 		File[] gameFiles = currentGame.listFiles();
-		System.out.println("current game files " + gameFiles);
 		for(File gameFile: gameFiles)
 		{
-				System.out.println("gameFile " + gameFile.toString());
 				int index = gameFile.toString().lastIndexOf(NEST) + 1;
 				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
 				if(!levelName.equals(SETTINGS))
 				{
-					System.out.println("level name " +levelName);
 					completeGame.add(loadAuthoredGameLevel(gameName, levelName));
 				}		
 		}
@@ -71,7 +68,6 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	@Override
 	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) throws DataFileException {
 		File level = getLevel(gameName, levelName);
-		System.out.println("authored level " + level);
 		AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
 		return authoredBuilder.buildAuthoredLevel();
 	}
