@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import data.builders.LevelBuilder;
+import data.levelBuilders.LevelBuilder;
 import data.resources.DataFileException;
 import engine.level.Level;
 /**

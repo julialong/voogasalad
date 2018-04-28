@@ -1,4 +1,4 @@
-package data.builders;
+package data.levelBuilders;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,6 +22,7 @@ import data.serialization.Serializer;
 import engine.entity.GameEntity;
 import engine.level.BasicLevel;
 import engine.level.Level;
+import javafx.scene.paint.Color;
 
 /**
  * Creates levels to return to the Game Player when a 
@@ -34,8 +35,7 @@ public class LevelBuilder {
 
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
 	private static final String NAME = "name";
-	private static final String ID = "id";
-	private int levelID;
+	private static final String COLOR = "color";
 	private Map<String,Class<?>> objectTypes;
 	private Serializer deserializer; 
 	private File levelFile;
@@ -117,10 +117,10 @@ public class LevelBuilder {
 	private void addMetaData(Level level, JsonObject jobject)
 	{
 		String levelName = jobject.get(NAME).getAsString();
-		levelID = jobject.get(ID).getAsInt();
+		Color color = Color.web(jobject.get(COLOR).getAsString());
 		
 		level.setName(levelName);
-//		level.setID(id);
+		level.setColor(color);
 	}
 	
 	/**
@@ -177,9 +177,5 @@ public class LevelBuilder {
 		System.out.println();
 		System.out.println("toConvert " + toConvert + "objectType " + objectType);
 		return deserializer.deserialize(toConvert.toString(), objectTypes.get(objectType));
-	}
-	
-	public int getLevelID() {
-		return levelID;
 	}
 }
