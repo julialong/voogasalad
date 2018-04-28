@@ -9,7 +9,7 @@ import engine.entity.GameEntity;
  * @author Marcus Oertle and Robert Gitau
  *
  */
-public abstract class Action {
+public abstract class Action{
 	/**
 	 * Carries out the given action on a given entity
 	 * 

@@ -20,7 +20,7 @@ public class TestingWriting {
 
 	public static void main(String[] args) {
 		try {
-		GameFileWriter myWriter = new GameFileWriter("Kelley", "TestImage");
+		GameFileWriter myWriter = new GameFileWriter("Belanie", "ErrorWithEnemies");
 
 		FileWriter fw;
 
@@ -100,7 +100,7 @@ public class TestingWriting {
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
 		// line below causes data error
-		//enemy2.addBehavior(new MoveForward(new Player()));
+		enemy2.addBehavior(new MoveForward(new Player()));
 		enemy2.addInteraction(new DamageOnStomp());
 		enemy2.addInteraction(new KnockBack());
 		enemy2.setHealth(1);
