@@ -205,6 +205,10 @@ public abstract class GameObject implements GameEntity{
 	public String getElementID() {
 		return myElementID;
 	}
+	
+	public List<Behavior> getBehaviorList() {
+		return behaviorList;
+	}
 
 	public void update() {
 		interactionsMap.clear();

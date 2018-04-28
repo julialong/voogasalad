@@ -3,9 +3,9 @@ package data.dummyObjects;
 import java.io.File;
 import java.lang.reflect.Field;
 
-import data.builders.LevelBuilder;
 import data.fileReading.GAEGameFileReader;
 import data.fileReading.GPGameFileReader;
+import data.levelBuilders.LevelBuilder;
 import data.resources.DataFileException;
 
 
@@ -37,7 +37,7 @@ public class TestingGSON {
 		
 		GAEGameFileReader gae = new GAEGameFileReader();
 		try {
-			System.out.println(gae.loadAuthoredGameLevel("Untitled_Game", "Blah_Maya"));
+			System.out.println(gae.loadCompleteAuthoredGame("ErrorWithEnemies"));
 		} catch (DataFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
