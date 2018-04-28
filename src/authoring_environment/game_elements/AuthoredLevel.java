@@ -76,7 +76,7 @@ public class AuthoredLevel implements DocumentGetter {
      * @param y
      */
     public void setSize(double x, double y) {
-        myScrollingGrid = new ScrollingGrid((int)x, (int)y);
+        myScrollingGrid.resize((int)x, (int)y);
     }
 
     public int[] getSize() {
@@ -127,7 +127,6 @@ public class AuthoredLevel implements DocumentGetter {
         newEntity.addInteraction(createInteraction(interaction));
         // newEntity.addPowerUp(createPowerUp(powerup));
         myLevel.addObject(newEntity);
-        System.out.println("item added: " + newEntity.getClass() + " at " + x + ", " + y);
         return newEntity;
     }
 

@@ -6,10 +6,14 @@ import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.RightBar;
 import authoring_environment.toolbars.TopBar;
+import data.fileReading.GAEGameFileReader;
+import data.fileReading.GameFileReader;
+import data.fileReading.JSONtoGAE;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -37,6 +41,26 @@ public class EditorWindow implements CreatorView {
 	public EditorWindow(Stage stage, AuthoredGame game) {
 		myStage = stage;
 		myGame = game;
+		openNewWindow();
+	}
+
+	/**
+	 * Creates a new EditorWindow with a specific game name
+	 * This constructor is specifically for use by the Player, who does not have access
+	 * to AuthoredGame objects.
+	 * @param stage is the current stage
+	 * @param gameName is the game name
+	 * @param gameDescription is the game description
+	 */
+	public EditorWindow(Stage stage, String gameName, String gameDescription) {
+		JSONtoGAE reader = new GAEGameFileReader();
+		myStage = stage;
+		try {
+			myGame = new AuthoredGame(gameName, gameDescription, reader.loadCompleteAuthoredGame(gameName));
+		}
+		catch (Exception e) {
+			myGame = new AuthoredGame();
+		}
 		openNewWindow();
 	}
 
@@ -94,8 +118,8 @@ public class EditorWindow implements CreatorView {
 
 	}
 
-	private SplitPane setRightBar() {
-		SplitPane rightBar = new RightBar(this, myScrollPane);
+	private Pane setRightBar() {
+		Pane rightBar = new RightBar(this, myScrollPane);
 		rightBar.getStyleClass().add("side-pane");
 		return rightBar;
 	}

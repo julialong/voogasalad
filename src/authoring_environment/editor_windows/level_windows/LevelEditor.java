@@ -27,6 +27,8 @@ public class LevelEditor extends LevelModifications{
     private static final String EDITING = "Editing: ";
     private static final String SAVE_EDITS = "Save edited level";
 
+    private static final String SET_SIZE = "Set size";
+
     private Stage myStage;
     private Scene myScene;
     private BorderPane myRoot;
@@ -34,6 +36,8 @@ public class LevelEditor extends LevelModifications{
 
     private AuthoredLevel myLevel;
     private TextField indexInput;
+    private TextField xSizeInput;
+    private TextField ySizeInput;
 
     public LevelEditor(CreatorView window, AuthoredLevel level) {
         myWindow = window;
@@ -71,9 +75,22 @@ public class LevelEditor extends LevelModifications{
         center.getStyleClass().add("level-center");
         createUploadImageButton(myStage, myLevel, center);
         createBackgroundColorPicker(myLevel, center);
+        createSizeChooser(center);
         createIndexChooser(center);
         createSaveButton(center);
         myRoot.setCenter(center);
+    }
+
+    private void createSizeChooser(Pane pane) {
+        Text xField = new Text("X size: ");
+        xSizeInput = new TextField(Integer.toString(myLevel.getSize()[0]));
+        HBox x = new HBox(xField, xSizeInput);
+        Text yField = new Text("Y size: ");
+        ySizeInput = new TextField(Integer.toString(myLevel.getSize()[1]));
+        HBox y = new HBox(yField, ySizeInput);
+        Text setSize = new Text(SET_SIZE);
+        setSize.setFont(new Font(SMALL_FONT));
+        pane.getChildren().addAll(setSize, x, y);
     }
 
     private void createIndexChooser(Pane pane) {
@@ -90,6 +107,7 @@ public class LevelEditor extends LevelModifications{
     }
 
     private void saveEdits() {
+        myLevel.setSize(Integer.parseInt(xSizeInput.getText()), Integer.parseInt(ySizeInput.getText()));
         myWindow.getGame().removeLevel(myLevel);
         myWindow.getGame().addLevel(Integer.parseInt(indexInput.getText()), myLevel);
         myStage.close();
