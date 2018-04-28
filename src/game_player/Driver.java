@@ -1,11 +1,6 @@
-/**
- * Main class called to run the game player application.
- */
 package game_player;
 
-import game_player_api.GameChooser;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -14,14 +9,6 @@ import javafx.stage.Stage;
  * @author Dorian Barber, Kelley Scroggs
  */
 public class Driver extends Application {
-	
-	private VController myController;
-	private PlayerView myView;
-	private GameChooser gameChooser;
-	
-	
-	private static final String TITLE = "GAME PLAYER";
-	
 	/**
 	 * Creates the UI for the application
 	 */
@@ -30,14 +17,9 @@ public class Driver extends Application {
 		new VoogaChooser(primaryStage);
 	}
 
-	private void createChooser(){
-		gameChooser = new VoogaChooser();
-	}
 
 	/**
 	 * Runs the Game Player application
-	 * 
-	 * @param args
 	 */
 	public static void main(String[] args) {
 		launch(args);

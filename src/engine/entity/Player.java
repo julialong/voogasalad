@@ -1,7 +1,9 @@
 package engine.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import engine.behavior.Behavior;
 import engine.interaction.Interaction;
 import engine.movement.*;
 import engine.physics.Kinematics;
@@ -15,7 +17,8 @@ import javafx.scene.image.ImageView;
  */
 public class Player extends PlayerCharacter{
     private Weapon weaponType;
-    private ArrayList<PowerUp> powerupArrayList = new ArrayList<>();
+    private ArrayList<PowerUp> powerupList = new ArrayList<>();
+    private boolean levelComplete = false;
 
     public Player() {
         this(0,0);
@@ -40,13 +43,40 @@ public class Player extends PlayerCharacter{
 	}
 
 	public void addPowerUp(PowerUp power) {
-        if(powerupArrayList.contains(power)){
-            powerupArrayList.remove(power);
+        if(powerupList.contains(power)){
+        	power.deactivate();
+        	powerupList.remove(power);
         }
-        powerupArrayList.add(power);
+        powerupList.add(power);
 	}
 
 	public void removePowerUp(PowerUp power) {
-        powerupArrayList.remove(power);
+		powerupList.remove(power);
+	}
+	
+	@Override
+	public void update() {
+		interactionsMap.clear();
+		ArrayList<PowerUp> toRemove = new ArrayList<>();
+		for(PowerUp powerup : powerupList) {
+			if(powerup.update()) {
+				toRemove.add(powerup);
+			}
+		}
+		for(PowerUp powerup : toRemove) {
+			powerupList.remove(powerup);
+		}
+		toRemove.clear();
+		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
+	}
+
+	@Override
+	public void setLevelComplete(boolean levelComplete) {
+		this.levelComplete = levelComplete;
+	}
+
+	@Override
+	public boolean getLevelComplete() {
+		return levelComplete;
 	}
 }

@@ -1,5 +1,7 @@
 package engine.entity;
 
+import java.util.List;
+
 import engine.powerup.PowerUp;
 import engine.weapon.Weapon;
 
@@ -39,4 +41,15 @@ public abstract class PlayerCharacter extends GameObject{
 	 *            the PowerUp to be removed.
 	 */
 	public abstract void removePowerUp(PowerUp power);
+	
+	/**
+	 * Sets the levelComplete boolean, true if the level is complete
+	 * @param levelComplete - boolean, true if the level is complete
+	 */
+	public abstract void setLevelComplete(boolean levelComplete);
+	
+	/**
+	 * Gets the levelComplete boolean, true if the level is complete
+	 */
+	public abstract boolean getLevelComplete();
 }

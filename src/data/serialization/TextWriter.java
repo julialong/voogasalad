@@ -151,6 +151,10 @@ public class TextWriter	{
 	private Map<String, List<Object>> sortObjects(List<GameEntity> objsToWrite)	{
 		Map<String, List<Object>> objsOrganized = new HashMap<>();	
 
+		// for (GameEntity obj:objsToWrite)	{
+		// 	obj.clearInteractionMap();
+		// }
+
 		for (Object obj:objsToWrite)	{
 			String oc = obj.getClass().getSimpleName();
 
