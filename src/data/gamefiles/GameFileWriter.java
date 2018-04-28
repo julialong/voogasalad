@@ -24,6 +24,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static final String LEVELDATA = "./data/levelData/";
 	private static final String NEST = File.separator;
 	private static final String SETTINGS = "Settings";
+	private static final String ORDERS = "LevelOrder";
 	private static final String EXTENSION = ".json";
 
 	private String userDirectory;
@@ -51,13 +52,11 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	@Override
 	public void update(List<AuthoredLevel> changes) throws DataFileException	{
-		int i = 0;
+		new TextWriter(new File(gameDirectory + NEST + ORDERS + EXTENSION), changes);
 
 		for (AuthoredLevel aLevel:changes)	{
-			aLevel.getLevel().setID(i);
 			saveData(aLevel);
 			System.out.println("saved " + aLevel.toString());
-			i++;
 		}
 	}
 
