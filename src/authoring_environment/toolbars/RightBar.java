@@ -69,7 +69,7 @@ public class RightBar extends VBox{
 
     private void addButtons() {
         Button elementButton = new AddElementButton();
-        myDeleteButton = new DeleteGridCellButton(myGrid);
+        myDeleteButton = new DeleteGridCellButton(myWindow);
         myTypeBox = new ElementTypeBox(this);
         elementPane.getChildren().add(elementButton);
         elementPane.getChildren().add(myTypeBox);
