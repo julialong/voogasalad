@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Application for running the Game Chooser. The purpose is to let
@@ -33,6 +34,7 @@ public class VoogaChooser implements GameChooser {
     private HBox myView =  new HBox();
     private JSONtoGP reader = new GPGameFileReader();
     private ListView<GameItem> playableGames = new ListView<>();
+    private ResourceBundle rb;
 
     public VoogaChooser(Stage stage){
         myStage = stage;
@@ -40,7 +42,7 @@ public class VoogaChooser implements GameChooser {
     }
 
     /**
-     * Sets up the stage for the vooga chooser
+     * Sets up the stage for the game chooser application
      */
     private void setUpStage(){
         myStage.setTitle("Game Chooser");
