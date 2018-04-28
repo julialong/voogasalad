@@ -27,6 +27,7 @@ public class PlayerView extends VBox {
 	private VoogaGameView myGameView;
 	private JSONtoGP reader = new GPGameFileReader();
 	private String myName;
+	private String myDescription;
 	private ScoreKeeper myHighScores = new ScoreKeeper();
 
 	public PlayerView() {
@@ -37,10 +38,11 @@ public class PlayerView extends VBox {
 		setMiddle();
 	}
 
-	public PlayerView(List<Level> game, String name) {
+	public PlayerView(List<Level> game, String name, String description) {
 		super();
 		gameMaterial = game;
 		myName = name;
+		myDescription = description;
 		createGView();
 		createMenuBar();
 		setViewTop();
@@ -138,7 +140,7 @@ public class PlayerView extends VBox {
 		gaeButton.setOnMouseClicked(e ->{
 			myGameView.pauseGame();
 			Stage stage = new Stage();
-			EditorWindow window = new EditorWindow(stage);
+			EditorWindow window = new EditorWindow(stage, myName, myDescription);
 
 		});
 		myMenuBar.addButton(gaeButton);

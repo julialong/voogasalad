@@ -218,7 +218,6 @@ public class VoogaGameView implements GameView {
 	 */
 	public void changeBinding(String propKey, KeyCode keyCode) {
 		try {
-			// TODO: Fix this deprecated code eventually
 			Object instance = Class.forName("engine.controls." + propKey).newInstance();
 			Action a = (Action) instance;
 			myControls.setBinding(keyCode, a);

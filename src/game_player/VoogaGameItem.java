@@ -41,10 +41,10 @@ public class VoogaGameItem extends Label implements GameItem {
      * with the specific game that this item represents
      */
     @Override
-    public void setUpGame(List<Level> gameMaterials, String name){
+    public void setUpGame(List<Level> gameMaterials){
         PlayerView gameView;
         try{
-            gameView = new PlayerView(gameMaterials, name);
+            gameView = new PlayerView(gameMaterials, gameName, gameDescription);
         } catch(NullPointerException e){
             gameView = new PlayerView();
         }

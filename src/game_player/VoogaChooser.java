@@ -41,6 +41,7 @@ public class VoogaChooser implements GameChooser {
         setUpStage();
     }
 
+
     /**
      * Sets up the stage for the game chooser application
      */
@@ -52,6 +53,7 @@ public class VoogaChooser implements GameChooser {
         myStage.show();
     }
 
+
     /**
      * Occurs once the user has selected the game to play. This method will close the
      * current application and run the GameView application
@@ -60,6 +62,7 @@ public class VoogaChooser implements GameChooser {
     public String sendToGame() {
         return null;
     }
+
 
     /**
      * This will represent the extensive list of developed games that the
@@ -100,7 +103,7 @@ public class VoogaChooser implements GameChooser {
             try{
                 GameItem game = gameChoices.getSelectionModel().getSelectedItem();
                 System.out.println(game.getGameName());
-                game.setUpGame(reader.loadCompleteGame(game.getGameName()), game.getGameName());
+                game.setUpGame(reader.loadCompleteGame(game.getGameName()));
                 Stage currentStage = (Stage) myView.getScene().getWindow();
                 currentStage.close();
             }
@@ -113,6 +116,7 @@ public class VoogaChooser implements GameChooser {
             }
         });
     }
+
 
     /**
      * Creates the display on the left side of the screen
