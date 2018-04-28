@@ -2,6 +2,7 @@ package data.gamefiles;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import authoring_environment.game_elements.AuthoredLevel;
@@ -52,12 +53,15 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	@Override
 	public void update(List<AuthoredLevel> changes) throws DataFileException	{
-		new TextWriter(new File(gameDirectory + NEST + ORDERS + EXTENSION), changes);
+		List<Level> levelChanges  = new ArrayList<>();
 
 		for (AuthoredLevel aLevel:changes)	{
+			levelChanges.add(aLevel.getLevel());
 			saveData(aLevel);
 			System.out.println("saved " + aLevel.toString());
 		}
+
+		new TextWriter(new File(gameDirectory + NEST + ORDERS + EXTENSION), levelChanges);
 	}
 
 	/**
@@ -106,6 +110,8 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	@Override
 	public void saveData(String player, List<Level> levels) throws DataFileException	{
+		new TextWriter(new File(gameDirectory + NEST + ORDERS + EXTENSION), levels);
+
 		for (Level aLevel:levels)	{
 			new TextWriter(new AuthoredLevel(aLevel, new ScrollingGrid()), getLevel(aLevel, player));
 		}
