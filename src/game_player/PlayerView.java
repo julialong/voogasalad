@@ -1,12 +1,12 @@
 package game_player;
 
+import authoring_environment.editor_windows.EditorWindow;
 import engine.level.Level;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.util.List;
 import data.fileReading.GPGameFileReader;
@@ -27,6 +27,7 @@ public class PlayerView extends VBox {
 	private VoogaGameView myGameView;
 	private JSONtoGP reader = new GPGameFileReader();
 	private String myName;
+	private String myDescription;
 	private ScoreKeeper myHighScores = new ScoreKeeper();
 
 	public PlayerView() {
@@ -37,10 +38,11 @@ public class PlayerView extends VBox {
 		setMiddle();
 	}
 
-	public PlayerView(List<Level> game, String name) {
+	public PlayerView(List<Level> game, String name, String description) {
 		super();
 		gameMaterial = game;
 		myName = name;
+		myDescription = description;
 		createGView();
 		createMenuBar();
 		setViewTop();
@@ -133,6 +135,16 @@ public class PlayerView extends VBox {
 		});
 		myMenuBar.addButton(keysButton);
 
+		//Go to the Game Authoring Environment
+		VButton gaeButton = new VButton("Edit Game");
+		gaeButton.setOnMouseClicked(e ->{
+			myGameView.pauseGame();
+			Stage stage = new Stage();
+			EditorWindow window = new EditorWindow(stage, myName, myDescription);
+
+		});
+		myMenuBar.addButton(gaeButton);
+
 		// Reset game
 		VButton resetButton = new VButton("Reset");
 		resetButton.setOnMouseClicked(e -> resetGame());
@@ -141,8 +153,6 @@ public class PlayerView extends VBox {
 
 	/**
 	 * launches a new homescreen
-	 * 
-	 * @param gameApplication2
 	 */
 	private void goHome() {
 		OverViewDriver relaunch = new OverViewDriver();
@@ -151,15 +161,12 @@ public class PlayerView extends VBox {
 		} catch (Exception e) {
 			System.out.println("Failed to relaunch");
 		}
-		;
 	}
 
 	/**
 	 * Adds the menubar to the top of the game player UI.
 	 */
 	private void setViewTop() {
-		// this.setTop(new Rectangle(100, 100, Color.BLUE));
-		// TODO: menubar class
 		this.getChildren().add(myMenuBar.getNode());
 	}
 
@@ -169,7 +176,6 @@ public class PlayerView extends VBox {
 	private void setMiddle() {
 		this.getChildren().add(myGameView.getNode());
 		myGameView.startGame();
-		// TODO: gameView class
 	}
 
 	/**

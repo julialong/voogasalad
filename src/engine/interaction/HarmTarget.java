@@ -4,7 +4,7 @@ import engine.entity.GameEntity;
 
 /**
  * The source harms the target.
- * @author Rob
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class HarmTarget implements Interaction{
