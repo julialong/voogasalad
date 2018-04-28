@@ -100,8 +100,6 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 				newCells[i][j] = cellArray[i][j];
 			}
 		}
-		System.out.println(cellArray.length + " : " + newCells.length);
-		System.out.println(cellArray[0].length + " : " + newCells[0].length);
 		rows = x;
 		cols = y;
 		cellArray = newCells;
