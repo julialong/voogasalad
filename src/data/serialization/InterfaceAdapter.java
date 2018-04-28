@@ -21,7 +21,6 @@ import com.google.gson.JsonSerializer;
 
 import data.resources.DataFileException;
 import engine.behavior.MoveForward;
-import model.Model;
 /**
  * @author Stack Overflow Post, Belanie Nagiel
  * 
