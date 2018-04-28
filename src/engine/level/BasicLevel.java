@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * The BasicLevel class is the basic implementation of the Level interface.
  *
- * @author Robert Gitau, Marcus Oertle, Julia Long, Michael Acker
+ * @author Julia Long,Robert Gitau, Marcus Oertle, Michael Acker
  */
 public class BasicLevel implements Level {
 
