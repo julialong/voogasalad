@@ -1,5 +1,7 @@
 package engine.entity;
 
+import java.util.List;
+
 import engine.powerup.PowerUp;
 import engine.weapon.Weapon;
 
@@ -39,4 +41,15 @@ public abstract class PlayerCharacter extends GameObject{
 	 *            the PowerUp to be removed.
 	 */
 	public abstract void removePowerUp(PowerUp power);
+	
+	/**
+	 * Sets the power ups list
+	 * @param powerUpsList
+	 */
+	public abstract void setPowerUpsList(List powerUpsList);
+	
+	/**
+	 * Returns the power up list
+	 */
+	public abstract List getPowerUpsList();
 }
