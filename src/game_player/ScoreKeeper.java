@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 public class ScoreKeeper {
 
 	private final int MIN_WINDOW_WIDTH = 600;
-	public ResourceBundle myKeys;
+	private ResourceBundle myKeys;
 
 	/**
 	 * launches a new window to display the high scores.
