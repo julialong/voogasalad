@@ -5,8 +5,6 @@ import data.fileReading.JSONtoGP;
 import data.resources.DataFileException;
 import game_player_api.GameChooser;
 import game_player_api.GameItem;
-
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
