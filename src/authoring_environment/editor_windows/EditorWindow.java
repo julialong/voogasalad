@@ -12,6 +12,7 @@ import data.fileReading.JSONtoGAE;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -111,6 +112,7 @@ public class EditorWindow implements CreatorView {
 		myScene = new Scene(myRoot);
 		myScene.getStylesheets().add("GAE.css");
 		myStage.setMaximized(true);
+		myStage.getIcons().add(new Image("./authoring_environment/editor_windows/PencilIcon.png"));
 		myGrid = myGame.getCurrentLevel().getScrollingGrid();
 		myRoot.setTop(new TopBar(this));
 		myRoot.setCenter(setCenterGrid());
