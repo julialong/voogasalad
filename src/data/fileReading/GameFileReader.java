@@ -74,7 +74,6 @@ public abstract class GameFileReader {
 		{
 			int index = gamePath.lastIndexOf(NEST) + 1;
 			String game = gamePath.substring(index);
-			System.out.println("gameName " + game);
 			if(game.equals(gameName))
 			{
 				return gamePath;

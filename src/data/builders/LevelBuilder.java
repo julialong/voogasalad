@@ -135,6 +135,8 @@ public class LevelBuilder {
 		
 		for(String objectType: objectTypes.keySet())
 		{
+			System.out.println();
+			System.out.println("Object type " + objectType);
 			if(jobject.has(objectType))
 			{
 				gameObjects.addAll(retrieveObjectsOfType(jobject, objectType));
@@ -155,6 +157,7 @@ public class LevelBuilder {
 		JsonArray jarray = jobject.getAsJsonArray(objectType);
 		for(int i = 0; i < jarray.size(); i++)
 		{
+			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
 			newObjectsOfType.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
 		}
 		return newObjectsOfType;
@@ -171,6 +174,8 @@ public class LevelBuilder {
 	 */
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
+		System.out.println();
+		System.out.println("toConvert " + toConvert + "objectType " + objectType);
 		return deserializer.deserialize(toConvert.toString(), objectTypes.get(objectType));
 	}
 	
