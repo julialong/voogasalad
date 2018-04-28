@@ -108,24 +108,10 @@ public class VoogaGameView implements GameView {
 			System.out.println("imgPath: "+imgPath);
 			ImageView entityImage = new ImageView(new Image(imgPath,
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
-			// TODO: uncomment below once GAE sends us actual data
-			// if (ge.getClass().equals(new Player().getClass())) {
-			// myControls = new Controls((Player) ge);
-			// }
-			// ImageView entityImage = new ImageView(new
-			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
-			// ge.getSizeY(), true, true));
 
-			//entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
-			//entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
-
-			entityImage.setX(ge.getKinematics().getX());
-			entityImage.setY(ge.getKinematics().getY());
-			System.out.println(entityImage.getImage().getUrl());
-			System.out.println("XCOR: " + ge.getKinematics().getX() + "\nYCOR: " + ge.getKinematics().getY());
-			System.out.println("X-SIZE: " + ge.getSizeX() + "\nY-SIZE: " + ge.getSizeY());
+			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
+			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
 			myDispMap.put(ge, entityImage);
-			System.out.println(myDispMap.get(ge).getImage().getUrl());
 			myGP.getChildren().add(myDispMap.get(ge));
 		}
 	}
