@@ -19,7 +19,9 @@ import com.google.gson.JsonSyntaxException;
 
 import data.resources.DataFileException;
 import data.serialization.Serializer;
+import engine.behavior.Behavior;
 import engine.behavior.MoveForward;
+import engine.entity.Foes;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
@@ -165,10 +167,18 @@ public class LevelBuilder {
 				System.out.println("HERE OMG: " + ge);
 				player = (Player) ge;
 			}
-			if(ge.getClass().equals(MoveForward.class))
+			if(ge.getClass().equals(Foes.class))
 			{
-//				MoveForward mf = (MoveForward) ge;
-				ge = (GameEntity) new MoveForward(player);
+				for(Behavior b: ((Foes)ge).getBehaviorList())
+				{
+					if(b.getClass().equals(MoveForward.class))
+					{
+						System.out.println("IS THERE ACTUALLY EVER A MOVE FORWARD LMK");
+						((MoveForward)b).setPlayer(player);
+					}
+				}
+////				MoveForward mf = (MoveForward) ge;
+//				ge = (GameEntity) new MoveForward(player);
 			}
 			newObjectsOfType.add(ge);
 		}
