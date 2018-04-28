@@ -12,7 +12,7 @@ import javafx.scene.input.KeyCode;
  * Takes keyCodes and turns them into info to make a player move.
  * @author Marcus Oertle and Robert Gitau
  */
-public class Controls {
+public class Controls implements Control{
 	private Player player;
 	private Map<KeyCode, Action> keyBindings = new HashMap<>();
 	private ArrayList<KeyCode> pressedKeys = new ArrayList<>();
