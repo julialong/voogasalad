@@ -9,6 +9,7 @@ import engine.level.Level;
 import engine.movement.Movement;
 import engine.powerup.PowerUp;
 import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
@@ -62,12 +63,25 @@ public class AuthoredLevel implements DocumentGetter {
     }
 
     /**
+     * Sets the background color of the level object
+     * @param color is the desired background color
+     */
+    public void setColor(Color color) {
+        myLevel.setColor(color);
+    }
+
+    /**
      * Sets the new size of the level
      * @param x
      * @param y
      */
     public void setSize(double x, double y) {
-        // TODO: set size of level
+        myScrollingGrid.resize((int)x, (int)y);
+    }
+
+    public int[] getSize() {
+        int[] lengthArray = {myScrollingGrid.getCellArray().length, myScrollingGrid.getCellArray()[0].length};
+        return lengthArray;
     }
 
     /**
@@ -113,7 +127,6 @@ public class AuthoredLevel implements DocumentGetter {
         newEntity.addInteraction(createInteraction(interaction));
         // newEntity.addPowerUp(createPowerUp(powerup));
         myLevel.addObject(newEntity);
-        System.out.println("item added: " + newEntity.getClass());
         return newEntity;
     }
 

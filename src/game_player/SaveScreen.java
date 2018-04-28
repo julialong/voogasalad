@@ -1,6 +1,8 @@
 package game_player;
 
 import java.util.List;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import data.gamefiles.GameFileWriter;
 import data.resources.DataFileException;
 import engine.level.Level;
@@ -11,15 +13,21 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/**
+ * The interface used for saving the current status of the game
+ *
+ * @Author Dorian Barber, Kelley Scroggs
+ */
 public class SaveScreen {
-	private final int MIN_WINDOW_WIDTH = 600;
+	private static final int MIN_WINDOW_WIDTH = 600;
 	private List<Level> myLevels;
 	private String myName;
 	private Stage myStage;
+	private ResourceBundle rb;
+	private int window_width;
 
 	/**
 	 * Launches the save game screen.
@@ -28,6 +36,8 @@ public class SaveScreen {
 	 * @param name
 	 */
 	public SaveScreen(List<Level> gameMaterial, String name) {
+		rb = ResourceBundle.getBundle("game_player.resources.saves_screen");
+		window_width = Integer.parseInt(getResourceValue("window_width"));
 		myLevels = gameMaterial;
 		myName = name;
 		setUpStage();
@@ -38,10 +48,10 @@ public class SaveScreen {
 	 */
 	private void setUpStage() {
 		myStage = new Stage();
-		myStage.setTitle("Save My Progress");
-		myStage.setMinWidth(MIN_WINDOW_WIDTH);
-		Scene scene = new Scene(this.displayFields(), MIN_WINDOW_WIDTH, MIN_WINDOW_WIDTH);
-		scene.getStylesheets().add("./game.player.styling/saveScreenStyle.css");
+		myStage.setTitle(getResourceValue("title"));
+		myStage.setMinWidth(window_width);
+		Scene scene = new Scene(this.displayFields(), window_width, window_width);
+		scene.getStylesheets().add(getResourceValue("style_sheet"));
 		myStage.setScene(scene);
 		myStage.show();
 	}
@@ -53,7 +63,7 @@ public class SaveScreen {
 	 */
 	private HBox displayFields() {
 		HBox hbox = new HBox();
-		hbox.getStyleClass().add("hbox");
+		hbox.getStyleClass().add(getResourceValue("hbox_style"));
 		TextField textField = new TextField();
 		Button save = new Button("Save");
 		save.setOnAction(new EventHandler<ActionEvent>() {
@@ -62,9 +72,9 @@ public class SaveScreen {
 				try	{
 					if(textField.getText() != null && textField.getText() != "") {
 						String currName = textField.getText();
-						GameFileWriter gfw = new GameFileWriter("Playing", myName + "_" + currName);
+						GameFileWriter gfw = new GameFileWriter(getResourceValue("username"), myName + getResourceValue("game_connector") + currName);
 						gfw.saveData(currName, myLevels);
-						gfw.updateMeta(true, "game being played by " + currName, 0);	// TODO: change 0 to level player wants so end at
+						gfw.updateMeta(true, getResourceValue("metadata") + currName, 0);	// TODO: change 0 to level player wants so end at
 						myStage.close();
 					}
 				}
@@ -80,4 +90,17 @@ public class SaveScreen {
 		return hbox;
 	}
 
+
+	/**
+	 * Returns the information withheld in the overview.properties file
+	 * The parameter is a string which represents the key for the properties file.
+	 */
+	private String getResourceValue(String key){
+		try{
+			return rb.getString(key);
+		}
+		catch (NullPointerException|MissingResourceException |ClassCastException e){
+			return "";
+		}
+	}
 }

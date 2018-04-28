@@ -1,11 +1,12 @@
 package game_player_api;
 
-import data.gamefiles.JSONtoObject;
 import engine.level.Level;
 import javafx.scene.control.ListCell;
 
 import java.util.List;
 import java.util.Map;
+
+import data.fileReading.JSONtoObject;
 
 /**
  * Represents each individual item within the GameChooser visual display
@@ -21,9 +22,8 @@ public interface GameItem {
      * Sets up the Game view application environment
      * with the specific game that this item represents
      * @param string 
-     * @param string 
      */
-    public void setUpGame(List<Level> gameLevels, String string);
+    public void setUpGame(List<Level> gameLevels);
 
     /**
      * Alters toString method to return a properly formatted
