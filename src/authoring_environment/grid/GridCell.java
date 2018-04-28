@@ -111,6 +111,8 @@ public class GridCell extends HBox {
 		myDataDoc = myGrid.parseElementXML(ID);
 		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
 		myType = myDataDoc.getDocumentElement().getAttribute("GameEntity");
+		myXDim = Integer.parseInt(myDataDoc.getDocumentElement().getAttribute("XDimension"));
+		myYDim = Integer.parseInt(myDataDoc.getDocumentElement().getAttribute("YDimension"));
 		myCellView.setImage(new Image("file:" + path));
 		//TODO: Get Dimensions from file
 		this.setSize(mySize);
