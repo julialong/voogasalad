@@ -19,6 +19,7 @@ import com.google.gson.JsonSyntaxException;
 
 import data.resources.DataFileException;
 import data.serialization.Serializer;
+import engine.behavior.MoveForward;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
@@ -137,8 +138,6 @@ public class LevelBuilder {
 		
 		for(String objectType: objectTypes.keySet())
 		{
-			System.out.println();
-			System.out.println("Object type " + objectType);
 			if(jobject.has(objectType))
 			{
 				gameObjects.addAll(retrieveObjectsOfType(jobject, objectType));
@@ -163,7 +162,13 @@ public class LevelBuilder {
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
 			if(ge.getClass().equals(Player.class))
 			{
-				System.out.println(ge);
+				System.out.println("HERE OMG: " + ge);
+				player = (Player) ge;
+			}
+			if(ge.getClass().equals(MoveForward.class))
+			{
+//				MoveForward mf = (MoveForward) ge;
+				ge = (GameEntity) new MoveForward(player);
 			}
 			newObjectsOfType.add(ge);
 		}
