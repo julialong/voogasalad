@@ -135,6 +135,10 @@ public class TextWriter	{
 			checkWriteComma(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
 		}
 
+		for (GameEntity obj:items)	{
+			obj.clearInteractionMap();
+		}
+
 		int entryIndex = 0;
 		Map<String, List<Object>> objsOrganized = sortObjects(items);
 		for (Map.Entry entry:objsOrganized.entrySet())	{
