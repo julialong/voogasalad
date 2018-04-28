@@ -23,6 +23,7 @@ import engine.interaction.Pushable;
 import engine.level.*;
 import engine.movement.Grounded;
 import engine.movement.LinearGrounded;
+import engine.powerup.LightWeight;
 import engine.powerup.SpeedBoost;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -132,7 +133,8 @@ public class EngineTestVisual extends Application{
 		player.setJumpFactor(150);
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
-		wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
+		//dwall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
+		wall.addInteraction(new AddPowerup(new LightWeight(5, player)));
 		level.addObject(block);
 		//level.addObject(enemy);
 		level.addObject(wall);
