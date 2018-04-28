@@ -59,8 +59,8 @@ public class LevelBuilder {
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
-		behaviorsToSkip = new ArrayList<>();
-		buildBehaviorSkipMap();
+//		behaviorsToSkip = new ArrayList<>();
+//		buildBehaviorSkipMap();
 		deserializer = new Serializer();
 		
 		levelFile = level;
@@ -165,8 +165,28 @@ public class LevelBuilder {
 		{
 //			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
-			checkPlayer(ge);
-			checkFoe(ge);
+//			checkPlayer(ge);
+			if(ge.getClass().equals(Player.class))
+			{
+//				System.out.println("HERE OMG: " + ge);
+				player = (Player) ge;
+			}
+//			checkFoe(ge);
+			if(ge.getClass().equals(Foes.class))
+			{
+//				System.out.println("IM DOING THE THING AND SETTING IT");
+				for(Behavior b: ((Foes)ge).getBehaviorList())
+				{
+					System.out.println(b.getClass().toString());
+//					if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
+//					{
+					if(b.getClass().equals(MoveForward.class))
+					{
+//						System.out.println("THIS IS A MOVE FORWARD ALERT");
+						((MoveForward)b).setPlayer(player);	
+					}
+				}
+			}
 //			System.out.println(ge.getScenePosition());
 			newObjectsOfType.add(ge);
 		}
