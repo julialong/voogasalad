@@ -127,7 +127,6 @@ public class AuthoredLevel implements DocumentGetter {
         newEntity.addInteraction(createInteraction(interaction));
         // newEntity.addPowerUp(createPowerUp(powerup));
         myLevel.addObject(newEntity);
-        System.out.println("item added: " + newEntity.getClass() + " at " + x + ", " + y);
         return newEntity;
     }
 
