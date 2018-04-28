@@ -75,7 +75,6 @@ public interface Level {
 	 * @return color of level
 	 */
 	String getColor();
-
     
     /**
      * Updates the contents of the level
