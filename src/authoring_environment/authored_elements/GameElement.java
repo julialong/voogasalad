@@ -34,6 +34,7 @@ public class GameElement implements AuthoredElement {
 	 */
 	public GameElement() {
 		attributes = new HashMap<>();
+	
 		
 	}
 

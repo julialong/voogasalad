@@ -53,15 +53,15 @@ public class CustomElementSaver {
 		
 	}
 	
-	private void updateAttributes(Map<String, String> attributes, String imageFile, String xDimension, String yDimension) throws TransformerException {
+	private void updateAttributes(Map<String, String> attributes, String imageFile, String x, String y) throws TransformerException {
 		Element customElement = doc.createElement("Attributes");
 		doc.appendChild(customElement);
 		for(String attribute: attributes.keySet()) {
 			customElement.setAttribute(attribute, attributes.get(attribute));
 		}
 		customElement.setAttribute("ImageFile", imageFile);
-		customElement.setAttribute("XDimension", xDimension);
-		customElement.setAttribute("YDimension", yDimension);
+		customElement.setAttribute("XDimension", x);
+		customElement.setAttribute("YDimension", y);
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
