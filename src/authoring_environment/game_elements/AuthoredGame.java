@@ -156,7 +156,12 @@ public class AuthoredGame {
      * @param level is the new level
      */
     public void addLevel(int i, AuthoredLevel level) {
-        myLevels.add(i, level);
+        try {
+            myLevels.add(i, level);
+        }
+        catch (Exception e) {
+            myLevels.add(level);
+        }
     }
 
     /**

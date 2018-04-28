@@ -57,6 +57,7 @@ public class LevelCreator extends LevelModifications{
     private static final String SET_SIZE = "Set size";
     private static final String SAVE_LEVEL = "Save level";
     private static final int SMALL_FONT = 15;
+    private static final String CHOOSE_COLOR = "Choose background color";
 
     /**
      * Creates and launches a new LevelCreator window
@@ -79,8 +80,7 @@ public class LevelCreator extends LevelModifications{
      * Creates a new level with default size.
      */
     private void createNewLevel() {
-        Level createdLevel = new BasicLevel(myWindow.getGame().getLevels().size()+1);
-        newLevel = new AuthoredLevel(createdLevel, new ScrollingGrid());
+        newLevel = new AuthoredLevel(new BasicLevel(), new ScrollingGrid());
     }
 
     /**
@@ -122,16 +122,6 @@ public class LevelCreator extends LevelModifications{
         return center;
     }
 
-    private void createSaveButton(Pane pane) {
-        Button saveButton = new Button(SAVE_LEVEL);
-        saveButton.setOnAction(e -> {
-            newLevel.setSize(Integer.parseInt(xSizeInput.getText()), Integer.parseInt(ySizeInput.getText()));
-            myWindow.getGame().addLevel(Integer.parseInt(indexInput.getText()), newLevel);
-            myStage.close();
-        });
-        pane.getChildren().add(saveButton);
-    }
-
     private void createSizeChooser(Pane pane) {
         Text xField = new Text("X size: ");
         xSizeInput = new TextField("50");
@@ -149,5 +139,15 @@ public class LevelCreator extends LevelModifications{
         chooseLocation.setFont(new Font(SMALL_FONT));
         indexInput = new TextField(Integer.toString(myWindow.getGame().getLevels().size()));
         pane.getChildren().addAll(chooseLocation, indexInput);
+    }
+
+    private void createSaveButton(Pane pane) {
+        Button saveButton = new Button(SAVE_LEVEL);
+        saveButton.setOnAction(e -> {
+            newLevel.setSize(Integer.parseInt(xSizeInput.getText()), Integer.parseInt(ySizeInput.getText()));
+            myWindow.getGame().addLevel(Integer.parseInt(indexInput.getText()), newLevel);
+            myStage.close();
+        });
+        pane.getChildren().add(saveButton);
     }
 }

@@ -23,6 +23,7 @@ public class LevelChooser extends ListView<AuthoredLevel> {
     public LevelChooser(CreatorView window) {
         super(window.getGame().getObservableLevels());
         myWindow = window;
+        this.setPrefHeight(200);
         this.setItems(window.getGame().getObservableLevels());
         changeFormat();
     }

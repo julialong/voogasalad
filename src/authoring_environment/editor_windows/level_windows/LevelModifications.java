@@ -68,6 +68,7 @@ abstract class LevelModifications {
         ColorPicker colorPicker = new ColorPicker();
         colorPicker.setOnAction(e -> {
             Color chosenColor = colorPicker.getValue();
+            System.out.println(chosenColor.toString());
             newLevel.setBackground(new Background(new BackgroundFill(chosenColor, CornerRadii.EMPTY, Insets.EMPTY)));
             newLevel.setColor(chosenColor);
         });
