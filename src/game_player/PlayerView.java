@@ -138,7 +138,8 @@ public class PlayerView extends VBox {
 		gaeButton.setOnMouseClicked(e ->{
 			myGameView.pauseGame();
 			Stage stage = new Stage();
-			new EditorWindow(stage);
+			EditorWindow window = new EditorWindow(stage);
+
 		});
 		myMenuBar.addButton(gaeButton);
 

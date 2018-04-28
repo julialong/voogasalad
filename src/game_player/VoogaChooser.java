@@ -34,22 +34,18 @@ public class VoogaChooser implements GameChooser {
     private JSONtoGP reader = new GPGameFileReader();
     private ListView<GameItem> playableGames = new ListView<>();
 
-
-    public VoogaChooser(){
-        myView.setMinWidth(550);
-    }
-
     public VoogaChooser(Stage stage){
         myStage = stage;
         setUpStage();
     }
 
     /**
-     * Sets up the stage for the
+     * Sets up the stage for the vooga chooser
      */
     private void setUpStage(){
         myStage.setTitle("Game Chooser");
         Scene scene = new Scene(this.displayChoices());
+        scene.getStylesheets().add("./game.player.styling/styleSheet.css");
         myStage.setScene(scene);
         myStage.show();
     }
@@ -106,20 +102,19 @@ public class VoogaChooser implements GameChooser {
                 Stage currentStage = (Stage) myView.getScene().getWindow();
                 currentStage.close();
             }
-            catch(NullPointerException e){
-                event.consume();
-            }
-            catch(DataFileException e)
+            catch(DataFileException|NullPointerException|IndexOutOfBoundsException e)
             {
             	Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle(e.getCause().toString());
-                alert.setContentText(e.getMessage());
+                alert.setTitle(e.toString());
+                alert.setHeaderText(e.getMessage());
                 alert.show();
             }
         });
     }
 
-
+    /**
+     * Creates the display on the left side of the screen
+     */
     private VBox createText(){
         VBox container = new VBox();
         Image img = new Image("./game.player.styling/pick_game.png");

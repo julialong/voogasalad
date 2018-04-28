@@ -30,9 +30,6 @@ public class Driver extends Application {
 		new VoogaChooser(primaryStage);
 	}
 
-	private void createChooser(){
-		gameChooser = new VoogaChooser();
-	}
 
 	/**
 	 * Runs the Game Player application
