@@ -5,6 +5,7 @@ import java.io.FileWriter;
 
 import com.google.gson.JsonArray;
 
+import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.grid.GridCell;
 import data.resources.DataFileException;
@@ -80,14 +81,16 @@ public class LevelSerializer	{
 	 * @param jsonGrid	ScrollingGrid in JOSN form - 2d array containing GridCell imagepaths
 	 * @return new ScrollingGrid to go itno level
 	 */
-	public ScrollingGrid deserialize(JsonArray jsonGrid)	{
-		ScrollingGrid grid = new ScrollingGrid();
+	public ScrollingGrid deserialize(JsonArray jsonGrid, ScrollingGrid grid, AuthoredLevel al)	{
+		grid.setMediator(al);
 
 		for (int i = 0; i < jsonGrid.size(); i++)	{
 			JsonArray row = jsonGrid.get(i).getAsJsonArray();
+
 			for (int j = 0; j < jsonGrid.get(i).getAsJsonArray().size(); j ++)	{
-				// TODO: deserialize
-//				grid.setCellElement(grid.getCellArray()[i][j], row.get(j).getAsString());
+				if (!row.get(j).getAsString().equals("null"))	{
+					grid.setCellElement(grid.getCellArray()[i][j], row.get(j).getAsString());
+				}
 			}
 		}
 

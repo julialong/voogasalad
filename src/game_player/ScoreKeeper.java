@@ -19,13 +19,13 @@ import javafx.stage.Stage;
  * Class to manage keeping track of highscores through successive runs of the
  * program.
  * 
- * @author Kelley Scroggs
+ * @author Kelley Scroggs, Dorian Barber
  *
  */
 public class ScoreKeeper {
 
 	private final int MIN_WINDOW_WIDTH = 600;
-	public ResourceBundle myKeys;
+	private ResourceBundle myKeys;
 
 	/**
 	 * launches a new window to display the high scores.
@@ -63,7 +63,7 @@ public class ScoreKeeper {
 	 * @return
 	 */
 	private List<ScoreItem> getScores() {
-		List<ScoreItem> retList = new ArrayList<ScoreItem>();
+		List<ScoreItem> retList = new ArrayList<>();
 		Enumeration<String> s = myKeys.getKeys();
 		while (s.hasMoreElements()) {
 			String key = s.nextElement();
@@ -79,12 +79,7 @@ public class ScoreKeeper {
 	 * https://stackoverflow.com/questions/41982382/efficient-way-of-sorting-a-list-of-tuples-in-java?noredirect=1&lq=1
 	 */
 	private List<ScoreItem> sortScores(List<ScoreItem> list) {
-		Comparator<ScoreItem> myComparator = new Comparator<ScoreItem>() {
-			public int compare(ScoreItem t1, ScoreItem t2) {
-				// the comparison rules go here
-				return (t2.getScore() - t1.getScore());
-			}
-		};
+		Comparator<ScoreItem> myComparator = (ScoreItem t1, ScoreItem t2) -> t2.getScore() - t1.getScore();
 		Collections.sort(list, myComparator);
 		return list;
 	}

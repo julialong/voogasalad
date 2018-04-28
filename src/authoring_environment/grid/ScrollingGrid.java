@@ -18,7 +18,7 @@ import javafx.scene.layout.RowConstraints;
 public class ScrollingGrid extends GridPane implements DocumentGetter{
 	// TODO: Change this based on level size
 	private static final int DEFAULT_ROWS = 50;
-	private static final int DEFAULT_COLUMNS = 20;
+	private static final int DEFAULT_COLUMNS = 50;
 	private static final int DEFAULT_CELL_SIZE = 50;
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	private static final int CELL_INCREMENT = 5;
@@ -92,15 +92,27 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 		}
 	}
 
-	public void resize(int x, int y) {
-		super.resize(x,y);
-		GridCell[][] newCells = new GridCell[x][y];
-		for (int i = 0; i < x && i < cellArray.length; i++) {
-			for (int j = 0; j < y && j < cellArray[0].length; j++) {
-				newCells[i][j] = cellArray[i][j];
+	public void resize(int newRowNum, int newColNum) {
+		GridCell[][] newCells = new GridCell[newRowNum][newColNum];
+		for (int i = 0; i < newRowNum; i++) {
+			for (int j = 0; j < newColNum; j++) {
+				newCells = assignCell(newCells, i, j);
 			}
 		}
+		rows = newRowNum;
+		cols = newColNum;
 		cellArray = newCells;
+		makeGrid();
+	}
+
+	private GridCell[][] assignCell(GridCell[][] newCells, int i, int j) {
+		if (i < cellArray.length && j < cellArray[0].length) {
+			newCells[i][j] = cellArray[i][j];
+		}
+		else {
+			newCells[i][j] = new GridCell(this, cellSize, i, j);
+		}
+		return newCells;
 	}
 
 	/**
@@ -146,8 +158,7 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 		} else {
 			cell.setImage(ID);
 		}
-		cell.setObject(myLevel.addObject(ID, cell.getPosition().getX(), cell.getPosition().getY()));
-		System.out.println(cell.getObject());
+		cell.setObject(myLevel.addObject(ID, cell.getPosition().getX(), cell.getPosition().getY(), cellSize));
 	}
 
 	private void checkMultipleCells(String ID) {
@@ -155,7 +166,7 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 			for (int j = 0; j < cols; j++) {
 				GridCell checkCell = cellArray[i][j];
 				if (checkCell.isSelected()) {
-					checkCell.setObject(myLevel.addObject(ID, checkCell.getPosition().getX(), checkCell.getPosition().getY()));
+					checkCell.setObject(myLevel.addObject(ID, checkCell.getPosition().getX(), checkCell.getPosition().getY(), cellSize));
 					checkCell.setImage(ID);
 					checkCell.deselect();
 				}
@@ -172,8 +183,6 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 	}
 
 	/**
-	 * TODO: why can't we have all of the parsing done by
-	 * TODO: these methods, and return a contructed object?
 	 * Gets the Document associated with a given ID
 	 * @param ID is the ID of the object to get
 	 * @return the XML Document associated with the ID

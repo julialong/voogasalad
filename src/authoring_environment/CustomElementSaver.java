@@ -40,7 +40,7 @@ public class CustomElementSaver {
 	 * @throws TransformerException
 	 */
 
-	public CustomElementSaver(GameElement gameElement, String id, Map<String, String> attributes, String imageFile, String xDimension, String yDimension) throws TransformerException{
+	public CustomElementSaver(GameElement gameElement, String id, Map<String, String> attributes, String imageFile, String x, String y) throws TransformerException{
 		elementID= id;
 
 		try {
@@ -49,7 +49,7 @@ public class CustomElementSaver {
 			e.printStackTrace();
 		}
 		doc = docBuilder.newDocument();
-		updateAttributes(attributes, imageFile, xDimension, yDimension);
+		updateAttributes(attributes, imageFile, x, y);
 		
 	}
 	

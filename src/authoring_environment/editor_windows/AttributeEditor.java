@@ -241,9 +241,7 @@ public class AttributeEditor {
 			// TODO: Handle this error
 			e.printStackTrace();
 		}
-		
 		gameElement.updateDimensions(xDim, yDim);
-		
 		gameElement.uploadImage(target.toString());
 		gameElement.updateAttributes(chosenAttributes);
 		window.close();
