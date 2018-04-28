@@ -26,7 +26,6 @@ import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
-import javafx.scene.paint.Color;
 
 /**
  * Creates levels to return to the Game Player when a 
@@ -38,9 +37,11 @@ import javafx.scene.paint.Color;
 public class LevelBuilder {
 
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
+	private static final String BEHAVIOR_SKIPS = "data.resources/behaviorsToSkip";
 	private static final String NAME = "name";
 	private static final String COLOR = "color";
 	private Map<String,Class<?>> objectTypes;
+	private List<String> behaviorsToSkip;
 	private Serializer deserializer; 
 	private File levelFile;
 	private Player player;
@@ -58,6 +59,8 @@ public class LevelBuilder {
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
+		behaviorsToSkip = new ArrayList<>();
+		buildBehaviorSkipMap();
 		deserializer = new Serializer();
 		
 		levelFile = level;
@@ -160,29 +163,53 @@ public class LevelBuilder {
 		JsonArray jarray = jobject.getAsJsonArray(objectType);
 		for(int i = 0; i < jarray.size(); i++)
 		{
-			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
+//			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
-			if(ge.getClass().equals(Player.class))
-			{
-				System.out.println("HERE OMG: " + ge);
-				player = (Player) ge;
-			}
-			if(ge.getClass().equals(Foes.class))
-			{
-				for(Behavior b: ((Foes)ge).getBehaviorList())
-				{
-					if(b.getClass().equals(MoveForward.class))
-					{
-						System.out.println("IS THERE ACTUALLY EVER A MOVE FORWARD LMK");
-						((MoveForward)b).setPlayer(player);
-					}
-				}
-////				MoveForward mf = (MoveForward) ge;
-//				ge = (GameEntity) new MoveForward(player);
-			}
+			checkPlayer(ge);
+			checkFoe(ge);
 			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
+	}
+
+	private void checkPlayer(GameEntity ge) 
+	{
+//		System.out.println("CHECKING THE PLAYER " + ge.getClass());
+		if(ge.getClass().equals(Player.class))
+		{
+//			System.out.println("HERE OMG: " + ge);
+			player = (Player) ge;
+		}
+	}
+	
+	private void checkFoe(GameEntity ge) 
+	{
+//		System.out.println("CHECKING THE FOE " + ge.getClass());
+		if(ge.getClass().equals(Foes.class))
+		{
+//			System.out.println("IM DOING THE THING AND SETTING IT");
+			for(Behavior b: ((Foes)ge).getBehaviorList())
+			{
+//				System.out.println(b.getClass().toString());
+				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
+				{
+//					System.out.println("THIS IS A MOVE FORWARD ALERT");
+					((MoveForward)b).setPlayer(player);	
+				}
+			}
+		}
+	}
+	
+	private void buildBehaviorSkipMap()
+	{
+		
+		ResourceBundle behaviors = ResourceBundle.getBundle(BEHAVIOR_SKIPS);
+		Enumeration<String> behaviorNames = behaviors.getKeys();
+		while(behaviorNames.hasMoreElements())
+		{
+			String behaviorName = behaviorNames.nextElement();
+			behaviorsToSkip.add(behaviors.getString(behaviorName));
+		}
 	}
 
 	/**
@@ -196,8 +223,8 @@ public class LevelBuilder {
 	 */
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
-		System.out.println();
-		System.out.println("toConvert " + toConvert + "objectType " + objectType);
+//		System.out.println();
+//		System.out.println("toConvert " + toConvert + "objectType " + objectType);
 		return deserializer.deserialize(toConvert.toString(), objectTypes.get(objectType));
 	}
 }

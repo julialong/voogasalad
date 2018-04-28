@@ -21,7 +21,7 @@ import com.google.gson.JsonSerializer;
 
 import data.resources.DataFileException;
 import engine.behavior.MoveForward;
-import model.Model;
+
 /**
  * @author Stack Overflow Post, Belanie Nagiel
  * 
@@ -55,19 +55,14 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 	 */
 	public T deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
 		List<String> behaviorsToSkip = buildBehaviorSkipMap();
+//		System.out.println(behaviorsToSkip);
 		JsonObject wrapper = (JsonObject) arg0;
-		System.out.println(wrapper);
+//		System.out.println(wrapper);
 		JsonElement typeName = get(wrapper, "type");
+//		System.out.println(typeName.getAsString());
 		if(behaviorsToSkip.contains(typeName.getAsString()))
 		{
 			return getEmptyBehavior(typeName.getAsString());
-			
-//			return (T) 
-		}
-		if(typeName.toString().equals("\"engine.behavior.MoveForward\""))
-		{
-			System.out.println("I GOT HERE");
-			return (T) new MoveForward();
 		}
 		JsonElement data = get(wrapper, "data");
 		Type actualType = typeForName(typeName);
@@ -81,11 +76,12 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 			Constructor<?> c = behaviorClass.getConstructor();
 			c.setAccessible(true);
 			Object o = c.newInstance();
+			System.out.println(o);
 			return (T)o;
 		} 
-		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
-			throw new JsonParseException("Could not create ");
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) 
+		{
+			throw new JsonParseException("Could not create behavior that contains a player");
 		}
 		
 	}
@@ -127,15 +123,11 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 	 * @return
 	 */
 	private JsonElement get(JsonObject wrapper, String string) {
-		if(!wrapper.toString().contains(string))
-		{
-			System.out.println("hello");
-		}
 		JsonElement elem = wrapper.get(string);
 		if(elem == null) {
 			throw new JsonParseException("no '" + string + "' member found in what was expected to be an interface wrapper");
 		}
-		System.out.println("passes " + string);
+//		System.out.println("passes " + string);
 		return elem;
 	}
 
