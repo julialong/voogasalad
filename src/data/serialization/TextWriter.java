@@ -11,6 +11,7 @@ import java.util.Map;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.resources.DataFileException;
 import engine.entity.GameEntity;
+import engine.level.Level;
 
 /**
  * @author Maya Messinger
@@ -46,6 +47,16 @@ public class TextWriter	{
 
 	/**
 	 * @author Maya Messinger
+	 * Constructor for use with writing levels' orders for play
+	 * @param orders	File to write order of levels to
+	 * @param levels		List of levels, in order or play
+	 */
+	public TextWriter(File orders, List levels) throws DataFileException	{
+		callWrite(orders, levels);
+	}
+
+	/**
+	 * @author Maya Messinger
 	 * Constructor for class. Calls the writing, so making a new TextWriter writes to a file
 	 * @param level			level to write
 	 * @param levelF		File if level to write
@@ -64,6 +75,25 @@ public class TextWriter	{
 		}
 		catch (IOException e)	{
 			throw new DataFileException("Could not create FileWriter with file " + settings.toString(), e);
+		}
+	}
+
+	private void callWrite(File orders, List<Level> levels) throws DataFileException	{
+		try	{
+			FileWriter fw = new FileWriter(orders);
+		
+			startFile(fw);
+			startArray(fw, "order");
+			for (Level level:levels)	{
+				fw.write(QUOTE + level.getName() + QUOTE);
+				checkWriteComma(fw, levels.indexOf(level), levels.size());
+				newLine(fw);
+			}
+			closeArray(fw, Integer.MAX_VALUE, Integer.MIN_VALUE);
+			endFile(fw);
+		}
+		catch (IOException e)	{
+			throw new DataFileException("Could not create FileWriter with file " + orders.toString(), e);
 		}
 	}
 
@@ -104,6 +134,10 @@ public class TextWriter	{
 	private void writeObjects(FileWriter fw, List<GameEntity> items) throws DataFileException	{
 		if (items.size() > 0)	{
 			checkWriteComma(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		}
+
+		for (GameEntity obj:items)	{
+			obj.clearInteractionMap();
 		}
 
 		int entryIndex = 0;

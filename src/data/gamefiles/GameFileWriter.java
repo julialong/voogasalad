@@ -2,6 +2,7 @@ package data.gamefiles;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import authoring_environment.game_elements.AuthoredLevel;
@@ -24,6 +25,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	private static final String LEVELDATA = "./data/levelData/";
 	private static final String NEST = File.separator;
 	private static final String SETTINGS = "Settings";
+	private static final String ORDERS = "LevelOrder";
 	private static final String EXTENSION = ".json";
 
 	private String userDirectory;
@@ -51,10 +53,15 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	@Override
 	public void update(List<AuthoredLevel> changes) throws DataFileException	{
+		List<Level> levelChanges  = new ArrayList<>();
+
 		for (AuthoredLevel aLevel:changes)	{
-			System.out.println("saved " + aLevel.toString());
+			levelChanges.add(aLevel.getLevel());
 			saveData(aLevel);
+			System.out.println("saved " + aLevel.toString());
 		}
+
+		new TextWriter(new File(gameDirectory + NEST + ORDERS + EXTENSION), levelChanges);
 	}
 
 	/**
@@ -103,6 +110,8 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	@Override
 	public void saveData(String player, List<Level> levels) throws DataFileException	{
+		new TextWriter(new File(gameDirectory + NEST + ORDERS + EXTENSION), levels);
+
 		for (Level aLevel:levels)	{
 			new TextWriter(new AuthoredLevel(aLevel, new ScrollingGrid()), getLevel(aLevel, player));
 		}
