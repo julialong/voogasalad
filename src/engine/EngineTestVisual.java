@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.behavior.ChasePlayer;
 import engine.behavior.JumpALot;
+import engine.behavior.JumpBetweenPoints;
 import engine.behavior.MoveBetweenThresholds;
 import engine.behavior.MoveForward;
 import engine.controls.Controls;
@@ -68,6 +70,7 @@ public class EngineTestVisual extends Application{
 
 	private void setupLevel() {
 		//level.setSize(400, 400);
+		Player player = new Player();
 		Foes enemy = new Foes();
 		Foes enemy2 = new Foes();
 		Foes enemy3 = new Foes();
@@ -93,17 +96,19 @@ public class EngineTestVisual extends Application{
 		enemy2.setSizeY(20);
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
-		//enemy2.addInteraction(new Pushable());
+		enemy2.addInteraction(new Pushable());
 		//enemy.addBehavior(new JumpALot());
 		//enemy.setJumpFactor(150);
 		//enemy2.addBehavior(new MoveForward(new Player()));
 		//enemy2.addInteraction(new DamageOnStomp());
 		//enemy2.addInteraction(new KnockBack());
-		enemy2.addInteraction(new PreventClipping());
+		//enemy2.addInteraction(new PreventClipping());
 		enemy2.setJumpFactor(150);
-		enemy3.addInteraction(new JumpOverObstacle());
+		//enemy3.addInteraction(new JumpOverObstacle());
+		//enemy3.addBehavior(new ChasePlayer(player));
+		enemy3.addBehavior(new JumpBetweenPoints(-70, -100));
 		//enemy3.addInteraction(new PreventClipping());
-		enemy3.addBehavior(new MoveForward(new Player()));
+		//enemy3.addBehavior(new MoveForward(new Player()));
 		enemy3.setJumpFactor(150);
 		Block block = new Block(-400,-190);
 		block.setSizeX(800);
@@ -113,7 +118,6 @@ public class EngineTestVisual extends Application{
 		Block wall = new Block(-50, -142);
 		wall.setSizeX(10);
 		wall.setSizeY(48);
-		Player player = new Player();
 		player.setMovementType(new Grounded());
 		//player.setScenePosition(400/2 - player.getSizeX()/2, 400/2 - player.getSizeY()/2);
 		player.overridePosition(-380, -170);
