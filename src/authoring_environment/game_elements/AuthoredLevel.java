@@ -105,7 +105,7 @@ public class AuthoredLevel implements DocumentGetter {
      * @param ID is the ID of the object to create
      */
     // TODO: Remove Point from Scrolling Grid
-    public GameEntity addObject(String ID, double x, double y) {
+    public GameEntity addObject(String ID, double x, double y, int cellSize) {
         GameEntity newEntity;
         Document objectDoc = getDocument(ID, ELEMENT_DATA_PATH);
         String path = objectDoc.getDocumentElement().getAttribute("ImageFile");
@@ -126,6 +126,8 @@ public class AuthoredLevel implements DocumentGetter {
         newEntity.setMovementType(createMovement(movement));
         newEntity.addInteraction(createInteraction(interaction));
         // newEntity.addPowerUp(createPowerUp(powerup));
+        // TODO: get dimensions, multiply by cell size
+        // newEntity.setSizeY(size[1]);
         myLevel.addObject(newEntity);
         return newEntity;
     }
