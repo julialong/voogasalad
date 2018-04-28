@@ -38,7 +38,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class EngineTestVisual extends Application{
+public class EngineDemo1 extends Application{
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -74,88 +74,50 @@ public class EngineTestVisual extends Application{
 	}
 
 	private void setupLevel() {
-		//level.setSize(400, 400);
-		Player player = new Player();
-		Foes enemy = new Foes();
-		Foes enemy2 = new Foes();
-		Foes enemy3 = new Foes();
-		//Block enemy = new Block();
-		//enemy.addBehavior(new MoveForward(new Player()));
-		//enemy.addInteraction(new KnockBack());
-		//enemy.addInteraction(new PreventClipping());
-		//enemy.addInteraction(new DamageOnStomp());
-		enemy.overridePosition(30, -170);
-		enemy.setSizeX(10);
-		enemy.setSizeY(20);
-		enemy.setMaxXVelocity(30);
-		enemy.setMaxYVelocity(500);
-		enemy.addInteraction(new Pushable());
-		enemy3.overridePosition(-70, -170);
-		enemy3.setSizeX(10);
-		enemy3.setSizeY(20);
-		enemy3.setMaxXVelocity(30);
-		enemy3.setMaxYVelocity(500);
-		//enemy3.addInteraction(new Pushable());
-		enemy2.overridePosition(-85, -170);
-		enemy2.setSizeX(10);
-		enemy2.setSizeY(20);
-		enemy2.setMaxXVelocity(30);
-		enemy2.setMaxYVelocity(500);
-		enemy2.addInteraction(new Pushable());
-		//enemy.addBehavior(new JumpALot());
-		//enemy.setJumpFactor(150);
-		//enemy2.addBehavior(new MoveForward(new Player()));
-		//enemy2.addInteraction(new DamageOnStomp());
-		//enemy2.addInteraction(new KnockBack());
-		//enemy2.addInteraction(new PreventClipping());
-		enemy2.setJumpFactor(150);
-		//enemy3.addInteraction(new JumpOverObstacle());
-		//enemy3.addBehavior(new ChasePlayer(player));
-		enemy3.addBehavior(new JumpBetweenPoints(-70, -100));
-		//enemy3.addInteraction(new PreventClipping());
-		//enemy3.addBehavior(new MoveForward(new Player()));
-		enemy3.setJumpFactor(150);
-		Block block = new Block(-400,-190);
+		// Bottom platform
+		Block block = new Block(-400,-160);
 		block.setSizeX(800);
-		block.setSizeY(10);
-		//enemy2.addBehavior(new MoveBetweenThresholds(block.getKinematics().getX(), block.getKinematics().getX()+block.getSizeX()));
-		block.addInteraction(new PreventClipping());
-		Block wall = new Block(-50, -142);
-		wall.setSizeX(10);
-		wall.setSizeY(48);
-		player.setMovementType(new Grounded());
-		//player.setScenePosition(400/2 - player.getSizeX()/2, 400/2 - player.getSizeY()/2);
-		player.overridePosition(-380, -170);
-		player.setSizeX(10);
+		block.setSizeY(40);
+		block.addInteraction(new PreventClipping());		
+		level.addObject(block);
+		
+		// Player
+		Player player = new Player();
+		player.overridePosition(-380, -110);
+		player.setSizeX(20);
 		player.setSizeY(20);
 		player.setSpeedFactor(1000);
 		player.setMaxXVelocity(50);
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
-		player.setJumpFactor(150);
+		player.setJumpFactor(300);
 		controls = new Controls(player);
-		wall.addInteraction(new PreventClipping());
-		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
-		//wall.addInteraction(new AddPowerup(new LightWeight(5, player)));
-		//wall.addInteraction(new RemoveOnInteractWithPlayer());
-		Block platform = new Block();
-		platform.overridePosition(0, -130);
-		platform.setSizeX(100);
-		platform.setSizeY(10);
-		platform.addInteraction(new Platform());
-		Block platform2 = new Block();
-		platform2.overridePosition(100, -100);
-		platform2.setSizeX(100);
-		platform2.setSizeY(10);
-		platform2.addInteraction(new Platform());
-		level.addObject(block);
-		level.addObject(enemy);
-		level.addObject(wall);
 		level.addObject(player);
-		level.addObject(enemy2);
-		level.addObject(platform);
-		level.addObject(platform2);
-		//level.addObject(enemy3);
+		
+		// Block 1
+		Block block1 = new Block(-220,-60);
+		block1.setSizeX(100);
+		block1.setSizeY(20);
+		block1.addInteraction(new PreventClipping());		
+		level.addObject(block1);
+		
+		// Block 2
+		Block block2 = new Block(-180,50);
+		block2.setSizeX(20);
+		block2.setSizeY(20);
+		block2.addInteraction(new PreventClipping());		
+		level.addObject(block2);
+		
+		// Block 3
+		Block block3 = new Block(-300,-60);
+		block3.setSizeX(20);
+		block3.setSizeY(20);
+		block3.addInteraction(new PreventClipping());		
+		level.addObject(block3);
+		
+		// Enemy 1
+		
+		
 		for(GameEntity ge : level.getObjects()){
 			Rectangle entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
 			entityImage.setFill(Color.GREEN);
@@ -184,8 +146,6 @@ public class EngineTestVisual extends Application{
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
 		for(GameEntity ge : geRectMap.keySet()){
 			if(level.getObjects().contains(ge)) {
-				//geRectMap.get(ge).setX(ge.getPosition()[0]+200);
-				//geRectMap.get(ge).setY(-ge.getPosition()[1]+200);
 				geRectMap.get(ge).setX(ge.getScenePosition()[0]);
 				geRectMap.get(ge).setY(ge.getScenePosition()[1]);
 
