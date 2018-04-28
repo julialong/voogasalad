@@ -45,13 +45,18 @@ public class VoogaGameView implements GameView {
 	private int myCurrLevel = 0;
 	private List<Level> myGameLevels;
 	private Map<GameEntity, ImageView> myDispMap = new HashMap<>();
+
+	private Map<ImageView, String> myGEtoString = new HashMap<>();
+	private Map<ImageView, ImageView> myIVCopyMap = new HashMap<>();
 	// parts
 	private Pane myGP;
 	private Controls myControls;
 	private HeadsUpDisplay hud;
 	private Point2D timer = new Point2D(0, 0);
 
-	private List<List<ImageView>> myReplayList = new ArrayList<>();
+	//private List<List<ImageView>> myReplayList = new ArrayList<>();
+	
+	private Map<ImageView, List<Point2D>> myReplayList = new HashMap<>();
 
 	/**
 	 * Creates a grid pane. initializes event listeners
@@ -104,18 +109,20 @@ public class VoogaGameView implements GameView {
 				myControls = new Controls((Player) ge);
 			}
 			System.out.println("imgPath: " + imgPath);
-			ImageView entityImage = new ImageView(new Image(new File(imgPath).toURI().toString(),
+			ImageView entityImage = new ImageView(new Image(imgPath,
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
+			
+			ImageView entityImageCopy = new ImageView(new Image(imgPath,
+					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
+			
+			
+			myIVCopyMap.put(entityImage, entityImageCopy);
 
 			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
 			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
-			System.out.println(ge.getPosition()[0]);
-			System.out.println(ge.getPosition()[1]);
-			System.out.println(ge.getScenePosition()[0]);
-			System.out.println(ge.getScenePosition()[1]);
-			System.out.println(adjustXCord(ge.getScenePosition()[0]));
-			System.out.println(adjustYCord(ge.getScenePosition()[1]));
+
 			myDispMap.put(ge, entityImage);
+			myGEtoString.put(entityImage, imgPath);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}
 	}
@@ -153,6 +160,7 @@ public class VoogaGameView implements GameView {
 	private void displayObjects() {
 		Level level = myGameLevels.get(myCurrLevel);
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
+		ArrayList<ImageView> toRemoveImageView = new ArrayList<>();
 		List<ImageView> momentList = new ArrayList<>();
 		for (GameEntity ge : myDispMap.keySet()) {
 			if (level.getObjects().contains(ge)) {
@@ -160,6 +168,7 @@ public class VoogaGameView implements GameView {
 				myDispMap.get(ge).setY(adjustYCord(ge.getScenePosition()[1]));
 			} else {
 				toRemove.add(ge);
+				toRemoveImageView.add(myDispMap.get(ge));
 				myGP.getChildren().remove(myDispMap.get(ge));
 			}
 		}
@@ -168,9 +177,20 @@ public class VoogaGameView implements GameView {
 			myDispMap.remove(ge);
 		}
 		for(ImageView val : myDispMap.values()) {
-			momentList.add(val);
+			List<Point2D> ivPointsList;
+			if(myReplayList.containsKey(myIVCopyMap.get(val))) {
+				ivPointsList = myReplayList.get(myIVCopyMap.get(val));
+			} else {
+				ivPointsList = new ArrayList<>();
+			}
+			if(!toRemoveImageView.contains(val)) {
+				ivPointsList.add(new Point2D(val.getX(), val.getY()));
+			}
+			
+			
+			myReplayList.put(myIVCopyMap.get(val), ivPointsList);
+		
 		}
-		myReplayList.add(momentList);
 	}
 
 	/**
@@ -260,7 +280,7 @@ public class VoogaGameView implements GameView {
 	 * 
 	 * @return myReplayList, a list of Maps of gameEntitys to their imageView
 	 */
-	public List<List<ImageView>> getReplayList() {
+	public Map<ImageView, List<Point2D>> getReplayList() {
 		return myReplayList;
 	}
 }
