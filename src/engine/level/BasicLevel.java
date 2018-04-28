@@ -60,7 +60,7 @@ public class BasicLevel implements Level {
     public BasicLevel(int ID) {
         this(DEFAULT_X_SIZE, DEFAULT_Y_SIZE, DEFAULT_X_SCENE_SIZE, DEFAULT_Y_SCENE_SIZE, ID);
     }
-
+    
     public BasicLevel() {
         this(0);
     }

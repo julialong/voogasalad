@@ -167,6 +167,7 @@ public class LevelBuilder {
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
 			checkPlayer(ge);
 			checkFoe(ge);
+//			System.out.println(ge.getScenePosition());
 			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
@@ -190,8 +191,10 @@ public class LevelBuilder {
 //			System.out.println("IM DOING THE THING AND SETTING IT");
 			for(Behavior b: ((Foes)ge).getBehaviorList())
 			{
-//				System.out.println(b.getClass().toString());
-				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
+				System.out.println(b.getClass().toString());
+//				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
+//				{
+				if(b.getClass().equals(MoveForward.class))
 				{
 //					System.out.println("THIS IS A MOVE FORWARD ALERT");
 					((MoveForward)b).setPlayer(player);	

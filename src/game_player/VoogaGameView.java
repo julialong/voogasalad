@@ -91,6 +91,7 @@ public class VoogaGameView implements GameView {
 	 * Adds all of the levels objects to a map that maps them to a position
 	 */
 	private void initDisplayMap() {
+		System.out.println("GETS TO DISPLAY MAP");
 		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
 			// TODO: below is filler for actual data, delete once gae sends us the real
 			// stuff
