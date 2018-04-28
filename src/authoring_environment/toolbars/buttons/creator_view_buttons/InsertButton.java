@@ -1,5 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
+import authoring_environment.authored_elements.AuthoredElementCreator;
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.editor_windows.level_windows.LevelCreator;
 import javafx.scene.control.MenuButton;
@@ -47,8 +48,7 @@ public class InsertButton extends MenuButton {
 
     private MenuItem createObject() {
         MenuItem objectItem = new MenuItem(OBJECT);
-        // TODO: open element creator when menu item is clicked
-        // gameItem.setOnAction(e -> new AuthoredElementCreator());
+        objectItem.setOnAction(e -> new AuthoredElementCreator());
         return objectItem;
     }
 
