@@ -1,9 +1,15 @@
 package game_player;
-import game_player_api.*;
+import game_player_api.GamePlayerButton;
+import game_player_api.MenuBar;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
-public class VMenuBar implements MenuBar{
+/**
+ * Represents the menubar class which contains all the buttons
+ *
+ * @Author Kelley Scroggs
+ */
+public class VMenuBar implements MenuBar {
 
 	private HBox myMenuBar;
 	
@@ -12,7 +18,6 @@ public class VMenuBar implements MenuBar{
 	}
 	
 	private void initMenuBar() {
-		// TODO Auto-generated method stub
 		HBox bar = new HBox();
 		myMenuBar = bar;
 		myMenuBar.getStyleClass().add("menubar");
@@ -20,14 +25,11 @@ public class VMenuBar implements MenuBar{
 
 	@Override
 	public Node getNode() {
-		// TODO Auto-generated method stub
 		return myMenuBar;
 	}
 
 	@Override
 	public void addButton(GamePlayerButton b) {
-		// TODO Auto-generated method stub
 		myMenuBar.getChildren().add((Node) b);
 	}
-
 }
