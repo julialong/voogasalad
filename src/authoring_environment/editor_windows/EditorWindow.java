@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -117,8 +118,8 @@ public class EditorWindow implements CreatorView {
 
 	}
 
-	private SplitPane setRightBar() {
-		SplitPane rightBar = new RightBar(this, myScrollPane);
+	private Pane setRightBar() {
+		Pane rightBar = new RightBar(this, myScrollPane);
 		rightBar.getStyleClass().add("side-pane");
 		return rightBar;
 	}
