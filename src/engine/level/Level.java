@@ -62,17 +62,12 @@ public interface Level {
 	 */
 	void setSize(double X, double Y);
 
-	/**
-	 * Sets the background color of the level
-	 * @param color is the desired background color
-	 */
 	void setColor(Color color);
-
+	
 	/**
-	 * Retrieves the background color of the level
-	 * @return color of level
+	 * Returns true if level is complete
 	 */
-	String getColor();
+	boolean getLevelComplete();
     
     /**
      * Updates the contents of the level

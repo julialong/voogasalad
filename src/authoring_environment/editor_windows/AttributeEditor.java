@@ -59,6 +59,7 @@ public class AttributeEditor {
 	private static final String  SLASH = "/";
 	private static final String DIMENSIONX = "X Dimension";
 	private static final String DIMENSIONY = "Y Dimension";
+	private static final String DEFAULT = "1";
 	
 
 	private GameElement gameElement;
@@ -80,6 +81,8 @@ public class AttributeEditor {
 
 
 	public AttributeEditor(GameElement element) {
+		xDim = DEFAULT;
+		yDim = DEFAULT;
 		chosenAttributes = new HashMap<>() ;
 		gameElement= element;
 		setUpEditorWindow();
