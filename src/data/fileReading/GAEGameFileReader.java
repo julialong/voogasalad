@@ -40,14 +40,18 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	public List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) throws DataFileException {
 		List<AuthoredLevel> completeGame = new ArrayList<>();
 		File currentGame = new File(getCurrentGamePath(gameName));
+		System.out.println("current game " + currentGame.toString());
 		File[] gameFiles = currentGame.listFiles();
+		System.out.println("current game files " + gameFiles);
 		for(File gameFile: gameFiles)
 		{
+				System.out.println("gameFile " + gameFile.toString());
 				int index = gameFile.toString().lastIndexOf(NEST) + 1;
 				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
 				if(!levelName.equals(SETTINGS))
 				{
+					System.out.println("level name " +levelName);
 					completeGame.add(loadAuthoredGameLevel(gameName, levelName));
 				}		
 		}
@@ -67,6 +71,7 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	@Override
 	public AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) throws DataFileException {
 		File level = getLevel(gameName, levelName);
+		System.out.println("authored level " + level);
 		AuthoredLevelBuilder authoredBuilder = new AuthoredLevelBuilder(level);
 		return authoredBuilder.buildAuthoredLevel();
 	}
@@ -81,7 +86,7 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException {
-		File level = new File(LEVEL_FOLDER + NEST + levelName);
+		File level = new File(LEVEL_FOLDER + NEST + levelName + JSON_EXTENSION);
 		AuthoredLevelBuilder levelBuilder = new AuthoredLevelBuilder(level);
 		return levelBuilder.buildAuthoredLevel();
 	}
@@ -100,25 +105,12 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 		for(File strayLevel: strayLevels)
 		{
 			int index = strayLevel.toString().lastIndexOf(NEST) + 1;
-			String levelName = strayLevel.toString().substring(index).trim();
+			int endIndex = strayLevel.toString().lastIndexOf(JSON_EXTENSION);
+			String levelName = strayLevel.toString().substring(index, endIndex).trim();
 			levelNames.add(levelName);
 		}
 		return levelNames;
 	}	
-
-	/**
-	 * This will load the author settings for a specific author in the 
-	 * game authoring environment. It will return the map of image paths 
-	 * to custom game entities. 
-	 * 
-	 * @param author
-	 * @return
-	 */
-	@Override
-	public Map<String, GameEntity> loadAuthorCustomObjects(String author) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
 	 * This returns a Map of the names of the games for continued editing.

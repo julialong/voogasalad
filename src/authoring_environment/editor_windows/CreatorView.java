@@ -16,6 +16,12 @@ public interface CreatorView {
 	 * @return
 	 */
 	AuthoredGame getGame();
+
+	/**
+	 * Changes the current game
+	 * @param newGame
+	 */
+	void changeCurrentGame(AuthoredGame newGame);
 	
 	/**
 	 * Opens a new window to allow for multi-window editing 
