@@ -50,7 +50,6 @@ public class RightBar extends VBox{
 
     public void update() {
         myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
-        myDeleteButton.changeGrid(myGrid);
     }
 
     private void splitPanes() {
