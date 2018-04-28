@@ -18,8 +18,8 @@ public class JumpOverObstacle implements Interaction{
 //		Jump jump = new Jump();
 //		jump.execute(target);
 		String collisionType = new DetectCollision().detect(source, target);
-		System.out.println("Collision Type: " + collisionType);
-		System.out.println("Between " + source.getClass() + " and " + target.getClass());
+//		System.out.println("Collision Type: " + collisionType);
+//		System.out.println("Between " + source.getClass() + " and " + target.getClass());
 		if((collisionType.equals("left")) || (collisionType.equals("right"))){
 			Jump jump = new Jump();
 			jump.execute(source);
