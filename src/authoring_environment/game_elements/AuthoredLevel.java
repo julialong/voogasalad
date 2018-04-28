@@ -9,6 +9,7 @@ import engine.level.Level;
 import engine.movement.Movement;
 import engine.powerup.PowerUp;
 import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
@@ -62,12 +63,25 @@ public class AuthoredLevel implements DocumentGetter {
     }
 
     /**
+     * Sets the background color of the level object
+     * @param color is the desired background color
+     */
+    public void setColor(Color color) {
+        myLevel.setColor(color);
+    }
+
+    /**
      * Sets the new size of the level
      * @param x
      * @param y
      */
     public void setSize(double x, double y) {
-        // TODO: set size of level
+        myScrollingGrid.resize((int)x, (int)y);
+    }
+
+    public int[] getSize() {
+        int[] lengthArray = {myScrollingGrid.getCellArray().length, myScrollingGrid.getCellArray()[0].length};
+        return lengthArray;
     }
 
     /**
@@ -91,7 +105,7 @@ public class AuthoredLevel implements DocumentGetter {
      * @param ID is the ID of the object to create
      */
     // TODO: Remove Point from Scrolling Grid
-    public GameEntity addObject(String ID, double x, double y) {
+    public GameEntity addObject(String ID, double x, double y, double cellSize) {
         GameEntity newEntity;
         Document objectDoc = getDocument(ID, ELEMENT_DATA_PATH);
         String path = objectDoc.getDocumentElement().getAttribute("ImageFile");
@@ -102,6 +116,8 @@ public class AuthoredLevel implements DocumentGetter {
         String powerup = objectDoc.getDocumentElement().getAttribute("PowerUp");
         String projectile = objectDoc.getDocumentElement().getAttribute("Projectile");
         String weapon = objectDoc.getDocumentElement().getAttribute("Weapon");
+        int xSize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("XDimension"));
+        int ySize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("YDimension"));
 
         newEntity = createObject(type, x, y);
         if (newEntity == null) {
@@ -112,8 +128,9 @@ public class AuthoredLevel implements DocumentGetter {
         newEntity.setMovementType(createMovement(movement));
         newEntity.addInteraction(createInteraction(interaction));
         // newEntity.addPowerUp(createPowerUp(powerup));
+        newEntity.setSizeX(xSize * cellSize);
+        newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
-        System.out.println("item added: " + newEntity.getClass());
         return newEntity;
     }
 

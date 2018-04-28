@@ -1,4 +1,4 @@
-package authoring_environment.editor_windows.savers;
+package authoring_environment.editor_windows;
 
 import authoring_environment.game_elements.AuthoredGame;
 import javafx.scene.control.TextField;
