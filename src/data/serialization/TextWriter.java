@@ -102,6 +102,10 @@ public class TextWriter	{
 	}
 
 	private void writeObjects(FileWriter fw, List<GameEntity> items) throws DataFileException	{
+		if (items.size() > 0)	{
+			checkWriteComma(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		}
+
 		int entryIndex = 0;
 		Map<String, List<Object>> objsOrganized = sortObjects(items);
 		for (Map.Entry entry:objsOrganized.entrySet())	{

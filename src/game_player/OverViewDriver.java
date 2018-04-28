@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -35,6 +36,7 @@ public class OverViewDriver extends Application {
         Scene scene = new Scene(getScene(primaryStage));
         scene.getStylesheets().add(getResourceValue("sceneStyle"));
         primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image("./game.player.styling/game_icon.png"));
         primaryStage.show();
     }
 

@@ -2,9 +2,13 @@ package authoring_environment.editor_windows;
 
 import authoring_environment.authored_elements.AuthoredElement;
 import authoring_environment.game_elements.AuthoredGame;
+import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.RightBar;
 import authoring_environment.toolbars.TopBar;
+import data.fileReading.GAEGameFileReader;
+import data.fileReading.GameFileReader;
+import data.fileReading.JSONtoGAE;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
@@ -29,20 +33,54 @@ public class EditorWindow implements CreatorView {
 	private AuthoredGame myGame;
 
 	/**
-	 * Creates a new EditorWindow
+	 * Creates a new EditorWindow with a specific game
+	 * @param stage is the stage where EditorWindow should be presented
+	 * @param game is the game to load
+	 */
+	public EditorWindow(Stage stage, AuthoredGame game) {
+		myStage = stage;
+		myGame = game;
+		openNewWindow();
+	}
+
+	/**
+	 * Creates a new EditorWindow with a specific game name
+	 * This constructor is specifically for use by the Player, who does not have access
+	 * to AuthoredGame objects.
+	 * @param stage is the current stage
+	 * @param gameName is the game name
+	 * @param gameDescription is the game description
+	 */
+	public EditorWindow(Stage stage, String gameName, String gameDescription) {
+		JSONtoGAE reader = new GAEGameFileReader();
+		myStage = stage;
+		try {
+			myGame = new AuthoredGame(gameName, gameDescription, reader.loadCompleteAuthoredGame(gameName));
+		}
+		catch (Exception e) {
+			myGame = new AuthoredGame();
+		}
+		openNewWindow();
+	}
+
+	/**
+	 * Creates a new EditorWindow with no game
 	 * 
 	 * @param stage
 	 *            The stage where EditorWindow should be presented
 	 */
 	public EditorWindow(Stage stage) {
-		myStage = stage;
-		myGame = new AuthoredGame();
-		openNewWindow();
+		this(stage, new AuthoredGame());
 	}
 
 	@Override
 	public AuthoredGame getGame() {
 		return myGame;
+	}
+
+	@Override
+	public void changeCurrentGame(AuthoredGame newGame) {
+		myGame = newGame;
 	}
 
 	@Override

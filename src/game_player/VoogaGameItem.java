@@ -1,6 +1,5 @@
 package game_player;
 
-import data.gamefiles.JSONtoObject;
 import engine.level.Level;
 import game_player_api.GameItem;
 import javafx.geometry.Rectangle2D;
@@ -8,10 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
 import java.util.List;
-import java.util.Map;
 
 /**
  * Each instance of VoogaGame represents a single developed game created from the
@@ -26,7 +22,6 @@ public class VoogaGameItem extends Label implements GameItem {
     private Stage gameApplication = new Stage();
 
     public VoogaGameItem(String name, String description){
-        this.setPrefWidth(500);
         this.setWrapText(true);
         gameName = name;
         gameDescription = description;
@@ -40,10 +35,10 @@ public class VoogaGameItem extends Label implements GameItem {
      * with the specific game that this item represents
      */
     @Override
-    public void setUpGame(List<Level> gameMaterials, String name){
+    public void setUpGame(List<Level> gameMaterials){
         PlayerView gameView;
         try{
-            gameView = new PlayerView(gameMaterials, name);
+            gameView = new PlayerView(gameMaterials, gameName, gameDescription);
         } catch(NullPointerException e){
             gameView = new PlayerView();
         }

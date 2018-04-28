@@ -3,6 +3,11 @@ package game_player;
 import game_player_api.GamePlayerButton;
 import javafx.scene.control.Button;
 
+/**
+ * Class that represents the buttons that are entered into the menubar
+ *
+ * @Author Kelley Scroggs
+ */
 public class VButton extends Button implements GamePlayerButton {
 
 	private String myCommand;
@@ -19,8 +24,7 @@ public class VButton extends Button implements GamePlayerButton {
 	}
 	
 	private void setButtonAction() {
-		// TODO Auto-generated method stub
-		this.setOnMouseClicked((event) -> {
+		this.setOnMouseClicked(event -> {
 		    // Button was clicked, do something...
 		    System.out.println(myCommand);
 		});
@@ -28,13 +32,10 @@ public class VButton extends Button implements GamePlayerButton {
 
 	@Override
 	public String getCommandFromButton() {
-		// TODO Auto-generated method stub
 		return myCommand;
 	}
 
 	@Override
 	public void clearButton() {
-		// TODO Auto-generated method stub
-		
 	}
 }
