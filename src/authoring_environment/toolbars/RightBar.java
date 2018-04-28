@@ -48,11 +48,6 @@ public class RightBar extends VBox{
         addScrollScreens();
     }
 
-    public void update() {
-        myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
-        myDeleteButton.changeGrid(myGrid);
-    }
-
     private void splitPanes() {
         elementPane = new VBox();
         elementPane.getStyleClass().add("rightbar");

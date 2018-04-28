@@ -7,6 +7,8 @@ import org.w3c.dom.Document;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -30,14 +32,19 @@ public class GridCell extends HBox {
 	private boolean selected;
 	private ScrollingGrid myGrid;
 	private int mySize;
+	private int myXDim;
+	private int myYDim;
 	private Document myDataDoc;
 	private Point myPosition;
 	private GameEntity myObject;
+	private static final int DEFAULT_DIM = 1;
 	
 	public GridCell(ScrollingGrid grid, int size, int x, int y) {
 		super();
 		myCellView = new ImageView();
 		mySize = size;
+		myXDim = DEFAULT_DIM;
+		myYDim = DEFAULT_DIM;
 		selected = false;
 		myGrid = grid;
 		myType = null;
@@ -91,12 +98,12 @@ public class GridCell extends HBox {
 	
 	public void setSize(int size) {
 		mySize = size;
-		this.setMinHeight(mySize);
-		this.setMaxWidth(mySize);
-		this.setMaxHeight(mySize);
-		this.setMinWidth(mySize);
-		myCellView.setFitWidth(mySize);
-		myCellView.setFitHeight(mySize);
+		this.setMinHeight(mySize*myYDim);
+		this.setMaxWidth(mySize*myXDim);
+		this.setMaxHeight(mySize*myYDim);
+		this.setMinWidth(mySize*myXDim);
+		myCellView.setFitWidth(mySize*myXDim);
+		myCellView.setFitHeight(mySize*myYDim);
 	}
 	
 	public void setImage(String ID) {
@@ -105,11 +112,21 @@ public class GridCell extends HBox {
 		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
 		myType = myDataDoc.getDocumentElement().getAttribute("GameEntity");
 		myCellView.setImage(new Image("file:" + path));
+		//TODO: Get Dimensions from file
+		this.setSize(mySize);
 		if(selected) {deselect();}
 	}
 	
 	public String getType() {
 		return myType;
+	}
+	
+	public int getXDim() {
+		return myXDim;
+	}
+	
+	public int getYDim() {
+		return myYDim;
 	}
 	
 	private void select() {
@@ -130,8 +147,9 @@ public class GridCell extends HBox {
 		this.getChildren().clear();
 		myCellView = new ImageView();
 		this.getChildren().add(myCellView);
-		myCellView.setFitHeight(mySize);
-		myCellView.setFitWidth(mySize);
+		myXDim = DEFAULT_DIM;
+		myYDim = DEFAULT_DIM;
+		setSize(mySize);
 		myID = null;
 		myType = null;
 		myObject = null;
@@ -147,11 +165,16 @@ public class GridCell extends HBox {
 	}
 
 	private void handleClicked() {
-		if(selected) {
-			deselect();
-		} else {
-			select();
-		}
+		final Clipboard clipboard = Clipboard.getSystemClipboard();
+	    if (clipboard.hasString()) {
+	    	myGrid.setCellElement(this, clipboard.getString());
+	    } else {
+	    	if(selected) {
+				deselect();
+			} else {
+				select();
+			}
+	    }
 	}
 
 	private void handleDragOver(DragEvent event) {
