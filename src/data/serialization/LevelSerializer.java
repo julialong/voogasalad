@@ -19,7 +19,6 @@ import engine.level.Level;
  */
 public class LevelSerializer	{
 	private static final String NAME = "name";
-	private static final String ID = "id";
 	private static final String BGCOLOR = "color";
 	private static final String SG = "ScrollingGrid";
 	
@@ -33,7 +32,6 @@ public class LevelSerializer	{
 	 */
 	public void serialize(FileWriter fw, Level level, ScrollingGrid grid) throws DataFileException	{
 		writeKeyValue(fw, NAME, level.getName());
-		writeKeyValue(fw, ID, level.getID());
 		writeKeyValue(fw, BGCOLOR, level.getColor());
 		writeGrid(fw, grid);
 	}

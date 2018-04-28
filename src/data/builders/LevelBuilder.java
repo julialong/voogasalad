@@ -117,7 +117,6 @@ public class LevelBuilder {
 	private void addMetaData(Level level, JsonObject jobject)
 	{
 		String levelName = jobject.get(NAME).getAsString();
-		levelID = jobject.get(ID).getAsInt();
 		
 		level.setName(levelName);
 //		level.setID(id);
