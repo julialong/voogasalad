@@ -40,6 +40,7 @@ public interface JSONtoGP {
 	 * @return
 	 * @throws DataFileException 
 	 */
+	@Deprecated
 	Map<String,String> loadSettings(String gameName) throws DataFileException;
 
 	/**
@@ -51,6 +52,5 @@ public interface JSONtoGP {
 	 */
 	Map<String,String> getGameNames() throws DataFileException;
 	
-	//Something with players?
 
 }

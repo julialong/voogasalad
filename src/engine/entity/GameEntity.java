@@ -271,6 +271,9 @@ public interface GameEntity {
 	 */
 	public abstract List<Interaction> getInteractions();
 	
+	//ADDED THIS FOR TESTING - BELANIE
+	public abstract List<Behavior> getBehaviorList(); 
+	
 	/**
 	 * Updates the entity with new position/interaction paramters. Called at every time step.
 	 * Sets the Element ID of the Entity.
