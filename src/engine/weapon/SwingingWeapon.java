@@ -1,12 +1,13 @@
 package engine.weapon;
 
 import engine.entity.GameEntity;
+import engine.entity.GameObject;
 /**
  * A Weapon that hits in an arc in front of the Player
  * @author Robert Gitau
  *
  */
-public class SwingingWeapon implements Weapon{
+public class SwingingWeapon extends GameObject implements Weapon{
 
 	@Override
 	public void attack(GameEntity entity) {

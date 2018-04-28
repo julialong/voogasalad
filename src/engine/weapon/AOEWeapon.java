@@ -1,13 +1,14 @@
 package engine.weapon;
 
 import engine.entity.GameEntity;
+import engine.entity.GameObject;
 
 /**
  * A weapon that can hit in a circle around the user
  * @author Robert Gitau
  *
  */
-public class AOEWeapon implements Weapon{
+public class AOEWeapon extends GameObject implements Weapon{
 
 	@Override
 	public void attack(GameEntity entity) {
