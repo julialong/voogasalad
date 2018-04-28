@@ -11,11 +11,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javax.xml.transform.TransformerException;
 
@@ -45,7 +43,7 @@ import javafx.stage.Stage;
  *
  */
 // TODO: get rid of strings in methods 
-public class AttributeEditor {
+public class AttributeEditor  {
 
 	private static final String ATTRIBUTE_RESOURCES = "resources/attributes";
 	private static final double IMAGE_WIDTH = 200;
@@ -87,6 +85,7 @@ public class AttributeEditor {
 		gameElement= element;
 		setUpEditorWindow();
 		attributes = loadAttributes();
+		setDefaults();
 		AttributeComboBoxesPane boxesPane = new AttributeComboBoxesPane(attributes, this);
 		attributeBoxes = boxesPane.getAttributeBoxes();
 		organizeEditor();
@@ -245,6 +244,10 @@ public class AttributeEditor {
 		gameElement.uploadImage(target.toString());
 		gameElement.updateAttributes(chosenAttributes);
 		window.close();
+	}
+	
+	private void setDefaults() {
+		
 	}
 	
 }

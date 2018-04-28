@@ -7,6 +7,7 @@ import javax.xml.transform.TransformerException;
 
 import authoring_environment.Attribute;
 import authoring_environment.CustomElementSaver;
+import authoring_environment.DocumentGetter;
 import authoring_environment.authored_elements.AuthoredElement;
 
 /**
@@ -18,10 +19,11 @@ import authoring_environment.authored_elements.AuthoredElement;
  * custom image, and update its location on the grid
  *
  */
-public class GameElement implements AuthoredElement {
+public class GameElement implements AuthoredElement, DocumentGetter{
+	
+	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	
 	private String elementID;
-
 	private Map<String, String> attributes;
 	private String imageFile;
 	private String xDimension;
@@ -37,6 +39,17 @@ public class GameElement implements AuthoredElement {
 	
 		
 	}
+	
+	/**
+	 * 
+	 * @param idName
+	 */
+	public GameElement(String idName) {
+		elementID = idName;
+		setAttributesFromFile(idName);
+		
+		
+	}
 
 	@Override
 	public void updateAttributes(Attribute attribute, boolean status) {
@@ -44,6 +57,10 @@ public class GameElement implements AuthoredElement {
 		
 	}
 
+	/**
+	 * 
+	 * @param newAttributes
+	 */
 	public void updateAttributes(Map<String, String> newAttributes) {
 		attributes = newAttributes;
 		try {
@@ -72,17 +89,35 @@ public class GameElement implements AuthoredElement {
 		
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 */
 	public void setID(String id) {
 		elementID = id;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getID() {
 		return elementID; 
 	}
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void updateDimensions(String x, String y) {
 		xDimension = x;
 		yDimension = y;
+	}
+	
+	private void setAttributesFromFile(String idName) {
+		getDocument(idName, ELEMENT_DATA_PATH);
+		
 	}
 	
 }
