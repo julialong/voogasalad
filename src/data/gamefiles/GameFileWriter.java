@@ -51,9 +51,13 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	@Override
 	public void update(List<AuthoredLevel> changes) throws DataFileException	{
+		int i = 0;
+
 		for (AuthoredLevel aLevel:changes)	{
-			System.out.println("saved " + aLevel.toString());
+			aLevel.getLevel().setID(i);
 			saveData(aLevel);
+			System.out.println("saved " + aLevel.toString());
+			i++;
 		}
 	}
 
