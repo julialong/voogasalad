@@ -1,5 +1,7 @@
 package data.serialization;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -19,6 +21,7 @@ import com.google.gson.JsonSerializer;
 
 import data.resources.DataFileException;
 import engine.behavior.MoveForward;
+import model.Model;
 /**
  * @author Stack Overflow Post, Belanie Nagiel
  * 
@@ -55,8 +58,10 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 		JsonObject wrapper = (JsonObject) arg0;
 		System.out.println(wrapper);
 		JsonElement typeName = get(wrapper, "type");
-		if(behaviorsToSkip.contains(typeName.toString().substring(1,typeName.toString().length()-1)))
+		if(behaviorsToSkip.contains(typeName.getAsString()))
 		{
+			return getEmptyBehavior(typeName.getAsString());
+			
 //			return (T) 
 		}
 		if(typeName.toString().equals("\"engine.behavior.MoveForward\""))
@@ -67,6 +72,22 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 		JsonElement data = get(wrapper, "data");
 		Type actualType = typeForName(typeName);
 		return arg2.deserialize(data, actualType);
+	}
+
+	private T getEmptyBehavior(String behaviorType) {
+		try 
+		{
+			Class behaviorClass = Class.forName(behaviorType);
+			Constructor<?> c = behaviorClass.getConstructor();
+			c.setAccessible(true);
+			Object o = c.newInstance();
+			return (T)o;
+		} 
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			throw new JsonParseException("Could not create ");
+		}
+		
 	}
 
 	private List<String> buildBehaviorSkipMap()
