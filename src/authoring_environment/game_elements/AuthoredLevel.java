@@ -62,6 +62,10 @@ public class AuthoredLevel implements DocumentGetter {
         myScrollingGrid.setBackground(background);
     }
 
+    public void setImagePath(String imagePath) {
+        // myLevel.setImage(imagePath)
+    }
+
     /**
      * Sets the background color of the level object
      * @param color is the desired background color
@@ -116,8 +120,16 @@ public class AuthoredLevel implements DocumentGetter {
         String powerup = objectDoc.getDocumentElement().getAttribute("PowerUp");
         String projectile = objectDoc.getDocumentElement().getAttribute("Projectile");
         String weapon = objectDoc.getDocumentElement().getAttribute("Weapon");
-        // int xSize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("XDimension"));
-        // int ySize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("YDimension"));
+        int xSize;
+        int ySize;
+        try {
+            xSize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("XDimension"));
+            ySize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("YDimension"));
+        }
+        catch (Exception e) {
+            xSize = 1;
+            ySize = 1;
+        }
 
         newEntity = createObject(type, x, y);
         if (newEntity == null) {
@@ -128,8 +140,8 @@ public class AuthoredLevel implements DocumentGetter {
         newEntity.setMovementType(createMovement(movement));
         newEntity.addInteraction(createInteraction(interaction));
         // newEntity.addPowerUp(createPowerUp(powerup));
-        // newEntity.setSizeX(xSize * cellSize);
-        // newEntity.setSizeY(ySize * cellSize);
+        newEntity.setSizeX(xSize * cellSize);
+        newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
         return newEntity;
     }
