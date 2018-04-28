@@ -10,7 +10,7 @@ import java.util.Map;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.levelBuilders.AuthoredLevelBuilder;
 import data.resources.DataFileException;
-import engine.level.Level;
+
 /**
  * This class holds the implementation for the methods that allow the GAE to load games and files
  * for continued editing or use.
@@ -66,6 +66,7 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 			int position = levelOrder.get(level.getLevel().getName());
 			orderedLevels[position] = level;
 		}
+		System.out.println(orderedLevels);
 		return Arrays.asList(orderedLevels);
 	}
 	/**

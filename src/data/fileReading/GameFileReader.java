@@ -144,11 +144,11 @@ public abstract class GameFileReader {
 		}
 	}
 	
-	protected Map<String,Integer> getLevelOrder(String gameName) throws DataFileException
+	public Map<String,Integer> getLevelOrder(String gameName) throws DataFileException
 	{
 		Map<String,Integer> levelOrder = new HashMap<>();
 		String gameDirectory = getCurrentGamePath(gameName);
-		File levelOrderFile = new File(gameDirectory + NEST + LEVEL_ORDER);
+		File levelOrderFile = new File(gameDirectory + NEST + LEVEL_ORDER + JSON_EXTENSION);
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();

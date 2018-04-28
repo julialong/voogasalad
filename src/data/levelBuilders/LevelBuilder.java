@@ -117,10 +117,10 @@ public class LevelBuilder {
 	private void addMetaData(Level level, JsonObject jobject)
 	{
 		String levelName = jobject.get(NAME).getAsString();
-		Color color = Color.web(jobject.get(COLOR).getAsString());
+//		Color color = Color.web(jobject.get(COLOR).getAsString());
 		
 		level.setName(levelName);
-		level.setColor(color);
+//		level.setColor(color);
 	}
 	
 	/**
