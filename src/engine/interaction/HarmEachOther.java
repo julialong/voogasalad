@@ -4,7 +4,7 @@ import engine.entity.GameEntity;
 
 /**
  * Both Objects in contact damage each other
- * @author Robert Gitau
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class HarmEachOther implements Interaction{
