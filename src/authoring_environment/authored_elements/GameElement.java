@@ -24,8 +24,6 @@ public class GameElement implements AuthoredElement {
 
 	private Map<String, String> attributes;
 	private String imageFile;
-	private String xDimension;
-	private String yDimension;
 	
 	/**
 	 * This constructor is the default constructor. 
@@ -46,7 +44,7 @@ public class GameElement implements AuthoredElement {
 	public void updateAttributes(Map<String, String> newAttributes) {
 		attributes = newAttributes;
 		try {
-			CustomElementSaver saver = new CustomElementSaver(this, elementID, newAttributes, imageFile, xDimension, yDimension);
+			CustomElementSaver saver = new CustomElementSaver(this, elementID, newAttributes, imageFile);
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
@@ -79,9 +77,4 @@ public class GameElement implements AuthoredElement {
 		return elementID; 
 	}
 	
-	
-	public void updateDimensions(String x, String y) {
-		xDimension = x;
-		yDimension = y;
-	}
 }

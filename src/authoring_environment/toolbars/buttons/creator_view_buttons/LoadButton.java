@@ -1,8 +1,7 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
 import authoring_environment.editor_windows.CreatorView;
-import authoring_environment.editor_windows.GameChooser;
-import data.resources.DataFileException;
+import authoring_environment.editor_windows.game_windows.GameChooser;
 import authoring_environment.editor_windows.level_windows.LevelLoader;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -34,15 +33,7 @@ public class LoadButton extends MenuButton {
 
     private MenuItem createGameItem() {
         MenuItem gameItem = new MenuItem(GAME);
-        // TODO: open game chooser when menu item is clicked
-        gameItem.setOnAction(e -> {
-			try {
-				new GameChooser();
-			} catch (DataFileException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
+        gameItem.setOnAction(e -> new GameChooser(myWindow));
         return gameItem;
     }
 

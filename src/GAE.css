@@ -29,7 +29,7 @@
 .attribute-editor{
 	-fx-background-color: #000000;
 	-fx-min-width: 500;
-	-fx-min-height: 750;
+	-fx-min-height: 500;
 	}
 	
 	.attribute-pane{
