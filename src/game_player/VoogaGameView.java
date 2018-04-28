@@ -51,6 +51,8 @@ public class VoogaGameView implements GameView {
 	private HeadsUpDisplay hud;
 	private Point2D timer = new Point2D(0, 0);
 
+	private List<List<ImageView>> myReplayList = new ArrayList<>();
+
 	/**
 	 * Creates a grid pane. initializes event listeners
 	 * 
@@ -92,9 +94,6 @@ public class VoogaGameView implements GameView {
 	 */
 	private void initDisplayMap() {
 		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
-			// TODO: below is filler for actual data, delete once gae sends us the real
-			// stuff
-			//System.out.println("IV: "+ ge.getImageView());
 			String imgPath;
 			if (ge.getImageView() == null || ge.getImageView() == "") {
 				imgPath = "./game_player/brick.png";
@@ -103,21 +102,19 @@ public class VoogaGameView implements GameView {
 			}
 			if (ge instanceof Player) {
 				myControls = new Controls((Player) ge);
-				//imgPath = "trump.gif";
 			}
-			System.out.println("imgPath: "+imgPath);
+			System.out.println("imgPath: " + imgPath);
 			ImageView entityImage = new ImageView(new Image(new File(imgPath).toURI().toString(),
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
-			// TODO: uncomment below once GAE sends us actual data
-			// if (ge.getClass().equals(new Player().getClass())) {
-			// myControls = new Controls((Player) ge);
-			// }
-			// ImageView entityImage = new ImageView(new
-			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
-			// ge.getSizeY(), true, true));
 
 			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
 			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
+			System.out.println(ge.getPosition()[0]);
+			System.out.println(ge.getPosition()[1]);
+			System.out.println(ge.getScenePosition()[0]);
+			System.out.println(ge.getScenePosition()[1]);
+			System.out.println(adjustXCord(ge.getScenePosition()[0]));
+			System.out.println(adjustYCord(ge.getScenePosition()[1]));
 			myDispMap.put(ge, entityImage);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}
@@ -156,6 +153,7 @@ public class VoogaGameView implements GameView {
 	private void displayObjects() {
 		Level level = myGameLevels.get(myCurrLevel);
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
+		List<ImageView> momentList = new ArrayList<>();
 		for (GameEntity ge : myDispMap.keySet()) {
 			if (level.getObjects().contains(ge)) {
 				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
@@ -169,6 +167,10 @@ public class VoogaGameView implements GameView {
 			myGP.getChildren().remove(myDispMap.get(ge));
 			myDispMap.remove(ge);
 		}
+		for(ImageView val : myDispMap.values()) {
+			momentList.add(val);
+		}
+		myReplayList.add(momentList);
 	}
 
 	/**
@@ -251,5 +253,14 @@ public class VoogaGameView implements GameView {
 		double seconds = timer.getX() % SECONDS_PER_MINUTE;
 		String output = String.format("%d:%.1f", minutes, seconds);
 		hud.updateComponent((int) timer.getY(), output);
+	}
+
+	/**
+	 * Returns an object to make replaying a game possible.
+	 * 
+	 * @return myReplayList, a list of Maps of gameEntitys to their imageView
+	 */
+	public List<List<ImageView>> getReplayList() {
+		return myReplayList;
 	}
 }
