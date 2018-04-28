@@ -2,14 +2,15 @@ package data.fileReading;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import authoring_environment.game_elements.AuthoredLevel;
-import data.builders.AuthoredLevelBuilder;
+import data.levelBuilders.AuthoredLevelBuilder;
 import data.resources.DataFileException;
-import engine.entity.GameEntity;
+
 /**
  * This class holds the implementation for the methods that allow the GAE to load games and files
  * for continued editing or use.
@@ -47,14 +48,27 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 				int index = gameFile.toString().lastIndexOf(NEST) + 1;
 				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
-				if(!levelName.equals(SETTINGS))
+				if(!levelName.equals(SETTINGS) && !levelName.equals(LEVEL_ORDER))
 				{
 					completeGame.add(loadAuthoredGameLevel(gameName, levelName));
 				}		
 		}
+		completeGame = orderLevels(gameName,completeGame);
 		return completeGame;
 	}
 	
+	private List<AuthoredLevel> orderLevels(String gameName, List<AuthoredLevel> levels) throws DataFileException
+	{
+		Map<String,Integer> levelOrder = getLevelOrder(gameName);
+		AuthoredLevel[] orderedLevels = new AuthoredLevel[levels.size()];
+		for(AuthoredLevel level: levels)
+		{
+			int position = levelOrder.get(level.getLevel().getName());
+			orderedLevels[position] = level;
+		}
+		System.out.println(orderedLevels);
+		return Arrays.asList(orderedLevels);
+	}
 	/**
 	 * This will load an existing level in an existing game as an AuthoredLevel
 	 * for use by the game authoring environment. Also used by GameFileWriter for 

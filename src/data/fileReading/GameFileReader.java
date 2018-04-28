@@ -4,16 +4,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import data.resources.DataFileException;
+import engine.level.Level;
 
 public abstract class GameFileReader {
 	
@@ -27,6 +30,8 @@ public abstract class GameFileReader {
 	protected static final String PLAYER_FOLDER = "Playing";
 	protected static final String PLAYER_SEPARATOR = "_";
 	protected static final String LEVEL_FOLDER = "./data/levelData";
+	protected static final String LEVEL_ORDER = "LevelOrder";
+	protected static final String ORDER = "order";
 	
 	/**
 	 * Returns a list of all the possible game paths
@@ -139,5 +144,26 @@ public abstract class GameFileReader {
 		}
 	}
 	
+	public Map<String,Integer> getLevelOrder(String gameName) throws DataFileException
+	{
+		Map<String,Integer> levelOrder = new HashMap<>();
+		String gameDirectory = getCurrentGamePath(gameName);
+		File levelOrderFile = new File(gameDirectory + NEST + LEVEL_ORDER + JSON_EXTENSION);
+		try 
+		{
+			JsonParser jsonParser = new JsonParser();
+			JsonObject  jobject = jsonParser.parse(new FileReader(levelOrderFile)).getAsJsonObject();
+			JsonArray jarray = jobject.get(ORDER).getAsJsonArray();
+			for(int i = 0; i < jarray.size(); i++)
+			{
+				levelOrder.put(jarray.get(i).getAsString(), i);
+			}
+			return levelOrder;
+		} 
+		catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) 
+		{
+			throw new DataFileException("Could not find level order file for" + gameName, e);
+		}
+	}
 
 }
