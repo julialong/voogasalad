@@ -71,6 +71,7 @@ public class Serializer {
 	 */
 	public Object deserialize(String json, Class<?> objectClass)
 	{
+		System.out.println( "Here is the object! " + gson.fromJson(json, objectClass));
 		return gson.fromJson(json, objectClass);
 	}	
 }

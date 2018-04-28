@@ -67,6 +67,12 @@ public interface Level {
 	 * @param color is the desired background color
 	 */
 	void setColor(Color color);
+
+	/**
+	 * Retrieves the background color of the level
+	 * @return color of level
+	 */
+	String getColor();
     
     /**
      * Updates the contents of the level
