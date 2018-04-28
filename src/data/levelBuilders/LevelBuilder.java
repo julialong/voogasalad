@@ -1,4 +1,4 @@
-package data.builders;
+package data.levelBuilders;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,9 +19,12 @@ import com.google.gson.JsonSyntaxException;
 
 import data.resources.DataFileException;
 import data.serialization.Serializer;
+import engine.behavior.MoveForward;
 import engine.entity.GameEntity;
+import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
+import javafx.scene.paint.Color;
 
 /**
  * Creates levels to return to the Game Player when a 
@@ -34,10 +37,11 @@ public class LevelBuilder {
 
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
 	private static final String NAME = "name";
-	private static final String ID = "id";
+	private static final String COLOR = "color";
 	private Map<String,Class<?>> objectTypes;
 	private Serializer deserializer; 
 	private File levelFile;
+	private Player player;
 	
 	/**
 	 * Class Constructor
@@ -116,10 +120,10 @@ public class LevelBuilder {
 	private void addMetaData(Level level, JsonObject jobject)
 	{
 		String levelName = jobject.get(NAME).getAsString();
-		int id = jobject.get(ID).getAsInt();
+//		Color color = Color.web(jobject.get(COLOR).getAsString());
 		
 		level.setName(levelName);
-		level.setID(id);
+//		level.setColor(color);
 	}
 	
 	/**
@@ -154,7 +158,19 @@ public class LevelBuilder {
 		JsonArray jarray = jobject.getAsJsonArray(objectType);
 		for(int i = 0; i < jarray.size(); i++)
 		{
-			newObjectsOfType.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
+			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
+			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
+			if(ge.getClass().equals(Player.class))
+			{
+				System.out.println("HERE OMG: " + ge);
+				player = (Player) ge;
+			}
+			if(ge.getClass().equals(MoveForward.class))
+			{
+//				MoveForward mf = (MoveForward) ge;
+				ge = (GameEntity) new MoveForward(player);
+			}
+			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
 	}
@@ -170,7 +186,8 @@ public class LevelBuilder {
 	 */
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
+		System.out.println();
+		System.out.println("toConvert " + toConvert + "objectType " + objectType);
 		return deserializer.deserialize(toConvert.toString(), objectTypes.get(objectType));
 	}
-	
 }
