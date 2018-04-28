@@ -20,6 +20,7 @@ import com.google.gson.JsonSyntaxException;
 import data.resources.DataFileException;
 import data.serialization.Serializer;
 import engine.entity.GameEntity;
+import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
 import javafx.scene.paint.Color;
@@ -39,6 +40,7 @@ public class LevelBuilder {
 	private Map<String,Class<?>> objectTypes;
 	private Serializer deserializer; 
 	private File levelFile;
+	private Player player;
 	
 	/**
 	 * Class Constructor
@@ -158,7 +160,12 @@ public class LevelBuilder {
 		for(int i = 0; i < jarray.size(); i++)
 		{
 			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
-			newObjectsOfType.add((GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType));
+			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
+			if(ge.getClass().equals(Player.class))
+			{
+				System.out.println(ge);
+			}
+			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
 	}

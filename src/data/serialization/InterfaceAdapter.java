@@ -42,6 +42,10 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 	public T deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
 		JsonObject wrapper = (JsonObject) arg0;
 		System.out.println(wrapper);
+		if(!wrapper.toString().contains("type") && !wrapper.toString().contains("type"))
+		{
+			return null;
+		}
 		JsonElement typeName = get(wrapper, "type");
 		JsonElement data = get(wrapper, "data");
 		Type actualType = typeForName(typeName);
@@ -72,6 +76,10 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 	 * @return
 	 */
 	private JsonElement get(JsonObject wrapper, String string) {
+		if(!wrapper.toString().contains(string))
+		{
+			System.out.println("hello");
+		}
 		JsonElement elem = wrapper.get(string);
 		if(elem == null) {
 			throw new JsonParseException("no '" + string + "' member found in what was expected to be an interface wrapper");
