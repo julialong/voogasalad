@@ -262,6 +262,11 @@ public interface GameEntity {
 	public abstract Map<GameEntity, String> getInteractionMap();
 	
 	/**
+	 * Clears the map of interaction entities to directionality
+	 */
+	public abstract void clearInteractionMap();
+	
+	/**
 	 * Gets all interactions
 	 */
 	public abstract List<Interaction> getInteractions();

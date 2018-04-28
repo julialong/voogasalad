@@ -61,12 +61,11 @@ public interface Level {
 	 * @param Y is the new y size
 	 */
 	void setSize(double X, double Y);
-
+	
 	/**
-	 * Sets the background color of the level
-	 * @param color is the desired background color
+	 * Returns true if level is complete
 	 */
-	void setColor(Color color);
+	public abstract boolean getLevelComplete();
     
     /**
      * Updates the contents of the level

@@ -142,6 +142,10 @@ public abstract class GameObject implements GameEntity{
 		return interactionsMap;
 	}
 	
+	public void clearInteractionMap() {
+		interactionsMap.clear();
+	}
+	
 	public List<Interaction> getInteractions() {
 		return interactionList;
 	}

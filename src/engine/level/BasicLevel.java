@@ -26,6 +26,7 @@ public class BasicLevel implements Level {
     private double sceneX;
     private double sceenY;
     private String myColor;
+    private boolean levelComplete = false;
 
     private static final String DEFAULT = "Default";
     private static final int DEFAULT_X_SIZE = 500;
@@ -120,6 +121,11 @@ public class BasicLevel implements Level {
     }
     
     @Override
+    public boolean getLevelComplete() {
+    	return levelComplete;
+    }
+    
+    @Override
     public void update(){
     	for(GameEntity source : myObjects){
     		source.update();
@@ -142,6 +148,7 @@ public class BasicLevel implements Level {
         for(GameEntity ge : myObjects) {
         	if(ge instanceof Player) {
         		camera.setPlayerPosition(ge);
+        		levelComplete = ((Player) ge).getLevelComplete();
         	}
         }
     }
