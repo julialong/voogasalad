@@ -5,6 +5,7 @@ import java.io.FileWriter;
 
 import com.google.gson.JsonArray;
 
+import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.grid.GridCell;
 import data.resources.DataFileException;
@@ -19,7 +20,7 @@ import engine.level.Level;
 public class LevelSerializer	{
 	private static final String NAME = "name";
 	private static final String ID = "id";
-	private static final String SIZE = "size";
+	private static final String BGCOLOR = "color";
 	private static final String SG = "ScrollingGrid";
 	
 	public LevelSerializer() {
@@ -32,8 +33,8 @@ public class LevelSerializer	{
 	 */
 	public void serialize(FileWriter fw, Level level, ScrollingGrid grid) throws DataFileException	{
 		writeKeyValue(fw, NAME, level.getName());
-		writeKeyValue(fw, ID, 1);// level.getID());
-		writeKeyValue(fw, SIZE, 1);// level.getSize());
+		writeKeyValue(fw, ID, level.getID());
+		writeKeyValue(fw, BGCOLOR, level.getColor());
 		writeGrid(fw, grid);
 	}
 
@@ -67,15 +68,14 @@ public class LevelSerializer	{
 		for (int i = 0; i < grid.getCellArray().length; i++)	{
 			TextWriter.startArray(fw, null);
 			for (int j = 0; j < grid.getCellArray()[i].length; j++)	{
-				// TODO: UNCOMMENT LINE BELOW
-				//TextWriter.writeValue(fw, grid.getCellArray()[i][j].getPath());
+				TextWriter.writeValue(fw, grid.getCellArray()[i][j].getID());
 				TextWriter.checkWriteComma(fw, j, grid.getCellArray()[i].length);
 			}
 			TextWriter.newLine(fw);
 			TextWriter.closeArray(fw, i, grid.getCellArray().length);
 		}
 
-		TextWriter.closeArray(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		TextWriter.closeArray(fw, 0, 0);
 	}
 
 	/**
@@ -83,13 +83,16 @@ public class LevelSerializer	{
 	 * @param jsonGrid	ScrollingGrid in JOSN form - 2d array containing GridCell imagepaths
 	 * @return new ScrollingGrid to go itno level
 	 */
-	public ScrollingGrid deserialize(JsonArray jsonGrid)	{
-		ScrollingGrid grid = new ScrollingGrid();
+	public ScrollingGrid deserialize(JsonArray jsonGrid, ScrollingGrid grid, AuthoredLevel al)	{
+		grid.setMediator(al);
 
 		for (int i = 0; i < jsonGrid.size(); i++)	{
 			JsonArray row = jsonGrid.get(i).getAsJsonArray();
+
 			for (int j = 0; j < jsonGrid.get(i).getAsJsonArray().size(); j ++)	{
-//				grid.setCellElement(grid.getCellArray()[i][j], row.get(j).getAsString());
+				if (!row.get(j).getAsString().equals("null"))	{
+					grid.setCellElement(grid.getCellArray()[i][j], row.get(j).getAsString());
+				}
 			}
 		}
 

@@ -62,7 +62,8 @@ public class AuthoredGame {
         try {
             myName = gameName;
             myDescription = gameDescription;
-            myLevels = FXCollections.observableArrayList(levels);
+            myLevels = FXCollections.observableArrayList();
+            myLevels.addAll(levels);
             if (myLevels.size() > 0) {
                 currentLevel = myLevels.get(0);
             }
@@ -147,6 +148,15 @@ public class AuthoredGame {
      */
     public void addLevel(AuthoredLevel level) {
         myLevels.add(level);
+    }
+
+    /**
+     * Adds a level to the game
+     * @param i is the index at which to add the level
+     * @param level is the new level
+     */
+    public void addLevel(int i, AuthoredLevel level) {
+        myLevels.add(i, level);
     }
 
     /**

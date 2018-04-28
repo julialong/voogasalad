@@ -51,8 +51,13 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 */
 	@Override
 	public void update(List<AuthoredLevel> changes) throws DataFileException	{
+		int i = 0;
+
 		for (AuthoredLevel aLevel:changes)	{
+			aLevel.getLevel().setID(i);
 			saveData(aLevel);
+			System.out.println("saved " + aLevel.toString());
+			i++;
 		}
 	}
 
@@ -139,10 +144,13 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 	 * @param newName	String to rename game to	
 	 */
 	@Override
-	public void renameGame(String newName)	{
+	public void renameGame(String newName) throws DataFileException	{
 		File newDir = new File(gameDirectoryFile.getParent() + NEST + newName);
 
 		gameDirectoryFile.renameTo(newDir);
+		this.gameName = newName;
+		gameDirectory = userDirectory + NEST + gameName;
+		gameDirectoryFile = retrieveFolder(gameDirectory);
 	}
 
 	/**

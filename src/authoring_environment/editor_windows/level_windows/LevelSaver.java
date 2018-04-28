@@ -1,4 +1,4 @@
-package authoring_environment.editor_windows.savers;
+package authoring_environment.editor_windows.level_windows;
 
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;

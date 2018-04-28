@@ -1,5 +1,7 @@
-package authoring_environment.editor_windows;
+package authoring_environment.editor_windows.game_windows;
 
+import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.editor_windows.EditorWindow;
 import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.fileReading.GAEGameFileReader;
@@ -93,11 +95,8 @@ public class GameChooser {
         try {
             String chosenGame = myView.getSelectionModel().getSelectedItem();
             List<AuthoredLevel> loadLevels = myReader.loadCompleteAuthoredGame(chosenGame);
-            // TODO: delete this
-            for (AuthoredLevel level : loadLevels) {
-                System.out.println("Level here");
-            }
-            myWindow.changeCurrentGame(new AuthoredGame(chosenGame, myChoices.get(chosenGame), loadLevels));
+            System.out.println(chosenGame + ": " + loadLevels.size());
+            new EditorWindow(new Stage(), new AuthoredGame(chosenGame, myChoices.get(chosenGame), loadLevels));
             myStage.close();
         }
         catch (Exception e) {
