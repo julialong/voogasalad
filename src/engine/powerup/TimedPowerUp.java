@@ -2,6 +2,11 @@ package engine.powerup;
 
 import engine.entity.Player;
 
+/**
+ * Abstract class for timed power ups
+ * @author Marcus Oertle and Robert Gitau
+ *
+ */
 public abstract class TimedPowerUp implements PowerUp{
 	protected int counter;
 	protected double duration;
@@ -39,7 +44,13 @@ public abstract class TimedPowerUp implements PowerUp{
 		return false;
     }
     
+    /**
+     * Effect when the power up is activated
+     */
     public abstract void effect();
     
+    /**
+     * Reverse effect to undo the power up    
+     */
     public abstract void reverseEffect();
 }

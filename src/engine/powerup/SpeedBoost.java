@@ -1,7 +1,5 @@
 package engine.powerup;
 
-import java.util.List;
-
 import engine.entity.Player;
 
 /**
