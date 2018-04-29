@@ -57,6 +57,7 @@ abstract class LevelModifications {
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.DEFAULT,
                     BackgroundSize.DEFAULT)));
+            newLevel.setImagePath(selectedImageFile.getPath());
         });
         Text uploadImage = new Text(UPLOAD_BACKGROUND_IMAGE);
         uploadImage.setFont(new Font(SMALL_FONT));

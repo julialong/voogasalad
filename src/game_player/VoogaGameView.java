@@ -106,7 +106,7 @@ public class VoogaGameView implements GameView {
 				//imgPath = "trump.gif";
 			}
 			System.out.println("imgPath: "+imgPath);
-			ImageView entityImage = new ImageView(new Image(imgPath,
+			ImageView entityImage = new ImageView(new Image(new File(imgPath).toURI().toString(),
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 			// TODO: uncomment below once GAE sends us actual data
 			// if (ge.getClass().equals(new Player().getClass())) {
@@ -116,8 +116,8 @@ public class VoogaGameView implements GameView {
 			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
 			// ge.getSizeY(), true, true));
 
-			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
-			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
+			entityImage.setX(ge.getKinematics().getX());
+			entityImage.setY(ge.getKinematics().getY());
 			myDispMap.put(ge, entityImage);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}

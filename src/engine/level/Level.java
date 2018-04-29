@@ -54,10 +54,6 @@ public interface Level {
 	 * @return the name of the level
 	 */
 	String getName();
-	
-	void setColor(Color color);
-	
-	String getColor();
 
 	/**
 	 * Sets the x size of the grid.
@@ -65,12 +61,13 @@ public interface Level {
 	 * @param Y is the new y size
 	 */
 	void setSize(double X, double Y);
-	
+
+	double[] getSize();
+
 	/**
 	 * Returns true if level is complete
 	 */
 	boolean getLevelComplete();
-
 
 	void setColor(Color color);
 
