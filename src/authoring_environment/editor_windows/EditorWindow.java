@@ -57,6 +57,7 @@ public class EditorWindow implements CreatorView {
 		}
 		catch (Exception e) {
 			myGame = new AuthoredGame();
+			myGame.setAuthorName(myAuthor);
 		}
 		openNewWindow();
 	}
@@ -130,6 +131,7 @@ public class EditorWindow implements CreatorView {
 	
 	public void setAuthor(String author) {
 		myAuthor = author;
+		myGame.setAuthorName(myAuthor);
 	}
 	
 }
