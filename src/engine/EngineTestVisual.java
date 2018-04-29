@@ -2,8 +2,10 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import engine.behavior.Behavior;
 import engine.behavior.ChasePlayer;
 import engine.behavior.JumpALot;
 import engine.behavior.JumpBetweenPoints;
@@ -143,7 +145,11 @@ public class EngineTestVisual extends Application{
 		//player.setWeapon(new SwingingWeapon(player, level));
 		//player.setWeapon(new StabbingWeapon(player, level));
 		//player.setWeapon(new AOEWeapon(player, level));
-		player.setWeapon(new ShootingWeapon(player, level));
+//		player.setWeapon(new ShootingWeapon(player, level));
+		List<Behavior> bulletBehaviors = new ArrayList<>();
+		bulletBehaviors.add(new MoveForward());
+		bulletBehaviors.add(new JumpALot());
+		player.setWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,25,10));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
