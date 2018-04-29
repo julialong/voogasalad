@@ -18,6 +18,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,10 +120,10 @@ public class VoogaGameView implements GameView, GameViewMenu {
 
 			System.out.println("imgPath: " + imgPath);
 			ImageView entityImage = new ImageView(
-					new Image(imgPath, adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
+					new Image(new File(imgPath).toURI().toString(), adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 
 			ImageView entityImageCopy = new ImageView(
-					new Image(imgPath, adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
+					new Image(new File(imgPath).toURI().toString(), adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 
 			myIVCopyMap.put(entityImage, entityImageCopy);
 
