@@ -17,6 +17,7 @@ public class SwingingWeapon extends GameObject implements Weapon{
 	private Block hitBox = new Block();
 	private GameEntity weaponHolder;
 	private Level level;
+	private double offset = 2;
 	private DetectCollision collisionDetector = new DetectCollision();
 	private HarmTarget dealDamage = new HarmTarget();
 	private ArrayList<GameEntity> listOfEntities = new ArrayList<>();
@@ -28,20 +29,28 @@ public class SwingingWeapon extends GameObject implements Weapon{
 		this.level = level;
 		xSize = weaponHolder.getSizeX();
 		ySize = weaponHolder.getSizeY();
-		hitBox.setSizeX(2*xSize);
-		hitBox.setSizeY(ySize);
+		hitBox.setSizeX(xSize);
+		hitBox.setSizeY(ySize - 2*offset);
 	}
 	
 	@Override
 	public void attack() {
 		double xPos = weaponHolder.getPosition()[0];
 		double yPos = weaponHolder.getPosition()[1];
-		hitBox.setX(xPos);
-		hitBox.setY(yPos);
+		if(weaponHolder.getKinematics().getXVelocity() >= 0){
+			hitBox.setX(xPos+xSize);
+			hitBox.setY(yPos - offset);
+		}
+		else{
+			hitBox.setX(xPos-xSize);
+			hitBox.setY(yPos - offset);
+		}
 		listOfEntities = (ArrayList<GameEntity>) level.getObjects();
 		for(GameEntity entity : listOfEntities){
 			if(!collisionDetector.detect(hitBox, entity).equals("none")){
-				dealDamage.interact(hitBox, entity);
+				if(entity.getDestructible()) {
+					dealDamage.interact(hitBox, entity);
+				}
 			}
 		}
 	}
