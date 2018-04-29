@@ -22,6 +22,9 @@ public class WeaponBase extends GameObject implements Weapon{
     protected double weaponAngle;
     protected boolean isAttacking = false;
     protected String direction = "right";
+    protected double rightXOffset;
+    protected double leftXOffset;
+    protected double yOffset;
     
 	@Override
 	public void attack() {
@@ -47,5 +50,12 @@ public class WeaponBase extends GameObject implements Weapon{
 		else if(weaponHolder.getKinematics().getXVelocity() < 0){
 			direction = "left";
 		}
+    	if(direction.equals("right")){
+    		kinematics.setX(weaponHolder.getPosition()[0] + rightXOffset);
+    	}
+    	else{
+    		kinematics.setX(weaponHolder.getPosition()[0] + leftXOffset);
+    	}
+        kinematics.setY(weaponHolder.getPosition()[1] + yOffset);
 	}
 }

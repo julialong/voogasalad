@@ -30,6 +30,9 @@ public class SwingingWeapon extends WeaponBase{
         width = xSize*2;
         height = ySize/4;
         weaponAngle = DEFAULT_WEAPON_ANGLE;
+        rightXOffset = 0.3 * xSize;
+        leftXOffset = 0.65 * xSize - width;
+        yOffset = -1* ySize/8;
 	}
 	
 	@Override
@@ -59,13 +62,6 @@ public class SwingingWeapon extends WeaponBase{
 	@Override
     public void update() {
 		updateDirectionality();
-    	if(direction.equals("right")){
-    		kinematics.setX(weaponHolder.getPosition()[0] + 0.3 * xSize);
-    	}
-    	else{
-    		kinematics.setX(weaponHolder.getPosition()[0] - width + 0.65 * xSize);
-    	}
-        kinematics.setY(weaponHolder.getPosition()[1] - ySize/8);
         if(isAttacking){
             weaponAngle -= WEAPON_ANGLE_INCREMENT;
             if(weaponAngle < -DEFAULT_WEAPON_ANGLE){
