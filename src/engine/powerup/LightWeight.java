@@ -8,21 +8,27 @@ import engine.entity.Player;
  *
  */
 public class LightWeight extends TimedPowerUp{
+	private double gravityFactor;
 	
-    public LightWeight(double time, Player player){
+	public LightWeight(double time, Player player){
+		this(time, player, 2);
+	}
+	
+    public LightWeight(double time, Player player, double scaleFactor){
         setDuration(time);
         setPlayer(player);
         counter = 0;
+        gravityFactor = scaleFactor;
     }
 
 	@Override
 	public void effect() {
-		player.setGravitationalConstant(player.getKinematics().getGravitationalConstant()/2);
+		player.setGravitationalConstant(player.getKinematics().getGravitationalConstant()/gravityFactor);
 	}
 
 	@Override
 	public void reverseEffect() {
-		player.setGravitationalConstant(player.getKinematics().getGravitationalConstant()*2);
+		player.setGravitationalConstant(player.getKinematics().getGravitationalConstant()*gravityFactor);
 	}
 
 }

@@ -29,7 +29,7 @@ import engine.level.*;
 import engine.movement.Grounded;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
-import engine.powerup.SpeedBoost;
+import engine.powerup.SpeedChange;
 import engine.weapon.AOEWeapon;
 import engine.weapon.ShootingWeapon;
 import engine.weapon.StabbingWeapon;
@@ -148,7 +148,7 @@ public class EngineTestVisual extends Application{
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
 		//player.setWeapon(new SwingingWeapon(player, level));
-		//player.setWeapon(new StabbingWeapon(player, level));
+		player.setWeapon(new StabbingWeapon(player, level, 50, 5));
 		//player.setWeapon(new AOEWeapon(player, level));
 //		player.setWeapon(new ShootingWeapon(player, level));
 		
@@ -160,7 +160,7 @@ public class EngineTestVisual extends Application{
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
-		wall.addInteraction(new AddPowerup(new LightWeight(5, player)));
+		//wall.addInteraction(new AddPowerup(new LightWeight(5, player)));
 		//wall.addInteraction(new RemoveOnInteractWithPlayer());
 		Block platform = new Block();
 		platform.overridePosition(0, -130);
@@ -172,6 +172,12 @@ public class EngineTestVisual extends Application{
 		platform2.setSizeX(100);
 		platform2.setSizeY(10);
 		platform2.addInteraction(new Platform());
+		Block powerupBlock = new Block(-80, -160);
+		powerupBlock.setSizeX(5);
+		powerupBlock.setSizeY(5);
+		powerupBlock.addInteraction(new AddPowerup(new LightWeight(5, player)));
+		//powerupBlock.addInteraction(new AddPowerup(new SpeedChange(5, player)));
+		powerupBlock.addInteraction(new RemoveOnInteractWithPlayer());
 		level.addObject(block);
 		level.addObject(enemy);
 		level.addObject(wall);
@@ -179,6 +185,7 @@ public class EngineTestVisual extends Application{
 		level.addObject(enemy2);
 		level.addObject(platform);
 		level.addObject(platform2);
+		level.addObject(powerupBlock);
 		//level.addObject(enemy3);
 		for(GameEntity ge : level.getObjects()){
 			Rectangle entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 

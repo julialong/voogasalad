@@ -28,7 +28,6 @@ import engine.level.*;
 import engine.movement.Grounded;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
-import engine.powerup.SpeedBoost;
 import engine.powerup.SwitchWeapon;
 import engine.weapon.AOEWeapon;
 import engine.weapon.ShootingWeapon;

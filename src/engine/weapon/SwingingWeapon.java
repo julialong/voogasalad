@@ -24,6 +24,18 @@ public class SwingingWeapon extends WeaponBase{
         yOffset = yHolderSize/8;
 	}
 	
+	public SwingingWeapon(GameEntity entity, Level level, double hitBoxX, double hitBoxY){
+		super(entity, level);
+		hitBox.setSizeX(hitBoxX);
+		hitBox.setSizeY(hitBoxY);
+        width = hitBoxX;
+        height = yHolderSize/4;
+        weaponAngle = DEFAULT_WEAPON_ANGLE;
+        rightXOffset = 0.3 * xHolderSize;
+        leftXOffset = width - 0.65 * xHolderSize;
+        yOffset = yHolderSize/8;
+	}
+	
 	@Override
 	public void attack() {
         if(!isAttacking){

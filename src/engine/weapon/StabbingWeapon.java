@@ -21,6 +21,17 @@ public class StabbingWeapon extends WeaponBase{
         yOffset = yHolderSize/2;
 	}
 	
+	public StabbingWeapon(GameEntity entity, Level level, double hitBoxX, double hitBoxY){
+		super(entity, level);
+		hitBox.setSizeX(hitBoxX);
+		hitBox.setSizeY(hitBoxY);
+        width = hitBoxX;
+        height = hitBoxY;
+        rightXOffset = xHolderSize/10;
+        leftXOffset = width - 9*(xHolderSize/10);
+        yOffset = yHolderSize/2;
+	}
+	
 	@Override
 	public void attack() {
         if(!isAttacking){
