@@ -4,6 +4,7 @@ import engine.entity.Block;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.physics.DetectCollision;
+import engine.weapon.Weapon;
 
 /**
  * Makes the source able to be pushed around
@@ -17,9 +18,7 @@ public class Pushable implements Interaction {
 		// for example: source = block, target = player, player is then 
 		// stopped by the block so it cannot fall
 
-		if(target instanceof Block) {
-			return;
-		}
+		if(target instanceof Block || target instanceof Weapon) return;
 
 		//		System.out.println("Pushable:");
 		String collisionType = new DetectCollision().detect(source, target);

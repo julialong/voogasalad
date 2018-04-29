@@ -39,6 +39,7 @@ public class AuthoredLevel implements DocumentGetter {
         myLevel = level;
         myScrollingGrid = scrollingGrid;
         myScrollingGrid.setMediator(this);
+        myLevel.setColor(Color.WHITE);
     }
 
     /**
@@ -139,7 +140,7 @@ public class AuthoredLevel implements DocumentGetter {
         if (newEntity == null) {
             return null;
         }
-        newEntity.setImageView(path);
+        newEntity.setImagePath(path);
         createBehavior(behavior, newEntity);
         newEntity.setMovementType(createMovement(movement));
         newEntity.addInteraction(createInteraction(interaction));

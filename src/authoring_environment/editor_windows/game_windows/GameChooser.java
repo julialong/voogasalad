@@ -1,19 +1,15 @@
 package authoring_environment.editor_windows.game_windows;
 
-import authoring_environment.editor_windows.CreatorView;
+import authoring_environment.DataAlert;
 import authoring_environment.editor_windows.EditorWindow;
 import authoring_environment.game_elements.AuthoredGame;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.fileReading.GAEGameFileReader;
-import data.fileReading.GPGameFileReader;
 import data.fileReading.JSONtoGAE;
-import data.fileReading.JSONtoGP;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -30,25 +26,22 @@ import java.util.Map;
  *
  * Date started: April 24 18
  */
-public class GameChooser {
+public class GameChooser implements DataAlert {
 
     private Stage myStage;
     private Pane myRoot;
-    private Scene myScene;
     private ListView<String> myView;
     private Map<String, String> myChoices;
     private JSONtoGAE myReader;
-    private CreatorView myWindow;
 
     private static final String CSS = "GAE.css";
     private static final String LOAD_GAME = "Load Game";
     private static final String CHOOSE = "Choose a game to edit:";
 
-    public GameChooser(CreatorView window) {
-        myWindow = window;
+    public GameChooser() {
         myStage = new Stage();
         myRoot = new VBox();
-        myScene = new Scene(myRoot);
+        Scene myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
         addFields();
         myStage.setScene(myScene);
@@ -73,10 +66,7 @@ public class GameChooser {
             myRoot.getChildren().add(myView);
         }
         catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(e.getCause().toString());
-            alert.setContentText(e.getMessage());
-            alert.show();
+            saveAlert(e);
         }
     }
 
@@ -100,7 +90,7 @@ public class GameChooser {
             myStage.close();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            saveAlert(e);
         }
     }
 }

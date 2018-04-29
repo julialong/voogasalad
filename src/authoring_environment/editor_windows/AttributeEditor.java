@@ -8,16 +8,14 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.xml.transform.TransformerException;
 
 import authoring_environment.AttributeGetter;
+import authoring_environment.DataAlert;
 import authoring_environment.authored_elements.GameElement;
 import authoring_environment.toolbars.buttons.AddImageButton;
 import authoring_environment.toolbars.buttons.CloseAttributeEditorButton;
@@ -44,7 +42,7 @@ import javafx.stage.Stage;
  *
  */
 // TODO: get rid of strings in methods 
-public class AttributeEditor implements AttributeGetter  {
+public class AttributeEditor implements AttributeGetter, DataAlert {
 
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
@@ -72,10 +70,8 @@ public class AttributeEditor implements AttributeGetter  {
 	private Stage window;
 	private File imageFile;
 	private URI imageURI;
-	private URL imageURL;
 	private String xDim;
 	private String yDim;
-	private String imagePath;
 
 
 	/**
@@ -100,7 +96,7 @@ public class AttributeEditor implements AttributeGetter  {
 		chosenAttributes = gameElement.getAttributes();
 		xDim = gameElement.getDimensions().get(0);
 		yDim = gameElement.getDimensions().get(1);
-		imagePath = gameElement.getImagePath();
+		String imagePath = gameElement.getImagePath();
 		attributes = loadAttributes();
 		AttributeComboBoxesPane boxesPane = new AttributeComboBoxesPane(attributes, chosenAttributes, this);
 		attributeBoxes = boxesPane.getAttributeBoxes();
@@ -211,7 +207,7 @@ public class AttributeEditor implements AttributeGetter  {
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
 		imageFile= filechooser.showOpenDialog(fileWindow);
 		imageURI = imageFile.toURI();
-		imageURL = imageURI.toURL();
+		URL imageURL = imageURI.toURL();
 		image = new ImageView(imageURL.toString());
 		image.setFitHeight(IMAGE_HEIGHT);
 		image.setFitWidth(IMAGE_WIDTH);
@@ -239,8 +235,7 @@ public class AttributeEditor implements AttributeGetter  {
 		try {
 			Files.copy(source, target);
 		} catch (IOException e) {
-			// TODO: Handle this error
-			e.printStackTrace();
+			saveAlert(e);
 		}
 		gameElement.updateDimensions(xDim, yDim);
 		gameElement.uploadImage(target.toString());

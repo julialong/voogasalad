@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import data.resources.DataFileException;
-import engine.level.Level;
 /**
  * Implements methods for getting file paths and getting settings that are used in the GameFileReaders for both Game Authoring
  * Environment and Game Player. Also holds the static final variables that will be used in the two file readers.

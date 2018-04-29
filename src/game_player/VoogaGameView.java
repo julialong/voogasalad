@@ -96,10 +96,10 @@ public class VoogaGameView implements GameView {
 			// stuff
 			//System.out.println("IV: "+ ge.getImageView());
 			String imgPath;
-			if (ge.getImageView() == null || ge.getImageView() == "") {
+			if (ge.getImagePath() == null || ge.getImagePath() == "") {
 				imgPath = "./game_player/brick.png";
 			} else {
-				imgPath = ge.getImageView();
+				imgPath = ge.getImagePath();
 			}
 			if (ge instanceof Player) {
 				myControls = new Controls((Player) ge);
