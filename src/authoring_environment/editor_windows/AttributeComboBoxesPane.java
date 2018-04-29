@@ -29,6 +29,12 @@ public class AttributeComboBoxesPane {
 		attributeBoxes = makeComboBoxList(attributes, editor );
 	}
 	
+	public AttributeComboBoxesPane(Map<String, List<String>> attributes, Map<String, String> chosenAttributes, AttributeEditor editor) {
+		attributeBoxes = makeComboBoxList(attributes, editor );
+		setPreviousChoices(chosenAttributes);
+	}
+	
+	
 	private List<ComboBox<String>> makeComboBoxList(Map<String, List<String>> attributes,  AttributeEditor editor) {
 		List<ComboBox<String>> boxes = new ArrayList<>();
 		Set<String> categories = new HashSet<>(attributes.keySet());
@@ -54,6 +60,13 @@ public class AttributeComboBoxesPane {
 	 */
 	public List<ComboBox<String>> getAttributeBoxes(){
 		return attributeBoxes;
+	}
+	
+	private void setPreviousChoices(Map<String, String> choices) {
+		for( ComboBox<String> box : attributeBoxes) {
+			String category = box.getValue();
+			box.getSelectionModel().select(choices.get(category));
+		}
 	}
 	
 }
