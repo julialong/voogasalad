@@ -4,13 +4,13 @@ import engine.entity.GameEntity;
 
 /**
  * No weapon. Cannot deal damage at all.
- * @author Rob
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class NoWeapon implements Weapon{
 
 	@Override
-	public void attack(GameEntity entity) {
+	public void attack() {
 		// TODO Auto-generated method stub
 		
 	}
