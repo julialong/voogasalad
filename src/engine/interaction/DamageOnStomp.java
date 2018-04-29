@@ -13,10 +13,17 @@ import engine.physics.DetectCollision;
 public class DamageOnStomp implements Interaction{
 	private int damage;
 	
+	/**
+	 * Default constructor for damage on stomp, sets damage to 1.
+	 */
 	public DamageOnStomp(){
 		this(1);
 	}
 	
+	/**
+	 * Constructor for setting the damage done on a stomp.
+	 * @param damage
+	 */
 	public DamageOnStomp(int damage){
 		this.damage = damage;
 	}

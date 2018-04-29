@@ -6,6 +6,11 @@ import engine.entity.Player;
 import engine.movement.Static;
 import engine.physics.DetectCollision;
 
+/**
+ * Interaction implementation that causes an entity to attempt to jump over obstacles it runs into.
+ * @author Robert Gitau
+ *
+ */
 public class JumpOverObstacle implements Interaction{
 
 	@Override

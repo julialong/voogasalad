@@ -12,10 +12,17 @@ import engine.physics.Kinematics;
 public class KnockBack implements Interaction{
 	private double knockbackFactor;
 	
+	/**
+	 * Default constructor with knockbackFactor = 30
+	 */
 	public KnockBack(){
 		this(30);
 	}
 	
+	/**
+	 * Constructor that defines the knockbackFactor (default 30)
+	 * @param knockbackFactor
+	 */
 	public KnockBack(double knockbackFactor){
 		this.knockbackFactor = knockbackFactor;
 	}

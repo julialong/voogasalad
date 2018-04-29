@@ -11,10 +11,18 @@ public class HarmEachOther implements Interaction{
 	private int damageSource;
 	private int damageTarget;
 	
+	/**
+	 * Default constructor, damage defaulted to 1.
+	 */
 	public HarmEachOther(){
 		this(1,1);
 	}
 	
+	/**
+	 * Constructor that define damage to the source and target for this interaction.
+	 * @param damageSource
+	 * @param damageTarget
+	 */
 	public HarmEachOther(int damageSource, int damageTarget){
 		this.damageSource = damageSource;
 		this.damageTarget = damageTarget;

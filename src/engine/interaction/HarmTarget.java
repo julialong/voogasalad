@@ -10,10 +10,17 @@ import engine.entity.GameEntity;
 public class HarmTarget implements Interaction{
 	private int damage;
 	
+	/**
+	 * Default constructor, damage defaulted to 1.
+	 */
 	public HarmTarget(){
 		this(1);
 	}
 	
+	/**
+	 * Constructor that defines damage for the interaction.
+	 * @param damage
+	 */
 	public HarmTarget(int damage){
 		this.damage = damage;
 	}

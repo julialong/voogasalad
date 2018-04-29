@@ -3,6 +3,11 @@ package engine.interaction;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 
+/**
+ * Removes the source entity on contact with a player
+ * @author Marcus Oertle and Robert Gitau
+ *
+ */
 public class RemoveOnInteractWithPlayer implements Interaction{
 
 	@Override

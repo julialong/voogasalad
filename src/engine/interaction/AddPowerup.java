@@ -13,6 +13,10 @@ import engine.powerup.PowerUp;
 public class AddPowerup implements Interaction{
     private PowerUp powerup;
     
+    /**
+     * Constructor that sets the powerup for the interaction
+     * @param powerup - the PowerUp for the interaction
+     */
     public AddPowerup(PowerUp powerup){
         this.powerup = powerup;
     }
@@ -27,6 +31,10 @@ public class AddPowerup implements Interaction{
         }
 	}
     
+	/**
+	 * Sets the power up for the interaction
+	 * @param powerup
+	 */
     public void setPowerUp(PowerUp powerup){
         this.powerup = powerup;
     }
