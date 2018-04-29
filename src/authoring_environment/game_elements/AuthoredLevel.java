@@ -139,7 +139,7 @@ public class AuthoredLevel implements DocumentGetter {
         if (newEntity == null) {
             return null;
         }
-        newEntity.setImageView(path);
+        newEntity.setImagePath(path);
         createBehavior(behavior, newEntity);
         newEntity.setMovementType(createMovement(movement));
         newEntity.addInteraction(createInteraction(interaction));

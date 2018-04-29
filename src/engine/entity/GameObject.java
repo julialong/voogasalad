@@ -9,7 +9,6 @@ import engine.behavior.Behavior;
 import engine.interaction.Interaction;
 import engine.movement.Movement;
 import engine.physics.Kinematics;
-import javafx.scene.image.ImageView;
 
 public abstract class GameObject implements GameEntity{
 	protected int id;
@@ -29,6 +28,7 @@ public abstract class GameObject implements GameEntity{
 	protected ArrayList<Behavior> behaviorList = new ArrayList<>();
 	protected ArrayList<Interaction> interactionList = new ArrayList<>();
 	protected Map<GameEntity, String> interactionsMap = new HashMap<>();
+	protected boolean destructible = false;
 
 	public void setID(int id) {
 		this.id = id;
@@ -193,14 +193,22 @@ public abstract class GameObject implements GameEntity{
 		double[] positionArray = {sceneX, sceneY};
 		return positionArray;
 	}
+	
+	public boolean getDestructible() {
+		return destructible;
+	}
+	
+	public void setDestructible(boolean destructible) {
+		this.destructible = destructible;
+	}
 
-	public void setImageView(String path) {
+	public void setImagePath(String path) {
 		myImagePath = path;
 		//myImagePath.setFitWidth(width);
 		//myImagePath.setFitHeight(height);
 	}
 	
-	public String getImageView() {
+	public String getImagePath() {
 		return myImagePath;
 	}
 
