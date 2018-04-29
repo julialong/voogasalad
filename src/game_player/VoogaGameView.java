@@ -50,8 +50,6 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	private Map<ImageView, ImageView> myIVCopyMap = new HashMap<>();
 	private List<ScoreItem> newScores = new ArrayList<>();
 	private Map<ImageView, List<Point2D>> myReplayList = new HashMap<>();
-	// private int myXFactor;
-	// private int myYFactor;
 	// parts
 	private Pane myGP;
 	private Controls myControls;
@@ -67,41 +65,11 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
 		myGP = new Pane();
-		// setAdjustFactors();
 		setUpHud();
 		initDisplayMap();
 	}
 
-	// private void setAdjustFactors() {
-	// myXFactor = myGameLevels.get(myCurrLevel).getXSize();
-	// myYFactor = myGameLevels.get(myCurrLevel).getYSize();
-	// }
 
-	/**
-	 * Calibrates x coordinates to be at the center of the screen and multiplies by
-	 * factor to make them bigger.
-	 * 
-	 * @param x
-	 * @return
-	 */
-	private double adjustXCord(double x) {
-		// TODO: adjust this factor based on sensitivity
-		return x * (myWidth / ADJUST_FACTOR);
-		// return x * (myWidth / myXFactor);
-	}
-
-	/**
-	 * Calibrates y coordinates to be at thecenter of the screen and multiples by a
-	 * factor to make the difference between them larger.
-	 * 
-	 * @param y
-	 * @return
-	 */
-	private double adjustYCord(double y) {
-		// TODO: adjust this factor based on sensitivity
-		return y * (myHeight / ADJUST_FACTOR);
-		// return y * (myHeight / myYFactor);
-	}
 
 	/**
 	 * Adds all of the levels objects to a map that maps them to a position
