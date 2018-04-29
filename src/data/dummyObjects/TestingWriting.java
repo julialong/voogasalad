@@ -49,8 +49,8 @@ public class TestingWriting {
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
-		player.setImageView("./game.player.styling/mario_running.gif");
-		System.out.println(player.getImageView());
+		player.setImagePath("./game.player.styling/mario_running.gif");
+		System.out.println(player.getImagePath());
 		one.addObject(player);
 
 		// big block that player stands on

@@ -22,25 +22,37 @@ public class Enemy extends GameObject {
     public Enemy(double x, double y){
         kinematics = new Kinematics(x,y,0,0,0,0);
         movementType = new Grounded();
-        weaponType = new NoWeapon();
         behaviorList.add(new NoBehavior()); 
         speedFactor = 500; //arbitrary for now
-        jumpFactor = 20; // arbitrary for now
-        maxVelocityX = 2; // arbitrary for now
-        maxVelocityY = 2; // arbitrary for now
+        jumpFactor = 150; // arbitrary for now
+        maxVelocityX = 30; // arbitrary for now
+        maxVelocityY = 500; // arbitrary for now
         destructible = true;
     }
    
-	public void addInteraction(Interaction i) {
-		interactionList.add(i);
-	}
-
+	/**
+	 * Sets the enemy's weapon, which implements the Weapon interface.
+	 * 
+	 * @param weapon:
+	 *            the Weapon the enemy is given
+	 */
 	public void setWeapon(Weapon weapon) {
 		weaponType = weapon;		
 	}
+	
+	/**
+	 * Gets the weapon the enemy holds
+	 * @return weaponType - weapon the enemy holds
+	 */
+	public Weapon getWeapon(){
+		return weaponType;
+	}
 
+	/**
+	 * Performs whatever effect the enemy's current weapon has in its attack
+	 * method.
+	 */
 	public void useWeapon() {
-		// TODO Auto-generated method stub
-		
+		weaponType.attack();
 	}
 }

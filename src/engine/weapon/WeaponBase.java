@@ -74,6 +74,9 @@ public abstract class WeaponBase extends GameObject implements Weapon{
 	public void iterateEntities(){
 	    listOfEntities = (ArrayList<GameEntity>) level.getObjects();
 	    for(GameEntity entity : listOfEntities){
+	    	if(entity.equals(weaponHolder)){
+	    		continue;
+	    	}
 		    if(!collisionDetector.detect(hitBox, entity).equals("none")){
 			    if(entity.getDestructible()) {
 				    dealDamage.interact(hitBox, entity);
