@@ -39,7 +39,7 @@ public class VoogaGameView implements GameView {
 	private final double myHeight = Screen.getPrimary().getVisualBounds().getHeight();
 	private final double myWidth = Screen.getPrimary().getVisualBounds().getWidth();
 	private static final int SECONDS_PER_MINUTE = 60;
-	private static final double ADJUST_FACTOR = 400.0;
+	private static final double ADJUST_FACTOR = 200.0;
 	// variables
 	private boolean myGameStatus = false;
 	private int myCurrLevel = 0;
@@ -79,8 +79,14 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustXCord(double x) {
 		// TODO: adjust this factor based on sensitivity
+		//The current calculation with adjust factor -> works for files made from TestingWriting.java
 		return x * (myWidth / ADJUST_FACTOR);
+
+		//The hope is that this works for everything but currently works for nothing
 		//return x * (myWidth/myGameLevels.get(myCurrLevel).getSize()[0]);
+
+		//Hoping this will work for files from the GAE, currently doesn't work for anything
+		//return x;
 	}
 
 	/**
@@ -92,8 +98,14 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustYCord(double y) {
 		// TODO: adjust this factor based on sensitivity
+		//The current calculation with adjust factor -> works for files made from TestingWriting.java
 		return y * (myHeight / ADJUST_FACTOR);
+
+		//The hope is that this works for everything but currently works for nothing
 		//return y * (myHeight/myGameLevels.get(myCurrLevel).getSize()[1]);
+
+		//Hoping this will work for files from the GAE, currently doesn't work for anything
+		//return y;
 	}
 
 	/**

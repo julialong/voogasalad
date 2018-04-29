@@ -32,8 +32,8 @@ public class BasicLevel implements Level {
     private static final String DEFAULT = "Default";
     private static final int DEFAULT_X_SIZE = 500;
     private static final int DEFAULT_Y_SIZE = 500;
-    private static final int DEFAULT_X_SCENE_SIZE = 400;
-    private static final int DEFAULT_Y_SCENE_SIZE = 400;
+    private static final int DEFAULT_X_SCENE_SIZE = 200;
+    private static final int DEFAULT_Y_SCENE_SIZE = 200;
     private static final int DEFAULT_CELL_SIZE = 50;
     private int myXSize;
     private int myYSize;

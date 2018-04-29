@@ -17,7 +17,7 @@ public class TestingWriting {
 
 	public static void main(String[] args) {
 		try {
-		GameFileWriter myWriter = new GameFileWriter("Dorian", "TestingGoal");
+		GameFileWriter myWriter = new GameFileWriter("Dorian", "Testing Goal Part 2");
 
 		FileWriter fw;
 
@@ -67,9 +67,6 @@ public class TestingWriting {
 		wall.addInteraction(new PreventClipping());
 		one.addObject(wall);
 
-<<<<<<< HEAD
-
-=======
 		// small block that can be pushed on the right side of the big block
 		Enemy enemy = new Enemy();
 		enemy.overridePosition(30, -170);
@@ -80,7 +77,6 @@ public class TestingWriting {
 		enemy.addInteraction(new Pushable());
 		enemy.setHealth(1);
 		one.addObject(enemy);
->>>>>>> 7726cfcbc1a53d5052490ef2a8749daa9bee82b3
 
 		// small block that can be pushed on the left side of the big block
 		Enemy enemy3 = new Enemy();
