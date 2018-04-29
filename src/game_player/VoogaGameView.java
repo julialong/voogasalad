@@ -108,6 +108,8 @@ public class VoogaGameView implements GameView {
 			System.out.println("imgPath: "+imgPath);
 			ImageView entityImage = new ImageView(new Image(new File(imgPath).toURI().toString(),
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
+//			ImageView entityImage = new ImageView(new Image(imgPath,
+//					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 			// TODO: uncomment below once GAE sends us actual data
 			// if (ge.getClass().equals(new Player().getClass())) {
 			// myControls = new Controls((Player) ge);
@@ -116,8 +118,11 @@ public class VoogaGameView implements GameView {
 			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
 			// ge.getSizeY(), true, true));
 
-			entityImage.setX(ge.getKinematics().getX());
-			entityImage.setY(ge.getKinematics().getY());
+			//entityImage.setX(ge.getKinematics().getX());
+			//entityImage.setY(ge.getKinematics().getY());
+			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
+			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
+			
 			myDispMap.put(ge, entityImage);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}
@@ -160,6 +165,7 @@ public class VoogaGameView implements GameView {
 			if (level.getObjects().contains(ge)) {
 				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
 				myDispMap.get(ge).setY(adjustYCord(ge.getScenePosition()[1]));
+				//System.out.println("XCOR:  " + adjustXCord(ge.getScenePosition()[0]) + "\nYCOR: " + adjustYCord(ge.getScenePosition()[1]));
 			} else {
 				toRemove.add(ge);
 				myGP.getChildren().remove(myDispMap.get(ge));

@@ -72,6 +72,7 @@ public class LevelBuilder {
 		deserializer = new Serializer();
 		levelFile = level;
 		
+		System.out.println("translate = " + translate);
 		this.translate = translate;
 	}
 	
@@ -192,9 +193,15 @@ public class LevelBuilder {
 	 */
 	private void translateCoordinates(GameEntity ge)
 	{
-		double translatedX = ge.getKinematics().getX() - levelWidth/2;
-		double translatedY = ge.getKinematics().getY() + levelHeight/2;
+
+		System.out.println("levelWidth: " + levelWidth +"\nLevelHeight: "+ levelHeight);
+		System.out.println("x: "+ ge.getPosition()[0] +"\n y: "+ ge.getPosition()[1]);
+		
+		double translatedX = ge.getPosition()[0] - levelWidth/2;
+		double translatedY = (levelHeight/2) - ge.getPosition()[1];
+		System.out.println("x: "+ translatedX +"\n y: "+ translatedY);
 		ge.overridePosition(translatedX, translatedY);
+		System.out.println("updated: x: "+ ge.getPosition()[0] +"\n y: "+ ge.getPosition()[1]);
 	}
 
 	/**
