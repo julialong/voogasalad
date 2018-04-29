@@ -177,6 +177,11 @@ public class LevelBuilder {
 		return newObjectsOfType;
 	}
 
+	/**
+	 * Sets the player in case of use in populating Enemy behaviors that take in a player.
+	 * 
+	 * @param ge
+	 */
 	private void checkPlayer(GameEntity ge) 
 	{
 		if(ge.getClass().equals(Player.class))
@@ -185,6 +190,12 @@ public class LevelBuilder {
 		}
 	}
 	
+	/**
+	 * Checks to see if a behavior is of the type that needs a player and if so, populates
+	 * that behavior with the player for the current game.
+	 * 
+	 * @param ge
+	 */
 	private void checkFoe(GameEntity ge) 
 	{
 		if(ge.getClass().equals(Foes.class))
