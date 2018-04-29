@@ -110,7 +110,8 @@ public class EngineTestVisual extends Application{
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
 		//enemy2.addInteraction(new Pushable());
-		enemy2.setWeapon(new SwingingWeapon(enemy2, level));
+		//enemy2.setWeapon(new SwingingWeapon(enemy2, level));
+		enemy2.setWeapon(new ShootingWeapon(enemy2, level));
 		enemy2.addBehavior(new UseWeapon(0.5));
 		//enemy2.addBehavior(new JumpALot());
 		enemy2.addBehavior(new ChasePlayer(player));

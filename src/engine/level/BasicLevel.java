@@ -132,7 +132,8 @@ public class BasicLevel implements Level {
     
     @Override
     public void update(){
-    	for(GameEntity source : myObjects){
+    	ArrayList<GameEntity> listCopy = new ArrayList<>(myObjects);
+    	for(GameEntity source : listCopy){
     		source.update();
     		if(source.getHealth() < 1 && !(source instanceof Player)) {
     			toRemoveFromObjectList.add(source);
