@@ -25,7 +25,7 @@ import data.serialization.BehaviorSkipManager;
 import data.serialization.Serializer;
 import engine.behavior.Behavior;
 import engine.behavior.MoveForward;
-import engine.entity.Foes;
+import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
@@ -204,11 +204,10 @@ public class LevelBuilder {
 	 */
 	private void checkFoe(GameEntity ge) 
 	{
-		if(ge.getClass().equals(Foes.class))
+		if(ge.getClass().equals(Enemy.class))
 		{
-			for(Behavior b: ((Foes)ge).getBehaviorList())
+			for(Behavior b: ((Enemy)ge).getBehaviorList())
 			{
-				System.out.println(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]));
 				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
 				{
 					b = skipManager.getBehavior(b.getClass().toString().split(" ")[1],player);
