@@ -39,7 +39,7 @@ public class VoogaGameView implements GameView {
 	private final double myHeight = Screen.getPrimary().getVisualBounds().getHeight();
 	private final double myWidth = Screen.getPrimary().getVisualBounds().getWidth();
 	private static final int SECONDS_PER_MINUTE = 60;
-	private static final double ADJUST_FACTOR = 400.0;
+	private static final double ADJUST_FACTOR = 800.0;
 	// variables
 	private boolean myGameStatus = false;
 	private int myCurrLevel = 0;
@@ -53,6 +53,8 @@ public class VoogaGameView implements GameView {
 	private Controls myControls;
 	private HeadsUpDisplay hud;
 	private Point2D timer = new Point2D(0, 0);
+//	private int myXFactor;
+//	private int myYFactor;
 
 	//private List<List<ImageView>> myReplayList = new ArrayList<>();
 	
@@ -66,9 +68,15 @@ public class VoogaGameView implements GameView {
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
 		myGP = new Pane();
+		//setAdjustFactors();
 		setUpHud();
 		initDisplayMap();
 	}
+
+//	private void setAdjustFactors() {
+//		myXFactor = myGameLevels.get(myCurrLevel).getXSize();
+//		myYFactor = myGameLevels.get(myCurrLevel).getYSize();
+//	}
 
 	/**
 	 * Calibrates x coordinates to be at the center of the screen and multiplies by
@@ -80,6 +88,7 @@ public class VoogaGameView implements GameView {
 	private double adjustXCord(double x) {
 		// TODO: adjust this factor based on sensitivity
 		return x * (myWidth / ADJUST_FACTOR);
+		//return x * (myWidth / myXFactor);
 	}
 
 	/**
@@ -92,6 +101,7 @@ public class VoogaGameView implements GameView {
 	private double adjustYCord(double y) {
 		// TODO: adjust this factor based on sensitivity
 		return y * (myHeight / ADJUST_FACTOR);
+		//return y * (myHeight / myYFactor);
 	}
 
 	/**
@@ -186,8 +196,6 @@ public class VoogaGameView implements GameView {
 			if(!toRemoveImageView.contains(val)) {
 				ivPointsList.add(new Point2D(val.getX(), val.getY()));
 			}
-			
-			
 			myReplayList.put(myIVCopyMap.get(val), ivPointsList);
 		
 		}
