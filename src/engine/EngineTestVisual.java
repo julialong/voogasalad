@@ -141,6 +141,8 @@ public class EngineTestVisual extends Application{
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
 		//player.setWeapon(new SwingingWeapon(player, level));
+		//player.setWeapon(new StabbingWeapon(player, level));
+		//player.setWeapon(new AOEWeapon(player, level));
 		player.setWeapon(new ShootingWeapon(player, level));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
@@ -195,8 +197,8 @@ public class EngineTestVisual extends Application{
 			if(level.getObjects().contains(ge)) {
 				geRectMap.get(ge).setX(ge.getScenePosition()[0]);
 				geRectMap.get(ge).setY(ge.getScenePosition()[1]);
-				if(ge instanceof SwingingWeapon){
-					geRectMap.get(ge).setRotate(((SwingingWeapon) ge).getAngle());
+				if(ge instanceof Weapon){
+					geRectMap.get(ge).setRotate(((Weapon) ge).getAngle());
 				}
 			}
 			else {

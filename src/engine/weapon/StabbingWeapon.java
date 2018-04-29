@@ -1,57 +1,62 @@
 package engine.weapon;
 
-import java.util.ArrayList;
-
-import engine.entity.Block;
 import engine.entity.GameEntity;
-import engine.entity.GameObject;
-import engine.interaction.HarmTarget;
 import engine.level.Level;
-import engine.physics.DetectCollision;
 /**
  * A weapon that strikes Entities directly in front of the player
  * @author Marcus Oertle and Robert Gitau
  *
  */
-public class StabbingWeapon extends GameObject implements Weapon{
-
-	private Block hitBox = new Block();
-	private GameEntity weaponHolder;
-	private Level level;
-	private DetectCollision collisionDetector = new DetectCollision();
-	private HarmTarget dealDamage = new HarmTarget();
-	private ArrayList<GameEntity> listOfEntities = new ArrayList<>();
-	private double xSize;
-	private double ySize;
-	
+public class StabbingWeapon extends WeaponBase{
+    private static final double WEAPON_MOVEMENT_INCREMENT = 2;
+    
 	public StabbingWeapon(GameEntity entity, Level level){
-		weaponHolder = entity;
-		this.level = level;
-		xSize = weaponHolder.getSizeX();
-		ySize = weaponHolder.getSizeY();
-		hitBox.setSizeX(1.5*xSize);
-		hitBox.setSizeY(ySize/4);
+		super(entity, level);
+		hitBox.setSizeX(2*xHolderSize);
+		hitBox.setSizeY(yHolderSize/4);
+        width = xHolderSize*2;
+        height = yHolderSize/4;
+        rightXOffset = xHolderSize/10;
+        leftXOffset = width - 9*(xHolderSize/10);
+        yOffset = yHolderSize/2;
 	}
 	
 	@Override
 	public void attack() {
-		double xPos = weaponHolder.getPosition()[0];
-		double yPos = weaponHolder.getPosition()[1];
-		if(weaponHolder.getKinematics().getXVelocity() >= 0){
-			hitBox.setX(xPos + xSize);
-			hitBox.setY(yPos - ySize/2);
-		}
-		else{
-			hitBox.setX(xPos - xSize);
-			hitBox.setY(yPos - ySize/2);
-		}
-		listOfEntities = (ArrayList<GameEntity>) level.getObjects();
-		for(GameEntity entity : listOfEntities){
-			if(!collisionDetector.detect(hitBox, entity).equals("none")){
-				if(entity.getDestructible()) {
-					dealDamage.interact(hitBox, entity);
-				}
-			}
-		}
+        if(!isAttacking){
+            isAttacking = true;
+		    if(direction.equals("right")){
+			    hitBox.setX(holderXPos + xHolderSize);
+		    }
+		    else{
+			    hitBox.setX(holderXPos - width);
+		    }
+            hitBox.setY(holderYPos - yHolderSize/2);
+            iterateEntities();
+        }   
 	}
+	
+	@Override
+    public void update() {
+		double startingXPos = kinematics.getX();
+		double finalXPos;
+		updateDirectionality();
+        if(isAttacking){
+        	if(direction.equals("right")){
+        		finalXPos = startingXPos + WEAPON_MOVEMENT_INCREMENT;
+                if(finalXPos > holderXPos + xHolderSize){
+                	finalXPos = kinematics.getX();
+                	isAttacking = false;
+                }
+        	}
+        	else{
+        		finalXPos = startingXPos - WEAPON_MOVEMENT_INCREMENT;
+                if(finalXPos + width < holderXPos){
+                	finalXPos = kinematics.getX();
+                	isAttacking = false;
+                }
+        	}
+            kinematics.setX(finalXPos);
+        }
+    }
 }

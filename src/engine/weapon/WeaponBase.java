@@ -62,12 +62,12 @@ public abstract class WeaponBase extends GameObject implements Weapon{
 			direction = "left";
 		}
     	if(direction.equals("right")){
-    		kinematics.setX(weaponHolder.getPosition()[0] + rightXOffset);
+    		kinematics.setX(holderXPos + rightXOffset);
     	}
     	else{
-    		kinematics.setX(weaponHolder.getPosition()[0] + leftXOffset);
+    		kinematics.setX(holderXPos - leftXOffset);
     	}
-        kinematics.setY(weaponHolder.getPosition()[1] + yOffset);
+        kinematics.setY(holderYPos - yOffset);
 	}
 	
 	@Override
