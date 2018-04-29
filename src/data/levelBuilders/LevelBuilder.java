@@ -30,6 +30,7 @@ import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
+import javafx.scene.paint.Color;
 
 /**
  * Creates levels to return to the Game Player when a 
@@ -43,6 +44,8 @@ public class LevelBuilder {
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
 	private static final String NAME = "name";
 	private static final String COLOR = "color";
+	private static final String WIDTH = "width";
+	private static final String HEIGHT = "height";
 	private Map<String,Class<?>> objectTypes;
 	private List<String> behaviorsToSkip;
 	private Serializer deserializer; 
@@ -131,10 +134,13 @@ public class LevelBuilder {
 	private void addMetaData(Level level, JsonObject jobject)
 	{
 		String levelName = jobject.get(NAME).getAsString();
-//		Color color = Color.web(jobject.get(COLOR).getAsString());
+		Color color = Color.web(jobject.get(COLOR).getAsString());
+		Double width = jobject.get(WIDTH).getAsDouble();
+		Double height = jobject.get(HEIGHT).getAsDouble();
 		
 		level.setName(levelName);
-//		level.setColor(color);
+		level.setColor(color);
+		level.setSize(width, height);
 	}
 	
 	/**
