@@ -30,14 +30,17 @@ import engine.powerup.SpeedBoost;
 import engine.weapon.AOEWeapon;
 import engine.weapon.StabbingWeapon;
 import engine.weapon.SwingingWeapon;
+import engine.weapon.Weapon;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -136,7 +139,7 @@ public class EngineTestVisual extends Application{
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
-		player.setWeapon(new StabbingWeapon(player, level));
+		player.setWeapon(new SwingingWeapon(player, level));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
@@ -188,11 +191,11 @@ public class EngineTestVisual extends Application{
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
 		for(GameEntity ge : geRectMap.keySet()){
 			if(level.getObjects().contains(ge)) {
-				//geRectMap.get(ge).setX(ge.getPosition()[0]+200);
-				//geRectMap.get(ge).setY(-ge.getPosition()[1]+200);
 				geRectMap.get(ge).setX(ge.getScenePosition()[0]);
 				geRectMap.get(ge).setY(ge.getScenePosition()[1]);
-
+				if(ge instanceof Weapon){
+					geRectMap.get(ge).setRotate(((SwingingWeapon) ge).getAngle());
+				}
 			}
 			else {
 				toRemove.add(ge);

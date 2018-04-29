@@ -27,6 +27,8 @@ import engine.movement.Grounded;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
 import engine.powerup.SpeedBoost;
+import engine.weapon.SwingingWeapon;
+import engine.weapon.Weapon;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -92,6 +94,7 @@ public class EngineDemo1 extends Application{
 		player.setFrictionConstant(200);
 		player.setJumpFactor(300);
 		controls = new Controls(player);
+		player.setWeapon(new SwingingWeapon(player, level));
 		level.addObject(player);
 		
 		// Block 1
@@ -148,7 +151,9 @@ public class EngineDemo1 extends Application{
 			if(level.getObjects().contains(ge)) {
 				geRectMap.get(ge).setX(ge.getScenePosition()[0]);
 				geRectMap.get(ge).setY(ge.getScenePosition()[1]);
-
+				if(ge instanceof Weapon){
+					geRectMap.get(ge).setRotate(((SwingingWeapon) ge).getAngle());
+				}
 			}
 			else {
 				toRemove.add(ge);

@@ -3,6 +3,7 @@ package engine.interaction;
 import engine.entity.GameEntity;
 import engine.movement.Static;
 import engine.physics.DetectCollision;
+import engine.weapon.Weapon;
 
 /**
  * Prevents target object from clipping through the source
@@ -18,7 +19,7 @@ public class PreventClipping implements Interaction{
 		
 //		System.out.println("PreventClipping:");
 		
-		if(target.getMovementType() instanceof Static) {
+		if(target.getMovementType() instanceof Static || target instanceof Weapon) {
 			return;
 		}
 		String collisionType = new DetectCollision().detect(source, target);
