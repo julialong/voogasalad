@@ -41,23 +41,21 @@ public class VoogaGameView implements GameView {
 	private static final double ADJUST_FACTOR = 400.0;
 	// variables
 	private boolean myGameStatus = false;
+	private boolean myGameNotOver = true;
 	private int myCurrLevel = 0;
 	private List<Level> myGameLevels;
 	private Map<GameEntity, ImageView> myDispMap = new HashMap<>();
 	private Map<ImageView, String> myGEtoString = new HashMap<>();
 	private Map<ImageView, ImageView> myIVCopyMap = new HashMap<>();
 	private List<ScoreItem> newScores = new ArrayList<>();
+	private Map<ImageView, List<Point2D>> myReplayList = new HashMap<>();
+	// private int myXFactor;
+	// private int myYFactor;
 	// parts
 	private Pane myGP;
 	private Controls myControls;
 	private HeadsUpDisplay hud;
 	private Point2D timer = new Point2D(0, 0);
-	// private int myXFactor;
-	// private int myYFactor;
-
-	// private List<List<ImageView>> myReplayList = new ArrayList<>();
-
-	private Map<ImageView, List<Point2D>> myReplayList = new HashMap<>();
 
 	/**
 	 * Creates a grid pane. initializes event listeners
@@ -155,7 +153,7 @@ public class VoogaGameView implements GameView {
 	 * @param elapsedTime
 	 */
 	private void step(double elapsedTime) {
-		if (myGameStatus) {
+		if (myGameStatus && myGameNotOver) {
 			myGameLevels.get(myCurrLevel).update();
 			displayObjects();
 			updateHud(elapsedTime);
@@ -171,8 +169,13 @@ public class VoogaGameView implements GameView {
 		}
 	}
 
+	/**
+	 * Handles the game logic when their are no more levels and the user has reached
+	 * the end of the last level.
+	 */
 	private void endGame() {
 		myGameStatus = false;
+		myGameNotOver = false;
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setContentText("YOU'VE REACHED THE END!");
 		alert.setTitle("CONGRADULATIONS");
@@ -246,7 +249,7 @@ public class VoogaGameView implements GameView {
 	 * @param keyCode
 	 */
 	public void keyPressed(KeyCode keyCode) {
-		if (myGameStatus) {
+		if (myGameStatus && myGameNotOver) {
 			myControls.activate(keyCode);
 		}
 	}
@@ -257,7 +260,7 @@ public class VoogaGameView implements GameView {
 	 * @param keyCode
 	 */
 	public void keyUnPressed(KeyCode keyCode) {
-		if (myGameStatus) {
+		if (myGameStatus && myGameNotOver) {
 			myControls.deactivate(keyCode);
 		}
 	}
@@ -308,17 +311,28 @@ public class VoogaGameView implements GameView {
 	public Map<ImageView, List<Point2D>> getReplayList() {
 		return myReplayList;
 	}
-	
-	public List<ScoreItem> getNewScores(){
+
+	/**
+	 * Returns the new scores that have been created during the current run of the
+	 * program, because they wont be read from the properties file until the
+	 * application is launched again.
+	 * 
+	 * @return
+	 */
+	public List<ScoreItem> getNewScores() {
 		List<ScoreItem> newScoresCopy = new ArrayList<>();
-		for(ScoreItem s : newScores) {
+		for (ScoreItem s : newScores) {
 			newScoresCopy.add(s.copy());
 		}
 		return newScoresCopy;
 	}
-	
+
+	/**
+	 * Clears the new/temp scores if the user presses the clear scores method in the
+	 * menu bar.
+	 */
 	public void clearNewScores() {
 		newScores.clear();
 	}
-	
+
 }

@@ -1,22 +1,12 @@
 package game_player;
 
-import java.util.List;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Saves highscores program.
@@ -27,15 +17,32 @@ import javafx.stage.Stage;
 public class ScoreKeeper {
 
 	private final String filePath = "src/game_player/resources/scores.properties";
+	private boolean myStatus;
 
+	/*
+	 * Creates a new scoreKeeper object
+	 */
 	public ScoreKeeper() {
-		
+		myStatus = true;
 	}
-	
+
+	/**
+	 * Creates a new score keeper object and updates the properites file with the
+	 * given information.
+	 * 
+	 * @param player
+	 * @param score
+	 */
 	public ScoreKeeper(String player, String score) {
 		updatePropertiesFile(player, score);
 	}
 
+	/**
+	 * Creates a new score keeper object and updates the properites file with the
+	 * given information.
+	 * 
+	 * @param si
+	 */
 	public ScoreKeeper(ScoreItem si) {
 		updatePropertiesFile(si.getString().split(": ")[0], si.getString().split(": ")[1]);
 	}
@@ -65,7 +72,7 @@ public class ScoreKeeper {
 	}
 
 	/**
-	 * Clears the saved highscores.
+	 * Clears the saved high scores.
 	 */
 	public void deletePropsFile() {
 		try {
@@ -73,7 +80,7 @@ public class ScoreKeeper {
 			Properties props = new Properties();
 			props.load(in);
 			in.close();
-			
+
 			ResourceBundle keys = ResourceBundle.getBundle("game_player.resources/scores");
 			Enumeration<String> s = keys.getKeys();
 			// remove the saved scores
@@ -84,6 +91,7 @@ public class ScoreKeeper {
 			FileOutputStream out = new FileOutputStream(filePath);
 			props.store(out, null);
 			out.close();
+			myStatus = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			Alert alert = new Alert(AlertType.INFORMATION);

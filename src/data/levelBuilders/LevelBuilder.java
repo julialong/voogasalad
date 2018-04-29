@@ -133,11 +133,11 @@ public class LevelBuilder {
 		String levelName = jobject.get(NAME).getAsString();
 
 		Color color = Color.web(jobject.get(COLOR).getAsString());
-		Double width = jobject.get(WIDTH).getAsDouble();
-		Double height = jobject.get(HEIGHT).getAsDouble();
+//		Double width = jobject.get(WIDTH).getAsDouble();
+//		Double height = jobject.get(HEIGHT).getAsDouble();
 		level.setName(levelName);
 		level.setColor(color);
-		level.setSize(width, height);
+//		level.setSize(width, height);
 	}
 
 	/**

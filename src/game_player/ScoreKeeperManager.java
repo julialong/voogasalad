@@ -48,7 +48,10 @@ public class ScoreKeeperManager {
 		stage.setScene(scene);
 		stage.show();
 	}
-
+	
+	/**
+	 * Adds high scores and clear button to the pop up
+	 */
 	private void setUpDisplay() {
 		myDisplay.getChildren().add(myScores);
 		// button to clear the scores

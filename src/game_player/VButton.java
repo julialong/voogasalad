@@ -11,9 +11,10 @@ import javafx.scene.control.Button;
 public class VButton extends Button implements GamePlayerButton {
 
 	private String myCommand;
-	
+
 	/**
-	 * construct a game button using the default button constructor
+	 * construct a game button using the default button constructor.
+	 * 
 	 * @param s
 	 */
 	public VButton(String s) {
@@ -22,20 +23,29 @@ public class VButton extends Button implements GamePlayerButton {
 		setButtonAction();
 		this.getStyleClass().add("Button");
 	}
-	
+
+	/**
+	 * makes button print name when pressed.
+	 */
 	private void setButtonAction() {
 		this.setOnMouseClicked(event -> {
-		    // Button was clicked, do something...
-		    System.out.println(myCommand);
+			System.out.println(myCommand);
 		});
 	}
 
+	/**
+	 * returns the button command.
+	 */
 	@Override
 	public String getCommandFromButton() {
 		return myCommand;
 	}
 
+	/**
+	 * Stops the button from printing/returning it's command.
+	 */
 	@Override
 	public void clearButton() {
+		myCommand = null;
 	}
 }

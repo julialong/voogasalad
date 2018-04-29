@@ -22,7 +22,6 @@ import javafx.stage.Stage;
  * @Author Dorian Barber, Kelley Scroggs
  */
 public class SaveScreen {
-	private static final int MIN_WINDOW_WIDTH = 600;
 	private List<Level> myLevels;
 	private String myName;
 	private Stage myStage;
