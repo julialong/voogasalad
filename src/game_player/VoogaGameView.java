@@ -10,6 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -17,7 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ public class VoogaGameView implements GameView {
 	private final double myHeight = Screen.getPrimary().getVisualBounds().getHeight();
 	private final double myWidth = Screen.getPrimary().getVisualBounds().getWidth();
 	private static final int SECONDS_PER_MINUTE = 60;
-	private static final double ADJUST_FACTOR = 800.0;
+	private static final double ADJUST_FACTOR = 400.0;
 	// variables
 	private boolean myGameStatus = false;
 	private int myCurrLevel = 0;
@@ -53,6 +54,7 @@ public class VoogaGameView implements GameView {
 	private Controls myControls;
 	private HeadsUpDisplay hud;
 	private Point2D timer = new Point2D(0, 0);
+	private ScoreKeeper myHighScores;
 //	private int myXFactor;
 //	private int myYFactor;
 
@@ -64,9 +66,11 @@ public class VoogaGameView implements GameView {
 	 * Creates a grid pane. initializes event listeners
 	 * 
 	 * @param gameLevels
+	 * @param myHighScores 
 	 */
-	public VoogaGameView(List<Level> gameLevels) {
+	public VoogaGameView(List<Level> gameLevels, ScoreKeeper highScores) {
 		myGameLevels = gameLevels;
+		myHighScores = highScores;
 		myGP = new Pane();
 		//setAdjustFactors();
 		setUpHud();
@@ -161,10 +165,22 @@ public class VoogaGameView implements GameView {
 			updateHud(elapsedTime);
 			if(myGameLevels.get(myCurrLevel).getLevelComplete()){
 				myCurrLevel++;
+				if(myCurrLevel >= myGameLevels.size()) {
+					endGame();
+				}
 				myReplayList.clear();
 				initDisplayMap();
 			}
 		}
+	}
+
+	private void endGame() {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setContentText("YOU'VE REACHED THE END!");
+		alert.setTitle("CONGRADULATIONS");
+		alert.showAndWait();
+		int score = 100 - (int) timer.getX();
+		myHighScores.updatePropertiesFile("Kelley", Integer.toString(score));	
 	}
 
 	/**

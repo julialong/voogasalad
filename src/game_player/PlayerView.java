@@ -24,11 +24,12 @@ import data.resources.DataFileException;
 public class PlayerView extends VBox {
 	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
+	private ScoreKeeper myHighScores = new ScoreKeeper();
 	private VoogaGameView myGameView;
 	private JSONtoGP reader = new GPGameFileReader();
 	private String myName;
 	private String myDescription;
-	private ScoreKeeper myHighScores = new ScoreKeeper();
+	
 
 	public PlayerView() {
 		super();
@@ -63,7 +64,7 @@ public class PlayerView extends VBox {
 	 */
 	private void resetGView() {
 		try {
-			myGameView = new VoogaGameView(reader.loadCompleteGame(myName));
+			myGameView = new VoogaGameView(reader.loadCompleteGame(myName), myHighScores);
 		} catch (DataFileException e) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle(e.getCause().toString());
@@ -76,7 +77,7 @@ public class PlayerView extends VBox {
 	 * Creates the view where the game is displayed.
 	 */
 	private void createGView() {
-		myGameView = new VoogaGameView(gameMaterial);
+		myGameView = new VoogaGameView(gameMaterial, myHighScores);
 	}
 
 	/**
