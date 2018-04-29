@@ -57,7 +57,6 @@ public class Serializer {
 	 */
 	public String serialize(Object obj)	
 	{
-		System.out.println("object being added " + obj);
         return gson.toJson(obj);
 	}
 
@@ -71,7 +70,6 @@ public class Serializer {
 	 */
 	public Object deserialize(String json, Class<?> objectClass)
 	{
-		System.out.println( "Here is the object! " + gson.fromJson(json, objectClass));
 		return gson.fromJson(json, objectClass);
 	}	
 }

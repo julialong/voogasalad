@@ -21,10 +21,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 	/**
 	 * Class Constructor
 	 */
-	public GPGameFileReader()
-	{
-		//Constructor is empty
-	}
+	public GPGameFileReader(){}
 	
 	/**
 	 * This method will return the list of Level objects created from the level
@@ -48,6 +45,14 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 		return completeGame;
 	}
 	
+	/**
+	 * Adds a level to the complete game based on the level file.
+	 * 
+	 * @param gameFile
+	 * @param completeGame
+	 * @param gameName
+	 * @throws DataFileException
+	 */
 	private void addLevel(File gameFile, List<Level> completeGame, String gameName) throws DataFileException {
 		if(!gameFile.isDirectory())
 		{
@@ -62,6 +67,14 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 		
 	}
 
+	/**
+	 * Re-orders the list of levels in loadCompleteGame in order to match the LevelOrder file
+	 * 
+	 * @param gameName
+	 * @param levels
+	 * @return
+	 * @throws DataFileException
+	 */
 	private List<Level> orderLevels(String gameName, List<Level> levels) throws DataFileException
 	{
 		Map<String,Integer> levelOrder = getLevelOrder(gameName);

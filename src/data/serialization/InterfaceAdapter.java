@@ -35,8 +35,6 @@ import engine.behavior.MoveForward;
  */
 public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
 	
-//	private static final String BEHAVIOR_SKIPS = "data.resources/behaviorsToSkip";
-	
 	@Override
 	/**
 	 * Adds a wrapper around the Interface to indicate that it must be deserialized a different way
