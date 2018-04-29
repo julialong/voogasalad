@@ -32,6 +32,7 @@ public class Player extends PlayerCharacter{
         jumpFactor = 80; // arbitrary for now
         maxVelocityX = 100; // arbitrary for now
         maxVelocityY = 50; // arbitrary for now
+        destructible = true;
     }
     
 	public void setWeapon(Weapon weapon) {
@@ -39,7 +40,7 @@ public class Player extends PlayerCharacter{
 	}
 
 	public void useWeapon() {
-		//weaponType.attack();// TODO temporary fix to compilation errors will be replaced later
+		weaponType.attack();
 	}
 
 	public void addPowerUp(PowerUp power) {

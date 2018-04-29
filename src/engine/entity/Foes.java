@@ -28,6 +28,7 @@ public class Foes extends Enemy {
         jumpFactor = 20; // arbitrary for now
         maxVelocityX = 2; // arbitrary for now
         maxVelocityY = 2; // arbitrary for now
+        destructible = true;
     }
    
     @Override

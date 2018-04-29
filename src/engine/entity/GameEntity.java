@@ -272,11 +272,22 @@ public interface GameEntity {
 	public abstract List<Interaction> getInteractions();
 	
 	/**
+	 * Returns true if an entity is destructible
+	 */
+	public abstract boolean getDestructible();
+	
+	/**
+	 * Sets the destructible boolean for an entity
+	 */
+	public abstract void setDestructible(boolean destructible);
+	
+	/**
 	 * Updates the entity with new position/interaction paramters. Called at every time step.
 	 * Sets the Element ID of the Entity.
 	 * @param ID - the desired String ID
 	 */
 	public abstract void setElementID(String ID);
+	
 	/**
 	 * Retrieves the Element ID of the Entity.
 	 * @return String Element ID

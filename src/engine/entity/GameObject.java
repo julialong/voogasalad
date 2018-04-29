@@ -29,6 +29,7 @@ public abstract class GameObject implements GameEntity{
 	protected ArrayList<Behavior> behaviorList = new ArrayList<>();
 	protected ArrayList<Interaction> interactionList = new ArrayList<>();
 	protected Map<GameEntity, String> interactionsMap = new HashMap<>();
+	protected boolean destructible = false;
 
 	public void setID(int id) {
 		this.id = id;
@@ -190,6 +191,14 @@ public abstract class GameObject implements GameEntity{
 	public double[] getScenePosition() {
 		double[] positionArray = {sceneX, sceneY};
 		return positionArray;
+	}
+	
+	public boolean getDestructible() {
+		return destructible;
+	}
+	
+	public void setDestructible(boolean destructible) {
+		this.destructible = destructible;
 	}
 
 	public void setImageView(String path) {

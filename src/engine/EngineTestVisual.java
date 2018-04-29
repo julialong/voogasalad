@@ -27,6 +27,7 @@ import engine.movement.Grounded;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
 import engine.powerup.SpeedBoost;
+import engine.weapon.AOEWeapon;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -133,6 +134,7 @@ public class EngineTestVisual extends Application{
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
+		player.setWeapon(new AOEWeapon(player, level));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));

@@ -10,7 +10,7 @@ import engine.level.Level;
 import engine.physics.DetectCollision;
 
 /**
- * A weapon that can hit in a circle around the user
+ * A weapon that can hit in a wide area around the user
  * @author Marcus Oertle and Robert Gitau
  *
  */
@@ -35,14 +35,19 @@ public class AOEWeapon extends GameObject implements Weapon{
 	
 	@Override
 	public void attack() {
+		//System.out.println("attacking");
 		double xPos = weaponHolder.getPosition()[0];
 		double yPos = weaponHolder.getPosition()[1];
-		hitBox.setX(xPos - hitBox.getSizeX());
-		hitBox.setY(yPos + hitBox.getSizeY());
+		hitBox.setX(xPos - 0.75*xSize);
+		hitBox.setY(yPos + 0.75*xSize);
 		listOfEntities = (ArrayList<GameEntity>) level.getObjects();
 		for(GameEntity entity : listOfEntities){
+			//System.out.println("checking collision with " + entity.getClass().getSimpleName());
 			if(!collisionDetector.detect(hitBox, entity).equals("none")){
-				dealDamage.interact(hitBox, entity);
+				if(entity.getDestructible()) {
+				//System.out.println("dealing damage to " + entity.getClass().getSimpleName());
+					dealDamage.interact(hitBox, entity);
+				}
 			}
 		}
 	}
