@@ -2,14 +2,15 @@ package data.fileReading;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import authoring_environment.game_elements.AuthoredLevel;
-import data.builders.AuthoredLevelBuilder;
+import data.levelBuilders.AuthoredLevelBuilder;
 import data.resources.DataFileException;
-import engine.entity.GameEntity;
+
 /**
  * This class holds the implementation for the methods that allow the GAE to load games and files
  * for continued editing or use.
@@ -22,9 +23,7 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	/**
 	 * Class Constructor
 	 */
-	public GAEGameFileReader() 
-	{
-	}
+	public GAEGameFileReader() {}
 	
 	/**
 	 * This method will return the list of AuthoredLevel objects created from the level
@@ -43,15 +42,49 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
-				int index = gameFile.toString().lastIndexOf(NEST) + 1;
-				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
-				String levelName = gameFile.toString().substring(index,endIndex).trim();
-				if(!levelName.equals(SETTINGS))
-				{
-					completeGame.add(loadAuthoredGameLevel(gameName, levelName));
-				}		
+			addLevel(gameFile, completeGame, gameName);
 		}
+		completeGame = orderLevels(gameName,completeGame);
 		return completeGame;
+	}
+	
+	/**
+	 * Adds a new AuthoredLevel to the complete game
+	 * 
+	 * @param gameFile
+	 * @param completeGame
+	 * @param gameName
+	 * @throws DataFileException
+	 */
+	private void addLevel(File gameFile, List<AuthoredLevel> completeGame, String gameName) throws DataFileException {
+		int index = gameFile.toString().lastIndexOf(NEST) + 1;
+		int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
+		String levelName = gameFile.toString().substring(index,endIndex).trim();
+		if(!levelName.equals(SETTINGS) && !levelName.equals(LEVEL_ORDER))
+		{
+			completeGame.add(loadAuthoredGameLevel(gameName, levelName));
+		}		
+	}
+
+	/**
+	 * Given a list of authored levels and a game name, will return the list of AuthoredLevels in the 
+	 * order indicated in the LevelOrder file for the game.
+	 * 
+	 * @param gameName
+	 * @param levels
+	 * @return
+	 * @throws DataFileException
+	 */
+	private List<AuthoredLevel> orderLevels(String gameName, List<AuthoredLevel> levels) throws DataFileException
+	{
+		Map<String,Integer> levelOrder = getLevelOrder(gameName);
+		AuthoredLevel[] orderedLevels = new AuthoredLevel[levels.size()];
+		for(AuthoredLevel level: levels)
+		{
+			int position = levelOrder.get(level.getLevel().getName());
+			orderedLevels[position] = level;
+		}
+		return Arrays.asList(orderedLevels);
 	}
 	
 	/**
@@ -81,7 +114,7 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	 */
 	@Override
 	public AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException {
-		File level = new File(LEVEL_FOLDER + NEST + levelName);
+		File level = new File(LEVEL_FOLDER + NEST + levelName + JSON_EXTENSION);
 		AuthoredLevelBuilder levelBuilder = new AuthoredLevelBuilder(level);
 		return levelBuilder.buildAuthoredLevel();
 	}
@@ -100,25 +133,12 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 		for(File strayLevel: strayLevels)
 		{
 			int index = strayLevel.toString().lastIndexOf(NEST) + 1;
-			String levelName = strayLevel.toString().substring(index).trim();
+			int endIndex = strayLevel.toString().lastIndexOf(JSON_EXTENSION);
+			String levelName = strayLevel.toString().substring(index, endIndex).trim();
 			levelNames.add(levelName);
 		}
 		return levelNames;
 	}	
-
-	/**
-	 * This will load the author settings for a specific author in the 
-	 * game authoring environment. It will return the map of image paths 
-	 * to custom game entities. 
-	 * 
-	 * @param author
-	 * @return
-	 */
-	@Override
-	public Map<String, GameEntity> loadAuthorCustomObjects(String author) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
 	 * This returns a Map of the names of the games for continued editing.

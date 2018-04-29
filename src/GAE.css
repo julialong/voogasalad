@@ -29,7 +29,7 @@
 .attribute-editor{
 	-fx-background-color: #000000;
 	-fx-min-width: 500;
-	-fx-min-height: 500;
+	-fx-min-height: 750;
 	}
 	
 	.attribute-pane{
@@ -101,17 +101,18 @@
 .game-chooser {
 	-fx-background-color: #ffffff;
 	-fx-padding: 30;
+	-fx-margin: 20px;
 	-fx-alignment: top-center;
 	-fx-pref-height: 600;
 	-fx-pref-width: 600;
 }
 
 .game-saver {
-	-fx-background-color: #000000;
+	-fx-background-color: #fdfdfd;
 	-fx-alignment: top-center;
 	-fx-text-alignment: center;
 	-fx-padding: 30;
-	-fx-margin: 20px;
+
 	-fx-pref-height: 600;
 	-fx-pref-width: 600;
 }
@@ -129,6 +130,15 @@
 	-fx-padding: 30;
 	-fx-margin: 20px;
 	-fx-pref-height: 200;
+	-fx-pref-width: 600;
+}
+
+.level-editor {
+	-fx-background-color: #ffffff;
+	-fx-padding: 30;
+	-fx-spacing: 10;
+	-fx-alignment: center;
+	-fx-pref-height: 400;
 	-fx-pref-width: 600;
 }
 

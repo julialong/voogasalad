@@ -1,20 +1,13 @@
 package data.fileReading;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-
-import data.builders.LevelBuilder;
+import data.levelBuilders.LevelBuilder;
 import data.resources.DataFileException;
 import engine.level.Level;
 /**
@@ -28,10 +21,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 	/**
 	 * Class Constructor
 	 */
-	public GPGameFileReader()
-	{
-
-	}
+	public GPGameFileReader(){}
 	
 	/**
 	 * This method will return the list of Level objects created from the level
@@ -49,20 +39,54 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
-			if(!gameFile.isDirectory())
-			{
-				int index = gameFile.toString().lastIndexOf(NEST) + 1;
-				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
-				String levelName = gameFile.toString().substring(index,endIndex).trim();
-				if(!levelName.equals(SETTINGS))
-				{
-					completeGame.add(loadLevel(gameName, levelName));
-				}
-			}			
+			addLevel(gameFile,completeGame, gameName);	
 		}
+		completeGame = orderLevels(gameName, completeGame);
 		return completeGame;
 	}
+	
+	/**
+	 * Adds a level to the complete game based on the level file.
+	 * 
+	 * @param gameFile
+	 * @param completeGame
+	 * @param gameName
+	 * @throws DataFileException
+	 */
+	private void addLevel(File gameFile, List<Level> completeGame, String gameName) throws DataFileException {
+		if(!gameFile.isDirectory())
+		{
+			int index = gameFile.toString().lastIndexOf(NEST) + 1;
+			int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
+			String levelName = gameFile.toString().substring(index,endIndex).trim();
+			if(!levelName.equals(SETTINGS) && !levelName.equals(LEVEL_ORDER))
+			{
+				completeGame.add(loadLevel(gameName, levelName));
+			}
+		}		
+		
+	}
 
+	/**
+	 * Re-orders the list of levels in loadCompleteGame in order to match the LevelOrder file
+	 * 
+	 * @param gameName
+	 * @param levels
+	 * @return
+	 * @throws DataFileException
+	 */
+	private List<Level> orderLevels(String gameName, List<Level> levels) throws DataFileException
+	{
+		Map<String,Integer> levelOrder = getLevelOrder(gameName);
+		Level[] orderedLevels = new Level[levels.size()];
+		for(Level level: levels)
+		{
+			int position = levelOrder.get(level.getName());
+			orderedLevels[position] = level;
+		}
+		return Arrays.asList(orderedLevels);
+	}
+	
 	/**
 	 * This will load a specific level within a game based on the game name 
 	 * and the name of the level. Will return the Level object associated with 
@@ -81,20 +105,6 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 	}
 
 	/**
-	 * This will load the different settings associated with a game, i.e the 
-	 * description of the game and whether or not it is ready to be played.
-	 * Returns a map of the setting to the value.
-	 * 
-	 * @param gameName
-	 * @return
-	 * @throws DataFileException 
-	 */
-	@Override
-	public Map<String, String> loadSettings(String gameName) throws DataFileException {
-		return getSettingsMap(gameName);
-	}
-
-	/**
 	 * This returns a Map of the names of the ready to play games and their
 	 * descriptions.
 	 *
@@ -107,7 +117,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 		List<String> allGameNames = getAllGameNames();
 		for(String gameName: allGameNames)
 		{
-			Map<String,String> gameSettings = loadSettings(gameName);
+			Map<String,String> gameSettings = getSettingsMap(gameName);
 			if(Boolean.parseBoolean(gameSettings.get(READY)))
 			{
 				gameNames.put(gameName, gameSettings.get(DESCRIPTION));

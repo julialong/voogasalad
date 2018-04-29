@@ -14,11 +14,14 @@ public class MoveForward implements Behavior {
 		private Action action = new MoveLeft();
 	    private Player player;
 	    
+	    public MoveForward() {
+		}
+	    
 	    public MoveForward(Player player){
 	        this.player = player;
 	    }
-	    
-	    @Override
+	   
+		@Override
 	    public void update(GameEntity entity) {
 	        action.execute(entity);
 	    }

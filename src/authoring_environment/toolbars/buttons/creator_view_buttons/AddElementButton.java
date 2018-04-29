@@ -1,6 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-import authoring_environment.authored_elements.AuthoredElementCreator;
+import authoring_environment.editor_windows.AttributeEditor;
 import javafx.scene.control.Button;
 
 /**
@@ -19,8 +19,7 @@ public class AddElementButton extends Button {
      */
     public AddElementButton() {
         super(ADD_ELEMENT);
-        // TODO: open element editor when button is clicked
-        this.setOnAction(e -> new AuthoredElementCreator());
+        this.setOnAction(e -> new AttributeEditor());
 
     }
 

@@ -9,10 +9,10 @@ import engine.level.Level;
 import engine.movement.Movement;
 import engine.powerup.PowerUp;
 import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 
 
 /**
@@ -61,13 +61,35 @@ public class AuthoredLevel implements DocumentGetter {
         myScrollingGrid.setBackground(background);
     }
 
+    public void setImagePath(String imagePath) {
+        // myLevel.setImage(imagePath)
+    }
+
+    /**
+     * Sets the background color of the level object
+     * @param color is the desired background color
+     */
+    public void setColor(Color color) {
+        myLevel.setColor(color);
+    }
+
     /**
      * Sets the new size of the level
      * @param x
      * @param y
      */
     public void setSize(double x, double y) {
-        // TODO: set size of level
+        myScrollingGrid.resize((int)x, (int)y);
+        myLevel.setSize(myScrollingGrid.getCellSize() * x, myScrollingGrid.getCellSize() * y);
+    }
+
+    public double[] getSize() {
+        return myLevel.getSize();
+    }
+
+    public int[] getGridSize() {
+        int[] lengthArray = {myScrollingGrid.getCellArray().length, myScrollingGrid.getCellArray()[0].length};
+        return lengthArray;
     }
 
     /**
@@ -91,7 +113,7 @@ public class AuthoredLevel implements DocumentGetter {
      * @param ID is the ID of the object to create
      */
     // TODO: Remove Point from Scrolling Grid
-    public GameEntity addObject(String ID, double x, double y) {
+    public GameEntity addObject(String ID, double x, double y, double cellSize) {
         GameEntity newEntity;
         Document objectDoc = getDocument(ID, ELEMENT_DATA_PATH);
         String path = objectDoc.getDocumentElement().getAttribute("ImageFile");
@@ -102,8 +124,18 @@ public class AuthoredLevel implements DocumentGetter {
         String powerup = objectDoc.getDocumentElement().getAttribute("PowerUp");
         String projectile = objectDoc.getDocumentElement().getAttribute("Projectile");
         String weapon = objectDoc.getDocumentElement().getAttribute("Weapon");
+        int xSize;
+        int ySize;
+        try {
+            xSize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("XDimension"));
+            ySize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("YDimension"));
+        }
+        catch (Exception e) {
+            xSize = 1;
+            ySize = 1;
+        }
 
-        newEntity = createObject(type, x, y);
+        newEntity = createObject(type, x * cellSize, y * cellSize);
         if (newEntity == null) {
             return null;
         }
@@ -112,8 +144,11 @@ public class AuthoredLevel implements DocumentGetter {
         newEntity.setMovementType(createMovement(movement));
         newEntity.addInteraction(createInteraction(interaction));
         // newEntity.addPowerUp(createPowerUp(powerup));
+        newEntity.setSizeX(xSize * cellSize);
+        newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
-        System.out.println("item added: " + newEntity.getClass());
+        System.out.println("size: " + newEntity.getSizeX() + ", " + newEntity.getSizeY());
+        System.out.println("location: " + newEntity.getKinematics().getX() + ", " + newEntity.getKinematics().getY());
         return newEntity;
     }
 

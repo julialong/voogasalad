@@ -21,7 +21,7 @@ import javafx.scene.layout.*;
  * @author Julia Long, Michael Acker
  * Date started: April 01 18
  */
-public class RightBar extends SplitPane{
+public class RightBar extends VBox{
 
     private static String CSS = "GAE.css";
 
@@ -48,19 +48,13 @@ public class RightBar extends SplitPane{
         addScrollScreens();
     }
 
-    public void update() {
-        //myLevelChooser.update();
-        myGrid = myWindow.getGame().getCurrentLevel().getScrollingGrid();
-        myDeleteButton.changeGrid(myGrid);
-    }
-
     private void splitPanes() {
         elementPane = new VBox();
         elementPane.getStyleClass().add("rightbar");
-        this.getItems().add(elementPane);
+        this.getChildren().add(elementPane);
         levelPane = new VBox();
         levelPane.getStyleClass().add("rightbar");
-        this.getItems().add(levelPane);
+        this.getChildren().add(levelPane);
     }
 
     private void addLabels() {
@@ -70,7 +64,7 @@ public class RightBar extends SplitPane{
 
     private void addButtons() {
         Button elementButton = new AddElementButton();
-        myDeleteButton = new DeleteGridCellButton(myGrid);
+        myDeleteButton = new DeleteGridCellButton(myWindow);
         myTypeBox = new ElementTypeBox(this);
         elementPane.getChildren().add(elementButton);
         elementPane.getChildren().add(myTypeBox);

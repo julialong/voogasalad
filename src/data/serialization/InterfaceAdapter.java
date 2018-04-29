@@ -1,6 +1,14 @@
 package data.serialization;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
@@ -10,6 +18,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+
+import data.resources.DataFileException;
+import engine.behavior.MoveForward;
+
 /**
  * @author Stack Overflow Post, Belanie Nagiel
  * 
@@ -22,7 +34,7 @@ import com.google.gson.JsonSerializer;
  * @param <T> The interface that needs to be taken into account
  */
 public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
-
+	
 	@Override
 	/**
 	 * Adds a wrapper around the Interface to indicate that it must be deserialized a different way
@@ -40,8 +52,14 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 	 * Converts the interface object into its appropriate game entity.
 	 */
 	public T deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
+		BehaviorSkipManager skippedBehaviors = new BehaviorSkipManager();
+		List<String> behaviorsToSkip = skippedBehaviors.getBehaviorsToSkip();
 		JsonObject wrapper = (JsonObject) arg0;
 		JsonElement typeName = get(wrapper, "type");
+		if(behaviorsToSkip.contains(typeName.getAsString()))
+		{
+			return (T)skippedBehaviors.getEmptyBehavior(typeName.getAsString());
+		}
 		JsonElement data = get(wrapper, "data");
 		Type actualType = typeForName(typeName);
 		return arg2.deserialize(data, actualType);

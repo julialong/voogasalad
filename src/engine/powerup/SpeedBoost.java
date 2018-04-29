@@ -1,21 +1,27 @@
 package engine.powerup;
+
+import engine.entity.Player;
+
 /**
  * A power up that increases the speed a player can move at.
  * @author Robert Gitau and Marcus Oertle
  *
  */
-public class SpeedBoost implements PowerUp{
+public class SpeedBoost extends TimedPowerUp{
+
+    public SpeedBoost(double time, Player player){
+        setDuration(time);
+        setPlayer(player);
+        counter = 0;
+    }
 
 	@Override
-	public void setDuration(double time) {
-		// TODO Auto-generated method stub
-		
+	public void effect() {
+		player.setMaxXVelocity(2*player.getMaxXVelocity());
 	}
 
 	@Override
-	public void setInteraction(Object object) {
-		// TODO Auto-generated method stub
-		
+	public void reverseEffect() {
+		player.setMaxXVelocity(0.5*player.getMaxXVelocity());
 	}
-
 }

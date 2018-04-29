@@ -4,7 +4,7 @@ import engine.entity.GameEntity;
 
 /**
  * Does nothing.
- * @author Rob
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class NoInteraction implements Interaction{

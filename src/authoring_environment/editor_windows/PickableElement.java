@@ -1,13 +1,22 @@
 package authoring_environment.editor_windows;
 
 import authoring_environment.DocumentGetter;
+import authoring_environment.authored_elements.GameElement;
+import authoring_environment.toolbars.choosers.ElementPicker;
+
 import org.w3c.dom.Document;
 
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
+import javafx.scene.control.Tooltip;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.paint.Color;
 
 /**
  * 
@@ -24,10 +33,16 @@ public class PickableElement extends ImageView implements DocumentGetter {
 	private String myType;
 	private String myID;
 	private Document myDataDoc;
+	private ElementPicker myPicker;
+	private boolean locked;
 
-	public PickableElement(String ID) {
+	public PickableElement(String ID, ElementPicker picker) {
 		super();
 		myID = ID;
+		myPicker = picker;
+		locked = false;
+		Tooltip tip = new Tooltip(myID);
+		Tooltip.install(this, tip);
 		myDataDoc = parseElementXML(myID);
 		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
 		String type = myDataDoc.getDocumentElement().getAttribute("GameEntity");
@@ -37,6 +52,8 @@ public class PickableElement extends ImageView implements DocumentGetter {
 		this.setFitHeight(REQUESTED_HEIGHT);
 		this.setFitWidth(REQUESTED_WIDTH);
 		setupDragAndDrop();
+		setupDoubleClick();
+		setupRightClick();
 	}
 	
 	public String getType() {
@@ -53,6 +70,40 @@ public class PickableElement extends ImageView implements DocumentGetter {
 		        e.consume();
 		});
 	}
+	
+	private void setupDoubleClick() {
+		this.setOnMouseClicked(e -> {
+			if (e.getClickCount() == 2) {
+				if (locked) {
+					unlock();
+					myPicker.unlockElement();
+				} else {
+					lock();
+					myPicker.lockElement(myID);
+					this.getScene().setCursor(new ImageCursor(myImage));
+				}
+			}
+		});
+	}
+	
+	private void lock() {
+		locked = true;
+		this.setEffect(new InnerShadow(20 , Color.web("#99ebff") ));
+	}
+	
+	public void unlock() {
+		locked = false;
+		this.setEffect(null);
+		this.getScene().setCursor(Cursor.DEFAULT);
+	}
+	
+	public boolean isLocked() {
+		return locked;
+	}
+	
+	public String getID() {
+		return myID;
+	}
 
 	/**
 	 * TODO: why can't we have all of the parsing done by
@@ -64,4 +115,14 @@ public class PickableElement extends ImageView implements DocumentGetter {
 	private Document parseElementXML(String ID) {
         return getDocument(ID, ELEMENT_DATA_PATH);
     }
+	
+	private void setupRightClick() {
+		this.setOnMouseClicked( e-> {
+			if(e.isControlDown()) {
+				GameElement element = new GameElement(myID);
+				AttributeEditor editor = new AttributeEditor(element);
+			}
+		}
+		);
+	}
 }

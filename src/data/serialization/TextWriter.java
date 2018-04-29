@@ -11,6 +11,7 @@ import java.util.Map;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.resources.DataFileException;
 import engine.entity.GameEntity;
+import engine.level.Level;
 
 /**
  * @author Maya Messinger
@@ -29,7 +30,6 @@ public class TextWriter	{
 
 	private static final String DESCRIPTION = "description";
 	private static final String READYTOPLAY = "readyToPlay";
-	private static final String LEVELSTART = "startLevel";
 
 	private Serializer ser = new Serializer();
 
@@ -42,6 +42,16 @@ public class TextWriter	{
 	 */
 	public TextWriter(File settings, boolean ready, String desc, int levelStart) throws DataFileException	{
 		callWrite(settings, ready, desc, levelStart);
+	}
+
+	/**
+	 * @author Maya Messinger
+	 * Constructor for use with writing levels' orders for play
+	 * @param orders	File to write order of levels to
+	 * @param levels		List of levels, in order or play
+	 */
+	public TextWriter(File orders, List levels) throws DataFileException	{
+		callWrite(orders, levels);
 	}
 
 	/**
@@ -67,6 +77,25 @@ public class TextWriter	{
 		}
 	}
 
+	private void callWrite(File orders, List<Level> levels) throws DataFileException	{
+		try	{
+			FileWriter fw = new FileWriter(orders);
+		
+			startFile(fw);
+			startArray(fw, "order");
+			for (Level level:levels)	{
+				fw.write(QUOTE + level.getName() + QUOTE);
+				checkWriteComma(fw, levels.indexOf(level), levels.size());
+				newLine(fw);
+			}
+			closeArray(fw, Integer.MAX_VALUE, Integer.MIN_VALUE);
+			endFile(fw);
+		}
+		catch (IOException e)	{
+			throw new DataFileException("Could not create FileWriter with file " + orders.toString(), e);
+		}
+	}
+
 	private void callWrite(AuthoredLevel level, File levelF) throws DataFileException	{
 		try	{
 			FileWriter fw = new FileWriter(levelF);
@@ -89,8 +118,6 @@ public class TextWriter	{
 			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + ready);
 			fw.write(COMMA);
 			newLine(fw);
-			fw.write(QUOTE + LEVELSTART + QUOTE + COLON + levelStart);
-			newLine(fw);
 		}
 		catch (IOException e)	{
 			error(e, fw);
@@ -102,6 +129,14 @@ public class TextWriter	{
 	}
 
 	private void writeObjects(FileWriter fw, List<GameEntity> items) throws DataFileException	{
+		if (items.size() > 0)	{
+			checkWriteComma(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		}
+
+		for (GameEntity obj:items)	{
+			obj.clearInteractionMap();
+		}
+
 		int entryIndex = 0;
 		Map<String, List<Object>> objsOrganized = sortObjects(items);
 		for (Map.Entry entry:objsOrganized.entrySet())	{

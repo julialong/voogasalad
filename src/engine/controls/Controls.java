@@ -12,7 +12,7 @@ import javafx.scene.input.KeyCode;
  * Takes keyCodes and turns them into info to make a player move.
  * @author Marcus Oertle and Robert Gitau
  */
-public class Controls {
+public class Controls implements Control{
 	private Player player;
 	private Map<KeyCode, Action> keyBindings = new HashMap<>();
 	private ArrayList<KeyCode> pressedKeys = new ArrayList<>();
@@ -80,7 +80,8 @@ public class Controls {
 	}
 
 	/**
-	 * Stops the player from accelerating. Likely needs some work.
+	 * Deactivates the pressed key on release.
+	 * @param key - the KeyCode
 	 */
 	public void deactivate(KeyCode key) {
 		//System.out.println("Deactivate: " + key.getName());

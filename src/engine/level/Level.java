@@ -2,15 +2,15 @@ package engine.level;
 
 import java.util.List;
 
-import authoring_environment.grid.ScrollingGrid;
 import engine.entity.GameEntity;
+import javafx.scene.paint.Color;
 
 /**
  * The level interface is to be extended by each level class. There will likely be one level class
  * with varying parameters, but this allows for different kinds of level classes to be implemented easily
  * by extending this interface.
  *
- * @author Marcus Oertle, Robert Gitau, Julia Long
+ * @author Julia Long, Marcus Oertle, Robert Gitau
  */
 public interface Level {
 
@@ -55,24 +55,27 @@ public interface Level {
 	 */
 	String getName();
 
-//	/**
-//	 * Sets the current state of the grid for the level
-//	 * @param grid is the grid to update to
-//	 */
-//	void updateGrid(ScrollingGrid grid);
-//
-//	/**
-//	 * Gets the GridPane associated with the level
-//	 * @return the grid of the level
-//	 */
-//	ScrollingGrid getGrid();
-//
 	/**
 	 * Sets the x size of the grid.
 	 * @param X is the new x size
 	 * @param Y is the new y size
 	 */
 	void setSize(double X, double Y);
+
+	double[] getSize();
+
+	/**
+	 * Returns true if level is complete
+	 */
+	boolean getLevelComplete();
+
+	void setColor(Color color);
+
+	/**
+	 * Retrieves the background color of the level
+	 * @return color of level
+	 */
+	String getColor();
     
     /**
      * Updates the contents of the level

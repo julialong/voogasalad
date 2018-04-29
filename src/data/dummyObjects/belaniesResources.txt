@@ -26,5 +26,7 @@ https://groups.google.com/forum/#!topic/firebase-talk/LEFeJYcR92Q
 https://firebase.google.com/docs/admin/setup
 https://developers.google.com/api-client-library/java/google-api-java-client/download
 https://stackoverflow.com/questions/7421612/slf4j-failed-to-load-class-org-slf4j-impl-staticloggerbinder
+https://stackoverflow.com/questions/1538755/how-to-convert-string-object-to-boolean-object
+https://docs.oracle.com/javafx/2/api/javafx/scene/paint/Color.html
 
 GET RID OF PRINTSTACKTRACES!!!
