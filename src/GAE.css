@@ -148,3 +148,12 @@
 .description-field{
 	 -fx-min-height: 100;
 }
+
+.author-chooser {
+	-fx-background-color: #ffffff;
+	-fx-padding: 30;
+	-fx-margin: 20px;
+	-fx-alignment: top-center;
+	-fx-pref-height: 600;
+	-fx-pref-width: 600;
+}
