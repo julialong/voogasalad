@@ -39,6 +39,7 @@ public class AuthoredLevel implements DocumentGetter {
         myLevel = level;
         myScrollingGrid = scrollingGrid;
         myScrollingGrid.setMediator(this);
+        myLevel.setColor(Color.WHITE);
     }
 
     /**
