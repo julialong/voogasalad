@@ -62,9 +62,6 @@ public class VoogaGameView implements GameView, GameViewMenu {
 
 	/**
 	 * Creates a grid pane. initializes event listeners
-	 * 
-	 * @param gameLevels
-	 * @param myHighScores
 	 */
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
@@ -82,24 +79,16 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	/**
 	 * Calibrates x coordinates to be at the center of the screen and multiplies by
 	 * factor to make them bigger.
-	 * 
-	 * @param x
-	 * @return
 	 */
 	private double adjustXCord(double x) {
-		// TODO: adjust this factor based on sensitivity
 		return x * (myWidth / myXFactor);
 	}
 
 	/**
 	 * Calibrates y coordinates to be at thecenter of the screen and multiples by a
 	 * factor to make the difference between them larger.
-	 * 
-	 * @param y
-	 * @return
 	 */
 	private double adjustYCord(double y) {
-		// TODO: adjust this factor based on sensitivity
 		return y * (myHeight / myYFactor);
 	}
 

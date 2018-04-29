@@ -16,8 +16,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.MissingResourceException;
 
-import java.util.*;
 
 /**
  * Application for running the Game Chooser. The purpose is to let
@@ -32,6 +36,11 @@ public class VoogaChooser implements GameChooser {
     private ListView<GameItem> playableGames = new ListView<>();
     private ResourceBundle rb;
 
+    /**
+     * Constructor for the chooser application which takes in a stage
+     * Primarily it calls the setUpStage method to prepare the scene
+     * for this application.
+     */
     public VoogaChooser(Stage stage){
         rb = ResourceBundle.getBundle("game_player.resources.chooser");
         myStage = stage;
