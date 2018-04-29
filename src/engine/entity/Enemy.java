@@ -37,7 +37,8 @@ public class Enemy extends GameObject {
 	 *            the Weapon the enemy is given
 	 */
 	public void setWeapon(Weapon weapon) {
-		weaponType = weapon;		
+		weaponType = weapon;	
+		weaponType.activate();
 	}
 	
 	/**
@@ -53,6 +54,8 @@ public class Enemy extends GameObject {
 	 * method.
 	 */
 	public void useWeapon() {
-		weaponType.attack();
+		if(weaponType != null){
+			weaponType.attack();
+		}
 	}
 }

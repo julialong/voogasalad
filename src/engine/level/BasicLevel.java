@@ -6,6 +6,7 @@ import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.physics.DetectCollision;
+import engine.weapon.Weapon;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class BasicLevel implements Level {
     private String myName;
     private DetectCollision detectCollision = new DetectCollision();
     private ArrayList<GameEntity> toRemoveFromObjectList = new ArrayList<>();
+    private ArrayList<Weapon> deactivatedWeapons = new ArrayList<>();
     private Camera camera;
     private double sceneX;
     private double sceenY;
@@ -146,6 +148,17 @@ public class BasicLevel implements Level {
     			((Player) source).setGameOver(source.getHealth() < 1);
     			//if(source.getHealth() < 1) System.out.println("Game Over");
     		}
+    		if(source instanceof Weapon){
+    			if(!((Weapon) source).getActive()){
+    				toRemoveFromObjectList.add(source);
+    				deactivatedWeapons.add((Weapon) source);
+    			}
+    		}
+    	}
+    	for(Weapon w : deactivatedWeapons){
+			if(w.getActive()){
+				myObjects.add((GameEntity) w);
+			}
     	}
     	for(GameEntity ge : toRemoveFromObjectList) {
     		myObjects.remove(ge);

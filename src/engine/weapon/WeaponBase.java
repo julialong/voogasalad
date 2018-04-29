@@ -28,6 +28,7 @@ public abstract class WeaponBase extends GameObject implements Weapon{
     protected double yOffset;
     protected double holderXPos;
     protected double holderYPos;
+    protected boolean active = false;
 	
     public WeaponBase(GameEntity entity, Level level){
 		kinematics = new Kinematics(0,0,0,0,0,0);
@@ -83,5 +84,20 @@ public abstract class WeaponBase extends GameObject implements Weapon{
 			    }
 		    }
 	    }
+	}
+	
+	@Override
+	public void activate(){
+		active = true;
+	}
+	
+	@Override
+	public void deactivate(){
+		active = false;
+	}
+	
+	@Override
+	public boolean getActive(){
+		return active;
 	}
 }

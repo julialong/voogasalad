@@ -151,10 +151,12 @@ public class EngineTestVisual extends Application{
 		//player.setWeapon(new StabbingWeapon(player, level));
 		//player.setWeapon(new AOEWeapon(player, level));
 //		player.setWeapon(new ShootingWeapon(player, level));
-		List<Behavior> bulletBehaviors = new ArrayList<>();
-		bulletBehaviors.add(new MoveForward());
-		bulletBehaviors.add(new JumpALot());
-		player.setWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,25,10));
+		
+//		List<Behavior> bulletBehaviors = new ArrayList<>();
+//		bulletBehaviors.add(new MoveForward());
+//		bulletBehaviors.add(new JumpALot());
+//		player.setWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,75,10));
+		
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));

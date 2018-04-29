@@ -27,4 +27,20 @@ public interface Weapon {
 	 * Iterates through all entities and damages the appropriate ones
 	 */
 	public abstract void iterateEntities();
+
+	/**
+	 * Activates the weapon
+	 */
+	public void activate();
+	
+	/**
+	 * Deactivates the weapon
+	 */
+	public abstract void deactivate();
+	
+	/**
+	 * Returns the state of the weapon
+	 * @return true if active
+	 */
+	public abstract boolean getActive();
 }

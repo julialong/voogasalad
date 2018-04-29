@@ -2,8 +2,10 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import engine.behavior.Behavior;
 import engine.behavior.ChasePlayer;
 import engine.behavior.JumpALot;
 import engine.behavior.JumpBetweenPoints;
@@ -27,6 +29,7 @@ import engine.movement.Grounded;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
 import engine.powerup.SpeedBoost;
+import engine.powerup.SwitchWeapon;
 import engine.weapon.AOEWeapon;
 import engine.weapon.ShootingWeapon;
 import engine.weapon.StabbingWeapon;
@@ -89,15 +92,15 @@ public class EngineDemo1 extends Application{
 		// Player
 		Player player = new Player();
 		player.overridePosition(-380, -110);
-		player.setSizeX(20);
-		player.setSizeY(20);
+		player.setSizeX(10);
+		player.setSizeY(30);
 		player.setSpeedFactor(1000);
 		player.setMaxXVelocity(50);
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(300);
 		controls = new Controls(player);
-		player.setWeapon(new ShootingWeapon(player, level));
+		player.setWeapon(new StabbingWeapon(player, level));
 		level.addObject(player);
 		
 		// Block 1
@@ -114,15 +117,27 @@ public class EngineDemo1 extends Application{
 		block2.addInteraction(new PreventClipping());		
 		level.addObject(block2);
 		
-		// Block 3
+		// Block 3 - power up block
 		Block block3 = new Block(-300,-60);
 		block3.setSizeX(20);
 		block3.setSizeY(20);
-		block3.addInteraction(new PreventClipping());		
+		block3.addInteraction(new RemoveOnInteractWithPlayer());
+		List<Behavior> bulletBehaviors = new ArrayList<>();
+		bulletBehaviors.add(new MoveForward());
+		bulletBehaviors.add(new JumpALot());
+		block3.addInteraction(new AddPowerup(new SwitchWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,75,10), player)));
 		level.addObject(block3);
 		
 		// Enemy 1
-		
+		Enemy enemy1 = new Enemy(-180, -110);
+		enemy1.setSizeX(10);
+		enemy1.setSizeY(20);
+		enemy1.setMaxXVelocity(30);
+		enemy1.setMaxYVelocity(500);
+		//enemy1.addBehavior(new MoveForward());
+		enemy1.addInteraction(new Pushable());
+		//enemy1.addInteraction(new DamageOnStomp());
+		level.addObject(enemy1);
 		
 		for(GameEntity ge : level.getObjects()){
 			Rectangle entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 

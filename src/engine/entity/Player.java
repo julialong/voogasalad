@@ -41,17 +41,29 @@ public class Player extends GameObject{
 	 * @param weapon:
 	 *            the Weapon the player is given
 	 */
-
 	public void setWeapon(Weapon weapon) {
-        weaponType = weapon;		
+		if(weaponType != null){
+			weaponType.deactivate();
+		}
+        weaponType = weapon;
+        weaponType.activate();
 	}
 
 	/**
-	 * performs whatever effect the player's current weapon has in its attack
+	 * Performs whatever effect the player's current weapon has in its attack
 	 * method.
 	 */
 	public void useWeapon() {
-		weaponType.attack();
+		if(weaponType != null){
+			weaponType.attack();
+		}
+	}
+	
+	/**
+	 * Returns the weapon the player has.
+	 */
+	public Weapon getWeapon(){
+		return weaponType;
 	}
 
 	/**
