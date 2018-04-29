@@ -1,6 +1,6 @@
 package authoring_environment.editor_windows;
 
-import authoring_environment.authored_elements.AuthoredElement;
+
 import authoring_environment.game_elements.AuthoredGame;
 import javafx.scene.control.ScrollPane;
 
@@ -21,6 +21,7 @@ public interface CreatorView {
 	 * Changes the current game
 	 * @param newGame
 	 */
+	@Deprecated
 	void changeCurrentGame(AuthoredGame newGame);
 	
 	/**
