@@ -1,4 +1,4 @@
-package authoring_environment.editor_windows;
+package authoring_environment.attribute_editor;
 
 import java.util.ArrayList;
 import java.util.HashSet;

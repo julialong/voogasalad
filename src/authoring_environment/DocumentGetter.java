@@ -1,10 +1,15 @@
 package authoring_environment;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The DocumentGetter interface allows for the retrieval of an XML document
@@ -42,4 +47,25 @@ public interface DocumentGetter {
     class InvalidElementException extends Exception {
 
     }
+    
+    default String getImagePath(Document doc) {
+    		Element child = doc.getElementById("Basic");
+    		return child.getAttribute("ImageFile");
+ 
+    }
+    
+    default String getXDimension(Document doc) {
+    		Element child = doc.getElementById("Basic");
+    		return child.getAttribute("XDimension");
+    }
+    
+    default String getYDimension(Document doc) {
+		Element child = doc.getElementById("Basic");
+		return child.getAttribute("YDimension");
+    }
+    
+    /*default Map<String, List<String>> getBehaviors(Document doc){
+    		Element child = doc.getElementById("Behaviors");
+    		Map<String, List<S>>
+    }*/
 }

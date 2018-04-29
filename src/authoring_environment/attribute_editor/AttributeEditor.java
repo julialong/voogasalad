@@ -1,4 +1,4 @@
-package authoring_environment.editor_windows;
+package authoring_environment.attribute_editor;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,8 +17,6 @@ import javax.xml.transform.TransformerException;
 import authoring_environment.AttributeGetter;
 import authoring_environment.DataAlert;
 import authoring_environment.authored_elements.GameElement;
-import authoring_environment.toolbars.buttons.AddImageButton;
-import authoring_environment.toolbars.buttons.CloseAttributeEditorButton;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;

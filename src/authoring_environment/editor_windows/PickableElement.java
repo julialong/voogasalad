@@ -1,6 +1,7 @@
 package authoring_environment.editor_windows;
 
 import authoring_environment.DocumentGetter;
+import authoring_environment.attribute_editor.AttributeEditor;
 import authoring_environment.authored_elements.GameElement;
 import authoring_environment.toolbars.choosers.ElementPicker;
 
