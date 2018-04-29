@@ -27,7 +27,6 @@ public class HarmTarget implements Interaction{
 
 	@Override
 	public void interact(GameEntity source, GameEntity target) {
-		//System.out.println("dealing damage to " + target.getClass().getSimpleName() + " in amount of " + damage);
 		target.setHealth(target.getHealth()-damage);
 	}
 
