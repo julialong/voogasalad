@@ -11,6 +11,9 @@ import com.google.firebase.database.FirebaseDatabase;
  * to Firebase. Unfortunately, this was not compatible with the way that we serialize objects
  * using gson serialization so we did not have the time to integrate with firebase.
  * 
+ * Code was taken from https://www.javaquery.com/2016/09/how-to-save-data-in-firebase.html in order
+ * to get this class to function.
+ * 
  * @author Belanie Nagiel
  *
  */
@@ -38,7 +41,6 @@ public class PushData {
 	{
 		FirebaseDatabase db2 = FirebaseDatabase.getInstance();
 		DatabaseReference ref = db2.getReference("/" + databaseReference);
-		System.out.println(ref);
 
 		CountDownLatch countDownLatch = new CountDownLatch(1);
 		ref.setValue(data, new DatabaseReference.CompletionListener() {
@@ -48,7 +50,6 @@ public class PushData {
 				countDownLatch.countDown();
 			}
 		});
-		
 		try 
 		{
 			countDownLatch.await();
