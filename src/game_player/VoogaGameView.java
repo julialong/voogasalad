@@ -79,12 +79,12 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustXCord(double x) {
 		// TODO: adjust this factor based on sensitivity
-		//return x * (myWidth / ADJUST_FACTOR);
-		return x * myWidth;
+		return x * (myWidth / ADJUST_FACTOR);
+		//return x * (myWidth/myGameLevels.get(myCurrLevel).getSize()[0]);
 	}
 
 	/**
-	 * Calibrates y coordinates to be at thecenter of the screen and multiples by a
+	 * Calibrates y coordinates to be at the center of the screen and multiples by a
 	 * factor to make the difference between them larger.
 	 * 
 	 * @param y
@@ -92,8 +92,8 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustYCord(double y) {
 		// TODO: adjust this factor based on sensitivity
-		//return y * (myHeight / ADJUST_FACTOR);
-		return y * myHeight;
+		return y * (myHeight / ADJUST_FACTOR);
+		//return y * (myHeight/myGameLevels.get(myCurrLevel).getSize()[1]);
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class VoogaGameView implements GameView {
 				myControls = new Controls((Player) ge);
 			}
 			System.out.println("imgPath: " + imgPath);
-			ImageView entityImage = new ImageView(new Image("../" + imgPath,
+			ImageView entityImage = new ImageView(new Image(imgPath,
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 			
 			ImageView entityImageCopy = new ImageView(new Image(imgPath,
