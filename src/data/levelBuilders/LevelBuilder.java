@@ -3,6 +3,8 @@ package data.levelBuilders;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
@@ -59,8 +62,8 @@ public class LevelBuilder {
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
-//		behaviorsToSkip = new ArrayList<>();
-//		buildBehaviorSkipMap();
+		behaviorsToSkip = new ArrayList<>();
+		buildBehaviorSkipMap();
 		deserializer = new Serializer();
 
 		levelFile = level;
@@ -81,6 +84,7 @@ public class LevelBuilder {
 			String objectName = objectNames.nextElement();
 			try
 			{
+				System.out.println(objectName);
 				Class<?> objectClass = Class.forName(gameObjects.getString(objectName));
 				objectTypes.put(objectName, objectClass);
 			}
@@ -165,33 +169,31 @@ public class LevelBuilder {
 		{
 //			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
-//			checkPlayer(ge);
-			if(ge.getClass().equals(Player.class))
-			{
-//				System.out.println("HERE OMG: " + ge);
-				player = (Player) ge;
-			}
-//			checkFoe(ge);
-			if(ge.getClass().equals(Foes.class))
-			{
-//				System.out.println("IM DOING THE THING AND SETTING IT");
-				for(Behavior b: ((Foes)ge).getBehaviorList())
-				{
-					System.out.println(b.getClass().toString());
-//					if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
-//					{
-					if(b.getClass().equals(MoveForward.class))
-					{
-//						System.out.println("THIS IS A MOVE FORWARD ALERT");
-						((MoveForward)b).setPlayer(player);
-					}
-				}
-			}
-//			System.out.println(ge.getScenePosition());
+			checkPlayer(ge);
+			checkFoe(ge);
 			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
 	}
+
+	
+	private Behavior getBehavior(String behaviorType) {
+		try 
+		{
+			Class behaviorClass = Class.forName(behaviorType);
+			Constructor<?> c = behaviorClass.getConstructor(Player.class);
+			c.setAccessible(true);
+			Object o = c.newInstance(player);
+			System.out.println(o);
+			return (Behavior)o;
+		} 
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) 
+		{
+			throw new JsonParseException("Could not create behavior that contains a player");
+		}
+		
+	}
+
 
 	private void checkPlayer(GameEntity ge)
 	{
@@ -203,25 +205,25 @@ public class LevelBuilder {
 		}
 	}
 
+
 	private void checkFoe(GameEntity ge)
 	{
 //		System.out.println("CHECKING THE FOE " + ge.getClass());
 		if(ge.getClass().equals(Foes.class))
 		{
-//			System.out.println("IM DOING THE THING AND SETTING IT");
+			System.out.println("IM DOING THE THING AND SETTING IT");
 			for(Behavior b: ((Foes)ge).getBehaviorList())
 			{
-				System.out.println(b.getClass().toString());
-//				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
-//				{
-				if(b.getClass().equals(MoveForward.class))
+				System.out.println("this thing" + b.getClass().toString());
+				System.out.println(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]));
+				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
 				{
-//					System.out.println("THIS IS A MOVE FORWARD ALERT");
-					((MoveForward)b).setPlayer(player);
+					b = getBehavior(b.getClass().toString().split(" ")[1]);
 				}
 			}
 		}
 	}
+
 
 	private void buildBehaviorSkipMap()
 	{

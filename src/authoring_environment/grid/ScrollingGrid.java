@@ -93,9 +93,9 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 	}
 
 	public void resize(int newRowNum, int newColNum) {
-		GridCell[][] newCells = new GridCell[newRowNum][newColNum];
-		for (int i = 0; i < newRowNum; i++) {
-			for (int j = 0; j < newColNum; j++) {
+		GridCell[][] newCells = new GridCell[newColNum][newRowNum];
+		for (int i = 0; i < newColNum; i++) {
+			for (int j = 0; j < newRowNum; j++) {
 				newCells = assignCell(newCells, i, j);
 			}
 		}

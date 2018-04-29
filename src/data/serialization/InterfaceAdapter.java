@@ -68,6 +68,10 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 		{
 			return (T)(new MoveForward());
 		}
+//		if(typeName.getAsString().equals("engine.behavior.MoveForward"))
+//		{
+//			return (T)(new MoveForward());
+//		}
 		JsonElement data = get(wrapper, "data");
 		Type actualType = typeForName(typeName);
 		return arg2.deserialize(data, actualType);

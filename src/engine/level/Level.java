@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
  * with varying parameters, but this allows for different kinds of level classes to be implemented easily
  * by extending this interface.
  *
- * @author Marcus Oertle, Robert Gitau, Julia Long
+ * @author Julia Long, Marcus Oertle, Robert Gitau
  */
 public interface Level {
 
@@ -54,6 +54,9 @@ public interface Level {
 	 * @return the name of the level
 	 */
 	String getName();
+	
+	void setColor(Color color);
+	
 
 	/**
 	 * Sets the x size of the grid.
@@ -62,18 +65,19 @@ public interface Level {
 	 */
 	void setSize(double X, double Y);
 
+
 	/**
 	 * Returns true if level is complete
 	 */
-	void setColor(Color color);
+	boolean getLevelComplete();
+
+
 
 	/**
 	 * Retrieves the background color of the level
 	 * @return color of level
 	 */
 	String getColor();
-
-	boolean getLevelComplete();
 
     /**
      * Updates the contents of the level
