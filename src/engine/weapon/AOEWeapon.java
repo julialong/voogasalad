@@ -8,7 +8,7 @@ import engine.physics.DetectCollision;
 
 /**
  * A weapon that can hit in a circle around the user
- * @author Robert Gitau
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class AOEWeapon extends GameObject implements Weapon{

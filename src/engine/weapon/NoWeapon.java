@@ -4,7 +4,7 @@ import engine.entity.GameEntity;
 
 /**
  * No weapon. Cannot deal damage at all.
- * @author Rob
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class NoWeapon implements Weapon{

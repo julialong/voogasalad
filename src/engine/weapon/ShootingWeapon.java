@@ -5,7 +5,7 @@ import engine.entity.GameObject;
 
 /**
  * A Weapon that fires Projectiles
- * @author Robert Gitau
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class ShootingWeapon extends GameObject implements Weapon{

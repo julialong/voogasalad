@@ -4,7 +4,7 @@ import engine.entity.GameEntity;
 import engine.entity.GameObject;
 /**
  * A Weapon that hits in an arc in front of the Player
- * @author Robert Gitau
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class SwingingWeapon extends GameObject implements Weapon{

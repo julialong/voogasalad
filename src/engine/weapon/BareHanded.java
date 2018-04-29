@@ -5,7 +5,7 @@ import engine.entity.GameObject;
 
 /**
  * Weapons that hit in an extremely close range in front of a Player
- * @author Robert Gitau
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class BareHanded extends GameObject implements Weapon{

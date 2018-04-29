@@ -4,7 +4,7 @@ import engine.entity.GameEntity;
 import engine.entity.GameObject;
 /**
  * A weapon that strikes Entities directly in front of the player
- * @author Robert Gitau
+ * @author Marcus Oertle and Robert Gitau
  *
  */
 public class StabbingWeapon extends GameObject implements Weapon{
