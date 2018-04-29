@@ -65,7 +65,9 @@ public class AttributeComboBoxesPane {
 	private void setPreviousChoices(Map<String, String> choices) {
 		for( ComboBox<String> box : attributeBoxes) {
 			String category = box.getValue();
-			box.getSelectionModel().select(choices.get(category));
+			if(choices.containsKey(category)) {
+				box.getSelectionModel().select(choices.get(category));
+			}
 		}
 	}
 	
