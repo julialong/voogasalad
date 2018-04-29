@@ -1,34 +1,39 @@
 package data.firebase;
 
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
 
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-
-import data.resources.DataFileException;
-import engine.entity.GameEntity;
-
+/**
+ * This is a general class that allows you to export a Map containing key value pairs 
+ * to Firebase. Unfortunately, this was not compatible with the way that we serialize objects
+ * using gson serialization so we did not have the time to integrate with firebase.
+ * 
+ * @author Belanie Nagiel
+ *
+ */
 public class PushData {
 	
+	/**
+	 * Class constructor
+	 * 
+	 * Sets up the firebase connection
+	 */
 	public PushData() 
 	{
 		FirebaseAuthentication fb = new FirebaseAuthentication();
 	}
 	
+	/**
+	 * Given the name for a database reference and then a series of key, value pairs,
+	 * the information from the map will be pushed to firebase under the tag for the 
+	 * reference name
+	 * 
+	 * @param databaseReference
+	 * @param data
+	 */
 	public void export(String databaseReference, Map<String,Object> data)
 	{
 		FirebaseDatabase db2 = FirebaseDatabase.getInstance();
