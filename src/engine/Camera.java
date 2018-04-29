@@ -12,7 +12,7 @@ import engine.entity.Player;
  *
  */
 public class Camera {
-	ArrayList<GameEntity> ge = new ArrayList<>();
+	ArrayList<GameEntity> player = new ArrayList<>();
 	private double camX = 0;
 	private double camY = 0;
 	private double levelWidth;
@@ -33,7 +33,7 @@ public class Camera {
 		this.camWidth = camWidth;
 		this.camHeight = camHeight;
 	}
-	
+
 	/**
 	 * Updates the camera position based on the player's position
 	 * @param player
@@ -60,6 +60,7 @@ public class Camera {
 			camY = levelHeight - camHeight;
 			player.setScenePosition(player.getScenePosition()[0], -player.getPosition()[1] + levelHeight/2 - camY);
 		}
+		System.out.println("Entity: " + player.getElementID() + "\nScene X: " + player.getScenePosition()[0] + "\nScene Y: " + player.getScenePosition()[1]);
 	}
 	
 	/**

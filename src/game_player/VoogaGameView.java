@@ -79,7 +79,8 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustXCord(double x) {
 		// TODO: adjust this factor based on sensitivity
-		return x * (myWidth / ADJUST_FACTOR);
+		//return x * (myWidth / ADJUST_FACTOR);
+		return x * myWidth;
 	}
 
 	/**
@@ -91,7 +92,8 @@ public class VoogaGameView implements GameView {
 	 */
 	private double adjustYCord(double y) {
 		// TODO: adjust this factor based on sensitivity
-		return y * (myHeight / ADJUST_FACTOR);
+		//return y * (myHeight / ADJUST_FACTOR);
+		return y * myHeight;
 	}
 
 	/**
@@ -117,6 +119,8 @@ public class VoogaGameView implements GameView {
 			
 			
 			myIVCopyMap.put(entityImage, entityImageCopy);
+
+			System.out.println("Entity: " + ge.getElementID() + "\nScene X: " + ge.getScenePosition()[0] + "\nScene Y: " + ge.getScenePosition()[1]);
 
 			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
 			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
@@ -149,6 +153,8 @@ public class VoogaGameView implements GameView {
 			myGameLevels.get(myCurrLevel).update();
 			displayObjects();
 			updateHud(elapsedTime);
+			GameEntity ge = myGameLevels.get(myCurrLevel).getObjects().get(0);
+			System.out.println("In the step function\nEntity: " + ge.getElementID() + "\nScene X: " + ge.getScenePosition()[0] + "\nScene Y: " + ge.getScenePosition()[1]);
 			if(myGameLevels.get(myCurrLevel).getLevelComplete()){
 				myCurrLevel++;
 				myReplayList.clear();
@@ -171,6 +177,8 @@ public class VoogaGameView implements GameView {
 			if (level.getObjects().contains(ge)) {
 				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
 				myDispMap.get(ge).setY(adjustYCord(ge.getScenePosition()[1]));
+				//myDispMap.get(ge).setX(ge.getScenePosition()[0]);
+				//myDispMap.get(ge).setY(ge.getScenePosition()[1]);
 			} else {
 				toRemove.add(ge);
 				toRemoveImageView.add(myDispMap.get(ge));
