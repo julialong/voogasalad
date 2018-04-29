@@ -10,7 +10,7 @@ import engine.entity.GameEntity;
 public class NoWeapon implements Weapon{
 
 	@Override
-	public void attack(GameEntity entity) {
+	public void attack() {
 		// TODO Auto-generated method stub
 		
 	}

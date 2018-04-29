@@ -28,7 +28,7 @@ public class AOEWeapon extends GameObject implements Weapon{
 	}
 	
 	@Override
-	public void attack(GameEntity entity) {
+	public void attack() {
 		double xPos = weaponHolder.getPosition()[0];
 		double yPos = weaponHolder.getPosition()[1];
 		hitBox.setX(xPos - hitBox.getSizeX());

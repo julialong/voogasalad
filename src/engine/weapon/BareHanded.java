@@ -11,7 +11,7 @@ import engine.entity.GameObject;
 public class BareHanded extends GameObject implements Weapon{
 
 	@Override
-	public void attack(GameEntity entity) {
+	public void attack() {
 		// TODO Auto-generated method stub
 		
 	}
