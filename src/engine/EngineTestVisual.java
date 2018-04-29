@@ -28,6 +28,7 @@ import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
 import engine.powerup.SpeedBoost;
 import engine.weapon.AOEWeapon;
+import engine.weapon.ShootingWeapon;
 import engine.weapon.StabbingWeapon;
 import engine.weapon.SwingingWeapon;
 import engine.weapon.Weapon;
@@ -110,7 +111,7 @@ public class EngineTestVisual extends Application{
 		enemy2.addInteraction(new Pushable());
 		//enemy.addBehavior(new JumpALot());
 		//enemy.setJumpFactor(150);
-		//enemy2.addBehavior(new MoveForward(new Player()));
+		//enemy2.addBehavior(new MoveForward());
 		//enemy2.addInteraction(new DamageOnStomp());
 		//enemy2.addInteraction(new KnockBack());
 		//enemy2.addInteraction(new PreventClipping());
@@ -141,7 +142,8 @@ public class EngineTestVisual extends Application{
 		player.setJumpFactor(150);
 		//player.setWeapon(new SwingingWeapon(player, level));
 		//player.setWeapon(new StabbingWeapon(player, level));
-		player.setWeapon(new AOEWeapon(player, level));
+		//player.setWeapon(new AOEWeapon(player, level));
+		player.setWeapon(new ShootingWeapon(player, level));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
