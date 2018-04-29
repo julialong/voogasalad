@@ -150,7 +150,7 @@ public class BasicLevel implements Level {
     		}
     		if(source instanceof Weapon){
     			if(!((Weapon) source).getActive()){
-    				System.out.println("removing");
+    				//System.out.println("removing");
     				toRemoveFromObjectList.add(source);
     				deactivatedWeapons.add((Weapon) source);
     			}
@@ -162,7 +162,7 @@ public class BasicLevel implements Level {
     	toRemoveFromObjectList.clear();
     	for(Weapon w : deactivatedWeapons){
 			if(w.getActive()){
-				System.out.println("adding");
+				//System.out.println("adding");
 				toRemoveFromObjectList.add((GameEntity) w);
 				myObjects.add((GameEntity) w);
 			}
