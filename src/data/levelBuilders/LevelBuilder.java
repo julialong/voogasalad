@@ -26,7 +26,9 @@ import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 
 /**
  * Creates levels to return to the Game Player when a
@@ -49,6 +51,9 @@ public class LevelBuilder {
 	private File levelFile;
 	private Player player;
 	private BehaviorSkipManager skipManager;
+	private double levelWidth;
+	private double levelHeight;
+	private boolean translate;
 	
 	/**
 	 * Class Constructor
@@ -59,7 +64,7 @@ public class LevelBuilder {
 	 * @param level
 	 * @throws DataFileException
 	 */
-	public LevelBuilder(File level) throws DataFileException
+	public LevelBuilder(File level, Boolean translate) throws DataFileException 
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
@@ -70,6 +75,9 @@ public class LevelBuilder {
 		
 		deserializer = new Serializer();
 		levelFile = level;
+		
+		System.out.println("translate = " + translate);
+		this.translate = translate;
 	}
 
 	/**
@@ -106,38 +114,44 @@ public class LevelBuilder {
 	 */
 	public Level buildLevel() throws DataFileException
 	{
-		BasicLevel level = new BasicLevel();
-		try
+		try 
 		{
 			JsonParser jsonParser = new JsonParser();
 			JsonElement jelement = jsonParser.parse(new FileReader(levelFile));
 			JsonObject jobject = jelement.getAsJsonObject();
-			addMetaData(level, jobject);
+			BasicLevel level = addMetaData(jobject);
 			addGameObjects(level,jobject);
+			return level;
 		}
 		catch(JsonIOException | JsonSyntaxException | FileNotFoundException e)
 		{
 			throw new DataFileException("Could not find the file to load for Level", e);
 		}
-		return level;
 	}
 
 	/**
 	 * Adds the relevant instance variables to the level
-	 *
-	 * @param level
+	 * 
 	 * @param jobject
+	 * @return 
 	 */
-	private void addMetaData(Level level, JsonObject jobject)
+	private BasicLevel addMetaData(JsonObject jobject)
 	{
 		String levelName = jobject.get(NAME).getAsString();
 
 		Color color = Color.web(jobject.get(COLOR).getAsString());
-//		Double width = jobject.get(WIDTH).getAsDouble();
-//		Double height = jobject.get(HEIGHT).getAsDouble();
+		levelWidth = jobject.get(WIDTH).getAsDouble();
+		levelHeight = jobject.get(HEIGHT).getAsDouble();
+		
+		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		int camWidth = 1100;
+		int camHeight = (int) ((primaryScreenBounds.getHeight() / primaryScreenBounds.getWidth()) * camWidth);
+		
+		BasicLevel level = new BasicLevel((int)levelWidth, (int)levelHeight, camWidth, camHeight);
 		level.setName(levelName);
 		level.setColor(color);
-//		level.setSize(width, height);
+		
+		return level;
 	}
 
 	/**
@@ -175,9 +189,29 @@ public class LevelBuilder {
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
 			checkPlayer(ge);
 			checkFoe(ge);
+			if(translate) {translateCoordinates(ge);}
 			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
+	}
+	
+	/**
+	 * Applies the translation to convert game authoring coordinates to game engine
+	 * compatible coordinates.
+	 * 
+	 * @param ge
+	 */
+	private void translateCoordinates(GameEntity ge)
+	{
+
+		System.out.println("levelWidth: " + levelWidth +"\nLevelHeight: "+ levelHeight);
+		System.out.println("x: "+ ge.getPosition()[0] +"\n y: "+ ge.getPosition()[1]);
+		
+		double translatedX = ge.getPosition()[0] - levelWidth/2;
+		double translatedY = (levelHeight/2) - ge.getPosition()[1];
+		System.out.println("x: "+ translatedX +"\n y: "+ translatedY);
+		ge.overridePosition(translatedX, translatedY);
+		System.out.println("updated: x: "+ ge.getPosition()[0] +"\n y: "+ ge.getPosition()[1]);
 	}
 
 	/**

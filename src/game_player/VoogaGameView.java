@@ -39,7 +39,6 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	private final double myHeight = Screen.getPrimary().getVisualBounds().getHeight();
 	private final double myWidth = Screen.getPrimary().getVisualBounds().getWidth();
 	private static final int SECONDS_PER_MINUTE = 60;
-	private static final double ADJUST_FACTOR = 400.0;
 	// variables
 	private boolean myGameStatus = false;
 	private boolean myGameNotOver = true;
@@ -55,6 +54,9 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	private Controls myControls;
 	private HeadsUpDisplay hud;
 	private Point2D timer = new Point2D(0, 0);
+	
+	private double myXFactor;
+	private double myYFactor;
 
 	/**
 	 * Creates a grid pane. initializes event listeners
@@ -65,11 +67,39 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
 		myGP = new Pane();
+		setAdjustFactors();
 		setUpHud();
 		initDisplayMap();
 	}
 
+	private void setAdjustFactors() {
+		myXFactor = myGameLevels.get(myCurrLevel).getCamSize()[0];
+		myYFactor = myGameLevels.get(myCurrLevel).getCamSize()[1];
+	}
 
+	/**
+	 * Calibrates x coordinates to be at the center of the screen and multiplies by
+	 * factor to make them bigger.
+	 * 
+	 * @param x
+	 * @return
+	 */
+	private double adjustXCord(double x) {
+		// TODO: adjust this factor based on sensitivity
+		return x * (myWidth / myXFactor);
+	}
+
+	/**
+	 * Calibrates y coordinates to be at thecenter of the screen and multiples by a
+	 * factor to make the difference between them larger.
+	 * 
+	 * @param y
+	 * @return
+	 */
+	private double adjustYCord(double y) {
+		// TODO: adjust this factor based on sensitivity
+		return y * (myHeight / myYFactor);
+	}
 
 	/**
 	 * Adds all of the levels objects to a map that maps them to a position
@@ -166,6 +196,7 @@ public class VoogaGameView implements GameView, GameViewMenu {
 			if (level.getObjects().contains(ge)) {
 				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
 				myDispMap.get(ge).setY(adjustYCord(ge.getScenePosition()[1]));
+				//System.out.println("XCOR:  " + adjustXCord(ge.getScenePosition()[0]) + "\nYCOR: " + adjustYCord(ge.getScenePosition()[1]));
 			} else {
 				toRemove.add(ge);
 				toRemoveImageView.add(myDispMap.get(ge));

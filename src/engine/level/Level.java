@@ -30,18 +30,6 @@ public interface Level {
 	 * Returns all objects in a level
 	 */
 	List<GameEntity> getObjects();
-	
-	/**
-	 * Sets the ID of the level for identification purposes
-	 * @param id - The numerical ID for the level
-	 */
-	void setID(int id);
-
-	/**
-	 * Returns the integer ID of the level
-	 * @return the integer ID
-	 */
-	int getID();
 
 	/**
 	 * Sets the name of the level
@@ -83,5 +71,7 @@ public interface Level {
      * Updates the contents of the level
      */
      void update();
+     
+     double[] getCamSize();
 
 }

@@ -100,7 +100,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 	@Override
 	public Level loadLevel(String gameName, String levelName) throws DataFileException {
 		File currentLevel = getLevel(gameName, levelName);
-		LevelBuilder levelBuilder = new LevelBuilder(currentLevel);
+		LevelBuilder levelBuilder = new LevelBuilder(currentLevel, true);
 		return levelBuilder.buildLevel();
 	}
 

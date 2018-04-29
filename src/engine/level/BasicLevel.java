@@ -19,7 +19,6 @@ import java.util.List;
 public class BasicLevel implements Level {
 
     private List<GameEntity> myObjects;
-    private int myID;
     private String myName;
     private DetectCollision detectCollision = new DetectCollision();
     private ArrayList<GameEntity> toRemoveFromObjectList = new ArrayList<>();
@@ -44,13 +43,12 @@ public class BasicLevel implements Level {
      * @param xSize is the desired x size of the grid
      * @param ySize is the desired y size of the grid
      */
-    public BasicLevel(int xSize, int ySize, int sceneX, int sceneY, int ID) {
+    public BasicLevel(int xSize, int ySize, int sceneX, int sceneY) {
         myXSize = xSize;
         myYSize = ySize;
         this.sceneX = sceneX;
         this.sceenY = sceneY;
         myObjects = new ArrayList<>();
-        myID = ID;
         myName = DEFAULT;
         camera = new Camera(myXSize, myYSize, sceneX, sceneY);
         
@@ -60,7 +58,7 @@ public class BasicLevel implements Level {
      * Creates a new basic Level with no size defined.
      */
     public BasicLevel(int ID) {
-        this(DEFAULT_X_SIZE, DEFAULT_Y_SIZE, DEFAULT_X_SCENE_SIZE, DEFAULT_Y_SCENE_SIZE, ID);
+        this(DEFAULT_X_SIZE, DEFAULT_Y_SIZE, DEFAULT_X_SCENE_SIZE, DEFAULT_Y_SCENE_SIZE);
     }
     
     public BasicLevel() {
@@ -85,16 +83,6 @@ public class BasicLevel implements Level {
     @Override
     public List<GameEntity> getObjects() {
         return myObjects;
-    }
-
-    @Override
-    public void setID(int id) {
-        myID = id;
-    }
-
-    @Override
-    public int getID() {
-        return myID;
     }
     
     public void setColor(Color color) {
@@ -173,4 +161,10 @@ public class BasicLevel implements Level {
     		source.interact(source, target, direction);
     	}
     }
+
+	@Override
+	public double[] getCamSize() {
+		double[] ret = {sceneX, sceenY};
+		return ret;
+	}
 }
