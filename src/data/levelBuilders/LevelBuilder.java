@@ -86,6 +86,7 @@ public class LevelBuilder {
 			String objectName = objectNames.nextElement();
 			try 
 			{
+				System.out.println(objectName);
 				Class<?> objectClass = Class.forName(gameObjects.getString(objectName));
 				objectTypes.put(objectName, objectClass);
 			} 

@@ -1,13 +1,14 @@
 package engine.controls;
 
 import engine.entity.GameEntity;
+import engine.entity.Player;
 
 public class Attack extends Action {
 
 	@Override
 	public void execute(GameEntity entity) {
-		// TODO Auto-generated method stub
-
+		if(!(entity instanceof Player)) return;
+		((Player) entity).useWeapon();
 	}
 
 }

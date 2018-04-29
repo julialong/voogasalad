@@ -119,6 +119,11 @@ public class BasicLevel implements Level {
         myXSize = (int) X;
         myYSize = (int) Y;
     }
+
+    @Override
+    public double[] getSize(){
+    	return new double[]{myXSize, myYSize};
+    }
     
     @Override
     public boolean getLevelComplete() {

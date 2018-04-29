@@ -35,8 +35,7 @@ public class Serializer {
 	/**
 	 * Adds all the relevant interface adapters to the 
 	 * Gson Serializer.
-	 * 
-	 * @param Gson object
+	 *
 	 */
 	private void addDependencies(Gson gson2) {
 		GsonBuilder builder = new GsonBuilder();
