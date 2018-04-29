@@ -10,14 +10,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,30 +44,39 @@ public class VoogaGameView implements GameView {
 	private int myCurrLevel = 0;
 	private List<Level> myGameLevels;
 	private Map<GameEntity, ImageView> myDispMap = new HashMap<>();
-
 	private Map<ImageView, String> myGEtoString = new HashMap<>();
 	private Map<ImageView, ImageView> myIVCopyMap = new HashMap<>();
+	private List<ScoreItem> newScores = new ArrayList<>();
 	// parts
 	private Pane myGP;
 	private Controls myControls;
 	private HeadsUpDisplay hud;
 	private Point2D timer = new Point2D(0, 0);
+	// private int myXFactor;
+	// private int myYFactor;
 
-	//private List<List<ImageView>> myReplayList = new ArrayList<>();
-	
+	// private List<List<ImageView>> myReplayList = new ArrayList<>();
+
 	private Map<ImageView, List<Point2D>> myReplayList = new HashMap<>();
 
 	/**
 	 * Creates a grid pane. initializes event listeners
 	 * 
 	 * @param gameLevels
+	 * @param myHighScores
 	 */
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
 		myGP = new Pane();
+		// setAdjustFactors();
 		setUpHud();
 		initDisplayMap();
 	}
+
+	// private void setAdjustFactors() {
+	// myXFactor = myGameLevels.get(myCurrLevel).getXSize();
+	// myYFactor = myGameLevels.get(myCurrLevel).getYSize();
+	// }
 
 	/**
 	 * Calibrates x coordinates to be at the center of the screen and multiplies by
@@ -80,6 +88,7 @@ public class VoogaGameView implements GameView {
 	private double adjustXCord(double x) {
 		// TODO: adjust this factor based on sensitivity
 		return x * (myWidth / ADJUST_FACTOR);
+		// return x * (myWidth / myXFactor);
 	}
 
 	/**
@@ -92,6 +101,7 @@ public class VoogaGameView implements GameView {
 	private double adjustYCord(double y) {
 		// TODO: adjust this factor based on sensitivity
 		return y * (myHeight / ADJUST_FACTOR);
+		// return y * (myHeight / myYFactor);
 	}
 
 	/**
@@ -109,13 +119,12 @@ public class VoogaGameView implements GameView {
 				myControls = new Controls((Player) ge);
 			}
 			System.out.println("imgPath: " + imgPath);
-			ImageView entityImage = new ImageView(new Image(imgPath,
-					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
-			
-			ImageView entityImageCopy = new ImageView(new Image(imgPath,
-					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
-			
-			
+			ImageView entityImage = new ImageView(
+					new Image(imgPath, adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
+
+			ImageView entityImageCopy = new ImageView(
+					new Image(imgPath, adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
+
 			myIVCopyMap.put(entityImage, entityImageCopy);
 
 			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
@@ -149,12 +158,26 @@ public class VoogaGameView implements GameView {
 			myGameLevels.get(myCurrLevel).update();
 			displayObjects();
 			updateHud(elapsedTime);
-			if(myGameLevels.get(myCurrLevel).getLevelComplete()){
+			if (myGameLevels.get(myCurrLevel).getLevelComplete()) {
 				myCurrLevel++;
-				myReplayList.clear();
-				initDisplayMap();
+				if (myCurrLevel >= myGameLevels.size()) {
+					endGame();
+				} else {
+					myReplayList.clear();
+					initDisplayMap();
+				}
 			}
 		}
+	}
+
+	private void endGame() {
+		myGameStatus = false;
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setContentText("YOU'VE REACHED THE END!");
+		alert.setTitle("CONGRADULATIONS");
+		alert.show();
+		ScoreItem si = new ScoreItem("Kelley5", 100 - (int) timer.getX());
+		newScores.add(si);
 	}
 
 	/**
@@ -166,7 +189,6 @@ public class VoogaGameView implements GameView {
 		Level level = myGameLevels.get(myCurrLevel);
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
 		ArrayList<ImageView> toRemoveImageView = new ArrayList<>();
-		List<ImageView> momentList = new ArrayList<>();
 		for (GameEntity ge : myDispMap.keySet()) {
 			if (level.getObjects().contains(ge)) {
 				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
@@ -181,20 +203,17 @@ public class VoogaGameView implements GameView {
 			myGP.getChildren().remove(myDispMap.get(ge));
 			myDispMap.remove(ge);
 		}
-		for(ImageView val : myDispMap.values()) {
+		for (ImageView val : myDispMap.values()) {
 			List<Point2D> ivPointsList;
-			if(myReplayList.containsKey(myIVCopyMap.get(val))) {
+			if (myReplayList.containsKey(myIVCopyMap.get(val))) {
 				ivPointsList = myReplayList.get(myIVCopyMap.get(val));
 			} else {
 				ivPointsList = new ArrayList<>();
 			}
-			if(!toRemoveImageView.contains(val)) {
+			if (!toRemoveImageView.contains(val)) {
 				ivPointsList.add(new Point2D(val.getX(), val.getY()));
 			}
-			
-			
 			myReplayList.put(myIVCopyMap.get(val), ivPointsList);
-		
 		}
 	}
 
@@ -288,4 +307,17 @@ public class VoogaGameView implements GameView {
 	public Map<ImageView, List<Point2D>> getReplayList() {
 		return myReplayList;
 	}
+	
+	public List<ScoreItem> getNewScores(){
+		List<ScoreItem> newScoresCopy = new ArrayList<>();
+		for(ScoreItem s : newScores) {
+			newScoresCopy.add(s.copy());
+		}
+		return newScoresCopy;
+	}
+	
+	public void clearNewScores() {
+		newScores.clear();
+	}
+	
 }

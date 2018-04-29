@@ -16,4 +16,11 @@ public class ScoreItem {
 	public int getScore() {
 		return myScore;
 	}
+	
+	public ScoreItem copy() {
+		if(myName != null) {
+			return new ScoreItem(myName, myScore);
+		}
+		return null;
+	}
 }

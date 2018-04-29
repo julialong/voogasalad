@@ -28,7 +28,7 @@ public class PlayerView extends VBox {
 	private JSONtoGP reader = new GPGameFileReader();
 	private String myName;
 	private String myDescription;
-	private ScoreKeeper myHighScores = new ScoreKeeper();
+	
 
 	public PlayerView() {
 		super();
@@ -112,7 +112,7 @@ public class PlayerView extends VBox {
 		VButton scoresButton = new VButton("High Scores");
 		scoresButton.setOnMouseClicked(e -> {
 			myGameView.pauseGame();
-			myHighScores.setUpStage();
+			new ScoreKeeperManager(myGameView);
 		});
 		myMenuBar.addButton(scoresButton);
 
