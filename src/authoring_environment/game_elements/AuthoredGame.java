@@ -1,5 +1,6 @@
 package authoring_environment.game_elements;
 
+import authoring_environment.DataAlert;
 import authoring_environment.grid.ScrollingGrid;
 import data.gamefiles.GAEtoJSON;
 import data.gamefiles.GameFileWriter;
@@ -22,7 +23,7 @@ import javafx.scene.control.Alert.AlertType;
  * @author Julia Long
  * Date started: April 07 18
  */
-public class AuthoredGame {
+public class AuthoredGame implements DataAlert {
 
     private String myName;
     private String myDescription;
@@ -230,11 +231,5 @@ public class AuthoredGame {
         }
     }
 
-    private void saveAlert(Exception e) {
-        e.printStackTrace();
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Alert");
-        alert.setContentText("Bad");
-        alert.show();
-    }
+
 }

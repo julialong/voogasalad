@@ -1,17 +1,13 @@
 package authoring_environment.editor_windows;
 
-import authoring_environment.authored_elements.AuthoredElement;
 import authoring_environment.game_elements.AuthoredGame;
-import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.RightBar;
 import authoring_environment.toolbars.TopBar;
 import data.fileReading.GAEGameFileReader;
-import data.fileReading.GameFileReader;
 import data.fileReading.JSONtoGAE;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -28,7 +24,6 @@ public class EditorWindow implements CreatorView {
 
 	private Stage myStage;
 	private Scene myScene;
-	private BorderPane myRoot;
 	private ScrollingGrid myGrid;
 	private ScrollPane myScrollPane;
 
@@ -108,7 +103,7 @@ public class EditorWindow implements CreatorView {
 	 * appropriate toolbars and the grid
 	 */
 	private void setupNewWindow() {
-		myRoot = new BorderPane();
+		BorderPane myRoot = new BorderPane();
 		myScene = new Scene(myRoot);
 		myScene.getStylesheets().add("GAE.css");
 		myStage.setMaximized(true);

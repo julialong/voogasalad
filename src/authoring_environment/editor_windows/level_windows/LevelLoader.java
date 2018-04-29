@@ -1,5 +1,6 @@
 package authoring_environment.editor_windows.level_windows;
 
+import authoring_environment.DataAlert;
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.fileReading.GAEGameFileReader;
@@ -14,15 +15,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.Map;
 
-public class LevelLoader {
+public class LevelLoader implements DataAlert {
 
     private Stage myStage;
     private Pane myRoot;
-    private Scene myScene;
     private ListView<String> myView;
-    private Map<String, String> myChoices;
     private JSONtoGAE myReader;
     private CreatorView myWindow;
 
@@ -42,7 +40,7 @@ public class LevelLoader {
     private void setScreen() {
         myStage = new Stage();
         myRoot = new VBox();
-        myScene = new Scene(myRoot);
+        Scene myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
         myStage.setScene(myScene);
         myStage.setTitle(LOAD_LEVEL);
@@ -80,8 +78,7 @@ public class LevelLoader {
             myStage.close();
         }
         catch (Exception e) {
-            e.printStackTrace();
-            // TODO: pop up button
+            saveAlert(e);
         }
     }
 
