@@ -10,14 +10,29 @@ import engine.physics.Kinematics;
  *
  */
 public class KnockBack implements Interaction{
-
+	private double knockbackFactor;
+	
+	public KnockBack(){
+		this(30);
+	}
+	
+	public KnockBack(double knockbackFactor){
+		this.knockbackFactor = knockbackFactor;
+	}
+	
 	@Override
 	public void interact(GameEntity source, GameEntity target) {
 		String collisionType = new DetectCollision().detect(source, target);
 		
 		if(!(collisionType.equals("top") || collisionType.equals("bottom"))) {
-			Kinematics k = target.getKinematics();
-			target.setXVelocity(-30*k.getXVelocity());
+			Kinematics kTarget = target.getKinematics();
+			Kinematics kSource = source.getKinematics();
+			if(kTarget.getXVelocity() != 0){
+				target.setXVelocity(-knockbackFactor*kTarget.getXVelocity());
+			}
+			else{
+				target.setXVelocity(knockbackFactor*kSource.getXVelocity());
+			}
 		}
 	}
 

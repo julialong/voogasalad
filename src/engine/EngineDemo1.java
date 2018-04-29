@@ -133,9 +133,10 @@ public class EngineDemo1 extends Application{
 		enemy1.setSizeY(20);
 		enemy1.setMaxXVelocity(30);
 		enemy1.setMaxYVelocity(500);
-		//enemy1.addBehavior(new MoveForward());
-		enemy1.addInteraction(new Pushable());
+		enemy1.addBehavior(new MoveForward());
+		//enemy1.addInteraction(new Pushable());
 		//enemy1.addInteraction(new DamageOnStomp());
+		enemy1.addInteraction(new KnockBack());
 		level.addObject(enemy1);
 		
 		for(GameEntity ge : level.getObjects()){
