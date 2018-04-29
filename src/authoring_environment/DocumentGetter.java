@@ -8,6 +8,8 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +68,9 @@ public interface DocumentGetter {
     
     /*default Map<String, List<String>> getBehaviors(Document doc){
     		Element child = doc.getElementById("Behaviors");
-    		Map<String, List<S>>
+    		Map<String, List<String>> behaviorMap = new HashMap<String, List<String>>();
+    		NodeList behaviors= child.getChildNodes();
+    
+    		
     }*/
 }

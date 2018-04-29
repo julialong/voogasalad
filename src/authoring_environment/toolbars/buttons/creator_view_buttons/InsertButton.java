@@ -1,6 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-import authoring_environment.editor_windows.AttributeEditor;
+import authoring_environment.attribute_editor.AttributeEditor;
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.editor_windows.level_windows.LevelCreator;
 import authoring_environment.game_elements.AuthoredLevel;
