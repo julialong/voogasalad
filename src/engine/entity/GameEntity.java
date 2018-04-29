@@ -8,7 +8,6 @@ import engine.behavior.Behavior;
 import engine.interaction.Interaction;
 import engine.movement.Movement;
 import engine.physics.Kinematics;
-import javafx.scene.image.ImageView;
 
 /**
  * Interface for "entities" in a game: player characters, enemies, and objects.
@@ -249,12 +248,12 @@ public interface GameEntity {
 	/**
 	 * Sets the image path
 	 */
-	public abstract void setImageView(String imageView);
+	public abstract void setImagePath(String imageView);
 	
 	/**
 	 * Returns the image path
 	 */
-	public abstract String getImageView();
+	public abstract String getImagePath();
 
 	/**
 	 * Gets map of interaction entities to directionality
@@ -275,11 +274,22 @@ public interface GameEntity {
 	public abstract List<Behavior> getBehaviorList(); 
 	
 	/**
+	 * Returns true if an entity is destructible
+	 */
+	public abstract boolean getDestructible();
+	
+	/**
+	 * Sets the destructible boolean for an entity
+	 */
+	public abstract void setDestructible(boolean destructible);
+	
+	/**
 	 * Updates the entity with new position/interaction paramters. Called at every time step.
 	 * Sets the Element ID of the Entity.
 	 * @param ID - the desired String ID
 	 */
 	public abstract void setElementID(String ID);
+	
 	/**
 	 * Retrieves the Element ID of the Entity.
 	 * @return String Element ID

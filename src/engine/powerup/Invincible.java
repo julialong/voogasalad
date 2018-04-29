@@ -8,36 +8,22 @@ import engine.entity.Player;
  * @author Robert Gitau
  *
  */
-public class Invincible implements PowerUp {
+public class Invincible extends TimedPowerUp {
 
+	public Invincible(double time, Player player){
+        setDuration(time);
+        setPlayer(player);
+        counter = 0;
+    }
+	
 	@Override
-	public void setDuration(double time) {
-		// TODO Auto-generated method stub
-		
+	public void effect() {
+		player.setDestructible(false);
 	}
 
 	@Override
-	public void activate() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deactivate() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setPlayer(Player player) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean update() {
-		// TODO Auto-generated method stub
-		return false;
+	public void reverseEffect() {
+		player.setDestructible(true);
 	}
 
 }

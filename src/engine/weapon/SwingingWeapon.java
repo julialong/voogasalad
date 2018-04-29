@@ -1,49 +1,53 @@
 package engine.weapon;
 
-import java.util.ArrayList;
-
-import engine.entity.Block;
 import engine.entity.GameEntity;
-import engine.entity.GameObject;
-import engine.interaction.HarmTarget;
 import engine.level.Level;
-import engine.physics.DetectCollision;
+
 /**
  * A Weapon that hits in an arc in front of the Player
  * @author Marcus Oertle and Robert Gitau
  *
  */
-public class SwingingWeapon extends GameObject implements Weapon{
-	private Block hitBox = new Block();
-	private GameEntity weaponHolder;
-	private Level level;
-	private DetectCollision collisionDetector = new DetectCollision();
-	private HarmTarget dealDamage = new HarmTarget();
-	private ArrayList<GameEntity> listOfEntities = new ArrayList<>();
-	private double xSize;
-	private double ySize;
-	
+public class SwingingWeapon extends WeaponBase{
+    private static final double DEFAULT_WEAPON_ANGLE = 60;
+    private static final double WEAPON_ANGLE_INCREMENT = 20;
+    
 	public SwingingWeapon(GameEntity entity, Level level){
-		weaponHolder = entity;
-		this.level = level;
-		xSize = weaponHolder.getSizeX();
-		ySize = weaponHolder.getSizeY();
-		hitBox.setSizeX(2*xSize);
-		hitBox.setSizeY(ySize);
+		super(entity, level);
+		hitBox.setSizeX(xHolderSize*2);
+		hitBox.setSizeY(yHolderSize - 2*offset);
+        width = xHolderSize*2;
+        height = yHolderSize/4;
+        weaponAngle = DEFAULT_WEAPON_ANGLE;
+        rightXOffset = 0.3 * xHolderSize;
+        leftXOffset = width - 0.65 * xHolderSize;
+        yOffset = yHolderSize/8;
 	}
 	
 	@Override
 	public void attack() {
-		double xPos = weaponHolder.getPosition()[0];
-		double yPos = weaponHolder.getPosition()[1];
-		hitBox.setX(xPos);
-		hitBox.setY(yPos);
-		listOfEntities = (ArrayList<GameEntity>) level.getObjects();
-		for(GameEntity entity : listOfEntities){
-			if(!collisionDetector.detect(hitBox, entity).equals("none")){
-				dealDamage.interact(hitBox, entity);
-			}
-		}
+        if(!isAttacking){
+            isAttacking = true;
+		    if(direction.equals("right")){
+			    hitBox.setX(holderXPos+xHolderSize);
+		    }
+		    else{
+			    hitBox.setX(holderXPos-xHolderSize);
+		    }
+            hitBox.setY(holderYPos - offset);
+            iterateEntities();
+        }   
 	}
-
+    
+	@Override
+    public void update() {
+		updateDirectionality();
+        if(isAttacking){
+            weaponAngle -= WEAPON_ANGLE_INCREMENT;
+            if(weaponAngle < -DEFAULT_WEAPON_ANGLE){
+                weaponAngle = DEFAULT_WEAPON_ANGLE;
+                isAttacking = false;
+            }
+        }
+    }
 }

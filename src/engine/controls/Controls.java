@@ -95,7 +95,7 @@ public class Controls implements Control{
 				//System.out.println("Stop");
 			}
 			else {
-				if((keyBindings.get(pressedKeys.get(0)) instanceof Jump)){
+				if((keyBindings.get(pressedKeys.get(0)) instanceof Jump) || (keyBindings.get(pressedKeys.get(0)) instanceof Attack)){
 					new Stop().execute(player);
 					//System.out.println("Stop");
 				}
