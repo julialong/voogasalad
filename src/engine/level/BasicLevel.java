@@ -2,6 +2,7 @@ package engine.level;
 
 
 import engine.Camera;
+import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.physics.DetectCollision;
@@ -135,6 +136,9 @@ public class BasicLevel implements Level {
     		source.update();
     		if(source.getHealth() < 1 && !(source instanceof Player)) {
     			toRemoveFromObjectList.add(source);
+    			if(source instanceof Enemy){
+    				toRemoveFromObjectList.add((GameEntity)((Enemy) source).getWeapon());
+    			}
     		}
     	}
     	for(GameEntity ge : toRemoveFromObjectList) {
