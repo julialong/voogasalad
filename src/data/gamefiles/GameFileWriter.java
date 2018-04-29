@@ -113,7 +113,7 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		new TextWriter(new File(gameDirectory + NEST + ORDERS + EXTENSION), levels);
 
 		for (Level aLevel:levels)	{
-			new TextWriter(new AuthoredLevel(aLevel, new ScrollingGrid()), getLevel(aLevel, player));
+			new TextWriter(new AuthoredLevel(aLevel, new ScrollingGrid()), getLevel(aLevel, player), true);
 		}
 	}
 

@@ -61,7 +61,18 @@ public class TextWriter	{
 	 * @param levelF		File if level to write
 	 */
 	public TextWriter(AuthoredLevel level, File levelF) throws DataFileException	{
-		callWrite(level, levelF);
+		this(level, levelF, false);
+	}
+
+	/**
+	 * @author Maya Messinger
+	 * Constructor for class. Calls the writing, so making a new TextWriter writes to a file
+	 * @param level			level to write
+	 * @param levelF		File if level to write
+	 * @param translate		translate coordinates because command is sent from GP
+	 */
+	public TextWriter(AuthoredLevel level, File levelF, boolean translate) throws DataFileException	{
+		callWrite(level, levelF, translate);
 	}
 
 	private void callWrite(File settings, boolean ready, String desc, int levelStart) throws DataFileException	{
@@ -97,12 +108,16 @@ public class TextWriter	{
 	}
 
 	private void callWrite(AuthoredLevel level, File levelF) throws DataFileException	{
+		callWrite(level, levelF, false);
+	}
+
+	private void callWrite(AuthoredLevel level, File levelF, boolean translate) throws DataFileException	{
 		try	{
 			FileWriter fw = new FileWriter(levelF);
 		
 			startFile(fw);
 			serializeLevel(fw, level);
-			writeObjects(fw, level.getLevel().getObjects());
+			writeObjects(fw, level.getLevel().getObjects(), level, translate);
 			endFile(fw);
 		}
 		catch (IOException e)	{
@@ -127,13 +142,17 @@ public class TextWriter	{
 		new LevelSerializer().serialize(fw, level.getLevel(), level.getScrollingGrid());
 	}
 
-	private void writeObjects(FileWriter fw, List<GameEntity> items) throws DataFileException	{
+	private void writeObjects(FileWriter fw, List<GameEntity> items, AuthoredLevel level, boolean translate) throws DataFileException	{
 		if (items.size() > 0)	{
 			checkWriteComma(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
 		}
 
 		for (GameEntity obj:items)	{
 			obj.clearInteractionMap();
+			
+			if (translate)	{
+				untranslateCord(obj, level);
+			}
 		}
 
 		int entryIndex = 0;
@@ -147,6 +166,12 @@ public class TextWriter	{
 			closeArray(fw, entryIndex, objsOrganized.entrySet().size());
 			entryIndex++;
 		}
+	}
+
+	private void untranslateCord(GameEntity ge, AuthoredLevel lev)	{
+		double translatedX = ge.getKinematics().getX() + (lev.getSize()[0])/2;
+		double translatedY = ge.getKinematics().getY() - (lev.getSize()[1])/2;
+		ge.overridePosition(translatedX, translatedY);
 	}
 
 	private Map<String, List<Object>> sortObjects(List<GameEntity> objsToWrite)	{
