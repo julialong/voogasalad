@@ -141,6 +141,10 @@ public class BasicLevel implements Level {
     				toRemoveFromObjectList.add((GameEntity)((Enemy) source).getWeapon());
     			}
     		}
+    		if(source instanceof Player){
+    			((Player) source).setGameOver(source.getHealth() < 1);
+    			//if(source.getHealth() < 1) System.out.println("Game Over");
+    		}
     	}
     	for(GameEntity ge : toRemoveFromObjectList) {
     		myObjects.remove(ge);

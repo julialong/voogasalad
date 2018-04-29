@@ -22,7 +22,6 @@ public class Enemy extends GameObject {
     public Enemy(double x, double y){
         kinematics = new Kinematics(x,y,0,0,0,0);
         movementType = new Grounded();
-        weaponType = new NoWeapon();
         behaviorList.add(new NoBehavior()); 
         speedFactor = 500; //arbitrary for now
         jumpFactor = 150; // arbitrary for now

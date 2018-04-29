@@ -19,6 +19,7 @@ public class Player extends GameObject{
     private Weapon weaponType;
     private ArrayList<PowerUp> powerupList = new ArrayList<>();
     private boolean levelComplete = false;
+    private boolean gameOver = false;
 
     public Player() {
         this(0,0);
@@ -27,7 +28,6 @@ public class Player extends GameObject{
     public Player(double x, double y){
         kinematics = new Kinematics(x,y,0,0,0,0);
         movementType = new Grounded();
-        weaponType = new NoWeapon();
         speedFactor = 1000; //arbitrary for now, might need to be MUCH higher
         jumpFactor = 150; // arbitrary for now
         maxVelocityX = 50; // arbitrary for now
@@ -107,5 +107,20 @@ public class Player extends GameObject{
 	 */
 	public boolean getLevelComplete() {
 		return levelComplete;
+	}
+	
+	/**
+	 * Sets the gameOver boolean, true if the level is over
+	 * @param gameOver - boolean, true if the level is over
+	 */
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+
+	/**
+	 * Gets the gameOver boolean, true if the game is over
+	 */
+	public boolean getGameOver() {
+		return gameOver;
 	}
 }
