@@ -26,7 +26,9 @@ import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 
 /**
  * Creates levels to return to the Game Player when a 
@@ -110,38 +112,43 @@ public class LevelBuilder {
 	 */
 	public Level buildLevel() throws DataFileException
 	{
-		BasicLevel level = new BasicLevel();
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
 			JsonElement jelement = jsonParser.parse(new FileReader(levelFile));
 			JsonObject jobject = jelement.getAsJsonObject();
-			addMetaData(level, jobject);
+			BasicLevel level = addMetaData(jobject);
 			addGameObjects(level,jobject);
+			return level;
 		}
 		catch(JsonIOException | JsonSyntaxException | FileNotFoundException e)
 		{
 			throw new DataFileException("Could not find the file to load for Level", e);
 		}
-		return level;	
 	}
 	
 	/**
 	 * Adds the relevant instance variables to the level
 	 * 
-	 * @param level
 	 * @param jobject
+	 * @return 
 	 */
-	private void addMetaData(Level level, JsonObject jobject)
+	private BasicLevel addMetaData(JsonObject jobject)
 	{
 		String levelName = jobject.get(NAME).getAsString();
 		Color color = Color.web(jobject.get(COLOR).getAsString());
 		levelWidth = jobject.get(WIDTH).getAsDouble();
 		levelHeight = jobject.get(HEIGHT).getAsDouble();
 		
+		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		int camWidth = 1100;
+		int camHeight = (int) ((primaryScreenBounds.getHeight() / primaryScreenBounds.getWidth()) * camWidth);
+		
+		BasicLevel level = new BasicLevel((int)levelWidth, (int)levelHeight, camWidth, camHeight);
 		level.setName(levelName);
 		level.setColor(color);
-		level.setSize(levelWidth, levelWidth);
+		
+		return level;
 	}
 	
 	/**

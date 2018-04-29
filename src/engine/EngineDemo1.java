@@ -60,7 +60,7 @@ public class EngineDemo1 extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		level = new BasicLevel(800, 400, 400, 400, 0);
+		level = new BasicLevel(800, 400, 400, 400);
 		setupLevel();
 
 		Scene scene = new Scene(root, 400, 400, Color.THISTLE);
