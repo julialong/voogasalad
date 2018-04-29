@@ -1,14 +1,7 @@
 package data.serialization;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
@@ -18,9 +11,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-
-import data.resources.DataFileException;
-import engine.behavior.MoveForward;
 
 /**
  * @author Stack Overflow Post, Belanie Nagiel

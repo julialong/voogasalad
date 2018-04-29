@@ -116,7 +116,6 @@ public class TextWriter	{
 			fw.write(COMMA);
 			newLine(fw);
 			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + ready);
-			fw.write(COMMA);
 			newLine(fw);
 		}
 		catch (IOException e)	{

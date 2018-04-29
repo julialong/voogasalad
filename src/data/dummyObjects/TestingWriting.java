@@ -46,8 +46,8 @@ public class TestingWriting {
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
-		player.setImageView("./game.player.styling/mario_running.gif");
-		System.out.println(player.getImageView());
+		player.setImagePath("./game.player.styling/mario_running.gif");
+		System.out.println(player.getImagePath());
 		one.addObject(player);
 
 		// big block that player stands on
@@ -67,10 +67,19 @@ public class TestingWriting {
 		wall.addInteraction(new PreventClipping());
 		one.addObject(wall);
 
-
+		// small block that can be pushed on the right side of the big block
+		Enemy enemy = new Enemy();
+		enemy.overridePosition(30, -170);
+		enemy.setSizeX(10);
+		enemy.setSizeY(30);
+		enemy.setMaxXVelocity(30);
+		enemy.setMaxYVelocity(500);
+		enemy.addInteraction(new Pushable());
+		enemy.setHealth(1);
+		one.addObject(enemy);
 
 		// small block that can be pushed on the left side of the big block
-		Foes enemy3 = new Foes();
+		Enemy enemy3 = new Enemy();
 		enemy3.overridePosition(-70, -170);
 		enemy3.setSizeX(10);
 		enemy3.setSizeY(20);
@@ -81,14 +90,14 @@ public class TestingWriting {
 		one.addObject(enemy3);
 
 		// enemy that player kills by jumping on. should chase the player
-		Foes enemy2 = new Foes();
+		Enemy enemy2 = new Enemy();
 		enemy2.overridePosition(-85, -170);
 		enemy2.setSizeX(10);
 		enemy2.setSizeY(20);
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
 		// line below causes data error
-		enemy2.addBehavior(new MoveForward(new Player()));
+		enemy2.addBehavior(new MoveForward());
 		enemy2.addInteraction(new DamageOnStomp());
 		enemy2.addInteraction(new KnockBack());
 		enemy2.setHealth(1);
