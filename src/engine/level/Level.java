@@ -50,6 +50,7 @@ public interface Level {
 	 */
 	void setSize(double X, double Y);
 
+
 	double[] getSize();
 
 	/**
@@ -64,7 +65,8 @@ public interface Level {
 	 * @return color of level
 	 */
 	String getColor();
-    
+
+
     /**
      * Updates the contents of the level
      */
