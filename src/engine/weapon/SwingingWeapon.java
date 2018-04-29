@@ -14,21 +14,9 @@ import engine.physics.Kinematics;
  * @author Marcus Oertle and Robert Gitau
  *
  */
-public class SwingingWeapon extends GameObject implements Weapon{
+public class SwingingWeapon extends WeaponBase{
     private static final double DEFAULT_WEAPON_ANGLE = 80;
     private static final double WEAPON_ANGLE_INCREMENT = 20;
-	private Block hitBox = new Block();
-	private GameEntity weaponHolder;
-	private Level level;
-	private double offset = 2;
-	private DetectCollision collisionDetector = new DetectCollision();
-	private HarmTarget dealDamage = new HarmTarget();
-	private ArrayList<GameEntity> listOfEntities = new ArrayList<>();
-	private double xSize;
-	private double ySize;
-    private double weaponAngle;
-    private boolean isAttacking = false;
-    private String direction = "right";
     
 	public SwingingWeapon(GameEntity entity, Level level){
 		kinematics = new Kinematics(0,0,0,0,0,0);
@@ -50,7 +38,7 @@ public class SwingingWeapon extends GameObject implements Weapon{
             isAttacking = true;
 		    double xPos = weaponHolder.getPosition()[0];
 		    double yPos = weaponHolder.getPosition()[1];
-		    if(weaponHolder.getKinematics().getXVelocity() >= 0){
+		    if(direction.equals("right")){
 			    hitBox.setX(xPos+xSize);
 		    }
 		    else{
@@ -70,12 +58,7 @@ public class SwingingWeapon extends GameObject implements Weapon{
     
 	@Override
     public void update() {
-    	if(weaponHolder.getKinematics().getXVelocity() > 0){
-    		direction = "right";
-		}
-		else if(weaponHolder.getKinematics().getXVelocity() < 0){
-			direction = "left";
-		}
+		updateDirectionality();
     	if(direction.equals("right")){
     		kinematics.setX(weaponHolder.getPosition()[0] + 0.3 * xSize);
     	}
@@ -90,15 +73,5 @@ public class SwingingWeapon extends GameObject implements Weapon{
                 isAttacking = false;
             }
         }
-    }
-    
-    // i can be your angle or yuor devil
-    public double getAngle(){
-    	if(direction.equals("right")){
-			return -1*weaponAngle;
-		}
-		else{
-			return weaponAngle;
-		}
     }
 }
