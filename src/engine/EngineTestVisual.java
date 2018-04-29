@@ -26,6 +26,7 @@ import engine.interaction.PreventClipping;
 import engine.interaction.Pushable;
 import engine.interaction.RemoveOnInteractWithPlayer;
 import engine.level.*;
+import engine.movement.Flying;
 import engine.movement.Grounded;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
@@ -180,6 +181,17 @@ public class EngineTestVisual extends Application{
 		bullet.setMaxXVelocity(300);
 		bullet.setMaxYVelocity(20);
 		bullet.setJumpFactor(150);
+		
+		/* Memes */
+//		bullet.addBehavior(new MoveForward());
+//		bullet.addBehavior(new JumpALot());
+//		bullet.setMovementType(new Grounded());
+//		bullet.setSizeX(5);
+//		bullet.setSizeY(35);
+//		bullet.setMaxXVelocity(300);
+//		bullet.setMaxYVelocity(500);
+//		bullet.setJumpFactor(150);
+		
 		player.setWeapon(new ShootingWeapon(player,level,bullet));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());

@@ -121,10 +121,16 @@ public class EngineDemo1 extends Application{
 		block3.setSizeX(20);
 		block3.setSizeY(20);
 		block3.addInteraction(new RemoveOnInteractWithPlayer());
-		List<Behavior> bulletBehaviors = new ArrayList<>();
-		bulletBehaviors.add(new MoveForward());
-		bulletBehaviors.add(new JumpALot());
-		block3.addInteraction(new AddPowerup(new SwitchWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,75,10), player)));
+		Block bullet = new Block();
+		bullet.addBehavior(new MoveForward());
+		bullet.addBehavior(new JumpALot());
+		bullet.setMovementType(new Grounded());
+		bullet.setSizeX(5);
+		bullet.setSizeY(5);
+		bullet.setMaxXVelocity(25);
+		bullet.setMaxYVelocity(500);
+		bullet.setJumpFactor(150);
+		block3.addInteraction(new AddPowerup(new SwitchWeapon(new ShootingWeapon(player,level,bullet), player)));
 		level.addObject(block3);
 		
 		// Enemy 1
