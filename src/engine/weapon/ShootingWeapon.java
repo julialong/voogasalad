@@ -25,7 +25,7 @@ public class ShootingWeapon extends WeaponBase{
     private int projectileDamage = 1;
     private double projectileWidth = 5;
     private double projectileHeight = 5;
-    private double projectileSpeed = 35;
+    private double projectileSpeed = 100;
     
 	public ShootingWeapon(GameEntity entity, Level level){
 		super(entity, level);
@@ -34,9 +34,9 @@ public class ShootingWeapon extends WeaponBase{
         width = xHolderSize*2;
         height = yHolderSize/4;
         weaponAngle = DEFAULT_WEAPON_ANGLE;
-        rightXOffset = 0.3 * xHolderSize;
-        leftXOffset = 0.65 * xHolderSize - width;
-        yOffset = -1* yHolderSize/8;
+        rightXOffset = xHolderSize/10;
+        leftXOffset = width - 9*(xHolderSize/10);
+        yOffset = yHolderSize/3;
         //projectile = new Block();
 		projectileMovement = new Flying();
 		projectileBehavior = new MoveForward();

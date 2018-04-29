@@ -11,7 +11,7 @@ import engine.behavior.MoveBetweenThresholds;
 import engine.behavior.MoveForward;
 import engine.controls.Controls;
 import engine.entity.Block;
-import engine.entity.Foes;
+import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.interaction.AddPowerup;
@@ -83,9 +83,9 @@ public class EngineTestVisual extends Application{
 	private void setupLevel() {
 		//level.setSize(400, 400);
 		Player player = new Player();
-		Foes enemy = new Foes();
-		Foes enemy2 = new Foes();
-		Foes enemy3 = new Foes();
+		Enemy enemy = new Enemy();
+		Enemy enemy2 = new Enemy();
+		Enemy enemy3 = new Enemy();
 		//Block enemy = new Block();
 		//enemy.addBehavior(new MoveForward(new Player()));
 		//enemy.addInteraction(new KnockBack());
@@ -174,7 +174,7 @@ public class EngineTestVisual extends Application{
 			if(ge instanceof Player){
 				entityImage.setFill(Color.BLUE);
 			}
-			if(ge instanceof Foes){
+			if(ge instanceof Enemy){
 				entityImage.setFill(Color.RED);
 			}
 			root.getChildren().add(entityImage);
@@ -191,7 +191,21 @@ public class EngineTestVisual extends Application{
 	}
 
 	private void step(double secondDelay) {
+		Rectangle entityImage = null;
+		boolean addEntity = false;
+		for(GameEntity ge : level.getObjects()){
+			if(!geRectMap.keySet().contains(ge)){
+				entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
+				entityImage.setFill(Color.BLACK);
+				geRectMap.put(ge, entityImage);
+				addEntity = true;
+			}
+		}
 		level.update();
+		if(addEntity){
+			root.getChildren().add(entityImage);
+			addEntity = false;
+		}
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
 		for(GameEntity ge : geRectMap.keySet()){
 			if(level.getObjects().contains(ge)) {
