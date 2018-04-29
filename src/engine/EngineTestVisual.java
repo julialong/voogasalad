@@ -139,7 +139,9 @@ public class EngineTestVisual extends Application{
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
-		player.setWeapon(new SwingingWeapon(player, level));
+		//player.setWeapon(new SwingingWeapon(player, level));
+		//player.setWeapon(new StabbingWeapon(player, level));
+		player.setWeapon(new AOEWeapon(player, level));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
@@ -194,7 +196,7 @@ public class EngineTestVisual extends Application{
 				geRectMap.get(ge).setX(ge.getScenePosition()[0]);
 				geRectMap.get(ge).setY(ge.getScenePosition()[1]);
 				if(ge instanceof Weapon){
-					geRectMap.get(ge).setRotate(((SwingingWeapon) ge).getAngle());
+					geRectMap.get(ge).setRotate(((Weapon) ge).getAngle());
 				}
 			}
 			else {

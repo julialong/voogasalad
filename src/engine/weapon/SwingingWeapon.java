@@ -1,21 +1,15 @@
 package engine.weapon;
 
-import java.util.ArrayList;
-
-import engine.entity.Block;
 import engine.entity.GameEntity;
-import engine.entity.GameObject;
-import engine.interaction.HarmTarget;
 import engine.level.Level;
-import engine.physics.DetectCollision;
-import engine.physics.Kinematics;
+
 /**
  * A Weapon that hits in an arc in front of the Player
  * @author Marcus Oertle and Robert Gitau
  *
  */
 public class SwingingWeapon extends WeaponBase{
-    private static final double DEFAULT_WEAPON_ANGLE = 80;
+    private static final double DEFAULT_WEAPON_ANGLE = 60;
     private static final double WEAPON_ANGLE_INCREMENT = 20;
     
 	public SwingingWeapon(GameEntity entity, Level level){
@@ -26,8 +20,8 @@ public class SwingingWeapon extends WeaponBase{
         height = yHolderSize/4;
         weaponAngle = DEFAULT_WEAPON_ANGLE;
         rightXOffset = 0.3 * xHolderSize;
-        leftXOffset = 0.65 * xHolderSize - width;
-        yOffset = -1* yHolderSize/8;
+        leftXOffset = width - 0.65 * xHolderSize;
+        yOffset = yHolderSize/8;
 	}
 	
 	@Override

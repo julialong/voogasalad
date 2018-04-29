@@ -1,55 +1,48 @@
 package engine.weapon;
 
-import java.util.ArrayList;
-
-import engine.entity.Block;
 import engine.entity.GameEntity;
-import engine.entity.GameObject;
-import engine.interaction.HarmTarget;
 import engine.level.Level;
-import engine.physics.DetectCollision;
 
 /**
  * A weapon that can hit in a wide area around the user
  * @author Marcus Oertle and Robert Gitau
  *
  */
-public class AOEWeapon extends GameObject implements Weapon{
-	private Block hitBox = new Block();
-	private GameEntity weaponHolder;
-	private Level level;
-	private DetectCollision collisionDetector = new DetectCollision();
-	private HarmTarget dealDamage = new HarmTarget();
-	private ArrayList<GameEntity> listOfEntities = new ArrayList<>();
-	private double xSize;
-	private double ySize;
-	
+public class AOEWeapon extends WeaponBase{
+    private static final double DEFAULT_WEAPON_ANGLE = 0;
+    private static final double WEAPON_ANGLE_INCREMENT = 20;
+    
 	public AOEWeapon(GameEntity entity, Level level){
-		weaponHolder = entity;
-		this.level = level;
-		xSize = weaponHolder.getSizeX();
-		ySize = weaponHolder.getSizeY();
-		hitBox.setSizeX(xSize + 1.5*xSize);
-		hitBox.setSizeY(ySize + 1.5*xSize);
+		super(entity, level);
+		width = xHolderSize*5;
+        height = yHolderSize/4;
+		hitBox.setSizeX(5*xHolderSize);
+		hitBox.setSizeY(yHolderSize + 2*xHolderSize);
+		rightXOffset = -2 * xHolderSize;
+        leftXOffset = -rightXOffset;
+        yOffset = yHolderSize/2;
+        weaponAngle = DEFAULT_WEAPON_ANGLE;
 	}
 	
 	@Override
 	public void attack() {
-		//System.out.println("attacking");
-		double xPos = weaponHolder.getPosition()[0];
-		double yPos = weaponHolder.getPosition()[1];
-		hitBox.setX(xPos - 0.75*xSize);
-		hitBox.setY(yPos + 0.75*xSize);
-		listOfEntities = (ArrayList<GameEntity>) level.getObjects();
-		for(GameEntity entity : listOfEntities){
-			//System.out.println("checking collision with " + entity.getClass().getSimpleName());
-			if(!collisionDetector.detect(hitBox, entity).equals("none")){
-				if(entity.getDestructible()) {
-				//System.out.println("dealing damage to " + entity.getClass().getSimpleName());
-					dealDamage.interact(hitBox, entity);
-				}
-			}
+		if(!isAttacking){
+			isAttacking = true;
+			hitBox.setX(holderXPos - 2*xHolderSize);
+			hitBox.setY(holderYPos + xHolderSize);
+			iterateEntities();
 		}
 	}
 
+	@Override
+	public void update(){
+		updateDirectionality();
+		if(isAttacking){
+            weaponAngle -= WEAPON_ANGLE_INCREMENT;
+            if(weaponAngle < -360 - DEFAULT_WEAPON_ANGLE){
+            	weaponAngle = DEFAULT_WEAPON_ANGLE;
+                isAttacking = false;
+            }
+        }
+	}
 }
