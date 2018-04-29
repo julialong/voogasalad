@@ -1,6 +1,5 @@
 package engine.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,12 +20,12 @@ public interface GameEntity {
 	 * Sets and identifier for the entity
 	 */
 	public abstract void setID(int id);
-	
+
 	/**
 	 * Gets the identifier for the entity
 	 */
 	public abstract int getID();
-	
+
 	/**
 	 * Defines how the entity moves, namely the entity's base speed and weight.
 	 * 
@@ -58,9 +57,10 @@ public interface GameEntity {
 	 *            an instance of an Interaction class
 	 */
 	public abstract void addInteraction(Interaction interaction);
-	
+
 	/**
-	 * Defines how the GameObject behaves with regard to the player (ie makes the player slide across it)
+	 * Defines how the GameObject behaves with regard to the player (ie makes
+	 * the player slide across it)
 	 * 
 	 * @param behavior:
 	 *            the enemies Behavior type.
@@ -87,12 +87,12 @@ public interface GameEntity {
 	 *         index 1
 	 */
 	public abstract double[] getPosition();
-	
+
 	/**
 	 * Sets the scene position
 	 */
 	public abstract void setScenePosition(double x, double y);
-	
+
 	/**
 	 * Gets the scene position
 	 */
@@ -107,12 +107,14 @@ public interface GameEntity {
 
 	/**
 	 * Sets the speed factor
+	 * 
 	 * @param speedFactor
 	 */
 	public void setSpeedFactor(double speedFactor);
 
 	/**
 	 * Sets the jump factor
+	 * 
 	 * @param jumpFactor
 	 * @return
 	 */
@@ -171,16 +173,20 @@ public interface GameEntity {
 
 	/**
 	 * Sets the maximum speed the Entity can move in the x direction
-	 * @param velocity the desired maximum speed
+	 * 
+	 * @param velocity
+	 *            the desired maximum speed
 	 */
 	public abstract void setMaxXVelocity(double velocity);
 
 	/**
 	 * Sets the maximum speed the Entity can move in the y direction
-	 * @param velocity the desired maximum speed
+	 * 
+	 * @param velocity
+	 *            the desired maximum speed
 	 */
 	public abstract void setMaxYVelocity(double velocity);
-	
+
 	/**
 	 * Gets the maximum speed the Entity can move in the x direction
 	 */
@@ -193,25 +199,33 @@ public interface GameEntity {
 
 	/**
 	 * Sets the friction constant for the entity
-	 * @param frictionConstant - the constant for friction
+	 * 
+	 * @param frictionConstant
+	 *            - the constant for friction
 	 */
 	public abstract void setFrictionConstant(double frictionConstant);
-	
+
 	/**
 	 * Sets the gravity constant for the entity
-	 * @param gravitationalConstant - the constant for gravity
+	 * 
+	 * @param gravitationalConstant
+	 *            - the constant for gravity
 	 */
 	public abstract void setGravitationalConstant(double gravitationalConstant);
 
 	/**
 	 * Sets the width of the entity
-	 * @param x - the width
+	 * 
+	 * @param x
+	 *            - the width
 	 */
 	public abstract void setSizeX(double x);
 
 	/**
 	 * Sets the height of the entity
-	 * @param y - the height
+	 * 
+	 * @param y
+	 *            - the height
 	 */
 	public abstract void setSizeY(double y);
 
@@ -219,17 +233,17 @@ public interface GameEntity {
 	 * Gets the width of the entity
 	 */
 	public abstract double getSizeX();
-	
+
 	/**
 	 * Sets the Y position
 	 */
 	public abstract void setY(double y);
-	
+
 	/**
 	 * Sets the X position
 	 */
 	public abstract void setX(double x);
-	
+
 	/**
 	 * Gets the height of the entity
 	 */
@@ -239,17 +253,17 @@ public interface GameEntity {
 	 * Returns the kinematics object
 	 */
 	public abstract Kinematics getKinematics();
-	
+
 	/**
 	 * Sets the kinematics object
 	 */
 	public abstract void setKinematics(Kinematics kinematics);
-	
+
 	/**
 	 * Sets the image path
 	 */
 	public abstract void setImagePath(String imageView);
-	
+
 	/**
 	 * Returns the image path
 	 */
@@ -259,45 +273,49 @@ public interface GameEntity {
 	 * Gets map of interaction entities to directionality
 	 */
 	public abstract Map<GameEntity, String> getInteractionMap();
-	
+
 	/**
 	 * Clears the map of interaction entities to directionality
 	 */
 	public abstract void clearInteractionMap();
-	
+
 	/**
 	 * Gets all interactions
 	 */
 	public abstract List<Interaction> getInteractions();
-	
-	//ADDED THIS FOR TESTING - BELANIE
-	public abstract List<Behavior> getBehaviorList(); 
-	
+
+	// ADDED THIS FOR TESTING - BELANIE
+	public abstract List<Behavior> getBehaviorList();
+
 	/**
 	 * Returns true if an entity is destructible
 	 */
 	public abstract boolean getDestructible();
-	
+
 	/**
 	 * Sets the destructible boolean for an entity
 	 */
 	public abstract void setDestructible(boolean destructible);
-	
+
 	/**
-	 * Updates the entity with new position/interaction paramters. Called at every time step.
-	 * Sets the Element ID of the Entity.
-	 * @param ID - the desired String ID
+	 * Updates the entity with new position/interaction paramters. Called at
+	 * every time step. Sets the Element ID of the Entity.
+	 * 
+	 * @param ID
+	 *            - the desired String ID
 	 */
 	public abstract void setElementID(String ID);
-	
+
 	/**
 	 * Retrieves the Element ID of the Entity.
+	 * 
 	 * @return String Element ID
 	 */
 	public abstract String getElementID();
-	
+
 	/**
-	 * Updates the entity with new position/interaction parameters. Called at every time step.
+	 * Updates the entity with new position/interaction parameters. Called at
+	 * every time step.
 	 */
 	public abstract void update();
 }

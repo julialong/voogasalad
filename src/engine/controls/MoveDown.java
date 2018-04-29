@@ -12,7 +12,7 @@ public class MoveDown extends Action {
 			 entity.setYAcceleration(-entity.getSpeedFactor());
 		}
     	if(entity.getMovementType() instanceof LinearFlying) {
-    		entity.setYVelocity(entity.getMaxYVelocity());
+    		entity.setYVelocity(-entity.getMaxYVelocity());
     	}
     }
 }

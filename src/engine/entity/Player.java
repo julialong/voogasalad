@@ -1,15 +1,11 @@
 package engine.entity;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import engine.behavior.Behavior;
-import engine.interaction.Interaction;
-import engine.movement.*;
+import engine.movement.Grounded;
 import engine.physics.Kinematics;
-import engine.powerup.*;
-import engine.weapon.*;
-import javafx.scene.image.ImageView;
+import engine.powerup.PowerUp;
+import engine.weapon.Weapon;
 /**
  * Defines a player and its movement in and interactions with the game world.
  * @author Robert Gitau and Marcus Oertle
@@ -41,17 +37,29 @@ public class Player extends GameObject{
 	 * @param weapon:
 	 *            the Weapon the player is given
 	 */
-
 	public void setWeapon(Weapon weapon) {
-        weaponType = weapon;		
+		if(weaponType != null){
+			weaponType.deactivate();
+		}
+        weaponType = weapon;
+        weaponType.activate();
 	}
 
 	/**
-	 * performs whatever effect the player's current weapon has in its attack
+	 * Performs whatever effect the player's current weapon has in its attack
 	 * method.
 	 */
 	public void useWeapon() {
-		weaponType.attack();
+		if(weaponType != null){
+			weaponType.attack();
+		}
+	}
+	
+	/**
+	 * Returns the weapon the player has.
+	 */
+	public Weapon getWeapon(){
+		return weaponType;
 	}
 
 	/**
