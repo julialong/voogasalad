@@ -30,7 +30,7 @@ public class ShootingWeapon extends WeaponBase {
 	private double projectileWidth = 5;
 	private double projectileHeight = 5;
 	private double projectileSpeed = 100;
-	private int firingRate = 10;
+	private int firingRate = 15;
 	private int counter = 0;
 	private double jumpFactor = 150;
 	private double terminalVelocity = 500; 
@@ -60,7 +60,18 @@ public class ShootingWeapon extends WeaponBase {
 		projectileWidth = xSize;
 		projectileHeight = ySize;
 		projectileSpeed = speed;
-		this.firingRate = (firingRate < 10) ? 10 : firingRate;
+		this.firingRate = (firingRate < 15) ? 15 : firingRate;
+	}
+	
+	public ShootingWeapon(GameEntity entity, Level level, Block block){
+		this(entity, level);
+		projectileMovement = block.getMovementType();
+		projectileBehavior = block.getBehaviorList();
+		projectileWidth = block.getSizeX();
+		projectileHeight = block.getSizeY();
+		projectileSpeed = block.getMaxXVelocity();
+		jumpFactor = block.getJumpFactor();
+		terminalVelocity = block.getMaxYVelocity();
 	}
 
 	@Override

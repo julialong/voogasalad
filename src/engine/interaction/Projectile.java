@@ -1,5 +1,8 @@
 package engine.interaction;
 
+import engine.behavior.Behavior;
+import engine.behavior.JumpALot;
+import engine.behavior.JumpBetweenPoints;
 import engine.entity.Block;
 import engine.entity.GameEntity;
 import engine.movement.Grounded;
@@ -33,6 +36,14 @@ public class Projectile implements Interaction{
 		}else if(!(new DetectCollision().detect(source, target).equals("bottom"))){
 			source.setHealth(0);
 		}
+		boolean jumper = false;
+		for(Behavior b : source.getBehaviorList()){
+			if((b instanceof JumpALot)||(b instanceof JumpBetweenPoints)){
+				jumper = true;
+				break;
+			}
+		}
+		if(!jumper)source.setHealth(0);
 	}
 	
 	public void setOwner(GameEntity owner){
