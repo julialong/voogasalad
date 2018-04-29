@@ -13,6 +13,10 @@ public class AOEWeapon extends WeaponBase{
     private static final double WEAPON_ANGLE_INCREMENT = 20;
     
 	public AOEWeapon(GameEntity entity, Level level){
+		this(entity, level, 1);
+	}
+	
+	public AOEWeapon(GameEntity entity, Level level, int damage){
 		super(entity, level);
 		width = xHolderSize*5;
         height = yHolderSize/4;
@@ -22,13 +26,27 @@ public class AOEWeapon extends WeaponBase{
         leftXOffset = -rightXOffset;
         yOffset = yHolderSize/2;
         weaponAngle = DEFAULT_WEAPON_ANGLE;
+        this.damage = damage;
 	}
 	
+    public AOEWeapon(GameEntity entity, Level level, double hitBoxX, double hitBoxY, int damage){
+    	super(entity, level);
+    	width = hitBoxX;
+        height = yHolderSize/4;
+		hitBox.setSizeX(hitBoxX);
+		hitBox.setSizeY(hitBoxY);
+		rightXOffset = -hitBoxX/2 + xHolderSize/2;
+        leftXOffset = -rightXOffset;
+        yOffset = yHolderSize/2;
+        weaponAngle = DEFAULT_WEAPON_ANGLE;
+        this.damage = damage;
+    }
+    
 	@Override
 	public void attack() {
 		if(!isAttacking){
 			isAttacking = true;
-			hitBox.setX(holderXPos - 2*xHolderSize);
+			hitBox.setX(holderXPos + rightXOffset);
 			hitBox.setY(holderYPos + xHolderSize);
 			iterateEntities();
 		}

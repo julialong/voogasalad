@@ -1,10 +1,5 @@
 package engine.entity;
 
-import java.util.ArrayList;
-
-import engine.behavior.Behavior;
-import engine.interaction.*;
-import engine.movement.*;
 import engine.movement.Static;
 import engine.physics.Kinematics;
 /**

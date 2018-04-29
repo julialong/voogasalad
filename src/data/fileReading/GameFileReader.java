@@ -46,10 +46,13 @@ public abstract class GameFileReader {
 	{
 		List<String> gamePaths = new ArrayList<>();
 		File gameFolder = new File(GAME_FOLDER);
+		System.out.println("foldr " + gameFolder.toString());
 		File[] authors = gameFolder.listFiles();
 		for(File author: authors)
 		{
+			System.out.println("author" + author.toString());
 			File[] games = author.listFiles();
+			System.out.println("game " + games.toString());
 			for(File game: games)
 			{
 				gamePaths.add(game.toString());
