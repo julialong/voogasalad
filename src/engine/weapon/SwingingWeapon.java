@@ -19,43 +19,29 @@ public class SwingingWeapon extends WeaponBase{
     private static final double WEAPON_ANGLE_INCREMENT = 20;
     
 	public SwingingWeapon(GameEntity entity, Level level){
-		kinematics = new Kinematics(0,0,0,0,0,0);
-		weaponHolder = entity;
-		this.level = level;
-        this.level.addObject(this);
-		xSize = weaponHolder.getSizeX();
-		ySize = weaponHolder.getSizeY();
-		hitBox.setSizeX(xSize*2);
-		hitBox.setSizeY(ySize - 2*offset);
-        width = xSize*2;
-        height = ySize/4;
+		super(entity, level);
+		hitBox.setSizeX(xHolderSize*2);
+		hitBox.setSizeY(yHolderSize - 2*offset);
+        width = xHolderSize*2;
+        height = yHolderSize/4;
         weaponAngle = DEFAULT_WEAPON_ANGLE;
-        rightXOffset = 0.3 * xSize;
-        leftXOffset = 0.65 * xSize - width;
-        yOffset = -1* ySize/8;
+        rightXOffset = 0.3 * xHolderSize;
+        leftXOffset = 0.65 * xHolderSize - width;
+        yOffset = -1* yHolderSize/8;
 	}
 	
 	@Override
 	public void attack() {
         if(!isAttacking){
             isAttacking = true;
-		    double xPos = weaponHolder.getPosition()[0];
-		    double yPos = weaponHolder.getPosition()[1];
 		    if(direction.equals("right")){
-			    hitBox.setX(xPos+xSize);
+			    hitBox.setX(holderXPos+xHolderSize);
 		    }
 		    else{
-			    hitBox.setX(xPos-xSize);
+			    hitBox.setX(holderXPos-xHolderSize);
 		    }
-            hitBox.setY(yPos - offset);
-		    listOfEntities = (ArrayList<GameEntity>) level.getObjects();
-		    for(GameEntity entity : listOfEntities){
-			    if(!collisionDetector.detect(hitBox, entity).equals("none")){
-				    if(entity.getDestructible()) {
-					    dealDamage.interact(hitBox, entity);
-				    }
-			    }
-		    }
+            hitBox.setY(holderYPos - offset);
+            iterateEntities();
         }   
 	}
     

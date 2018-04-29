@@ -22,4 +22,9 @@ public interface Weapon {
 	 * Updates which direction the player is facing
 	 */
 	public abstract void updateDirectionality();
+
+	/**
+	 * Iterates through all entities and damages the appropriate ones
+	 */
+	public abstract void iterateEntities();
 }
