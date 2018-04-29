@@ -1,6 +1,8 @@
 {
 "name":"test1 level",
-"color":"null",
+"color":"#ffffff",
+"width": "500.0",
+"height": "500.0",
 "ScrollingGrid":[
 [
 "null","null","null","null","null","null","myPlayer","Sand","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"

@@ -106,7 +106,7 @@ public class VoogaGameView implements GameView {
 				//imgPath = "trump.gif";
 			}
 			System.out.println("imgPath: "+imgPath);
-			ImageView entityImage = new ImageView(new Image(imgPath,
+			ImageView entityImage = new ImageView(new Image(new File(imgPath).toURI().toString(),
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 			// TODO: uncomment below once GAE sends us actual data
 			// if (ge.getClass().equals(new Player().getClass())) {

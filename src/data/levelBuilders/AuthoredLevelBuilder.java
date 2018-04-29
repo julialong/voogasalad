@@ -45,7 +45,7 @@ public class AuthoredLevelBuilder {
 	 */
 	public AuthoredLevel buildAuthoredLevel() throws DataFileException
 	{
-		LevelBuilder levelBuilder = new LevelBuilder(levelFile);
+		LevelBuilder levelBuilder = new LevelBuilder(levelFile, false);
 		Level levelForAuthoredLevel = levelBuilder.buildLevel();
 		
 		ScrollingGrid gridForAuthoredLevel = new ScrollingGrid();		

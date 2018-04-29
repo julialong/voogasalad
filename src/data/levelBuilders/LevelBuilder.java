@@ -48,6 +48,9 @@ public class LevelBuilder {
 	private File levelFile;
 	private Player player;
 	private BehaviorSkipManager skipManager;
+	private double levelWidth;
+	private double levelHeight;
+	private boolean translate;
 	
 	/**
 	 * Class Constructor
@@ -58,7 +61,7 @@ public class LevelBuilder {
 	 * @param level
 	 * @throws DataFileException 
 	 */
-	public LevelBuilder(File level) throws DataFileException 
+	public LevelBuilder(File level, Boolean translate) throws DataFileException 
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
@@ -68,6 +71,8 @@ public class LevelBuilder {
 		
 		deserializer = new Serializer();
 		levelFile = level;
+		
+		this.translate = translate;
 	}
 	
 	/**
@@ -130,12 +135,12 @@ public class LevelBuilder {
 	{
 		String levelName = jobject.get(NAME).getAsString();
 		Color color = Color.web(jobject.get(COLOR).getAsString());
-		Double width = jobject.get(WIDTH).getAsDouble();
-		Double height = jobject.get(HEIGHT).getAsDouble();
+		levelWidth = jobject.get(WIDTH).getAsDouble();
+		levelHeight = jobject.get(HEIGHT).getAsDouble();
 		
 		level.setName(levelName);
 		level.setColor(color);
-		level.setSize(width, height);
+		level.setSize(levelWidth, levelWidth);
 	}
 	
 	/**
@@ -173,9 +178,23 @@ public class LevelBuilder {
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
 			checkPlayer(ge);
 			checkFoe(ge);
+			if(translate) {translateCoordinates(ge);}
 			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
+	}
+	
+	/**
+	 * Applies the translation to convert game authoring coordinates to game engine
+	 * compatible coordinates.
+	 * 
+	 * @param ge
+	 */
+	private void translateCoordinates(GameEntity ge)
+	{
+		double translatedX = ge.getKinematics().getX() - levelWidth/2;
+		double translatedY = ge.getKinematics().getY() + levelHeight/2;
+		ge.overridePosition(translatedX, translatedY);
 	}
 
 	/**
