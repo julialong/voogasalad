@@ -84,4 +84,9 @@ public interface Level {
      */
      void update();
 
+	/**
+	 * Returns an array with x size at index 0 and y size at index 1
+	 * written by Dorian
+	 */
+	double[] getSize();
 }

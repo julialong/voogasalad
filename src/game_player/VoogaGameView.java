@@ -111,7 +111,7 @@ public class VoogaGameView implements GameView {
 				myControls = new Controls((Player) ge);
 			}
 			System.out.println("imgPath: " + imgPath);
-			ImageView entityImage = new ImageView(new Image(imgPath,
+			ImageView entityImage = new ImageView(new Image("../" + imgPath,
 					adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 			
 			ImageView entityImageCopy = new ImageView(new Image(imgPath,
