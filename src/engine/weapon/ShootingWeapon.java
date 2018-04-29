@@ -1,5 +1,8 @@
 package engine.weapon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import engine.behavior.Behavior;
 import engine.behavior.MoveForward;
 import engine.entity.Block;
@@ -21,7 +24,7 @@ public class ShootingWeapon extends WeaponBase{
     private static final double WEAPON_ANGLE_INCREMENT = 0;
     //private Block projectile;
     private Movement projectileMovement;
-    private Behavior projectileBehavior;
+    private List<Behavior> projectileBehavior;
     private int projectileDamage = 1;
     private double projectileWidth = 5;
     private double projectileHeight = 5;
@@ -39,10 +42,11 @@ public class ShootingWeapon extends WeaponBase{
         yOffset = -1* yHolderSize/8;
         //projectile = new Block();
 		projectileMovement = new Flying();
-		projectileBehavior = new MoveForward();
+		projectileBehavior = new ArrayList<Behavior>();
+		projectileBehavior.add(new MoveForward());
 	}
 	
-	public ShootingWeapon(GameEntity entity, Level level, Movement movement, Behavior behavior, int damage, double xSize, double ySize, double speed){
+	public ShootingWeapon(GameEntity entity, Level level, Movement movement, List<Behavior> behavior, int damage, double xSize, double ySize, double speed){
 		this(entity, level);
 		projectileMovement = movement;
 		projectileBehavior = behavior;
@@ -77,7 +81,7 @@ public class ShootingWeapon extends WeaponBase{
 		}
 		projectile.setMaxXVelocity(projectileSpeed);
 		projectile.setMovementType(projectileMovement);
-		projectile.addBehavior(projectileBehavior);
+		for(Behavior b : projectileBehavior) projectile.addBehavior(b);
 		projectile.addInteraction(new Projectile(weaponHolder,projectileDamage));
 		level.addObject(projectile);
 	}
