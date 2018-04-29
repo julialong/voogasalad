@@ -35,8 +35,7 @@ public class Serializer {
 	/**
 	 * Adds all the relevant interface adapters to the 
 	 * Gson Serializer.
-	 * 
-	 * @param Gson object
+	 *
 	 */
 	private void addDependencies(Gson gson2) {
 		GsonBuilder builder = new GsonBuilder();
@@ -71,7 +70,6 @@ public class Serializer {
 	 */
 	public Object deserialize(String json, Class<?> objectClass)
 	{
-		System.out.println( "Here is the object! " + gson.fromJson(json, objectClass));
 		return gson.fromJson(json, objectClass);
 	}	
 }

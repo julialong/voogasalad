@@ -96,10 +96,10 @@ public class VoogaGameView implements GameView {
 			// stuff
 			//System.out.println("IV: "+ ge.getImageView());
 			String imgPath;
-			if (ge.getImageView() == null || ge.getImageView() == "") {
+			if (ge.getImagePath() == null || ge.getImagePath() == "") {
 				imgPath = "./game_player/brick.png";
 			} else {
-				imgPath = ge.getImageView();
+				imgPath = ge.getImagePath();
 			}
 			if (ge instanceof Player) {
 				myControls = new Controls((Player) ge);
@@ -116,8 +116,8 @@ public class VoogaGameView implements GameView {
 			// Image(getClass().getResourceAsStream(ge.getImagePath()), ge.getSizeX(),
 			// ge.getSizeY(), true, true));
 
-			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
-			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
+			entityImage.setX(ge.getKinematics().getX());
+			entityImage.setY(ge.getKinematics().getY());
 			myDispMap.put(ge, entityImage);
 			myGP.getChildren().add(myDispMap.get(ge));
 		}

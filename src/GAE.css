@@ -133,6 +133,15 @@
 	-fx-pref-width: 600;
 }
 
+.level-editor {
+	-fx-background-color: #ffffff;
+	-fx-padding: 30;
+	-fx-spacing: 10;
+	-fx-alignment: center;
+	-fx-pref-height: 400;
+	-fx-pref-width: 600;
+}
+
 .settings-saver {
 	-fx-background-color: #000000;
 	-fx-alignment: top-center;

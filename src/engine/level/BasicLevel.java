@@ -2,6 +2,7 @@ package engine.level;
 
 
 import engine.Camera;
+import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.physics.DetectCollision;
@@ -119,7 +120,8 @@ public class BasicLevel implements Level {
         myXSize = (int) X;
         myYSize = (int) Y;
     }
-    
+
+    @Override
     public double[] getSize(){
     	return new double[]{myXSize, myYSize};
     }
@@ -131,10 +133,18 @@ public class BasicLevel implements Level {
     
     @Override
     public void update(){
-    	for(GameEntity source : myObjects){
+    	ArrayList<GameEntity> listCopy = new ArrayList<>(myObjects);
+    	for(GameEntity source : listCopy){
     		source.update();
     		if(source.getHealth() < 1 && !(source instanceof Player)) {
     			toRemoveFromObjectList.add(source);
+    			if(source instanceof Enemy){
+    				toRemoveFromObjectList.add((GameEntity)((Enemy) source).getWeapon());
+    			}
+    		}
+    		if(source instanceof Player){
+    			((Player) source).setGameOver(source.getHealth() < 1);
+    			//if(source.getHealth() < 1) System.out.println("Game Over");
     		}
     	}
     	for(GameEntity ge : toRemoveFromObjectList) {

@@ -33,7 +33,7 @@ public class LoadButton extends MenuButton {
 
     private MenuItem createGameItem() {
         MenuItem gameItem = new MenuItem(GAME);
-        gameItem.setOnAction(e -> new GameChooser(myWindow));
+        gameItem.setOnAction(e -> new GameChooser());
         return gameItem;
     }
 

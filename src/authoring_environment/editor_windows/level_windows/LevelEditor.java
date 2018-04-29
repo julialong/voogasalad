@@ -72,7 +72,7 @@ public class LevelEditor extends LevelModifications{
 
     private void createCenter() {
         Pane center = new VBox();
-        center.getStyleClass().add("level-center");
+        center.getStyleClass().add("level-editor");
         createUploadImageButton(myStage, myLevel, center);
         createBackgroundColorPicker(myLevel, center);
         createSizeChooser(center);
@@ -83,10 +83,10 @@ public class LevelEditor extends LevelModifications{
 
     private void createSizeChooser(Pane pane) {
         Text xField = new Text("X size: ");
-        xSizeInput = new TextField(Integer.toString(myLevel.getSize()[0]));
+        xSizeInput = new TextField(Integer.toString(myLevel.getGridSize()[0]));
         HBox x = new HBox(xField, xSizeInput);
         Text yField = new Text("Y size: ");
-        ySizeInput = new TextField(Integer.toString(myLevel.getSize()[1]));
+        ySizeInput = new TextField(Integer.toString(myLevel.getGridSize()[1]));
         HBox y = new HBox(yField, ySizeInput);
         Text setSize = new Text(SET_SIZE);
         setSize.setFont(new Font(SMALL_FONT));
@@ -96,7 +96,7 @@ public class LevelEditor extends LevelModifications{
     private void createIndexChooser(Pane pane) {
         Label chooseLocation = new Label("Location");
         chooseLocation.setFont(new Font(SMALL_FONT));
-        indexInput = new TextField(Integer.toString(myWindow.getGame().getLevels().size()));
+        indexInput = new TextField(Integer.toString(myWindow.getGame().getLevels().indexOf(myLevel)));
         pane.getChildren().addAll(chooseLocation, indexInput);
     }
 

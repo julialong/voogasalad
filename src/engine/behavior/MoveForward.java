@@ -2,6 +2,7 @@ package engine.behavior;
 
 import engine.controls.Action;
 import engine.controls.MoveLeft;
+import engine.controls.MoveRight;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 
@@ -11,19 +12,21 @@ import engine.entity.Player;
  *
  */
 public class MoveForward implements Behavior {
-		private Action action = new MoveLeft();
+		private Action action;
 	    private Player player;
 	    
-	    public MoveForward() {
-		}
-	    
-	    public MoveForward(Player player){
-	        this.player = player;
+	    public MoveForward(){
+	        //this.player = player;
 	    }
 	   
 		@Override
 	    public void update(GameEntity entity) {
-	        action.execute(entity);
+	        if(entity.getKinematics().getXVelocity() > 0){
+	        	action = new MoveRight();
+	        } else {
+	        	action = new MoveLeft();
+	        }
+	    	action.execute(entity);
 	    }
 		
 	}

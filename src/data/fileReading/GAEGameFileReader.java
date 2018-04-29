@@ -23,10 +23,7 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 	/**
 	 * Class Constructor
 	 */
-	public GAEGameFileReader() 
-	{
-		//Constructor is empty
-	}
+	public GAEGameFileReader() {}
 	
 	/**
 	 * This method will return the list of AuthoredLevel objects created from the level
@@ -45,18 +42,39 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
-				int index = gameFile.toString().lastIndexOf(NEST) + 1;
-				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
-				String levelName = gameFile.toString().substring(index,endIndex).trim();
-				if(!levelName.equals(SETTINGS) && !levelName.equals(LEVEL_ORDER))
-				{
-					completeGame.add(loadAuthoredGameLevel(gameName, levelName));
-				}		
+			addLevel(gameFile, completeGame, gameName);
 		}
 		completeGame = orderLevels(gameName,completeGame);
 		return completeGame;
 	}
 	
+	/**
+	 * Adds a new AuthoredLevel to the complete game
+	 * 
+	 * @param gameFile
+	 * @param completeGame
+	 * @param gameName
+	 * @throws DataFileException
+	 */
+	private void addLevel(File gameFile, List<AuthoredLevel> completeGame, String gameName) throws DataFileException {
+		int index = gameFile.toString().lastIndexOf(NEST) + 1;
+		int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
+		String levelName = gameFile.toString().substring(index,endIndex).trim();
+		if(!levelName.equals(SETTINGS) && !levelName.equals(LEVEL_ORDER))
+		{
+			completeGame.add(loadAuthoredGameLevel(gameName, levelName));
+		}		
+	}
+
+	/**
+	 * Given a list of authored levels and a game name, will return the list of AuthoredLevels in the 
+	 * order indicated in the LevelOrder file for the game.
+	 * 
+	 * @param gameName
+	 * @param levels
+	 * @return
+	 * @throws DataFileException
+	 */
 	private List<AuthoredLevel> orderLevels(String gameName, List<AuthoredLevel> levels) throws DataFileException
 	{
 		Map<String,Integer> levelOrder = getLevelOrder(gameName);
@@ -66,9 +84,9 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 			int position = levelOrder.get(level.getLevel().getName());
 			orderedLevels[position] = level;
 		}
-		System.out.println(orderedLevels);
 		return Arrays.asList(orderedLevels);
 	}
+	
 	/**
 	 * This will load an existing level in an existing game as an AuthoredLevel
 	 * for use by the game authoring environment. Also used by GameFileWriter for 

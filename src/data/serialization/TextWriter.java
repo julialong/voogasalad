@@ -30,7 +30,6 @@ public class TextWriter	{
 
 	private static final String DESCRIPTION = "description";
 	private static final String READYTOPLAY = "readyToPlay";
-	private static final String LEVELSTART = "startLevel";
 
 	private Serializer ser = new Serializer();
 
@@ -117,9 +116,6 @@ public class TextWriter	{
 			fw.write(COMMA);
 			newLine(fw);
 			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + ready);
-			fw.write(COMMA);
-			newLine(fw);
-			fw.write(QUOTE + LEVELSTART + QUOTE + COLON + levelStart);
 			newLine(fw);
 		}
 		catch (IOException e)	{
