@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
  * with varying parameters, but this allows for different kinds of level classes to be implemented easily
  * by extending this interface.
  *
- * @author Marcus Oertle, Robert Gitau, Julia Long
+ * @author Julia Long, Marcus Oertle, Robert Gitau
  */
 public interface Level {
 
@@ -61,8 +61,6 @@ public interface Level {
 	 * @param Y is the new y size
 	 */
 	void setSize(double X, double Y);
-
-	void setColor(Color color);
 	
 	/**
 	 * Returns true if level is complete
