@@ -19,18 +19,18 @@ public interface Level {
 	 * @param objects - a list of GameObjects
 	 */
 	void setObjects(List<GameEntity> objects);
-	
+
 	/**
 	 * Adds a singular object to the level class
 	 * @param object - a GameObject
 	 */
 	void addObject(GameEntity object);
-	
+
 	/**
 	 * Returns all objects in a level
 	 */
 	List<GameEntity> getObjects();
-	
+
 	/**
 	 * Sets the ID of the level for identification purposes
 	 * @param id - The numerical ID for the level
@@ -54,9 +54,6 @@ public interface Level {
 	 * @return the name of the level
 	 */
 	String getName();
-	
-	void setColor(Color color);
-	
 
 	/**
 	 * Sets the x size of the grid.
@@ -65,13 +62,14 @@ public interface Level {
 	 */
 	void setSize(double X, double Y);
 
+	double[] getSize();
 
 	/**
 	 * Returns true if level is complete
 	 */
 	boolean getLevelComplete();
 
-
+	void setColor(Color color);
 
 	/**
 	 * Retrieves the background color of the level
@@ -79,14 +77,9 @@ public interface Level {
 	 */
 	String getColor();
 
-    /**
-     * Updates the contents of the level
-     */
-     void update();
-
 	/**
-	 * Returns an array with x size at index 0 and y size at index 1
-	 * written by Dorian
+	 * Updates the contents of the level
 	 */
-	double[] getSize();
+	void update();
+
 }

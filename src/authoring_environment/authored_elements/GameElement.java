@@ -144,4 +144,8 @@ public class GameElement implements AuthoredElement, DocumentGetter, AttributeGe
 		return dimensions;
 	}
 	
+	public String getImagePath() {
+		return imageFile;
+	}
+	
 }

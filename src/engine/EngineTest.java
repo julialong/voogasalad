@@ -5,7 +5,7 @@ import java.io.IOException;
 import engine.behavior.*;
 import engine.controls.*;
 import engine.entity.Block;
-import engine.entity.Foes;
+import engine.entity.Enemy;
 import engine.entity.Player;
 import engine.interaction.PreventClipping;
 import engine.level.*;
@@ -17,8 +17,8 @@ public class EngineTest {
 	public void EnemyMovementTest() {
 		Player p = new Player();
 		p.overridePosition(-10, 0);
-		Foes foe = new Foes();
-		foe.addBehavior(new MoveForward(p));
+		Enemy foe = new Enemy();
+		foe.addBehavior(new MoveForward());
 		//foe.addBehavior(new ChasePlayer(p));
 		for(int i = 0; i < seconds*60; i++) {
 			//if(i%4 == 0) p.overridePosition(p.getPosition()[0]+1, 0);
@@ -80,8 +80,8 @@ public class EngineTest {
 	
 	public void BasicEnemyFloorInteractionTest() {
 		Level level = new BasicLevel();
-		Foes enemy = new Foes();
-		enemy.addBehavior(new MoveForward(new Player()));
+		Enemy enemy = new Enemy();
+		enemy.addBehavior(new MoveForward());
 		enemy.overridePosition(0, 2);
 		enemy.setSizeX(1);
 		enemy.setSizeY(1);
@@ -105,8 +105,8 @@ public class EngineTest {
 	
 	public void BasicEnemyWallInteractionTest() {
 		Level level = new BasicLevel();
-		Foes enemy = new Foes();
-		enemy.addBehavior(new MoveForward(new Player()));
+		Enemy enemy = new Enemy();
+		enemy.addBehavior(new MoveForward());
 		enemy.overridePosition(3, 1.2);
 		enemy.setSizeX(1);
 		enemy.setSizeY(1);

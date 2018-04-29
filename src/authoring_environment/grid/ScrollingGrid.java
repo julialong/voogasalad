@@ -105,6 +105,10 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 		makeGrid();
 	}
 
+	public int getCellSize() {
+		return cellSize;
+	}
+
 	private GridCell[][] assignCell(GridCell[][] newCells, int i, int j) {
 		if (i < cellArray.length && j < cellArray[0].length) {
 			newCells[i][j] = cellArray[i][j];
