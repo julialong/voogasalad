@@ -10,7 +10,7 @@ import engine.physics.Physics;
  *
  */
 public class Grounded implements Movement{
-	Physics physics = new Physics();
+	private Physics physics = new Physics();
     
     @Override
     public Kinematics update(Kinematics k, double xVelocityLimit, double yVelocityLimit){

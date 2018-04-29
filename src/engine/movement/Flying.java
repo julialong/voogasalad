@@ -10,16 +10,22 @@ import engine.physics.Physics;
  *
  */
 public class Flying implements Movement{
-	Physics physics = new Physics();
+	private Physics physics = new Physics();
   
     @Override
     public Kinematics update(Kinematics k, double xVelocityLimit, double yVelocityLimit){
     	Kinematics kFinal = physics.applyPhysics(k, false, false);
-        if ((kFinal.getXVelocity() > xVelocityLimit) || (kFinal.getXVelocity() < -xVelocityLimit)){
+        if (kFinal.getXVelocity() > xVelocityLimit){
             kFinal.setXVelocity(xVelocityLimit);
         }
-        if ((kFinal.getYVelocity() > yVelocityLimit) || (kFinal.getYVelocity() < -yVelocityLimit)){
+        if(kFinal.getXVelocity() < -xVelocityLimit){
+        	kFinal.setXVelocity(-xVelocityLimit);
+        }
+        if (kFinal.getYVelocity() > yVelocityLimit){
             kFinal.setYVelocity(yVelocityLimit);
+        }
+        if(kFinal.getYVelocity() < -yVelocityLimit){
+        	kFinal.setYVelocity(-yVelocityLimit);
         }
         return kFinal;
     }

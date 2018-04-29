@@ -28,6 +28,7 @@ import engine.interaction.RemoveOnInteractWithPlayer;
 import engine.level.*;
 import engine.movement.Flying;
 import engine.movement.Grounded;
+import engine.movement.LinearFlying;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
 import engine.powerup.SpeedChange;
@@ -139,6 +140,7 @@ public class EngineTestVisual extends Application{
 		wall.setSizeX(10);
 		wall.setSizeY(48);
 		player.setMovementType(new Grounded());
+		//player.setMovementType(new Flying());
 		//player.setScenePosition(400/2 - player.getSizeX()/2, 400/2 - player.getSizeY()/2);
 		player.overridePosition(-380, -170);
 		player.setSizeX(10);
@@ -151,7 +153,7 @@ public class EngineTestVisual extends Application{
 		//player.setWeapon(new SwingingWeapon(player, level));
 		//player.setWeapon(new StabbingWeapon(player, level, 1));
 		//player.setWeapon(new AOEWeapon(player, level, 1));
-//		player.setWeapon(new ShootingWeapon(player, level));
+		player.setWeapon(new ShootingWeapon(player, level));
 
 //		List<Behavior> bulletBehaviors = new ArrayList<>();
 //		bulletBehaviors.add(new MoveForward());
@@ -192,7 +194,7 @@ public class EngineTestVisual extends Application{
 //		bullet.setMaxYVelocity(500);
 //		bullet.setJumpFactor(150);
 		
-		player.setWeapon(new ShootingWeapon(player,level,bullet));
+		//player.setWeapon(new ShootingWeapon(player,level,bullet));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
