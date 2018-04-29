@@ -21,6 +21,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import data.resources.DataFileException;
+import data.serialization.BehaviorSkipManager;
 import data.serialization.Serializer;
 import engine.behavior.Behavior;
 import engine.behavior.MoveForward;
@@ -40,7 +41,6 @@ import engine.level.Level;
 public class LevelBuilder {
 
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
-	private static final String BEHAVIOR_SKIPS = "data.resources/behaviorsToSkip";
 	private static final String NAME = "name";
 	private static final String COLOR = "color";
 	private Map<String,Class<?>> objectTypes;
@@ -48,6 +48,7 @@ public class LevelBuilder {
 	private Serializer deserializer; 
 	private File levelFile;
 	private Player player;
+	private BehaviorSkipManager skipManager;
 	
 	/**
 	 * Class Constructor
@@ -62,10 +63,11 @@ public class LevelBuilder {
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
-		behaviorsToSkip = new ArrayList<>();
-		buildBehaviorSkipMap();
-		deserializer = new Serializer();
 		
+		skipManager = new BehaviorSkipManager();
+		behaviorsToSkip = skipManager.getBehaviorsToSkip();
+		
+		deserializer = new Serializer();
 		levelFile = level;
 	}
 	
@@ -166,7 +168,6 @@ public class LevelBuilder {
 		JsonArray jarray = jobject.getAsJsonArray(objectType);
 		for(int i = 0; i < jarray.size(); i++)
 		{
-//			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
 			checkPlayer(ge);
 			checkFoe(ge);
@@ -177,58 +178,24 @@ public class LevelBuilder {
 
 	private void checkPlayer(GameEntity ge) 
 	{
-//		System.out.println("CHECKING THE PLAYER " + ge.getClass());
 		if(ge.getClass().equals(Player.class))
 		{
-//			System.out.println("HERE OMG: " + ge);
 			player = (Player) ge;
 		}
 	}
 	
 	private void checkFoe(GameEntity ge) 
 	{
-//		System.out.println("CHECKING THE FOE " + ge.getClass());
 		if(ge.getClass().equals(Foes.class))
 		{
-			System.out.println("IM DOING THE THING AND SETTING IT");
 			for(Behavior b: ((Foes)ge).getBehaviorList())
 			{
-				System.out.println("this thing" + b.getClass().toString());
 				System.out.println(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]));
 				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
 				{
-					b = getBehavior(b.getClass().toString().split(" ")[1]);
+					b = skipManager.getBehavior(b.getClass().toString().split(" ")[1],player);
 				}
 			}
-		}
-	}
-	
-	private Behavior getBehavior(String behaviorType) {
-		try 
-		{
-			Class behaviorClass = Class.forName(behaviorType);
-			Constructor<?> c = behaviorClass.getConstructor(Player.class);
-			c.setAccessible(true);
-			Object o = c.newInstance(player);
-			System.out.println(o);
-			return (Behavior)o;
-		} 
-		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) 
-		{
-			throw new JsonParseException("Could not create behavior that contains a player");
-		}
-		
-	}
-	
-	private void buildBehaviorSkipMap()
-	{
-		
-		ResourceBundle behaviors = ResourceBundle.getBundle(BEHAVIOR_SKIPS);
-		Enumeration<String> behaviorNames = behaviors.getKeys();
-		while(behaviorNames.hasMoreElements())
-		{
-			String behaviorName = behaviorNames.nextElement();
-			behaviorsToSkip.add(behaviors.getString(behaviorName));
 		}
 	}
 
@@ -243,8 +210,6 @@ public class LevelBuilder {
 	 */
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
-//		System.out.println();
-//		System.out.println("toConvert " + toConvert + "objectType " + objectType);
 		return deserializer.deserialize(toConvert.toString(), objectTypes.get(objectType));
 	}
 }

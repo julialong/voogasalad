@@ -58,6 +58,7 @@ public class Serializer {
 	 */
 	public String serialize(Object obj)	
 	{
+		System.out.println("object being added " + obj);
         return gson.toJson(obj);
 	}
 

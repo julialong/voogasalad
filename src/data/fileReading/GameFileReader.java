@@ -129,14 +129,7 @@ public abstract class GameFileReader {
 		Map<String,String> settingsDetails = new HashMap<>();
 		File settings = getSettings(gameName);
 		try {
-			JsonParser jsonParser = new JsonParser();
-			JsonObject  jobject = jsonParser.parse(new FileReader(settings)).getAsJsonObject();
-			for(String metadata: SETTINGS_DATA)
-			{
-				String info = jobject.get(metadata).getAsString();
-				settingsDetails.put(metadata, info);
-			}
-			return settingsDetails;
+			return createSettingsMap(settings, settingsDetails);
 		}
 		catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) 
 		{
@@ -144,6 +137,17 @@ public abstract class GameFileReader {
 		}
 	}
 	
+	private Map<String, String> createSettingsMap(File settings, Map<String, String> settingsDetails) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
+		JsonParser jsonParser = new JsonParser();
+		JsonObject  jobject = jsonParser.parse(new FileReader(settings)).getAsJsonObject();
+		for(String metadata: SETTINGS_DATA)
+		{
+			String info = jobject.get(metadata).getAsString();
+			settingsDetails.put(metadata, info);
+		}
+		return settingsDetails;
+	}
+
 	public Map<String,Integer> getLevelOrder(String gameName) throws DataFileException
 	{
 		Map<String,Integer> levelOrder = new HashMap<>();
@@ -151,19 +155,23 @@ public abstract class GameFileReader {
 		File levelOrderFile = new File(gameDirectory + NEST + LEVEL_ORDER + JSON_EXTENSION);
 		try 
 		{
-			JsonParser jsonParser = new JsonParser();
-			JsonObject  jobject = jsonParser.parse(new FileReader(levelOrderFile)).getAsJsonObject();
-			JsonArray jarray = jobject.get(ORDER).getAsJsonArray();
-			for(int i = 0; i < jarray.size(); i++)
-			{
-				levelOrder.put(jarray.get(i).getAsString(), i);
-			}
-			return levelOrder;
+			return makeLevelOrder(levelOrderFile, levelOrder);
 		} 
 		catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) 
 		{
 			throw new DataFileException("Could not find level order file for" + gameName, e);
 		}
+	}
+
+	private Map<String, Integer> makeLevelOrder(File levelOrderFile, Map<String, Integer> levelOrder) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
+		JsonParser jsonParser = new JsonParser();
+		JsonObject  jobject = jsonParser.parse(new FileReader(levelOrderFile)).getAsJsonObject();
+		JsonArray jarray = jobject.get(ORDER).getAsJsonArray();
+		for(int i = 0; i < jarray.size(); i++)
+		{
+			levelOrder.put(jarray.get(i).getAsString(), i);
+		}
+		return levelOrder;
 	}
 
 }

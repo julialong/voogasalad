@@ -31,17 +31,6 @@ public interface JSONtoGP {
 	 */
 	Level loadLevel(String gameName, String levelName) throws DataFileException;
 
-	/**
-	 * This will load the different settings associated with a game, i.e the 
-	 * description of the game and whether or not it is ready to be played.
-	 * Returns a map of the setting to the value.
-	 * 
-	 * @param gameName
-	 * @return
-	 * @throws DataFileException 
-	 */
-	@Deprecated
-	Map<String,String> loadSettings(String gameName) throws DataFileException;
 
 	/**
 	 * This returns a Map of the names of the ready to play games and their
