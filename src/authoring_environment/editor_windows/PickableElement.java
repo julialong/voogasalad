@@ -52,7 +52,7 @@ public class PickableElement extends ImageView implements DocumentGetter {
 		this.setFitWidth(REQUESTED_WIDTH);
 		setupDragAndDrop();
 		setupDoubleClick();
-		setupRightClick();
+		//setupRightClick();
 	}
 	
 	public String getType() {
