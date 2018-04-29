@@ -1,4 +1,4 @@
-package authoring_environment;
+package authoring_environment.attribute_editor;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -7,13 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.scene.Group;
+
+
 public interface AttributeGetter {
 	
-	String ATTRIBUTE_RESOURCES = "resources/attributes";
+	String ATTRIBUTE_RESOURCES = "resources/";
 
-	default Map<String, List<String>> loadAttributes() {
+	default Map<String, List<String>> loadAttributes(String file) {
 		HashMap<String, List<String>> attributes = new HashMap<>();
-		ResourceBundle resources = ResourceBundle.getBundle(ATTRIBUTE_RESOURCES);
+		ResourceBundle resources = ResourceBundle.getBundle(ATTRIBUTE_RESOURCES + file);
 		Enumeration<String> attributeOptions = resources.getKeys();
 		while (attributeOptions.hasMoreElements()) {
 			String option = attributeOptions.nextElement();
@@ -30,5 +33,10 @@ public interface AttributeGetter {
 			}
 		}
 		return attributes;
+	}
+	
+	default Group createInputBox(String attribute) {
+		Group group = new Group();
+		return group;
 	}
 }
