@@ -4,32 +4,17 @@ import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import engine.level.BasicLevel;
-import engine.level.Level;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 /**
  * The LevelCreator is a separate window that manages the creation of new levels within the game.
@@ -40,12 +25,9 @@ import java.io.File;
 public class LevelCreator extends LevelModifications{
 
     private Stage myStage;
-    private Scene myScene;
     private BorderPane myRoot;
     private AuthoredLevel newLevel;
     private CreatorView myWindow;
-    private Pane right;
-    private Pane center;
 
     private TextField indexInput;
     private TextField xSizeInput;
@@ -57,7 +39,6 @@ public class LevelCreator extends LevelModifications{
     private static final String SET_SIZE = "Set size";
     private static final String SAVE_LEVEL = "Save level";
     private static final int SMALL_FONT = 15;
-    private static final String CHOOSE_COLOR = "Choose background color";
 
     /**
      * Creates and launches a new LevelCreator window
@@ -68,7 +49,7 @@ public class LevelCreator extends LevelModifications{
         myStage = new Stage();
         myRoot = new BorderPane();
         addFields();
-        myScene = new Scene(myRoot);
+        Scene myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
         myStage.setScene(myScene);
         myStage.setTitle(LEVEL_CREATOR);
@@ -105,7 +86,7 @@ public class LevelCreator extends LevelModifications{
     }
 
     private Pane createRight() {
-        right = new VBox();
+        Pane right = new VBox();
         right.getStyleClass().add("level-right");
         createUploadImageButton(myStage, newLevel, right);
         createBackgroundColorPicker(newLevel, right);
@@ -116,7 +97,7 @@ public class LevelCreator extends LevelModifications{
     }
 
     private Pane createCenter() {
-        center = new HBox();
+        Pane center = new HBox();
         center.getStyleClass().add("level-center");
         // TODO: show grid preview
         return center;
