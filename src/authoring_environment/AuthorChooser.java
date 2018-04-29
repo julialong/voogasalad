@@ -4,7 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,27 +26,27 @@ public class AuthorChooser {
 	private Stage myStage;
 	private Scene myScene;
 	private Pane myRoot;
-	private List<String> myAuthorList;
+	private ListView<String> myAuthorList;
 	private String myAuthor;
 	
 	
 	/**
 	 * This constructor
 	 */
-	public AuthorChooser() {
-		openChooserWindow();
+	public AuthorChooser(Stage stage) {
+		openChooserWindow(stage);
 		
 	}
 	
 	/**
 	 * This method opens the window that allows the user to select their profile 
 	 */
-	private void openChooserWindow() {
-		myRoot = new VBox();
+	private void openChooserWindow(Stage stage) {
+		myRoot = new BorderPane();
 		myScene = new Scene(myRoot);
-		myStage = new Stage();
+		myStage = stage;
 		myStage.setScene(myScene);
-		myAuthorList = addAuthorList();
+		myStage.show();
 		
 	}
 	
@@ -71,12 +75,11 @@ public class AuthorChooser {
 		directory.mkdir();
 	}
 	
-	private List<String> addAuthorList(){
-		List<String> listOfAuthors = new ArrayList<String>();
+	private void addAuthorList(){
 		File folder = new File(GAMEDATA);
-		listOfAuthors.addAll(makeFolderList(folder));
-		
-		return listOfAuthors;
+		ObservableList<String> listOfAuthors = FXCollections.observableArrayList((makeFolderList(folder)));
+		ListView<String> listviewOfAuthors = new ListView<String>(listOfAuthors);
+		myAuthorList = listviewOfAuthors;
 		
 	}
 	
