@@ -10,5 +10,5 @@ public interface Weapon {
 	/**
 	 * Causes the weapon to attack, damaging a target.
 	 */
-	public abstract void attack(GameEntity entity);
+	public abstract void attack();
 }
