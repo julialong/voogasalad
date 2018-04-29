@@ -8,10 +8,20 @@ import engine.entity.GameEntity;
  *
  */
 public class HarmTarget implements Interaction{
+	private int damage;
+	
+	public HarmTarget(){
+		this(1);
+	}
+	
+	public HarmTarget(int damage){
+		this.damage = damage;
+	}
 
 	@Override
 	public void interact(GameEntity source, GameEntity target) {
-		target.setHealth(target.getHealth()-1);
+		//System.out.println("dealing damage to " + target.getClass().getSimpleName() + " in amount of " + damage);
+		target.setHealth(target.getHealth()-damage);
 	}
 
 }

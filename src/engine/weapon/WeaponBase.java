@@ -16,7 +16,7 @@ public abstract class WeaponBase extends GameObject implements Weapon{
     protected Level level;
     protected double offset = 2;
     protected DetectCollision collisionDetector = new DetectCollision();
-    protected HarmTarget dealDamage = new HarmTarget();
+    protected HarmTarget dealDamage;
     protected ArrayList<GameEntity> listOfEntities = new ArrayList<>();
     protected double xHolderSize;
     protected double yHolderSize;
@@ -29,6 +29,7 @@ public abstract class WeaponBase extends GameObject implements Weapon{
     protected double holderXPos;
     protected double holderYPos;
     protected boolean active = false;
+    protected int damage = 1;
 	
     public WeaponBase(GameEntity entity, Level level){
 		kinematics = new Kinematics(0,0,0,0,0,0);
@@ -80,6 +81,7 @@ public abstract class WeaponBase extends GameObject implements Weapon{
 	    	}
 		    if(!collisionDetector.detect(hitBox, entity).equals("none")){
 			    if(entity.getDestructible()) {
+			    	dealDamage = new HarmTarget(damage);
 				    dealDamage.interact(hitBox, entity);
 			    }
 		    }

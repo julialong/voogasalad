@@ -148,8 +148,8 @@ public class EngineTestVisual extends Application{
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
 		//player.setWeapon(new SwingingWeapon(player, level));
-		player.setWeapon(new StabbingWeapon(player, level, 50, 5));
-		//player.setWeapon(new AOEWeapon(player, level));
+		//player.setWeapon(new StabbingWeapon(player, level, 1));
+		//player.setWeapon(new AOEWeapon(player, level, 1));
 //		player.setWeapon(new ShootingWeapon(player, level));
 
 //		List<Behavior> bulletBehaviors = new ArrayList<>();
@@ -171,6 +171,7 @@ public class EngineTestVisual extends Application{
 //		bullet.setMaxXVelocity(25);
 //		bullet.setMaxYVelocity(500);
 //		bullet.setJumpFactor(150);
+		
 		/* Arrow-Like Bullet */
 		bullet.addBehavior(new MoveForward());
 		bullet.setMovementType(new Grounded());
