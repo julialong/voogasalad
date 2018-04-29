@@ -83,9 +83,8 @@ public class AuthoredLevel implements DocumentGetter {
         myLevel.setSize(myScrollingGrid.getCellSize() * x, myScrollingGrid.getCellSize() * y);
     }
 
-    public int[] getSize() {
-        //int[] = myLevel.get
-        return new int[2];
+    public double[] getSize() {
+        return myLevel.getSize();
     }
 
     public int[] getGridSize() {
