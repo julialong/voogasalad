@@ -2,13 +2,14 @@ package data.fileReading;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import data.builders.LevelBuilder;
 import data.resources.DataFileException;
 import engine.level.Level;
+import data.levelBuilders.LevelBuilder;
 /**
  *  This class holds the implementation for the methods that allow the Game Player to load games and files
  * for play.
@@ -22,7 +23,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 	 */
 	public GPGameFileReader()
 	{
-
+		//Constructor is empty
 	}
 	
 	/**
@@ -46,15 +47,28 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 				int index = gameFile.toString().lastIndexOf(NEST) + 1;
 				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
 				String levelName = gameFile.toString().substring(index,endIndex).trim();
-				if(!levelName.equals(SETTINGS))
+				if(!levelName.equals(SETTINGS) && !levelName.equals(LEVEL_ORDER))
 				{
 					completeGame.add(loadLevel(gameName, levelName));
 				}
 			}			
 		}
+		completeGame = orderLevels(gameName, completeGame);
 		return completeGame;
 	}
 
+	private List<Level> orderLevels(String gameName, List<Level> levels) throws DataFileException
+	{
+		Map<String,Integer> levelOrder = getLevelOrder(gameName);
+		Level[] orderedLevels = new Level[levels.size()];
+		for(Level level: levels)
+		{
+			int position = levelOrder.get(level.getName());
+			orderedLevels[position] = level;
+		}
+		return Arrays.asList(orderedLevels);
+	}
+	
 	/**
 	 * This will load a specific level within a game based on the game name 
 	 * and the name of the level. Will return the Level object associated with 
@@ -72,6 +86,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 		return levelBuilder.buildLevel();
 	}
 
+	//DOES GP NEED THIS???
 	/**
 	 * This will load the different settings associated with a game, i.e the 
 	 * description of the game and whether or not it is ready to be played.
@@ -82,6 +97,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 	 * @throws DataFileException 
 	 */
 	@Override
+	@Deprecated
 	public Map<String, String> loadSettings(String gameName) throws DataFileException {
 		return getSettingsMap(gameName);
 	}
@@ -99,7 +115,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 		List<String> allGameNames = getAllGameNames();
 		for(String gameName: allGameNames)
 		{
-			Map<String,String> gameSettings = loadSettings(gameName);
+			Map<String,String> gameSettings = getSettingsMap(gameName);
 			if(Boolean.parseBoolean(gameSettings.get(READY)))
 			{
 				gameNames.put(gameName, gameSettings.get(DESCRIPTION));

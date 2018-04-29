@@ -18,7 +18,16 @@ public class MoveForward implements Behavior {
 	        this.player = player;
 	    }
 	    
-	    @Override
+	    public MoveForward() {
+			// TODO Auto-generated constructor stub
+		}
+	    
+	    public void setPlayer(Player player)
+	    {
+	    	this.player = player;
+	    }
+	   
+		@Override
 	    public void update(GameEntity entity) {
 	        action.execute(entity);
 	    }

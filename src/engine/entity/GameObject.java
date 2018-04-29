@@ -142,6 +142,10 @@ public abstract class GameObject implements GameEntity{
 		return interactionsMap;
 	}
 	
+	public void clearInteractionMap() {
+		interactionsMap.clear();
+	}
+	
 	public List<Interaction> getInteractions() {
 		return interactionList;
 	}
@@ -204,6 +208,10 @@ public abstract class GameObject implements GameEntity{
 	
 	public String getElementID() {
 		return myElementID;
+	}
+	
+	public List<Behavior> getBehaviorList() {
+		return behaviorList;
 	}
 
 	public void update() {
