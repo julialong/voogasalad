@@ -11,14 +11,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javax.xml.transform.TransformerException;
 
+import authoring_environment.AttributeGetter;
 import authoring_environment.authored_elements.GameElement;
 import authoring_environment.toolbars.buttons.AddImageButton;
 import authoring_environment.toolbars.buttons.CloseAttributeEditorButton;
@@ -44,11 +43,9 @@ import javafx.stage.Stage;
  * Date started: April 3 2018
  *
  */
-// TODO: refactor this class into smaller classes to reduce number of dependencies
 // TODO: get rid of strings in methods 
-public class AttributeEditor {
+public class AttributeEditor implements AttributeGetter  {
 
-	private static final String ATTRIBUTE_RESOURCES = "resources/attributes";
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
 	private static final String INPUT_ID = "Please enter a custom element ID: ";
@@ -58,6 +55,10 @@ public class AttributeEditor {
 	private static final String GAME_ENTITY = "GameEntity";
 	private static final String CUSTOM_IMAGES_FOLDER = "data/authoredElementImages/";
 	private static final String  SLASH = "/";
+	private static final String DIMENSIONX = "X Dimension";
+	private static final String DIMENSIONY = "Y Dimension";
+	private static final String DEFAULT = "1";
+	
 
 	private GameElement gameElement;
 	private String elementID; 
@@ -72,41 +73,38 @@ public class AttributeEditor {
 	private File imageFile;
 	private URI imageURI;
 	private URL imageURL;
+	private String xDim;
+	private String yDim;
 
 
-
-	public AttributeEditor(GameElement element) {
-		chosenAttributes = new HashMap<>() ;
-		gameElement= element;
+	/**
+	 * 
+	 */
+	public AttributeEditor() {
 		setUpEditorWindow();
+		xDim = DEFAULT;
+		yDim = DEFAULT;
+		chosenAttributes = new HashMap<>() ;
+		gameElement= new GameElement();
 		attributes = loadAttributes();
 		AttributeComboBoxesPane boxesPane = new AttributeComboBoxesPane(attributes, this);
 		attributeBoxes = boxesPane.getAttributeBoxes();
 		organizeEditor();
 		
 	}
-
-	private Map<String, List<String>> loadAttributes() {
-		HashMap<String, List<String>> attributes = new HashMap<>();
-		ResourceBundle resources = ResourceBundle.getBundle(ATTRIBUTE_RESOURCES);
-		Enumeration<String> attributeOptions = resources.getKeys();
-		while (attributeOptions.hasMoreElements()) {
-			String option = attributeOptions.nextElement();
-			String type = resources.getString(option);
-			if(attributes.containsKey(type)) {
-				List<String> optionList = attributes.get(type);
-				optionList.add(option);
-				attributes.put(type, optionList);
-			}
-			else {
-				List<String> optionList = new ArrayList<>();
-				optionList.add(option);
-				attributes.put(type, optionList);
-			}
-		}
-		return attributes;
-	}
 	
+	public AttributeEditor(GameElement element) {
+		gameElement = element;
+		chosenAttributes = gameElement.getAttributes();
+		xDim = gameElement.getDimensions().get(0);
+		yDim = gameElement.getDimensions().get(1);
+		AttributeComboBoxesPane boxesPane = new AttributeComboBoxesPane(attributes, chosenAttributes, this);
+		attributeBoxes = boxesPane.getAttributeBoxes();
+		setUpEditorWindow();
+		organizeEditor();
+		
+	}
+
 	private void setUpEditorWindow() {
 		BorderPane myRoot= new BorderPane();
 		myRoot.getStyleClass().add("attribute-editor");
@@ -150,7 +148,36 @@ public class AttributeEditor {
         myTitlePane.getChildren().add(submitButton);
     }
 	
+	private void createDimensionsInputs() {
+			Label x = new Label(DIMENSIONX);
+	        x.setFont(new Font(SMALL_FONT));
+	        myAttributePane.getChildren().add(x);
+	        TextField xInput = new TextField();
+	        myAttributePane.getChildren().add(xInput);
+	        Label y = new Label(DIMENSIONY);
+	        y.setFont(new Font(SMALL_FONT));
+	        myAttributePane.getChildren().add(y);
+	        TextField yInput = new TextField();
+	        myAttributePane.getChildren().add(yInput);
+	        createDimensionsButton(xInput, yInput, x, y);
+	}
+	
+	private void createDimensionsButton(TextField xInput, TextField yInput, Label instructionX, Label instructionY) {
+        Button submitButton = new Button(SUBMIT);
+        submitButton.setOnAction(e -> {
+            myAttributePane.getChildren().removeAll(xInput, yInput, instructionX, instructionY);
+            xDim = xInput.getText();
+            yDim = yInput.getText();
+            Text name = new Text("Element ID: " + elementID);
+            name.setFont(new Font(LARGE_FONT));
+            myAttributePane.getChildren().add(name);
+            gameElement.setID(elementID);
+        });
+        myAttributePane.getChildren().add(submitButton);
+    }
+	
 	private void organizeEditor() {
+		createDimensionsInputs();
 		setUpInputBox();
 		for(ComboBox<String> attributeBox: attributeBoxes) {
 			myAttributePane.getChildren().add(attributeBox);
@@ -158,6 +185,7 @@ public class AttributeEditor {
 		
 		myAttributePane.getChildren().add(new CloseAttributeEditorButton(this));
 		myImagePane.getChildren().add(new AddImageButton(this));
+		
 	}
 	
 	/**
@@ -204,6 +232,7 @@ public class AttributeEditor {
 			// TODO: Handle this error
 			e.printStackTrace();
 		}
+		gameElement.updateDimensions(xDim, yDim);
 		gameElement.uploadImage(target.toString());
 		gameElement.updateAttributes(chosenAttributes);
 		window.close();

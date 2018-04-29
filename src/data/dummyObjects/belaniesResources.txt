@@ -21,5 +21,6 @@ https://stackoverflow.com/questions/4917326/how-to-iterate-over-the-files-of-a-c
 http://javabeginnerstutorial.com/code-base/java-rename-directory-example/
 https://stackoverflow.com/questions/4795349/how-to-serialize-a-class-with-an-interface/9550086#9550086
 https://stackoverflow.com/questions/1538755/how-to-convert-string-object-to-boolean-object
+https://docs.oracle.com/javafx/2/api/javafx/scene/paint/Color.html
 
 GET RID OF PRINTSTACKTRACES!!!

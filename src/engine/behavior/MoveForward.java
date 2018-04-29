@@ -18,8 +18,8 @@ public class MoveForward implements Behavior {
 	    public MoveForward(){
 	        //this.player = player;
 	    }
-	    
-	    @Override
+	   
+		@Override
 	    public void update(GameEntity entity) {
 	        if(entity.getKinematics().getXVelocity() > 0){
 	        	action = new MoveRight();

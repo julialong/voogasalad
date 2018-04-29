@@ -12,6 +12,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -30,7 +32,7 @@ public class ElementPicker {
 
 	private GridPane myElementGrid;
 	private ScrollPane myScrollPane;
-	private ArrayList<ImageView> myElementImages;
+	private ArrayList<PickableElement> myElementImages;
 	private String myTypeChoice;
 	private RightBar myRightBar;
 	
@@ -44,10 +46,11 @@ public class ElementPicker {
 		myElementGrid.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
 		myElementGrid.setHgap(GAP);
 		myElementGrid.setVgap(GAP);
-		myElementImages = new ArrayList<ImageView>();
+		myElementImages = new ArrayList<PickableElement>();
 		loadImages(myTypeChoice);
 		setElements();
-		
+		Clipboard clipboard = Clipboard.getSystemClipboard();
+		clipboard.clear();
 	}
 	
 	public ScrollPane getElementPane() {
@@ -70,7 +73,7 @@ public class ElementPicker {
 			for(File file : imageFiles) {
 				String fileName = file.getName();
 				String ID = fileName.substring(0, fileName.lastIndexOf('.'));
-				PickableElement element = new PickableElement(ID);
+				PickableElement element = new PickableElement(ID, this);
 				myElementImages.add(element);
 			}
 		}
@@ -95,6 +98,24 @@ public class ElementPicker {
 			}
 		}
 		
+	}
+	
+	public void lockElement(String ID) {
+		for (PickableElement element : myElementImages) {
+			if (element.isLocked() && element.getID() != ID) {
+				element.unlock();
+			}
+		}
+		Clipboard clipboard = Clipboard.getSystemClipboard();
+		clipboard.clear();
+		ClipboardContent content = new ClipboardContent();
+	    content.putString(ID);
+	    clipboard.setContent(content);
+	}
+	
+	public void unlockElement() {
+		Clipboard clipboard = Clipboard.getSystemClipboard();
+		clipboard.clear();
 	}
 
 }

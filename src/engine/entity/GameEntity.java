@@ -270,6 +270,9 @@ public interface GameEntity {
 	 */
 	public abstract List<Interaction> getInteractions();
 	
+	//ADDED THIS FOR TESTING - BELANIE
+	public abstract List<Behavior> getBehaviorList(); 
+	
 	/**
 	 * Returns true if an entity is destructible
 	 */
