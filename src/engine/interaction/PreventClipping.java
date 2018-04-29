@@ -35,6 +35,7 @@ public class PreventClipping implements Interaction{
 			// Move top of target to bottom of source
 //			target.overridePosition(target.getPosition()[0], source.getPosition()[1] - target.getSizeY());
 			target.setY(source.getPosition()[1] - target.getSizeY());
+			target.setYVelocity(0);
 		}
 		if (collisionType.equals("left"))
 		{

@@ -45,12 +45,4 @@ public class Foes extends Enemy {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void update() {
-		for(Behavior behavior : behaviorList) {
-			behavior.update(this);
-		}
-		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
-	}
 }

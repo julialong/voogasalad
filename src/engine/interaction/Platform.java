@@ -15,7 +15,7 @@ public class Platform implements Interaction{
 		
 		String collisionType = new DetectCollision().detect(source, target);
 		
-		if(!collisionType.equals("bottom")) {
+		if(collisionType.equals("top")) {
 			new PreventClipping().interact(source, target);
 		}
 	}
