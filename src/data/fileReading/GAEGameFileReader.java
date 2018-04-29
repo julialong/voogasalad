@@ -45,18 +45,22 @@ public class GAEGameFileReader extends GameFileReader implements JSONtoGAE {
 		File[] gameFiles = currentGame.listFiles();
 		for(File gameFile: gameFiles)
 		{
-				int index = gameFile.toString().lastIndexOf(NEST) + 1;
-				int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
-				String levelName = gameFile.toString().substring(index,endIndex).trim();
-				if(!levelName.equals(SETTINGS) && !levelName.equals(LEVEL_ORDER))
-				{
-					completeGame.add(loadAuthoredGameLevel(gameName, levelName));
-				}		
+			addLevel(gameFile, completeGame, gameName);
 		}
 		completeGame = orderLevels(gameName,completeGame);
 		return completeGame;
 	}
 	
+	private void addLevel(File gameFile, List<AuthoredLevel> completeGame, String gameName) throws DataFileException {
+		int index = gameFile.toString().lastIndexOf(NEST) + 1;
+		int endIndex = gameFile.toString().lastIndexOf(JSON_EXTENSION);
+		String levelName = gameFile.toString().substring(index,endIndex).trim();
+		if(!levelName.equals(SETTINGS) && !levelName.equals(LEVEL_ORDER))
+		{
+			completeGame.add(loadAuthoredGameLevel(gameName, levelName));
+		}		
+	}
+
 	private List<AuthoredLevel> orderLevels(String gameName, List<AuthoredLevel> levels) throws DataFileException
 	{
 		Map<String,Integer> levelOrder = getLevelOrder(gameName);
