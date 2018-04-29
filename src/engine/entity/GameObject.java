@@ -134,7 +134,9 @@ public abstract class GameObject implements GameEntity{
 	public void interact(GameEntity source, GameEntity target, String direction) {
 		interactionsMap.put(target, direction);
 		for(Interaction i : interactionList) {
-			i.interact(source, target);
+			if (i != null) {
+				i.interact(source, target);
+			}
 		}
 	}
 	
