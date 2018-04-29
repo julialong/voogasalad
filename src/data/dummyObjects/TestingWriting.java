@@ -71,7 +71,7 @@ public class TestingWriting {
 		one.addObject(wall);
 
 		// small block that can be pushed on the right side of the big block
-		Foes enemy = new Foes();
+		Enemy enemy = new Enemy();
 		enemy.overridePosition(30, -170);
 		enemy.setSizeX(10);
 		enemy.setSizeY(30);
@@ -82,7 +82,7 @@ public class TestingWriting {
 		one.addObject(enemy);
 
 		// small block that can be pushed on the left side of the big block
-		Foes enemy3 = new Foes();
+		Enemy enemy3 = new Enemy();
 		enemy3.overridePosition(-70, -170);
 		enemy3.setSizeX(10);
 		enemy3.setSizeY(20);
@@ -93,7 +93,7 @@ public class TestingWriting {
 		one.addObject(enemy3);
 
 		// enemy that player kills by jumping on. should chase the player
-		Foes enemy2 = new Foes();
+		Enemy enemy2 = new Enemy();
 		enemy2.overridePosition(-85, -170);
 		enemy2.setSizeX(10);
 		enemy2.setSizeY(20);

@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
  * @author Robert Gitau and Marcus Oertle
  *
  */
-public class Player extends PlayerCharacter{
+public class Player extends GameObject{
     private Weapon weaponType;
     private ArrayList<PowerUp> powerupList = new ArrayList<>();
     private boolean levelComplete = false;
@@ -71,12 +71,10 @@ public class Player extends PlayerCharacter{
 		kinematics = movementType.update(kinematics, maxVelocityX, maxVelocityY);
 	}
 
-	@Override
 	public void setLevelComplete(boolean levelComplete) {
 		this.levelComplete = levelComplete;
 	}
 
-	@Override
 	public boolean getLevelComplete() {
 		return levelComplete;
 	}

@@ -11,7 +11,7 @@ import engine.behavior.MoveBetweenThresholds;
 import engine.behavior.MoveForward;
 import engine.controls.Controls;
 import engine.entity.Block;
-import engine.entity.Foes;
+import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.interaction.AddPowerup;
@@ -27,6 +27,9 @@ import engine.movement.Grounded;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
 import engine.powerup.SpeedBoost;
+import engine.weapon.AOEWeapon;
+import engine.weapon.ShootingWeapon;
+import engine.weapon.StabbingWeapon;
 import engine.weapon.SwingingWeapon;
 import engine.weapon.Weapon;
 import javafx.animation.KeyFrame;
@@ -94,7 +97,7 @@ public class EngineDemo1 extends Application{
 		player.setFrictionConstant(200);
 		player.setJumpFactor(300);
 		controls = new Controls(player);
-		player.setWeapon(new SwingingWeapon(player, level));
+		player.setWeapon(new ShootingWeapon(player, level));
 		level.addObject(player);
 		
 		// Block 1
@@ -128,7 +131,7 @@ public class EngineDemo1 extends Application{
 			if(ge instanceof Player){
 				entityImage.setFill(Color.BLUE);
 			}
-			if(ge instanceof Foes){
+			if(ge instanceof Enemy){
 				entityImage.setFill(Color.RED);
 			}
 			root.getChildren().add(entityImage);
@@ -145,14 +148,28 @@ public class EngineDemo1 extends Application{
 	}
 
 	private void step(double secondDelay) {
+		Rectangle entityImage = null;
+		boolean addEntity = false;
+		for(GameEntity ge : level.getObjects()){
+			if(!geRectMap.keySet().contains(ge)){
+				entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
+				entityImage.setFill(Color.BLACK);
+				geRectMap.put(ge, entityImage);
+				addEntity = true;
+			}
+		}
 		level.update();
+		if(addEntity){
+			root.getChildren().add(entityImage);
+			addEntity = false;
+		}
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
 		for(GameEntity ge : geRectMap.keySet()){
 			if(level.getObjects().contains(ge)) {
 				geRectMap.get(ge).setX(ge.getScenePosition()[0]);
 				geRectMap.get(ge).setY(ge.getScenePosition()[1]);
 				if(ge instanceof Weapon){
-					geRectMap.get(ge).setRotate(((SwingingWeapon) ge).getAngle());
+					geRectMap.get(ge).setRotate(((Weapon) ge).getAngle());
 				}
 			}
 			else {
