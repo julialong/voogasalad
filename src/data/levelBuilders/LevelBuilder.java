@@ -3,8 +3,6 @@ package data.levelBuilders;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -16,7 +14,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
@@ -24,7 +21,6 @@ import data.resources.DataFileException;
 import data.serialization.BehaviorSkipManager;
 import data.serialization.Serializer;
 import engine.behavior.Behavior;
-import engine.behavior.MoveForward;
 import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
@@ -89,7 +85,6 @@ public class LevelBuilder {
 			String objectName = objectNames.nextElement();
 			try 
 			{
-				System.out.println(objectName);
 				Class<?> objectClass = Class.forName(gameObjects.getString(objectName));
 				objectTypes.put(objectName, objectClass);
 			} 
