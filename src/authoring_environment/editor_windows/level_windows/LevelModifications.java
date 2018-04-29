@@ -60,6 +60,12 @@ abstract class LevelModifications {
         box.getChildren().add(submitButton);
     }
 
+    /**
+     * Creates the button to upload a background image
+     * @param myStage is the current stage
+     * @param newLevel is the level that is being edited
+     * @param pane is the pane to add the upload image name to
+     */
     void createUploadImageButton(Stage myStage, AuthoredLevel newLevel, Pane pane) {
         Button backgroundImage = new Button(CHOOSE_FILE);
         backgroundImage.setOnAction(e -> {
@@ -67,6 +73,7 @@ abstract class LevelModifications {
             imageChooser.getExtensionFilters().add(
                     new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
             selectedImageFile =  imageChooser.showOpenDialog(myStage);
+            backgroundImage.setText(selectedImageFile.getPath());
             newLevel.setBackground(new Background(new BackgroundImage(new Image(selectedImageFile.toURI().toString()),
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT,
@@ -80,6 +87,11 @@ abstract class LevelModifications {
         pane.getChildren().add(backgroundImage);
     }
 
+    /**
+     * Creates the color picker to choose background image
+     * @param newLevel is the level that is being edited
+     * @param pane is the pane to add the color picker to
+     */
     void createBackgroundColorPicker(AuthoredLevel newLevel, Pane pane) {
         ColorPicker colorPicker = new ColorPicker();
         colorPicker.setOnAction(e -> {
