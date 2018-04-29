@@ -35,9 +35,9 @@ public class TestingGSON {
 		
 //		System.out.println(File.separator);
 		
-		GAEGameFileReader gae = new GAEGameFileReader();
+		GPGameFileReader gae = new GPGameFileReader();
 		try {
-			System.out.println(gae.loadCompleteAuthoredGame("ErrorWithEnemies"));
+			System.out.println(gae.loadCompleteGame("ErrorWithEnemies"));
 		} catch (DataFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -11,6 +11,7 @@ import java.util.Map;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.resources.DataFileException;
 import engine.entity.GameEntity;
+import engine.level.Level;
 
 /**
  * @author Maya Messinger
@@ -29,7 +30,6 @@ public class TextWriter	{
 
 	private static final String DESCRIPTION = "description";
 	private static final String READYTOPLAY = "readyToPlay";
-	private static final String LEVELSTART = "startLevel";
 
 	private Serializer ser = new Serializer();
 
@@ -77,13 +77,13 @@ public class TextWriter	{
 		}
 	}
 
-	private void callWrite(File orders, List<AuthoredLevel> levels) throws DataFileException	{
+	private void callWrite(File orders, List<Level> levels) throws DataFileException	{
 		try	{
 			FileWriter fw = new FileWriter(orders);
 		
 			startFile(fw);
 			startArray(fw, "order");
-			for (AuthoredLevel level:levels)	{
+			for (Level level:levels)	{
 				fw.write(QUOTE + level.getName() + QUOTE);
 				checkWriteComma(fw, levels.indexOf(level), levels.size());
 				newLine(fw);
@@ -118,8 +118,6 @@ public class TextWriter	{
 			fw.write(QUOTE + READYTOPLAY + QUOTE + COLON + ready);
 			fw.write(COMMA);
 			newLine(fw);
-			fw.write(QUOTE + LEVELSTART + QUOTE + COLON + levelStart);
-			newLine(fw);
 		}
 		catch (IOException e)	{
 			error(e, fw);
@@ -133,6 +131,10 @@ public class TextWriter	{
 	private void writeObjects(FileWriter fw, List<GameEntity> items) throws DataFileException	{
 		if (items.size() > 0)	{
 			checkWriteComma(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		}
+
+		for (GameEntity obj:items)	{
+			obj.clearInteractionMap();
 		}
 
 		int entryIndex = 0;

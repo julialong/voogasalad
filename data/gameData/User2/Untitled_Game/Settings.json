@@ -1,5 +1,4 @@
 {
-"description":"no description",
-"readyToPlay":true,
-"startLevel":0
+"description":"A basic game.",
+"readyToPlay":false,
 }

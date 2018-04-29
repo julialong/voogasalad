@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 
 
 /**
@@ -40,6 +39,7 @@ public class AuthoredLevel implements DocumentGetter {
         myLevel = level;
         myScrollingGrid = scrollingGrid;
         myScrollingGrid.setMediator(this);
+        myLevel.setColor(Color.WHITE);
     }
 
     /**
@@ -62,6 +62,10 @@ public class AuthoredLevel implements DocumentGetter {
         myScrollingGrid.setBackground(background);
     }
 
+    public void setImagePath(String imagePath) {
+        // myLevel.setImage(imagePath)
+    }
+
     /**
      * Sets the background color of the level object
      * @param color is the desired background color
@@ -77,9 +81,14 @@ public class AuthoredLevel implements DocumentGetter {
      */
     public void setSize(double x, double y) {
         myScrollingGrid.resize((int)x, (int)y);
+        myLevel.setSize(myScrollingGrid.getCellSize() * x, myScrollingGrid.getCellSize() * y);
     }
 
-    public int[] getSize() {
+    public double[] getSize() {
+        return myLevel.getSize();
+    }
+
+    public int[] getGridSize() {
         int[] lengthArray = {myScrollingGrid.getCellArray().length, myScrollingGrid.getCellArray()[0].length};
         return lengthArray;
     }
@@ -116,10 +125,18 @@ public class AuthoredLevel implements DocumentGetter {
         String powerup = objectDoc.getDocumentElement().getAttribute("PowerUp");
         String projectile = objectDoc.getDocumentElement().getAttribute("Projectile");
         String weapon = objectDoc.getDocumentElement().getAttribute("Weapon");
-        // int xSize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("XDimension"));
-        // int ySize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("YDimension"));
+        int xSize;
+        int ySize;
+        try {
+            xSize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("XDimension"));
+            ySize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("YDimension"));
+        }
+        catch (Exception e) {
+            xSize = 1;
+            ySize = 1;
+        }
 
-        newEntity = createObject(type, x, y);
+        newEntity = createObject(type, x * cellSize, y * cellSize);
         if (newEntity == null) {
             return null;
         }
@@ -128,9 +145,11 @@ public class AuthoredLevel implements DocumentGetter {
         newEntity.setMovementType(createMovement(movement));
         newEntity.addInteraction(createInteraction(interaction));
         // newEntity.addPowerUp(createPowerUp(powerup));
-        // newEntity.setSizeX(xSize * cellSize);
-        // newEntity.setSizeY(ySize * cellSize);
+        newEntity.setSizeX(xSize * cellSize);
+        newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
+        System.out.println("size: " + newEntity.getSizeX() + ", " + newEntity.getSizeY());
+        System.out.println("location: " + newEntity.getKinematics().getX() + ", " + newEntity.getKinematics().getY());
         return newEntity;
     }
 

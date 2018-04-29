@@ -118,6 +118,7 @@ public class VoogaGameView implements GameView {
 			if (ge instanceof Player) {
 				myControls = new Controls((Player) ge);
 			}
+
 			System.out.println("imgPath: " + imgPath);
 			ImageView entityImage = new ImageView(
 					new Image(imgPath, adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));

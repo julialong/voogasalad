@@ -1,6 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-import authoring_environment.authored_elements.AuthoredElementCreator;
+import authoring_environment.editor_windows.AttributeEditor;
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.editor_windows.level_windows.LevelCreator;
 import authoring_environment.game_elements.AuthoredLevel;
@@ -51,14 +51,14 @@ public class InsertButton extends MenuButton {
 
     private MenuItem createObject() {
         MenuItem objectItem = new MenuItem(OBJECT);
-        objectItem.setOnAction(e -> new AuthoredElementCreator());
+        objectItem.setOnAction(e -> new AttributeEditor());
         return objectItem;
     }
 
     private void addLevel() {
         AuthoredLevel splashScreen = new AuthoredLevel(new BasicLevel(), new ScrollingGrid());
         splashScreen.setName(SPLASH_SCREEN);
-        splashScreen.setSize(50, 25);
+        splashScreen.setSize(15, 25);
         myWindow.getGame().addLevel(splashScreen);
     }
 

@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 public class SaveSettingsButton extends Button{
 
     private static final String SAVE_SETTINGS = "Save Game Settings";
-    private String gameName;
-    private String description;
 
     /**
      * Creates a new SaveGameButton
@@ -26,8 +24,8 @@ public class SaveSettingsButton extends Button{
     }
 
     private void saveSettings(CreatorView myWindow, Stage stage, TextField gameNameField, TextField descriptionField) {
-        gameName = gameNameField.getText();
-        description = descriptionField.getText();
+        String gameName = gameNameField.getText();
+        String description = descriptionField.getText();
     		myWindow.getGame().rename(gameName);
     		myWindow.getGame().setDescription(description);
     		System.out.println(myWindow.getGame().getName());

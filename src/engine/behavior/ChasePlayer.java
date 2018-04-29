@@ -22,6 +22,9 @@ public class ChasePlayer implements Behavior{
     private Action actionDown = new MoveDown();
     private Player player;
     
+    public ChasePlayer() {	
+    }
+    
     public ChasePlayer(Player player){
         this.player = player;
     }

@@ -1,15 +1,17 @@
 package authoring_environment.editor_windows;
 
 import authoring_environment.DocumentGetter;
+import authoring_environment.authored_elements.GameElement;
 import authoring_environment.toolbars.choosers.ElementPicker;
 
 import org.w3c.dom.Document;
 
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -50,6 +52,7 @@ public class PickableElement extends ImageView implements DocumentGetter {
 		this.setFitWidth(REQUESTED_WIDTH);
 		setupDragAndDrop();
 		setupDoubleClick();
+		setupRightClick();
 	}
 	
 	public String getType() {
@@ -76,8 +79,8 @@ public class PickableElement extends ImageView implements DocumentGetter {
 				} else {
 					lock();
 					myPicker.lockElement(myID);
+					this.getScene().setCursor(new ImageCursor(myImage));
 				}
-				
 			}
 		});
 	}
@@ -90,6 +93,7 @@ public class PickableElement extends ImageView implements DocumentGetter {
 	public void unlock() {
 		locked = false;
 		this.setEffect(null);
+		this.getScene().setCursor(Cursor.DEFAULT);
 	}
 	
 	public boolean isLocked() {
@@ -110,4 +114,14 @@ public class PickableElement extends ImageView implements DocumentGetter {
 	private Document parseElementXML(String ID) {
         return getDocument(ID, ELEMENT_DATA_PATH);
     }
+	
+	private void setupRightClick() {
+		this.setOnMouseClicked( e-> {
+			if(e.isControlDown()) {
+				GameElement element = new GameElement(myID);
+				AttributeEditor editor = new AttributeEditor(element);
+			}
+		}
+		);
+	}
 }

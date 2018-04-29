@@ -14,17 +14,11 @@ public class MoveForward implements Behavior {
 		private Action action = new MoveLeft();
 	    private Player player;
 	    
-	    public MoveForward(Player player){
-	        this.player = player;
-	    }
-	    
 	    public MoveForward() {
-			// TODO Auto-generated constructor stub
 		}
 	    
-	    public void setPlayer(Player player)
-	    {
-	    	this.player = player;
+	    public MoveForward(Player player){
+	        this.player = player;
 	    }
 	   
 		@Override

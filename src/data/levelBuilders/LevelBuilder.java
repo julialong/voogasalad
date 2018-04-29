@@ -3,6 +3,8 @@ package data.levelBuilders;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -14,10 +16,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import data.resources.DataFileException;
+import data.serialization.BehaviorSkipManager;
 import data.serialization.Serializer;
 import engine.behavior.Behavior;
 import engine.behavior.MoveForward;
@@ -26,6 +30,7 @@ import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
+import javafx.scene.paint.Color;
 
 /**
  * Creates levels to return to the Game Player when a
@@ -40,12 +45,15 @@ public class LevelBuilder {
 	private static final String BEHAVIOR_SKIPS = "data.resources/behaviorsToSkip";
 	private static final String NAME = "name";
 	private static final String COLOR = "color";
+	private static final String WIDTH = "width";
+	private static final String HEIGHT = "height";
 	private Map<String,Class<?>> objectTypes;
 	private List<String> behaviorsToSkip;
-	private Serializer deserializer;
+	private Serializer deserializer; 
 	private File levelFile;
 	private Player player;
-
+	private BehaviorSkipManager skipManager;
+	
 	/**
 	 * Class Constructor
 	 *
@@ -59,10 +67,12 @@ public class LevelBuilder {
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
-//		behaviorsToSkip = new ArrayList<>();
-//		buildBehaviorSkipMap();
-		deserializer = new Serializer();
 
+		
+		skipManager = new BehaviorSkipManager();
+		behaviorsToSkip = skipManager.getBehaviorsToSkip();
+		
+		deserializer = new Serializer();
 		levelFile = level;
 	}
 
@@ -81,6 +91,7 @@ public class LevelBuilder {
 			String objectName = objectNames.nextElement();
 			try
 			{
+				System.out.println(objectName);
 				Class<?> objectClass = Class.forName(gameObjects.getString(objectName));
 				objectTypes.put(objectName, objectClass);
 			}
@@ -125,10 +136,13 @@ public class LevelBuilder {
 	private void addMetaData(Level level, JsonObject jobject)
 	{
 		String levelName = jobject.get(NAME).getAsString();
-//		Color color = Color.web(jobject.get(COLOR).getAsString());
 
+		Color color = Color.web(jobject.get(COLOR).getAsString());
+		Double width = jobject.get(WIDTH).getAsDouble();
+		Double height = jobject.get(HEIGHT).getAsDouble();
 		level.setName(levelName);
-//		level.setColor(color);
+		level.setColor(color);
+		level.setSize(width, height);
 	}
 
 	/**
@@ -163,65 +177,48 @@ public class LevelBuilder {
 		JsonArray jarray = jobject.getAsJsonArray(objectType);
 		for(int i = 0; i < jarray.size(); i++)
 		{
-//			System.out.println("JArray Item " + jarray.get(i).getAsJsonObject());
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
-//			checkPlayer(ge);
-			if(ge.getClass().equals(Player.class))
-			{
-//				System.out.println("HERE OMG: " + ge);
-				player = (Player) ge;
-			}
-//			checkFoe(ge);
-			if(ge.getClass().equals(Foes.class))
-			{
-//				System.out.println("IM DOING THE THING AND SETTING IT");
-				for(Behavior b: ((Foes)ge).getBehaviorList())
-				{
-					System.out.println(b.getClass().toString());
-//					if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
-//					{
-					if(b.getClass().equals(MoveForward.class))
-					{
-//						System.out.println("THIS IS A MOVE FORWARD ALERT");
-						((MoveForward)b).setPlayer(player);
-					}
-				}
-			}
-//			System.out.println(ge.getScenePosition());
+			checkPlayer(ge);
+			checkFoe(ge);
 			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
 	}
 
-	private void checkPlayer(GameEntity ge)
+	/**
+	 * Sets the player in case of use in populating Enemy behaviors that take in a player.
+	 * 
+	 * @param ge
+	 */
+	private void checkPlayer(GameEntity ge) 
 	{
-//		System.out.println("CHECKING THE PLAYER " + ge.getClass());
 		if(ge.getClass().equals(Player.class))
 		{
-//			System.out.println("HERE OMG: " + ge);
 			player = (Player) ge;
 		}
 	}
-
-	private void checkFoe(GameEntity ge)
+	
+	/**
+	 * Checks to see if a behavior is of the type that needs a player and if so, populates
+	 * that behavior with the player for the current game.
+	 * 
+	 * @param ge
+	 */
+	private void checkFoe(GameEntity ge) 
 	{
-//		System.out.println("CHECKING THE FOE " + ge.getClass());
 		if(ge.getClass().equals(Foes.class))
 		{
-//			System.out.println("IM DOING THE THING AND SETTING IT");
 			for(Behavior b: ((Foes)ge).getBehaviorList())
 			{
-				System.out.println(b.getClass().toString());
-//				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
-//				{
-				if(b.getClass().equals(MoveForward.class))
+				System.out.println(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]));
+				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
 				{
-//					System.out.println("THIS IS A MOVE FORWARD ALERT");
-					((MoveForward)b).setPlayer(player);
+					b = skipManager.getBehavior(b.getClass().toString().split(" ")[1],player);
 				}
 			}
 		}
 	}
+
 
 	private void buildBehaviorSkipMap()
 	{
@@ -246,8 +243,6 @@ public class LevelBuilder {
 	 */
 	private Object convertToObject(JsonObject toConvert, String objectType)
 	{
-//		System.out.println();
-//		System.out.println("toConvert " + toConvert + "objectType " + objectType);
 		return deserializer.deserialize(toConvert.toString(), objectTypes.get(objectType));
 	}
 }
