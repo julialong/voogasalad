@@ -28,6 +28,7 @@ public class EditorWindow implements CreatorView {
 	private ScrollPane myScrollPane;
 
 	private AuthoredGame myGame;
+	private String myAuthor;
 
 	/**
 	 * Creates a new EditorWindow with a specific game
@@ -56,6 +57,7 @@ public class EditorWindow implements CreatorView {
 		}
 		catch (Exception e) {
 			myGame = new AuthoredGame();
+			myGame.setAuthorName(myAuthor);
 		}
 		openNewWindow();
 	}
@@ -126,5 +128,10 @@ public class EditorWindow implements CreatorView {
     	 myScrollPane.getStyleClass().add("center-pane");
     	 return myScrollPane;
     }
+	
+	public void setAuthor(String author) {
+		myAuthor = author;
+		myGame.setAuthorName(myAuthor);
+	}
 	
 }
