@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import game_player_api.GameViewMenu;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -24,10 +26,10 @@ public class ScoreKeeperManager {
 	private VBox myDisplay;
 	private VBox myScores;
 	private List<ScoreItem> scoresToAdd;
-	private VoogaGameView myGameView;
+	private GameViewMenu myGameView;
 	
-	public ScoreKeeperManager(VoogaGameView gv) {
-		myGameView = gv;
+	public ScoreKeeperManager(GameViewMenu myGameView2) {
+		myGameView = myGameView2;
 		scoresToAdd = myGameView.getNewScores();
 		setUpStage();
 	}

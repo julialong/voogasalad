@@ -4,6 +4,7 @@ import java.util.List;
 
 import authoring_environment.editor_windows.EditorWindow;
 import engine.level.Level;
+import game_player_api.GameViewMenu;
 import javafx.stage.Stage;
 
 /**
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class ButtonManager {
 
-	public ButtonManager(PlayerView playerView, VMenuBar myMenuBar, VoogaGameView myGameView, String myName,
+	public ButtonManager(PlayerView playerView, VMenuBar myMenuBar, GameViewMenu myGameView, String myName,
 			String myDescription, List<Level> gameMaterial) {
 		// Home button
 		VButton homeButton = new VButton("Home");

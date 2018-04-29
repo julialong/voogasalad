@@ -1,6 +1,7 @@
 package game_player;
 
 import engine.level.Level;
+import game_player_api.GameViewMenu;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
@@ -88,7 +89,7 @@ public class PlayerView extends VBox {
 	 * add buttons to my menubar
 	 */
 	private void addButtons() {
-		new ButtonManager(this, myMenuBar, myGameView, myName, myDescription, gameMaterial);
+		new ButtonManager(this, myMenuBar, (GameViewMenu) myGameView, myName, myDescription, gameMaterial);
 	}
 
 	/**

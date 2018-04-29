@@ -4,6 +4,7 @@ import engine.controls.Action;
 import engine.controls.Controls;
 import engine.level.Level;
 import game_player_api.GameView;
+import game_player_api.GameViewMenu;
 import heads_up_display.HeadsUpDisplay;
 import heads_up_display.Hud;
 import javafx.animation.KeyFrame;
@@ -30,7 +31,7 @@ import engine.entity.Player;
  * @author Kelley Scroggs
  *
  */
-public class VoogaGameView implements GameView {
+public class VoogaGameView implements GameView, GameViewMenu {
 	// constants
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -224,6 +225,7 @@ public class VoogaGameView implements GameView {
 	/**
 	 * Resumes the game by authorizing the game loop and event filters.
 	 */
+	@Override
 	public void resumeGame() {
 		myGameStatus = true;
 	}
@@ -231,6 +233,7 @@ public class VoogaGameView implements GameView {
 	/**
 	 * Pauses the game by stopping the game loop and event filters from firing.
 	 */
+	@Override
 	public void pauseGame() {
 		myGameStatus = false;
 	}
@@ -271,6 +274,7 @@ public class VoogaGameView implements GameView {
 	 * @param propKey
 	 * @param keyCode
 	 */
+	@Override
 	public void changeBinding(String propKey, KeyCode keyCode) {
 		try {
 			Object instance = Class.forName("engine.controls." + propKey).newInstance();
@@ -308,6 +312,7 @@ public class VoogaGameView implements GameView {
 	 * 
 	 * @return myReplayList, a list of Maps of gameEntitys to their imageView
 	 */
+	@Override
 	public Map<ImageView, List<Point2D>> getReplayList() {
 		return myReplayList;
 	}
@@ -319,6 +324,7 @@ public class VoogaGameView implements GameView {
 	 * 
 	 * @return
 	 */
+	@Override
 	public List<ScoreItem> getNewScores() {
 		List<ScoreItem> newScoresCopy = new ArrayList<>();
 		for (ScoreItem s : newScores) {
@@ -331,6 +337,7 @@ public class VoogaGameView implements GameView {
 	 * Clears the new/temp scores if the user presses the clear scores method in the
 	 * menu bar.
 	 */
+	@Override
 	public void clearNewScores() {
 		newScores.clear();
 	}

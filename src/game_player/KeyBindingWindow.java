@@ -2,6 +2,8 @@ package game_player;
 
 import java.util.Enumeration;
 import java.util.ResourceBundle;
+
+import game_player_api.GameViewMenu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -18,15 +20,13 @@ public class KeyBindingWindow {
 	private final int MIN_WINDOW_WIDTH = 600;
 	private Stage myStage = new Stage();
     private BorderPane myView =  new BorderPane();
-//    private JSONtoObject reader = new GameFileReader();
-//    private ListView<String> keyList = new ListView<>();
-    private VoogaGameView myGameView;
+    private GameViewMenu myGameView;
 
     public final ResourceBundle RESOURCEKEYS = ResourceBundle.getBundle("engine.controls.resources/Controls");
 
     
-    public KeyBindingWindow(VoogaGameView gv){
-        myGameView = gv;
+    public KeyBindingWindow(GameViewMenu myGameView2){
+        myGameView = myGameView2;
     	myView.setMinWidth(MIN_WINDOW_WIDTH);
         setUpStage();
     }
