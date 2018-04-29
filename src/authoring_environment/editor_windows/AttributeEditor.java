@@ -75,6 +75,7 @@ public class AttributeEditor implements AttributeGetter  {
 	private URL imageURL;
 	private String xDim;
 	private String yDim;
+	private String imagePath;
 
 
 	/**
@@ -95,13 +96,22 @@ public class AttributeEditor implements AttributeGetter  {
 	
 	public AttributeEditor(GameElement element) {
 		gameElement = element;
+		elementID = gameElement.getID();
 		chosenAttributes = gameElement.getAttributes();
 		xDim = gameElement.getDimensions().get(0);
 		yDim = gameElement.getDimensions().get(1);
+		imagePath = gameElement.getImagePath();
+		attributes = loadAttributes();
 		AttributeComboBoxesPane boxesPane = new AttributeComboBoxesPane(attributes, chosenAttributes, this);
 		attributeBoxes = boxesPane.getAttributeBoxes();
 		setUpEditorWindow();
 		organizeEditor();
+		imageFile = new File("file:" + imagePath);
+		imageURI = imageFile.toURI();
+		image = new ImageView("file:" + imagePath);
+		image.setFitHeight(IMAGE_HEIGHT);
+		image.setFitWidth(IMAGE_WIDTH);
+		myImagePane.getChildren().add(image);
 		
 	}
 
@@ -130,7 +140,7 @@ public class AttributeEditor implements AttributeGetter  {
 		Label instruction = new Label(INPUT_ID);
         instruction.setFont(new Font(SMALL_FONT));
         myTitlePane.getChildren().add(instruction);
-        TextField idNameInput = new TextField();
+        TextField idNameInput = new TextField(elementID);
         myTitlePane.getChildren().add(idNameInput);
         createIDButton(idNameInput, instruction);
 	}
@@ -152,12 +162,12 @@ public class AttributeEditor implements AttributeGetter  {
 			Label x = new Label(DIMENSIONX);
 	        x.setFont(new Font(SMALL_FONT));
 	        myAttributePane.getChildren().add(x);
-	        TextField xInput = new TextField();
+	        TextField xInput = new TextField(xDim);
 	        myAttributePane.getChildren().add(xInput);
 	        Label y = new Label(DIMENSIONY);
 	        y.setFont(new Font(SMALL_FONT));
 	        myAttributePane.getChildren().add(y);
-	        TextField yInput = new TextField();
+	        TextField yInput = new TextField(yDim);
 	        myAttributePane.getChildren().add(yInput);
 	        createDimensionsButton(xInput, yInput, x, y);
 	}

@@ -35,8 +35,6 @@ import engine.behavior.MoveForward;
  */
 public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
 	
-	private static final String BEHAVIOR_SKIPS = "data.resources/behaviorsToSkip";
-	
 	@Override
 	/**
 	 * Adds a wrapper around the Interface to indicate that it must be deserialized a different way
@@ -54,53 +52,17 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 	 * Converts the interface object into its appropriate game entity.
 	 */
 	public T deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
-		List<String> behaviorsToSkip = buildBehaviorSkipMap();
-//		System.out.println(behaviorsToSkip);
+		BehaviorSkipManager skippedBehaviors = new BehaviorSkipManager();
+		List<String> behaviorsToSkip = skippedBehaviors.getBehaviorsToSkip();
 		JsonObject wrapper = (JsonObject) arg0;
-//		System.out.println(wrapper);
 		JsonElement typeName = get(wrapper, "type");
-//		System.out.println(typeName.getAsString());
 		if(behaviorsToSkip.contains(typeName.getAsString()))
 		{
-			return getEmptyBehavior(typeName.getAsString());
+			return (T)skippedBehaviors.getEmptyBehavior(typeName.getAsString());
 		}
-//		if(typeName.getAsString().equals("engine.behavior.MoveForward"))
-//		{
-//			return (T)(new MoveForward());
-//		}
 		JsonElement data = get(wrapper, "data");
 		Type actualType = typeForName(typeName);
 		return arg2.deserialize(data, actualType);
-	}
-
-	private T getEmptyBehavior(String behaviorType) {
-		try 
-		{
-			Class behaviorClass = Class.forName(behaviorType);
-			Constructor<?> c = behaviorClass.getConstructor();
-			c.setAccessible(true);
-			Object o = c.newInstance();
-			System.out.println(o);
-			return (T)o;
-		} 
-		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) 
-		{
-			throw new JsonParseException("Could not create behavior that contains a player");
-		}
-		
-	}
-
-	private List<String> buildBehaviorSkipMap()
-	{
-		List<String> behaviorsToSkip = new ArrayList<>();
-		ResourceBundle behaviors = ResourceBundle.getBundle(BEHAVIOR_SKIPS);
-		Enumeration<String> behaviorNames = behaviors.getKeys();
-		while(behaviorNames.hasMoreElements())
-		{
-			String behaviorName = behaviorNames.nextElement();
-			behaviorsToSkip.add(behaviors.getString(behaviorName));
-		}
-		return behaviorsToSkip;
 	}
 
 	/**
@@ -131,7 +93,6 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 		if(elem == null) {
 			throw new JsonParseException("no '" + string + "' member found in what was expected to be an interface wrapper");
 		}
-//		System.out.println("passes " + string);
 		return elem;
 	}
 
