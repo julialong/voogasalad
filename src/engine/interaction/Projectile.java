@@ -30,15 +30,6 @@ public class Projectile implements Interaction {
 			return;
 		if (target.getDestructible())
 			target.setHealth(target.getHealth() - damage);
-		// System.out.println("Setting source of type " + source.getClass() + "
-		// to 0 HP.");
-		// System.out.println("Collision of direction " + new
-		// DetectCollision().detect(source, target));
-		// System.out.println("Source of type " + source.getClass() + " Target
-		// of type " + target.getClass());
-		// source.setHealth(0);
-		// System.out.println("Bullet Y Vel??? " +
-		// source.getKinematics().getYVelocity());
 		bulletRemoval(source, target);
 	}
 
