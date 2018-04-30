@@ -9,8 +9,6 @@ import engine.entity.GameEntity;
  *
  */
 public class JumpALot implements Behavior{
-	//private int counter = 0;
-	//private int frequency = 10;
 	private Jump jump = new Jump();
 
 	@Override

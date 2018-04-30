@@ -1,6 +1,7 @@
 package engine.powerup;
 
 import engine.entity.Player;
+import engine.weapon.Weapon;
 
 /**
  * Changes a Player's current weapon.
@@ -8,34 +9,36 @@ import engine.entity.Player;
  *
  */
 public class SwitchWeapon implements PowerUp{
+	private Weapon weapon;
+	private Player player;
+	
+	public SwitchWeapon(Weapon weapon, Player player){
+		this.weapon = weapon;
+		setPlayer(player);
+	}
 
 	@Override
 	public void setDuration(double time) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void activate() {
-		// TODO Auto-generated method stub
-		
+		player.setWeapon(weapon);
 	}
 
 	@Override
 	public void deactivate() {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	@Override
 	public void setPlayer(Player player) {
-		// TODO Auto-generated method stub
-		
+		this.player = player;
 	}
 
 	@Override
 	public boolean update() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
