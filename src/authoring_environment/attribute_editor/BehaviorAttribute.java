@@ -2,6 +2,7 @@ package authoring_environment.attribute_editor;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
@@ -15,9 +16,12 @@ import java.util.List;
 
 public class BehaviorAttribute extends Attribute {
 
-    public BehaviorAttribute(){
-
-    }
+	private static final String BEHAVIOR = "Behavior";
+	
+	public BehaviorAttribute(Group targetLocation) {
+		VBox basicAttributeContent = setupInputs(BEHAVIOR);
+		targetLocation.getChildren().add(basicAttributeContent);
+	}
 
     /**
      * Creates the container for the behavior selection model
@@ -25,7 +29,7 @@ public class BehaviorAttribute extends Attribute {
      * create the input lines for each one selected
      */
     @Override
-    public void setupInputs(Pane target, String attributeType) {
+    public void setupInputs() {
         VBox container = new VBox();
         List<String> behaviorAttributesOptions = super.loadAttributes(attributeType);
         ObservableList<String> options = FXCollections.observableArrayList(behaviorAttributesOptions);
