@@ -38,6 +38,17 @@
     * List<Object> loadSettings(String gameName); has been updated to Map<String,String> loadSettings(String gameName); where the Map will have keys be settings values like description or ready to play and keys will be the values of these settings
     * Map<String,String> getGameNames(); has been added which returns a map with keys being the names of games that are ready to be played and values being the descriptions of those games.
 
+* AFTER MIDPOINT: We made some siginificant changes to our design which called for new interfaces for convering JSON to Objects. Because of the new design, Game Authoring Environment would be working in terms of AuthoredLevel objects and Game Player would be working in terms of Level objects. This required two different interfaces for the loading of files.
+    * JSONtoGAE:
+        * List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) throws DataFileException;
+        * AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) throws DataFileException;
+        * AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException;
+        * List<String> loadAuthoredLevelNames();
+        * Map<String,String> getGameNames() throws DataFileException;
+    * JSONtoGP:
+        * List<Level> loadCompleteGame(String gameName) throws DataFileException;  
+        * Level loadLevel(String gameName, String levelName) throws DataFileException;
+        * Map<String,String> getGameNames() throws DataFileException;
 
 ## Game Player
 * GameView methods changed:
