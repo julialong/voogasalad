@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.transform.TransformerException;
+
 import authoring_environment.CustomElementSaver;
 import authoring_environment.DataAlert;
 import authoring_environment.TreeNode;
@@ -23,7 +25,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * This class is the editor which
+ * This class is the abstract class that all of the specific editors -- for block, for enemy and for player, 
+ * inherit from 
  * 
  * @author Judi Sanchez Date started: April 3 2018
  *
@@ -54,6 +57,7 @@ public abstract class AttributeEditor implements DataAlert {
 		attributeList = new ArrayList<Attribute>();
 		setUpEditorWindow();
 		organizeEditor();
+		myAttributePane.getChildren().add(new CloseAttributeEditorButton(this));
 
 	}
 
@@ -70,6 +74,7 @@ public abstract class AttributeEditor implements DataAlert {
 	/**
 	 * Creates the BorderPane, Scene, and Stage and the different Boxes that go in
 	 * the BorderPane Adds the AddImageButton to myImagePane
+	 * TODO: rewrite this method
 	 */
 	private void setUpEditorWindow() {
 		BorderPane myRoot = new BorderPane();
@@ -148,7 +153,12 @@ public abstract class AttributeEditor implements DataAlert {
 			}
 
 		}
-		//CustomElementSaver = new CustomElementSaver(getElementID(), tree);
+		try {
+			CustomElementSaver saver = new CustomElementSaver(getElementID(), tree);
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

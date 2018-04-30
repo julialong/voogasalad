@@ -76,4 +76,9 @@ public class BehaviorAttribute extends Attribute {
         }
         return contents;
     }
+
+	@Override
+	public String returnName() {
+		return BEHAVIOR;
+	}
 }

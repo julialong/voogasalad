@@ -13,10 +13,10 @@ import java.util.Map;
 
 public class MovementAttribute extends Attribute{
     private static final String MOVEMENT = "Movement";
-    private ComboBox movementChooser;
+    private ComboBox<String> movementChooser;
 
     public MovementAttribute(Group targetLocation){
-        movementChooser = new ComboBox();
+        movementChooser = new ComboBox<String>();
         targetLocation.getChildren().add(setupInputs(MOVEMENT));
     }
 
@@ -46,4 +46,9 @@ public class MovementAttribute extends Attribute{
         contents.put(pickedMovement, new ArrayList<>());
         return contents;
     }
+
+	@Override
+	public String returnName() {
+		return MOVEMENT;
+	}
 }

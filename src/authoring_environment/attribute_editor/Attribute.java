@@ -11,6 +11,9 @@ import java.util.Map;
 public abstract class Attribute {
 
     private static final String ATTRIBUTE_RESOURCES = "resources.Attribute";
+    private String name;
+    
+    public abstract String returnName();
 
     public abstract VBox setupInputs(String attributeType);
 

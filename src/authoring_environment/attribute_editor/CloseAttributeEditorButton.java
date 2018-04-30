@@ -17,10 +17,10 @@ public class CloseAttributeEditorButton extends Button{
 	
 	public static final String SAVE = "Save Attributes";
 
-	public CloseAttributeEditorButton(BlockAttributeEditor editor) {
+	public CloseAttributeEditorButton(AttributeEditor editor) {
 		super(SAVE);
 		this.setOnAction(e -> {
-				//editor.saveChanges();
+				editor.saveData();
 		});
 	}
 
