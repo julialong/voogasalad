@@ -2,15 +2,11 @@ package authoring_environment.attribute_editor;
 
 import javafx.scene.Group;
 
-public class BlockAttributeEditor extends AttributeEditor {
-	
-	
-	public BlockAttributeEditor() {
-		super();
-	}
+public class EnemyAttributeEditor extends AttributeEditor{
 
 	@Override
 	void organizeEditor() {
+		
 		Group basic = new Group();
 		BasicAttribute basicAttribute = new BasicAttribute(basic);
 		myAttributePane.getChildren().add(basic);

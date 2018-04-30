@@ -1,10 +1,9 @@
-package authoring_environment.toolbars.buttons;
+package authoring_environment.attribute_editor;
 
 import javafx.scene.control.Button;
 
 import java.net.MalformedURLException;
 
-import authoring_environment.editor_windows.AttributeEditor;
 
 /**
  * 

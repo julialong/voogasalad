@@ -10,7 +10,6 @@ import javax.xml.transform.TransformerException;
 import org.w3c.dom.Document;
 
 import authoring_environment.Attribute;
-import authoring_environment.AttributeGetter;
 import authoring_environment.CustomElementSaver;
 import authoring_environment.DocumentGetter;
 import authoring_environment.authored_elements.AuthoredElement;
@@ -24,7 +23,7 @@ import authoring_environment.authored_elements.AuthoredElement;
  * custom image, and update its location on the grid
  *
  */
-public class GameElement implements AuthoredElement, DocumentGetter, AttributeGetter{
+public class GameElement implements AuthoredElement, DocumentGetter{
 	
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	private static final String IMAGE_FILE = "ImageFile";
@@ -53,7 +52,7 @@ public class GameElement implements AuthoredElement, DocumentGetter, AttributeGe
 	public GameElement(String idName) {
 		attributes = new HashMap<>();	
 		elementID = idName;
-		setAttributesFromFile(idName);	
+		//setAttributesFromFile(idName);	
 	}
 
 	@Override
@@ -120,9 +119,8 @@ public class GameElement implements AuthoredElement, DocumentGetter, AttributeGe
 		yDimension = y;
 	}
 	
-	private void setAttributesFromFile(String idName) {
+	/*private void setAttributesFromFile(String idName) {
 		Document dataDoc = getDocument(idName, ELEMENT_DATA_PATH);
-		Map<String, List<String>> availableAttributes = loadAttributes();
 		for(String key : availableAttributes.keySet()) {
 			if(dataDoc.getDocumentElement().hasAttribute(key)) {
 				attributes.put(key, dataDoc.getDocumentElement().getAttribute(key));
@@ -131,7 +129,7 @@ public class GameElement implements AuthoredElement, DocumentGetter, AttributeGe
 		imageFile = dataDoc.getDocumentElement().getAttribute(IMAGE_FILE);
 		xDimension = dataDoc.getDocumentElement().getAttribute(XDIMENSION);
 		yDimension = dataDoc.getDocumentElement().getAttribute(YDIMENSION);
-	}
+	}*/
 	
 	public Map<String, String> getAttributes(){
 		return attributes;
