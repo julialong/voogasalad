@@ -56,14 +56,14 @@ public interface DocumentGetter {
  
     }
     
-    default String getXDimension(Document doc) {
+    default int getXDimension(Document doc) {
     		Element child = doc.getElementById("Basic");
-    		return child.getAttribute("XDimension");
+    		return Integer.parseInt(child.getAttribute("XDimension"));
     }
     
-    default String getYDimension(Document doc) {
+    default int getYDimension(Document doc) {
 		Element child = doc.getElementById("Basic");
-		return child.getAttribute("YDimension");
+		return Integer.parseInt(child.getAttribute("YDimension"));
     }
     
     /*default Map<String, List<String>> getBehaviors(Document doc){

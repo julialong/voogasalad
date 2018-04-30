@@ -39,7 +39,7 @@ public class ObjectFactory implements DocumentGetter {
     public GameEntity addObject(String ID, double x, double y, double cellSize) {
         GameEntity newEntity;
         Document objectDoc = getDocument(ID, ELEMENT_DATA_PATH);
-        String path = objectDoc.getDocumentElement().getAttribute("ImageFile");
+        String path = getImagePath(objectDoc);
         String type = objectDoc.getDocumentElement().getAttribute("GameEntity");
         String behavior = objectDoc.getDocumentElement().getAttribute("Behavior");
         String interaction = objectDoc.getDocumentElement().getAttribute("Interaction");
@@ -50,8 +50,8 @@ public class ObjectFactory implements DocumentGetter {
         int xSize;
         int ySize;
         try {
-            xSize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("XDimension"));
-            ySize = Integer.parseInt(objectDoc.getDocumentElement().getAttribute("YDimension"));
+            xSize = getXDimension(objectDoc);
+            ySize = getYDimension(objectDoc);
         }
         catch (Exception e) {
             xSize = 1;
@@ -66,12 +66,9 @@ public class ObjectFactory implements DocumentGetter {
         createBehavior(behavior, newEntity);
         newEntity.setMovementType(createMovement(movement));
         newEntity.addInteraction(createInteraction(interaction, powerup));
-        //newEntity.addPowerUp(createPowerUp(powerup));
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
-        System.out.println("size: " + newEntity.getSizeX() + ", " + newEntity.getSizeY());
-        System.out.println("location: " + newEntity.getKinematics().getX() + ", " + newEntity.getKinematics().getY());
         return newEntity;
     }
 
