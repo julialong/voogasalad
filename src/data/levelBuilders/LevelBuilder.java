@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -25,12 +26,14 @@ import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.level.BasicLevel;
 import engine.level.Level;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 
 /**
- * Creates levels to return to the Game Player when a 
+ * Creates levels to return to the Game Player when a
  * game is going to be played
- * 
+ *
  * @author Belanie Nagiel
  *
  */
@@ -41,39 +44,46 @@ public class LevelBuilder {
 	private static final String COLOR = "color";
 	private static final String WIDTH = "width";
 	private static final String HEIGHT = "height";
+	private static final int CAMERA_WIDTH = 1100;
 	private Map<String,Class<?>> objectTypes;
 	private List<String> behaviorsToSkip;
 	private Serializer deserializer; 
 	private File levelFile;
 	private Player player;
 	private BehaviorSkipManager skipManager;
+	private double levelWidth;
+	private double levelHeight;
+	private boolean translate;
 	
 	/**
 	 * Class Constructor
-	 * 
+	 *
 	 * Takes in a level file and creates the object to class map for all of the
 	 * GameObjects
-	 * 
+	 *
 	 * @param level
-	 * @throws DataFileException 
+	 * @throws DataFileException
 	 */
-	public LevelBuilder(File level) throws DataFileException 
+	public LevelBuilder(File level, Boolean translate) throws DataFileException 
 	{
 		objectTypes= new HashMap<>();
 		createObjectToClassMap();
+
 		
 		skipManager = new BehaviorSkipManager();
 		behaviorsToSkip = skipManager.getBehaviorsToSkip();
 		
 		deserializer = new Serializer();
 		levelFile = level;
+		
+		this.translate = translate;
 	}
-	
+
 	/**
 	 * Reads in a properties file of game objects to their appropriate classes
 	 * in order to make a map for later deserialization.
-	 * @throws DataFileException 
-	 * 
+	 * @throws DataFileException
+	 *
 	 */
 	private void createObjectToClassMap() throws DataFileException
 	{
@@ -82,70 +92,77 @@ public class LevelBuilder {
 		while(objectNames.hasMoreElements())
 		{
 			String objectName = objectNames.nextElement();
-			try 
+			try
 			{
 				Class<?> objectClass = Class.forName(gameObjects.getString(objectName));
 				objectTypes.put(objectName, objectClass);
-			} 
-			catch (ClassNotFoundException e) 
+			}
+			catch (ClassNotFoundException e)
 			{
 				throw new DataFileException("Could not find object class for reflection",e);
 			}
 		}
 	}
-	
+
 	/**
-	 * Returns a new BasicLevel with the appropriate data and 
+	 * Returns a new BasicLevel with the appropriate data and
 	 * game objects.
-	 * 
+	 *
 	 * @return
-	 * @throws DataFileException 
+	 * @throws DataFileException
 	 */
 	public Level buildLevel() throws DataFileException
 	{
-		BasicLevel level = new BasicLevel();
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
-			JsonObject jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
-			addMetaData(level, jobject);
+			JsonElement jelement = jsonParser.parse(new FileReader(levelFile));
+			JsonObject jobject = jelement.getAsJsonObject();
+			BasicLevel level = addMetaData(jobject);
 			addGameObjects(level,jobject);
+			return level;
 		}
 		catch(JsonIOException | JsonSyntaxException | FileNotFoundException e)
 		{
 			throw new DataFileException("Could not find the file to load for Level", e);
 		}
-		return level;	
 	}
-	
+
 	/**
 	 * Adds the relevant instance variables to the level
 	 * 
-	 * @param level
 	 * @param jobject
+	 * @return 
 	 */
-	private void addMetaData(Level level, JsonObject jobject)
+	private BasicLevel addMetaData(JsonObject jobject)
 	{
 		String levelName = jobject.get(NAME).getAsString();
+
 		Color color = Color.web(jobject.get(COLOR).getAsString());
-		Double width = jobject.get(WIDTH).getAsDouble();
-		Double height = jobject.get(HEIGHT).getAsDouble();
+		levelWidth = jobject.get(WIDTH).getAsDouble();
+		levelHeight = jobject.get(HEIGHT).getAsDouble();
 		
+		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		int camWidth = CAMERA_WIDTH;
+		int camHeight = (int) ((primaryScreenBounds.getHeight() / primaryScreenBounds.getWidth()) * camWidth);
+		
+		BasicLevel level = new BasicLevel((int)levelWidth, (int)levelHeight, camWidth, camHeight);
 		level.setName(levelName);
 		level.setColor(color);
-		level.setSize(width, height);
+		
+		return level;
 	}
-	
+
 	/**
 	 * Adds the game objects to the level
-	 * 
+	 *
 	 * @param level
 	 * @param jobject
 	 */
 	private void addGameObjects(Level level, JsonObject jobject)
 	{
 		List<GameEntity> gameObjects = new ArrayList<>();
-		
+
 		for(String objectType: objectTypes.keySet())
 		{
 			if(jobject.has(objectType))
@@ -158,7 +175,7 @@ public class LevelBuilder {
 
 	/**
 	 * Returns a list of game objects associated with the given object type
-	 * 
+	 *
 	 * @param jobject
 	 * @param objectType
 	 * @return
@@ -171,9 +188,24 @@ public class LevelBuilder {
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
 			checkPlayer(ge);
 			checkFoe(ge);
+			if(translate) {translateCoordinates(ge);}
 			newObjectsOfType.add(ge);
 		}
 		return newObjectsOfType;
+	}
+	
+	/**
+	 * Applies the translation to convert game authoring coordinates to game engine
+	 * compatible coordinates.
+	 * 
+	 * @param ge
+	 */
+	private void translateCoordinates(GameEntity ge)
+	{
+		double translatedX = ge.getPosition()[0] - levelWidth/2;
+		double translatedY = (levelHeight/2) - ge.getPosition()[1];
+
+		ge.overridePosition(translatedX, translatedY);
 	}
 
 	/**
@@ -211,9 +243,9 @@ public class LevelBuilder {
 
 	/**
 	 * Given the JSON object that will be converted into the game object
-	 * and the type of the game object, returns the GameObject object for 
+	 * and the type of the game object, returns the GameObject object for
 	 * the JSON text.
-	 * 
+	 *
 	 * @param toConvert
 	 * @param objectType
 	 * @return
