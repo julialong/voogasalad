@@ -2,7 +2,9 @@ package authoring_environment.game_elements;
 
 import authoring_environment.DocumentGetter;
 import engine.behavior.Behavior;
+import engine.entity.Enemy;
 import engine.entity.GameEntity;
+import engine.entity.Player;
 import engine.interaction.Interaction;
 import engine.level.Level;
 import engine.movement.Movement;
@@ -24,6 +26,7 @@ public class ObjectFactory implements DocumentGetter {
 
     private Level myLevel;
     private Document myDocument;
+    private GameEntity newEntity;
 
     private static final String ENTITY_PATH = "engine.entity.";
     private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
@@ -41,13 +44,13 @@ public class ObjectFactory implements DocumentGetter {
      * @return the constructed GameEntity
      */
     public GameEntity addObject(String ID, double x, double y, double cellSize) {
-        GameEntity newEntity;
         myDocument = getDocument(ID, ELEMENT_DATA_PATH);
         String path = getImagePath(myDocument);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
         List<String> behavior = getBehaviors(myDocument);
         List<String> interaction = getInteractions(myDocument);
         String movement = getMovement(myDocument);
+        String weapon = getWeapon(myDocument);
         int xSize;
         int ySize;
         try {
@@ -67,6 +70,7 @@ public class ObjectFactory implements DocumentGetter {
         makeBehaviors(newEntity, behavior);
         newEntity.setMovementType(createMovement(movement));
         makeInteractions(newEntity, interaction);
+        setWeapon(weapon);
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
@@ -154,21 +158,47 @@ public class ObjectFactory implements DocumentGetter {
     }
 
     private PowerUp createPowerUp(String powerup) {
+        Map<String, String> powerupMap = getPowerupAttributes(myDocument, powerup);
         try {
-            Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor();
+            Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor(Weapon.class);
             powerupConstructor.setAccessible(true);
-            return (PowerUp) powerupConstructor.newInstance();
+            return (PowerUp) powerupConstructor.newInstance(createWeapon(powerupMap.get("weapon")));
         }
         catch (Exception e) {
-            return null;
+            try {
+                Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor(Double.class);
+                powerupConstructor.setAccessible(true);
+                return (PowerUp) powerupConstructor.newInstance(Double.parseDouble(powerupMap.get("time")));
+            }
+            catch (Exception ee) {
+                try {
+                    Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor();
+                    powerupConstructor.setAccessible(true);
+                    return (PowerUp) powerupConstructor.newInstance();
+                }
+                catch (Exception eee) {
+                    return null;
+                }
+            }
+        }
+    }
+
+    private void setWeapon(String weapon) {
+        if (newEntity instanceof Player) {
+            Player newPlayer = (Player) newEntity;
+            newPlayer.setWeapon(createWeapon(weapon));
+        }
+        if (newEntity instanceof Enemy) {
+            Enemy newEnemy = (Enemy) newEntity;
+            newEnemy.setWeapon(createWeapon(weapon));
         }
     }
 
     private Weapon createWeapon(String weapon) {
         try {
-            Constructor<?> weaponConstructor = Class.forName(ENTITY_PATH + weapon).getConstructor();
+            Constructor<?> weaponConstructor = Class.forName(ENTITY_PATH + weapon).getConstructor(GameEntity.class, Level.class);
             weaponConstructor.setAccessible(true);
-            return (Weapon) weaponConstructor.newInstance();
+            return (Weapon) weaponConstructor.newInstance(newEntity, myLevel);
         }
         catch (Exception e) {
             return null;

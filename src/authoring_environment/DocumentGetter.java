@@ -86,6 +86,10 @@ public interface DocumentGetter {
     default Map<String, String> getInteractionAttributes(Document doc, String interaction) {
     	return getAttributes(doc, interaction);
     }
+
+    default Map<String, String> getPowerupAttributes(Document doc, String powerup) {
+        return getAttributes(doc, powerup);
+    }
     
     default String getBasicAttribute(Document doc, String attribute) {
     	Element child = doc.getElementById("Basic");
@@ -95,6 +99,10 @@ public interface DocumentGetter {
     default String getPowerUp(Document doc) {
     	Element powerUpNode = doc.getElementById("AddPowerUp");
     	return powerUpNode.getAttribute("PowerUpType");
+    }
+
+    default String getWeapon(Document doc) {
+        return doc.getDocumentElement().getAttribute("WeaponID");
     }
     
     default List<String> getNodeNames(Document doc, String type){
