@@ -7,6 +7,12 @@ import data.fileReading.GAEGameFileReader;
 import data.fileReading.GPGameFileReader;
 import data.levelBuilders.LevelBuilder;
 import data.resources.DataFileException;
+import data.serialization.Serializer;
+import engine.behavior.MoveForward;
+import engine.behavior.UseWeapon;
+import engine.entity.Enemy;
+import engine.entity.Player;
+import engine.powerup.Invincible;
 
 
 /**
@@ -35,13 +41,13 @@ public class TestingGSON {
 		
 //		System.out.println(File.separator);
 		
-		GPGameFileReader gae = new GPGameFileReader();
-		try {
-			System.out.println(gae.loadCompleteGame("ErrorWithEnemies"));
-		} catch (DataFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		GPGameFileReader gae = new GPGameFileReader();
+//		try {
+//			System.out.println(gae.loadCompleteGame("ErrorWithEnemies"));
+//		} catch (DataFileException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 //		try
 //		{
@@ -56,6 +62,24 @@ public class TestingGSON {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		
+		Serializer ser = new Serializer();
+		
+		Enemy enemy = new Enemy();
+		UseWeapon uw = new UseWeapon(0.5);
+		MoveForward mf = new MoveForward();
+		enemy.addBehavior(uw);
+		enemy.addBehavior(mf);
+		
+		Player player = new Player();
+		
+		Invincible in = new Invincible(5.0, player);
+		
+		String json = ser.serialize(in);
+		System.out.println(json);
+		
+		Object o = ser.deserialize(json, Invincible.class);
+		System.out.println(o);
 		
 		
 	}
