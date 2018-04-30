@@ -14,7 +14,6 @@ import javafx.stage.Stage;
  * The level saver class allows the user to save their current level.
  *
  * @author Julia Long
- * Date started
  */
 public class LevelSaver {
 
