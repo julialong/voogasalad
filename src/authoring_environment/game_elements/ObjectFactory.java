@@ -7,6 +7,7 @@ import engine.interaction.Interaction;
 import engine.level.Level;
 import engine.movement.Movement;
 import engine.powerup.PowerUp;
+import engine.weapon.Weapon;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
@@ -77,7 +78,6 @@ public class ObjectFactory implements DocumentGetter {
             return ((GameEntity) objectConstructor.newInstance(x, y));
         }
         catch (Exception e) {
-            // TODO: handle this
             return null;
         }
     }
@@ -107,7 +107,6 @@ public class ObjectFactory implements DocumentGetter {
                     return (Behavior) behaviorConstructor.newInstance();
                 }
                 catch (Exception eee) {
-                    // TODO: handle this
                     return null;
                 }
             }
@@ -121,7 +120,6 @@ public class ObjectFactory implements DocumentGetter {
             return (Movement) movementConstructor.newInstance();
         }
         catch (Exception e) {
-            // TODO: handle this
             return null;
         }
     }
@@ -145,7 +143,6 @@ public class ObjectFactory implements DocumentGetter {
                 return (Interaction) interactionConstructor.newInstance();
             }
             catch (Exception ee) {
-                // TODO: handle this
                 return null;
             }
         }
@@ -158,7 +155,17 @@ public class ObjectFactory implements DocumentGetter {
             return (PowerUp) powerupConstructor.newInstance();
         }
         catch (Exception e) {
-            // TODO: handle this
+            return null;
+        }
+    }
+
+    private Weapon createWeapon(String weapon) {
+        try {
+            Constructor<?> weaponConstructor = Class.forName(ENTITY_PATH + weapon).getConstructor();
+            weaponConstructor.setAccessible(true);
+            return (Weapon) weaponConstructor.newInstance();
+        }
+        catch (Exception e) {
             return null;
         }
     }
