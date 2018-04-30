@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Attributes>
-	<Basic ImageFile="example.png" XDimension="3" YDimension="2" Speed="10"></Basic>
+	<Basic ImageFile="example.png" XDimension="3" YDimension="2"></Basic>
 	<Behavior>
 		<JumpALot></JumpALot></Behavior>
 	<GameEntity GameEntity="Block">
