@@ -45,9 +45,6 @@ public class ObjectFactory implements DocumentGetter {
         List<String> behavior = getBehaviors(objectDoc);
         List<String> interaction = getInteractions(objectDoc);
         String movement = getMovement(objectDoc);
-        String powerup = objectDoc.getDocumentElement().getAttribute("PowerUp");
-        String projectile = objectDoc.getDocumentElement().getAttribute("Projectile");
-        String weapon = objectDoc.getDocumentElement().getAttribute("Weapon");
         int xSize;
         int ySize;
         try {
@@ -66,7 +63,7 @@ public class ObjectFactory implements DocumentGetter {
         newEntity.setImagePath(path);
         // createBehavior(behavior, newEntity);
         newEntity.setMovementType(createMovement(movement));
-        // newEntity.addInteraction(createInteraction(interaction, powerup));
+        makeInteractions(newEntity, interaction);
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
@@ -106,6 +103,12 @@ public class ObjectFactory implements DocumentGetter {
         catch (Exception e) {
             // TODO: handle this
             return null;
+        }
+    }
+
+    private void makeInteractions(GameEntity newEntity, List<String> interactions) {
+        for (String interaction : interactions) {
+            newEntity.addInteraction(createInteraction(interaction, null));
         }
     }
 
