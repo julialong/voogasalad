@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 
 public class BasicAttribute extends Attribute  {
 	
-	private static final String BASIC = "BasicInfo";
+	private static final String BASIC = "Basic";
 	private Map<String, TextField> dataFields;
 
 	/**

@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,6 +51,7 @@ public abstract class AttributeEditor implements DataAlert {
 	 * 
 	 */
 	public AttributeEditor() {
+		attributeList = new ArrayList<Attribute>();
 		setUpEditorWindow();
 		organizeEditor();
 
