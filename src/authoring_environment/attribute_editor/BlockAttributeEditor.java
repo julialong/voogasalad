@@ -24,7 +24,7 @@ public class BlockAttributeEditor extends AttributeEditor {
 		myAttributePane.getChildren().add(interaction);
 		
 		Group movement = new Group();
-		MovementAttribute movementAttribute = new MovementAttribute(interaction);
+		MovementAttribute movementAttribute = new MovementAttribute(movement);
 		myAttributePane.getChildren().add(movement);
 		
 		
