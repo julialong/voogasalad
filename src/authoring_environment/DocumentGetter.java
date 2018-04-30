@@ -55,7 +55,7 @@ public interface DocumentGetter {
     	return getBasicAttribute(doc, "ImagePath");
  
     }
-    
+
     default int getXDimension(Document doc) {
     		Element child = doc.getElementById("Basic");
     		return Integer.parseInt(child.getAttribute("XDimension"));
@@ -71,7 +71,7 @@ public interface DocumentGetter {
     	return child.getAttribute("MovementType");
     }
     
-    default List<String> getBehaviors(Document doc){
+    default List<String> getBehaviors(Document doc) {
     	return getNodeNames(doc, "Behavior");
     }
     

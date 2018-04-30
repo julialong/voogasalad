@@ -10,6 +10,7 @@ import engine.powerup.PowerUp;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
+import java.util.List;
 
 /**
  * The object factory of a certain class creates the objects needed and adds it to that class
@@ -41,9 +42,9 @@ public class ObjectFactory implements DocumentGetter {
         Document objectDoc = getDocument(ID, ELEMENT_DATA_PATH);
         String path = getImagePath(objectDoc);
         String type = objectDoc.getDocumentElement().getAttribute("GameEntity");
-        String behavior = objectDoc.getDocumentElement().getAttribute("Behavior");
-        String interaction = objectDoc.getDocumentElement().getAttribute("Interaction");
-        String movement = objectDoc.getDocumentElement().getAttribute("Movement");
+        List<String> behavior = getBehaviors(objectDoc);
+        List<String> interaction = getInteractions(objectDoc);
+        String movement = getMovement(objectDoc);
         String powerup = objectDoc.getDocumentElement().getAttribute("PowerUp");
         String projectile = objectDoc.getDocumentElement().getAttribute("Projectile");
         String weapon = objectDoc.getDocumentElement().getAttribute("Weapon");
@@ -63,9 +64,9 @@ public class ObjectFactory implements DocumentGetter {
             return null;
         }
         newEntity.setImagePath(path);
-        createBehavior(behavior, newEntity);
+        // createBehavior(behavior, newEntity);
         newEntity.setMovementType(createMovement(movement));
-        newEntity.addInteraction(createInteraction(interaction, powerup));
+        // newEntity.addInteraction(createInteraction(interaction, powerup));
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
