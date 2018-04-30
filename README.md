@@ -20,7 +20,7 @@ Belanie Nagiel (bn51)
 * hours worked: 95
 
 Dorian Barber (dpb20)
-* hours worked: 
+* hours worked: 80
 
 Kelley Scroggs (jks38)
 * hours worked: 65
