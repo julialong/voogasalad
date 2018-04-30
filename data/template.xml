@@ -2,6 +2,8 @@
 <Attributes>
 	<Basic ImageFile="example.png" XDimension="3" YDimension="2"></Basic>
 	<Behavior>
-		<JumpALot></JumpALot></Behavior>
+		<JumpALot></JumpALot>
+		<RunAround></RunAround>
+	</Behavior>
 	<GameEntity GameEntity="Block">
 		</GameEntity><Movement Movement="Grounded"></Movement></Attributes>
