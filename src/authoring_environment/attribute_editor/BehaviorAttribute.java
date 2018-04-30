@@ -22,7 +22,6 @@ public class BehaviorAttribute extends Attribute {
      * create the input lines for each one selected
      */
     @Override
-
     public VBox setupInputs(String attributeType) {
         VBox container = new VBox();
         List<String> behaviorAttributesOptions = super.loadAttributes(attributeType);
