@@ -6,23 +6,46 @@ import java.util.Set;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class BasicAttributeEditor implements AttributeGetter {
+public class BasicAttribute extends Attribute implements AttributeGetter {
 	
 	private static final String BASIC = "Basic";
 	private VBox myBasicAttributePane;
 	private VBox myImagePane;
 	private HBox myTitlePane;
 	
-	public BasicAttributeEditor(Stage window) {
+	public BasicAttribute(Stage window) {
 		setupEditorWindow(window);
 	}
-	
+
+
+	/**
+	 * Create all textfield inputs with a label that will specify the purpose of the textfield.
+	 * i.e. label = X Dimension => textfield = (some integer which will represent the x dimension)
+	 *
+	 * @param myBasicAttributePane
+	 */
+	@Override
+	public void setupInputs(Pane myBasicAttributePane, String attributeType) {
+		List<String> basicAttributesOptions = super.loadAttributes(attributeType);
+		VBox container = new VBox();
+		for(String option : basicAttributesOptions){
+			HBox inputLine = new HBox();
+			Label instruction = new Label(option);
+			TextField input = new TextField();
+			inputLine.getChildren().addAll(instruction, input);
+			container.getChildren().add(inputLine);
+		}
+		myBasicAttributePane.getChildren().add(container);
+	}
+
 	private void setupEditorWindow(Stage window) {
 		BorderPane myRoot= new BorderPane();
 		//myRoot.getStyleClass().add("attribute-editor");
@@ -41,16 +64,4 @@ public class BasicAttributeEditor implements AttributeGetter {
 		window.setTitle("Attribute Editor");
 		window.show();
 	}
-	
-	private void setupBasicInputs(Pane myBasicAttributePane) {
-		Map<String, List<String>> basicAttributesMap = loadAttributes(BASIC);
-		Set<String> basicAttributes = basicAttributesMap.keySet();
-		for (String attribute : basicAttributes) {
-			Group groupToAdd = createInputBox(attribute);
-			myBasicAttributePane.getChildren().addAll(groupToAdd);
-		}
-		
-	}
-	
-
 }
