@@ -3,9 +3,11 @@ package authoring_environment.attribute_editor;
 import java.util.List;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class InteractionAttribute extends Attribute {
@@ -34,5 +36,12 @@ public class InteractionAttribute extends Attribute {
 	        });
 	        return container;
 	}
+	 
+	 private HBox getOptionContents(String option){
+	        //TODO: GET EVERY SETTABLE SPECIFICATION FOR EACH OPTION IN THE BEHAVIOR ATTRIBUTE
+	        //TODO: information in the resource file, returns an hbox which is just like the
+	        //TODO: HBox for the basic attribute
+	        return null;
+	    }
 
 }
