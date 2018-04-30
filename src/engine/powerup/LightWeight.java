@@ -10,6 +10,10 @@ import engine.entity.Player;
 public class LightWeight extends TimedPowerUp{
 	private double gravityFactor;
 	
+	public LightWeight(){
+		
+	}
+	
 	/**
 	 * Constructor using default factor for power up (2)
 	 * @param time

@@ -15,6 +15,9 @@ import engine.powerup.PowerUp;
 public class AddPowerup implements Interaction{
     private PowerUp powerup;
     
+    public AddPowerup(){
+    	
+    }
     /**
      * Constructor that sets the powerup for the interaction
      * @param powerup - the PowerUp for the interaction

@@ -9,7 +9,11 @@ import engine.entity.Player;
  *
  */
 public class Invincible extends TimedPowerUp {
-
+	
+	public Invincible(){
+		
+	}
+	
 	public Invincible(double time, Player player){
         setDuration(time);
         setPlayer(player);
