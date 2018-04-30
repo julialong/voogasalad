@@ -18,4 +18,10 @@ public class EnemyAttributeEditor extends AttributeEditor{
 		
 	}
 
+	@Override
+	void saveData() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

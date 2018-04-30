@@ -139,15 +139,6 @@ public abstract class AttributeEditor implements DataAlert {
 		
 	}
 	
-	/*/**
-	 * 
-	 * @param category
-	 * @param chosenAttribute
-	 * @throws TransformerException
-	 
-	public void updateAttribute(String category, String chosenAttribute) throws TransformerException {
-		chosenAttributes.put(category, chosenAttribute);
-	}
 	
 	/**
 	 * This method triggers the gameElement updateAttributes method which saves attributes for an element
@@ -166,5 +157,7 @@ public abstract class AttributeEditor implements DataAlert {
 		gameElement.updateAttributes(chosenAttributes);
 		window.close();
 	}*/
+	
+	abstract void saveData();
 	
 }

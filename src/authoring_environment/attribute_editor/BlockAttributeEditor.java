@@ -23,6 +23,16 @@ public class BlockAttributeEditor extends AttributeEditor {
 		InteractionAttribute interactionAttribute = new InteractionAttribute(interaction);
 		myAttributePane.getChildren().add(interaction);
 		
+		Group movement = new Group();
+		MovementAttribute movementAttribute = new MovementAttribute(interaction);
+		myAttributePane.getChildren().add(movement);
+		
+		
+	}
+
+	@Override
+	void saveData() {
+		// TODO Auto-generated method stub
 		
 	}
 
