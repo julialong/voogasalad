@@ -92,7 +92,8 @@ public interface DocumentGetter {
     }
     
     default String getBasicAttribute(Document doc, String attribute) {
-    	Element child = doc.getElementById("Basic");
+    	NodeList children = doc.getElementsByTagName("Basic");
+    	Element child = (Element) children.item(0);
     	return child.getAttribute(attribute);
     }
     
