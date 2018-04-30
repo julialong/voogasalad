@@ -1,22 +1,12 @@
 package authoring_environment.attribute_editor;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javax.xml.transform.TransformerException;
 import authoring_environment.DataAlert;
-import authoring_environment.authored_elements.GameElement;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -28,7 +18,7 @@ import javafx.stage.Stage;
 
 
 /**
- * This class
+ * This class is the editor which 
  * 
  * @author Judi Sanchez
  * Date started: April 3 2018
@@ -45,9 +35,8 @@ public abstract class AttributeEditor implements DataAlert {
 	protected VBox myImagePane;
 	protected HBox myTitlePane;
 	
-
-	private GameElement gameElement;
-	TextField idField;
+	private TextField idField;
+	protected List<Attribute> attributeList;
 
 	private ImageView image;
 	private Stage window;
@@ -61,18 +50,11 @@ public abstract class AttributeEditor implements DataAlert {
 	 */
 	public AttributeEditor() {
 		setUpEditorWindow();
-		//gameElement= new GameElement();
 		organizeEditor();
 		
 	}
 	
 	/*public AttributeEditor(GameElement element) {
-		gameElement = element;
-		elementID = gameElement.getID();
-		chosenAttributes = gameElement.getAttributes();
-		xDim = gameElement.getDimensions().get(0);
-		yDim = gameElement.getDimensions().get(1);
-		String imagePath = gameElement.getImagePath();
 		setUpEditorWindow();
 		organizeEditor();
 		imageFile = new File("file:" + imagePath);
@@ -109,12 +91,6 @@ public abstract class AttributeEditor implements DataAlert {
 		window.show();
 	}
 	
-	/**
-	 * Adds the necessary attributes to the editor window
-	 * If it is a block or enemy, add Basic Behavior Movement and Interaction
-	 * If it is a player, add Basic and Movement 
-	 */
-	abstract void organizeEditor();
 	
 	/**
 	 * This method opens the window that allows the user to upload an image file to be 
@@ -137,14 +113,27 @@ public abstract class AttributeEditor implements DataAlert {
 		
 	}
 	
-	
-	/**
-	 * This method calls the CustomElementSaver which creates an XML file out of the data
-	 */
-	abstract void saveData();
-	
 	protected String getElementID() {
 		return idField.getText();
 	}
+	
+	/**
+	 * Adds the necessary attributes to the editor window
+	 * If it is a block or enemy, add Basic Behavior Movement and Interaction
+	 * If it is a player, add Basic and Movement 
+	 */
+	abstract void organizeEditor();
+	
+	/**
+	 * This method calls the CustomElementSaver which creates an XML file out of the data.
+	 * It creates a Tree with the Maps for each attribute, and it passes the elementID and the tree
+	 * to the CustomElementSaver.
+	 */
+	protected void saveData() {
+		for (Attribute attribute : attributeList) {
+			
+		}
+	}
+	
 	
 }

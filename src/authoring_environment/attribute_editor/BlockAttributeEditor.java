@@ -1,6 +1,5 @@
 package authoring_environment.attribute_editor;
 
-import authoring_environment.TreeNode;
 import javafx.scene.Group;
 
 public class BlockAttributeEditor extends AttributeEditor {
@@ -15,27 +14,22 @@ public class BlockAttributeEditor extends AttributeEditor {
 		Group basic = new Group();
 		BasicAttribute basicAttribute = new BasicAttribute(basic);
 		myAttributePane.getChildren().add(basic);
+		attributeList.add(basicAttribute);
 		
 		Group behavior = new Group();
 		BehaviorAttribute behaviorAttribute = new BehaviorAttribute(behavior);
 		myAttributePane.getChildren().add(behavior);
+		attributeList.add(behaviorAttribute);
 		
 		Group interaction = new Group();
 		InteractionAttribute interactionAttribute = new InteractionAttribute(interaction);
 		myAttributePane.getChildren().add(interaction);
+		attributeList.add(interactionAttribute);
 		
 		Group movement = new Group();
 		MovementAttribute movementAttribute = new MovementAttribute(movement);
 		myAttributePane.getChildren().add(movement);
-		
-		
-	}
-
-	@Override
-	void saveData() {
-		TreeNode attributes = new TreeNode("attributes");
-		attributes.addChild(new TreeNode("Basic"));
-		
+		attributeList.add(movementAttribute);
 		
 	}
 
