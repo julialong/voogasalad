@@ -48,15 +48,10 @@ public class BasicAttribute extends Attribute implements AttributeGetter {
 
 	private void setupEditorWindow(Stage window) {
 		BorderPane myRoot= new BorderPane();
-		//myRoot.getStyleClass().add("attribute-editor");
 		myBasicAttributePane = new VBox();
 		myImagePane= new VBox();
 		myTitlePane= new HBox();
 		Scene editor= new Scene(myRoot);
-		//editor.getStylesheets().add("GAE.css");
-		//myBasicAttributePane.getStyleClass().add("attribute-pane");
-		//myImagePane.getStyleClass().add("image-pane");
-		//myTitlePane.getStyleClass().add("attribute-title-pane");
 		myRoot.setLeft(myBasicAttributePane);
 		myRoot.setRight(myImagePane);
 		myRoot.setTop(myTitlePane);
