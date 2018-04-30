@@ -1,17 +1,16 @@
 package authoring_environment.attribute_editor;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class BehaviorAttribute extends Attribute {
     private static final String BEHAVIOR = "Behavior";
-	
+    private ResourceBundle rb = ResourceBundle.getBundle("resources.Behaviors");
 
     public BehaviorAttribute(Group targetLocation){
         targetLocation.getChildren().add(setupInputs(BEHAVIOR));
@@ -27,16 +26,9 @@ public class BehaviorAttribute extends Attribute {
     public VBox setupInputs(String attributeType) {
         VBox container = new VBox();
         List<String> behaviorAttributesOptions = super.loadAttributes(attributeType);
-        ObservableList<String> options = FXCollections.observableArrayList(behaviorAttributesOptions);
-        ListView<String> chooser = new ListView<>(options);
-        container.getChildren().add(chooser);
-        chooser.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        chooser.setOnMouseClicked(event -> {
-            List<String> selectedItems = chooser.getSelectionModel().getSelectedItems();
-            for(String option : selectedItems){
-                container.getChildren().add(getOptionContents(option));
-            }
-        });
+        for(String option : behaviorAttributesOptions){
+            container.getChildren().add(getOptionContents(option));
+        }
         return container;
     }
 
@@ -46,9 +38,16 @@ public class BehaviorAttribute extends Attribute {
      * has specifications which need to be filled in.
      */
     private HBox getOptionContents(String option){
-        //TODO: GET EVERY SETTABLE SPECIFICATION FOR EACH OPTION IN THE BEHAVIOR ATTRIBUTE
-        //TODO: information in the resource file, returns an hbox which is just like the
-        //TODO: HBox for the basic attribute
-        return null;
+        HBox inputLine = new HBox();
+        CheckBox checker = new CheckBox(option);
+        inputLine.getChildren().add(checker);
+        int numbOfFields = Integer.parseInt(rb.getString(option));
+        while(numbOfFields > 0){
+            TextField dataField = new TextField();
+            //TODO probably need this data field to have a setOnFill thing
+            inputLine.getChildren().add(dataField);
+            numbOfFields -= 1;
+        }
+        return inputLine;
     }
 }
