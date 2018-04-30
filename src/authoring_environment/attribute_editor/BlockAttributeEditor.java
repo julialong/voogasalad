@@ -19,6 +19,10 @@ public class BlockAttributeEditor extends AttributeEditor {
 		BehaviorAttribute behaviorAttribute = new BehaviorAttribute(behavior);
 		myAttributePane.getChildren().add(behavior);
 		
+		Group interaction = new Group();
+		InteractionAttribute interactionAttribute = new InteractionAttribute(interaction);
+		myAttributePane.getChildren().add(interaction);
+		
 		
 	}
 
