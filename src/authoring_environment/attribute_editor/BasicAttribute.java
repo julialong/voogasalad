@@ -16,8 +16,7 @@ public class BasicAttribute extends Attribute  {
 	 * which can be entered to edit the basic attributes of an game entity.
 	 */
 	public BasicAttribute(Group targetLocation) {
-		VBox basicAttributeContent = setupInputs(BASIC);
-		targetLocation.getChildren().add(basicAttributeContent);
+		targetLocation.getChildren().add(setupInputs(BASIC));
 	}
 
 	/**
