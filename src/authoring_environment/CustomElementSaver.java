@@ -40,7 +40,7 @@ public class CustomElementSaver {
 	 * @throws TransformerException
 	 */
 
-	public CustomElementSaver(GameElement gameElement, String id, TreeNode treeNode) throws TransformerException{
+	public CustomElementSaver(String id, TreeNode treeNode) throws TransformerException{
 		elementID= id;
 
 		try {
