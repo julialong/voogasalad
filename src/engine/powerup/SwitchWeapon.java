@@ -12,6 +12,10 @@ public class SwitchWeapon implements PowerUp{
 	private Weapon weapon;
 	private Player player;
 	
+	public SwitchWeapon(){
+		
+	}
+	
 	public SwitchWeapon(Weapon weapon, Player player){
 		this.weapon = weapon;
 		setPlayer(player);

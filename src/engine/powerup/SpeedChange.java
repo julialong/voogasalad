@@ -10,6 +10,10 @@ import engine.entity.Player;
 public class SpeedChange extends TimedPowerUp{
 	private double speedFactor;
 	
+	public SpeedChange(){
+		
+	}
+	
 	/**
 	 * Base constructor, uses default speed up (2*speed)
 	 * @param time - seconds
