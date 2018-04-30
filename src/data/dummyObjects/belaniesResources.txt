@@ -20,7 +20,24 @@ https://www.geeksforgeeks.org/java-lang-string-lastindexof-method/
 https://stackoverflow.com/questions/4917326/how-to-iterate-over-the-files-of-a-certain-directory-in-java
 http://javabeginnerstutorial.com/code-base/java-rename-directory-example/
 https://stackoverflow.com/questions/4795349/how-to-serialize-a-class-with-an-interface/9550086#9550086
+https://firebase.google.com/docs/database/admin/start#admin-sdk-setup
+https://stackoverflow.com/questions/15112590/get-the-class-instance-variables-and-print-their-values-using-reflection
+https://groups.google.com/forum/#!topic/firebase-talk/LEFeJYcR92Q
+https://firebase.google.com/docs/admin/setup
+https://developers.google.com/api-client-library/java/google-api-java-client/download
+https://stackoverflow.com/questions/7421612/slf4j-failed-to-load-class-org-slf4j-impl-staticloggerbinder
 https://stackoverflow.com/questions/1538755/how-to-convert-string-object-to-boolean-object
 https://docs.oracle.com/javafx/2/api/javafx/scene/paint/Color.html
+https://firebase.google.com/docs/database/admin/save-data
+https://stackoverflow.com/questions/44626919/where-is-or-what-is-the-serviceaccountkey-json-is-the-node-js-sample-of-firebase/49039675#49039675
+https://stackoverflow.com/questions/42176453/google-app-engine-node-cannot-find-module-firebase-admin/42634321#42634321
+https://firebase.google.com/docs/reference/admin/java/reference/com/google/firebase/database/DatabaseReference
+https://github.com/EddyVerbruggen/nativescript-plugin-firebase/issues/36
+https://firebase.google.com/docs/admin/setup
+https://www.javaquery.com/2016/09/how-to-save-data-in-firebase.html
+https://firebase.google.com/docs/reference/android/com/google/firebase/database/FirebaseDatabase.html#getReference()
+https://stackoverflow.com/questions/39144094/accessing-data-path-in-firebase-database
+https://firebase.google.com/docs/reference/js/firebase.database.Reference
+https://google.github.io/gson/apidocs/com/google/gson/JsonPrimitive.html
 
 GET RID OF PRINTSTACKTRACES!!!

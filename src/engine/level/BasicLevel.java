@@ -6,6 +6,7 @@ import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.physics.DetectCollision;
+import engine.weapon.Weapon;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class BasicLevel implements Level {
     private String myName;
     private DetectCollision detectCollision = new DetectCollision();
     private ArrayList<GameEntity> toRemoveFromObjectList = new ArrayList<>();
+    private ArrayList<Weapon> deactivatedWeapons = new ArrayList<>();
     private Camera camera;
     private double sceneX;
     private double sceenY;
@@ -72,12 +74,7 @@ public class BasicLevel implements Level {
 
     @Override
     public void addObject(GameEntity object) {
-//    	if(object instanceof Player || object instanceof Foes) {
-//    		myObjects.add(0, object);
-//    	}
-//    	else {
-    		myObjects.add(object);
-//    	}
+    	myObjects.add(object);
     }
 
     @Override
@@ -122,6 +119,8 @@ public class BasicLevel implements Level {
     @Override
     public void update(){
     	ArrayList<GameEntity> listCopy = new ArrayList<>(myObjects);
+    	
+    	// update all entities
     	for(GameEntity source : listCopy){
     		source.update();
     		if(source.getHealth() < 1 && !(source instanceof Player)) {
@@ -132,13 +131,40 @@ public class BasicLevel implements Level {
     		}
     		if(source instanceof Player){
     			((Player) source).setGameOver(source.getHealth() < 1);
-    			//if(source.getHealth() < 1) System.out.println("Game Over");
+    		}
+    		if(source instanceof Weapon){
+    			if(!((Weapon) source).getActive()){
+    				toRemoveFromObjectList.add(source);
+    				deactivatedWeapons.add((Weapon) source);
+    			}
     		}
     	}
+    	
+    	// remove entities that are dead or deactivated
     	for(GameEntity ge : toRemoveFromObjectList) {
     		myObjects.remove(ge);
     	}
+    	
+    	// clear remove list to reuse
     	toRemoveFromObjectList.clear();
+    	
+    	// re-add weapons that have been activated from the deactivated list
+    	for(Weapon w : deactivatedWeapons){
+			if(w.getActive()){
+				toRemoveFromObjectList.add((GameEntity) w);
+				myObjects.add((GameEntity) w);
+			}
+    	}
+    	
+    	// remove from deactivated weapons list
+    	for(GameEntity ge : toRemoveFromObjectList) {
+    		deactivatedWeapons.remove((Weapon) ge);
+    	}
+    	
+    	// clear remove list for reuse
+    	toRemoveFromObjectList.clear();
+    	
+    	// check all interactions
         for(GameEntity source : myObjects){
             for(GameEntity target : myObjects){
             	if(!(source == target)) {
@@ -146,6 +172,8 @@ public class BasicLevel implements Level {
             	}
             }   
         }
+        
+        // update camera
         camera.translate(myObjects);
         for(GameEntity ge : myObjects) {
         	if(ge instanceof Player) {

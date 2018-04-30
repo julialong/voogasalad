@@ -29,7 +29,7 @@ public class BehaviorSkipManager {
 	 * Creates the list of behaviors to skip.
 	 */
 	public BehaviorSkipManager(){
-		behaviorsToSkip = new ArrayList<String>();
+		behaviorsToSkip = new ArrayList<>();
 		behaviorsToSkip = buildBehaviorSkipMap();
 	}
 	
@@ -71,7 +71,7 @@ public class BehaviorSkipManager {
 		} 
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) 
 		{
-			throw new JsonParseException("Could not create behavior that contains a player");
+			throw new JsonParseException("Could not create behavior that contains a player", e);
 		}
 		
 	}
@@ -94,7 +94,7 @@ public class BehaviorSkipManager {
 		} 
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) 
 		{
-			throw new JsonParseException("Could not create behavior that contains a player");
+			throw new JsonParseException("Could not create behavior that contains a player", e);
 		}
 		
 	}

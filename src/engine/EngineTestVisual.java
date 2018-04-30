@@ -26,10 +26,12 @@ import engine.interaction.PreventClipping;
 import engine.interaction.Pushable;
 import engine.interaction.RemoveOnInteractWithPlayer;
 import engine.level.*;
+import engine.movement.Flying;
 import engine.movement.Grounded;
+import engine.movement.LinearFlying;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
-import engine.powerup.SpeedBoost;
+import engine.powerup.SpeedChange;
 import engine.weapon.AOEWeapon;
 import engine.weapon.ShootingWeapon;
 import engine.weapon.StabbingWeapon;
@@ -111,15 +113,15 @@ public class EngineTestVisual extends Application{
 		enemy2.setSizeY(20);
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
-		//enemy2.addInteraction(new Pushable());
+		enemy2.addInteraction(new Pushable());
 		//enemy2.setWeapon(new SwingingWeapon(enemy2, level));
-		enemy2.setWeapon(new ShootingWeapon(enemy2, level));
-		enemy2.addBehavior(new UseWeapon(0.5));
+		//enemy2.setWeapon(new ShootingWeapon(enemy2, level));
+		//enemy2.addBehavior(new UseWeapon(0.5));
 		//enemy2.addBehavior(new JumpALot());
-		enemy2.addBehavior(new ChasePlayer(player));
+		//enemy2.addBehavior(new ChasePlayer(player));
 		//enemy.setJumpFactor(150);
 		//enemy2.addBehavior(new MoveForward());
-		enemy2.addInteraction(new DamageOnStomp());
+		//enemy2.addInteraction(new DamageOnStomp());
 		//enemy2.addInteraction(new KnockBack());
 		//enemy2.addInteraction(new PreventClipping());
 		enemy2.setJumpFactor(150);
@@ -138,6 +140,7 @@ public class EngineTestVisual extends Application{
 		wall.setSizeX(10);
 		wall.setSizeY(48);
 		player.setMovementType(new Grounded());
+		//player.setMovementType(new Flying());
 		//player.setScenePosition(400/2 - player.getSizeX()/2, 400/2 - player.getSizeY()/2);
 		player.overridePosition(-380, -170);
 		player.setSizeX(10);
@@ -148,17 +151,54 @@ public class EngineTestVisual extends Application{
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
 		//player.setWeapon(new SwingingWeapon(player, level));
-		//player.setWeapon(new StabbingWeapon(player, level));
-		//player.setWeapon(new AOEWeapon(player, level));
-//		player.setWeapon(new ShootingWeapon(player, level));
-		List<Behavior> bulletBehaviors = new ArrayList<>();
-		bulletBehaviors.add(new MoveForward());
-		bulletBehaviors.add(new JumpALot());
-		player.setWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,25,10));
+		//player.setWeapon(new StabbingWeapon(player, level, 1));
+		//player.setWeapon(new AOEWeapon(player, level, 1));
+		player.setWeapon(new ShootingWeapon(player, level));
+
+//		List<Behavior> bulletBehaviors = new ArrayList<>();
+//		bulletBehaviors.add(new MoveForward());
+//		bulletBehaviors.add(new JumpALot());
+//		player.setWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,75,10));
+
+//		List<Behavior> bulletBehaviors = new ArrayList<>();
+//		bulletBehaviors.add(new MoveForward());
+//		bulletBehaviors.add(new JumpALot());
+//		player.setWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,25,10));
+		Block bullet = new Block();
+		/* Bouncy Bois */
+//		bullet.addBehavior(new MoveForward());
+//		bullet.addBehavior(new JumpALot());
+//		bullet.setMovementType(new Grounded());
+//		bullet.setSizeX(5);
+//		bullet.setSizeY(5);
+//		bullet.setMaxXVelocity(25);
+//		bullet.setMaxYVelocity(500);
+//		bullet.setJumpFactor(150);
+		
+		/* Arrow-Like Bullet */
+		bullet.addBehavior(new MoveForward());
+		bullet.setMovementType(new Grounded());
+		bullet.setSizeX(25);
+		bullet.setSizeY(5);
+		bullet.setMaxXVelocity(300);
+		bullet.setMaxYVelocity(20);
+		bullet.setJumpFactor(150);
+		
+		/* Memes */
+//		bullet.addBehavior(new MoveForward());
+//		bullet.addBehavior(new JumpALot());
+//		bullet.setMovementType(new Grounded());
+//		bullet.setSizeX(5);
+//		bullet.setSizeY(35);
+//		bullet.setMaxXVelocity(300);
+//		bullet.setMaxYVelocity(500);
+//		bullet.setJumpFactor(150);
+		
+		//player.setWeapon(new ShootingWeapon(player,level,bullet));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
-		wall.addInteraction(new AddPowerup(new LightWeight(5, player)));
+		//wall.addInteraction(new AddPowerup(new LightWeight(5, player)));
 		//wall.addInteraction(new RemoveOnInteractWithPlayer());
 		Block platform = new Block();
 		platform.overridePosition(0, -130);
@@ -170,6 +210,12 @@ public class EngineTestVisual extends Application{
 		platform2.setSizeX(100);
 		platform2.setSizeY(10);
 		platform2.addInteraction(new Platform());
+		Block powerupBlock = new Block(-80, -160);
+		powerupBlock.setSizeX(5);
+		powerupBlock.setSizeY(5);
+		powerupBlock.addInteraction(new AddPowerup(new LightWeight(5, player)));
+		//powerupBlock.addInteraction(new AddPowerup(new SpeedChange(5, player)));
+		powerupBlock.addInteraction(new RemoveOnInteractWithPlayer());
 		level.addObject(block);
 		level.addObject(enemy);
 		level.addObject(wall);
@@ -177,6 +223,7 @@ public class EngineTestVisual extends Application{
 		level.addObject(enemy2);
 		level.addObject(platform);
 		level.addObject(platform2);
+		level.addObject(powerupBlock);
 		//level.addObject(enemy3);
 		for(GameEntity ge : level.getObjects()){
 			Rectangle entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
