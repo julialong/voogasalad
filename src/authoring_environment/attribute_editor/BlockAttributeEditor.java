@@ -1,5 +1,6 @@
 package authoring_environment.attribute_editor;
 
+import authoring_environment.TreeNode;
 import javafx.scene.Group;
 
 public class BlockAttributeEditor extends AttributeEditor {
@@ -32,6 +33,8 @@ public class BlockAttributeEditor extends AttributeEditor {
 
 	@Override
 	void saveData() {
+		TreeNode attributes = new TreeNode("attributes");
+		attributes.addChild(new TreeNode("Basic"));
 		
 		
 	}

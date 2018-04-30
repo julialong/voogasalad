@@ -17,6 +17,8 @@ import authoring_environment.authored_elements.GameElement;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -37,6 +39,7 @@ public abstract class AttributeEditor implements DataAlert {
 
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
+	public static final String ENTER_ID= "Enter ID";
 
 	protected VBox myAttributePane;
 	protected VBox myImagePane;
@@ -44,9 +47,8 @@ public abstract class AttributeEditor implements DataAlert {
 	
 
 	private GameElement gameElement;
-	private String elementID; 
-	private Map<String, List<String>> attributes;
-	private Map<String, String> chosenAttributes; 
+	TextField idField;
+
 	private ImageView image;
 	private Stage window;
 	private File imageFile;
@@ -59,7 +61,6 @@ public abstract class AttributeEditor implements DataAlert {
 	 */
 	public AttributeEditor() {
 		setUpEditorWindow();
-		chosenAttributes = new HashMap<>() ;
 		//gameElement= new GameElement();
 		organizeEditor();
 		
@@ -94,6 +95,9 @@ public abstract class AttributeEditor implements DataAlert {
 		myImagePane= new VBox();
 		myImagePane.getChildren().add(new AddImageButton(this));
 		myTitlePane= new HBox();
+		Label idInstruction = new Label(ENTER_ID);
+		idField = new TextField();
+		myTitlePane.getChildren().addAll(idInstruction, idField);
 		Scene editor= new Scene(myRoot);
 		editor.getStylesheets().add("GAE.css");
 		myRoot.setLeft(myAttributePane);
@@ -138,5 +142,9 @@ public abstract class AttributeEditor implements DataAlert {
 	 * This method calls the CustomElementSaver which creates an XML file out of the data
 	 */
 	abstract void saveData();
+	
+	protected String getElementID() {
+		return idField.getText();
+	}
 	
 }
