@@ -40,7 +40,11 @@ public class BehaviorAttribute extends Attribute {
         });
     }
 
-
+    /**
+     * Returns an HBox which contains a label and a textfield that represent
+     * the components within each option. Each option from a behavior
+     * has specifications which need to be filled in.
+     */
     private HBox getOptionContents(String option){
         //TODO: GET EVERY SETTABLE SPECIFICATION FOR EACH OPTION IN THE BEHAVIOR ATTRIBUTE
         //TODO: information in the resource file, returns an hbox which is just like the

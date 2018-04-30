@@ -1,7 +1,6 @@
 package authoring_environment.attribute_editor;
 
-import javafx.scene.layout.Pane;
-
+import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -12,7 +11,7 @@ public abstract class Attribute {
 
     private static final String ATTRIBUTE_RESOURCES = "resources/Attributes.properties";
 
-    public abstract void setupInputs(Pane target, String attributeType);
+    public abstract VBox setupInputs(String attributeType);
 
     /**
      * Gets all of options for the attribute passed
