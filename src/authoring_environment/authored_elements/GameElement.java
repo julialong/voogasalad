@@ -65,7 +65,7 @@ public class GameElement implements AuthoredElement, DocumentGetter{
 	 * 
 	 * @param newAttributes
 	 */
-	public void updateAttributes(Map<String, String> newAttributes) {
+	/*public void updateAttributes(Map<String, String> newAttributes) {
 		attributes = newAttributes;
 		try {
 			CustomElementSaver saver = new CustomElementSaver(this, elementID, newAttributes, imageFile, xDimension, yDimension);
@@ -73,7 +73,7 @@ public class GameElement implements AuthoredElement, DocumentGetter{
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 
 	@Override
 	public void uploadImage(String fileName) {
@@ -109,16 +109,6 @@ public class GameElement implements AuthoredElement, DocumentGetter{
 		return elementID; 
 	}
 	
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	public void updateDimensions(String x, String y) {
-		xDimension = x;
-		yDimension = y;
-	}
-	
 	/*private void setAttributesFromFile(String idName) {
 		Document dataDoc = getDocument(idName, ELEMENT_DATA_PATH);
 		for(String key : availableAttributes.keySet()) {
@@ -131,19 +121,5 @@ public class GameElement implements AuthoredElement, DocumentGetter{
 		yDimension = dataDoc.getDocumentElement().getAttribute(YDIMENSION);
 	}*/
 	
-	public Map<String, String> getAttributes(){
-		return attributes;
-	}
-	
-	public List<String> getDimensions(){
-		List<String> dimensions = new ArrayList<String>();
-		dimensions.add(xDimension);
-		dimensions.add(yDimension);
-		return dimensions;
-	}
-	
-	public String getImagePath() {
-		return imageFile;
-	}
-	
+
 }

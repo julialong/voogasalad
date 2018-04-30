@@ -2,6 +2,7 @@ package authoring_environment;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -18,7 +19,7 @@ import java.util.Map;
  * from any class. This code was appearing in several classes, and was refactored
  * to prevent code duplication.
  *
- * @author Judith Sanchez, Julia Long
+ * @author Judith Sanchez, Julia Long, Michael Acker
  */
 public interface DocumentGetter {
 
@@ -51,26 +52,80 @@ public interface DocumentGetter {
     }
     
     default String getImagePath(Document doc) {
-    		Element child = doc.getElementById("Basic");
-    		return child.getAttribute("ImageFile");
+    	return getBasicAttribute(doc, "ImagePath");
  
     }
-    
-    default String getXDimension(Document doc) {
+
+    default int getXDimension(Document doc) {
     		Element child = doc.getElementById("Basic");
-    		return child.getAttribute("XDimension");
+    		return Integer.parseInt(child.getAttribute("XDimension"));
     }
     
-    default String getYDimension(Document doc) {
+    default int getYDimension(Document doc) {
 		Element child = doc.getElementById("Basic");
-		return child.getAttribute("YDimension");
+		return Integer.parseInt(child.getAttribute("YDimension"));
     }
     
-    /*default Map<String, List<String>> getBehaviors(Document doc){
-    		Element child = doc.getElementById("Behaviors");
-    		Map<String, List<String>> behaviorMap = new HashMap<String, List<String>>();
-    		NodeList behaviors= child.getChildNodes();
+    default String getMovement(Document doc) {
+    	Element child = doc.getElementById("Movement");
+    	return child.getAttribute("MovementType");
+    }
     
-    		
-    }*/
+    default List<String> getBehaviors(Document doc) {
+    	return getNodeNames(doc, "Behavior");
+    }
+    
+    default List<String> getInteractions(Document doc){
+    	return getNodeNames(doc, "Interaction");
+    }
+    
+    default Map<String, String> getBehaviorAttributes(Document doc, String behavior) {
+    	return getAttributes(doc, behavior);
+    }
+    
+    default Map<String, String> getInteractionAttributes(Document doc, String interaction) {
+    	return getAttributes(doc, interaction);
+    }
+
+    default Map<String, String> getPowerupAttributes(Document doc, String powerup) {
+        return getAttributes(doc, powerup);
+    }
+    
+    default String getBasicAttribute(Document doc, String attribute) {
+    	Element child = doc.getElementById("Basic");
+    	return child.getAttribute(attribute);
+    }
+    
+    default String getPowerUp(Document doc) {
+    	Element powerUpNode = doc.getElementById("AddPowerUp");
+    	return powerUpNode.getAttribute("PowerUpType");
+    }
+
+    default String getWeapon(Document doc) {
+        return doc.getDocumentElement().getAttribute("WeaponID");
+    }
+    
+    default List<String> getNodeNames(Document doc, String type){
+    	List<String> nameList = new ArrayList<String>();
+    	Element child = doc.getElementById(type);
+    	NodeList nodes = child.getChildNodes();
+    	for (int k = 0; k < nodes.getLength(); k++) {
+    		Node node = nodes.item(k);
+    		nameList.add(node.getNodeName());
+    	}
+    	return nameList;
+    }
+    
+    default Map<String, String> getAttributes(Document doc, String type){
+    	Map<String, String> attMap = new HashMap<String, String>();
+    	Element typeNode = doc.getElementById(type);
+    	NamedNodeMap attributes = typeNode.getAttributes();
+    	for (int k = 0; k < attributes.getLength(); k++) {
+    		Node node = attributes.item(k);
+    		String name = node.getNodeName();
+    		String value = node.getNodeValue();
+    		attMap.put(name, value);
+    	}
+    	return attMap;
+    }
 }
