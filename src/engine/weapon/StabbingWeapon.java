@@ -10,7 +10,11 @@ import engine.level.Level;
 public class StabbingWeapon extends WeaponBase{
     private static final double WEAPON_MOVEMENT_INCREMENT = 2;
     
-	public StabbingWeapon(GameEntity entity, Level level){
+    public StabbingWeapon(GameEntity entity, Level level){
+    	this(entity, level, 1);
+    }
+    
+	public StabbingWeapon(GameEntity entity, Level level, int damage){
 		super(entity, level);
 		hitBox.setSizeX(2*xHolderSize);
 		hitBox.setSizeY(yHolderSize/4);
@@ -19,6 +23,19 @@ public class StabbingWeapon extends WeaponBase{
         rightXOffset = xHolderSize/10;
         leftXOffset = width - 9*(xHolderSize/10);
         yOffset = yHolderSize/2;
+        this.damage = damage;
+	}
+	
+	public StabbingWeapon(GameEntity entity, Level level, double hitBoxX, double hitBoxY, int damage){
+		super(entity, level);
+		hitBox.setSizeX(hitBoxX);
+		hitBox.setSizeY(hitBoxY);
+        width = hitBoxX;
+        height = hitBoxY;
+        rightXOffset = xHolderSize/10;
+        leftXOffset = width - 9*(xHolderSize/10);
+        yOffset = yHolderSize/2;
+        this.damage = damage;
 	}
 	
 	@Override
