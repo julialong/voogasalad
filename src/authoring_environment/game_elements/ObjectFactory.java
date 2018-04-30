@@ -29,9 +29,9 @@ public class ObjectFactory implements DocumentGetter {
     private GameEntity newEntity;
 
     private static final String ENTITY_PATH = "engine.entity.";
-    private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
+    private static final String ELEMENT_DATA_PATH = "./data/";
 
-    ObjectFactory(Level level) {
+    public ObjectFactory(Level level) {
         myLevel = level;
     }
 
