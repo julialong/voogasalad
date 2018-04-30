@@ -6,10 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
-public class BasicAttribute extends Attribute implements AttributeGetter {
+public class BasicAttribute extends Attribute  {
 	
-	private static final String BASIC = "Basic";
+	private static final String BASIC = "BasicInfo";
 	/**
 	 * Create the basic attribute container which holds all of the specifications
 	 * which can be entered to edit the basic attributes of an game entity.
@@ -27,6 +28,7 @@ public class BasicAttribute extends Attribute implements AttributeGetter {
 		List<String> basicAttributesOptions = super.loadAttributes(attributeType);
 		VBox container = new VBox();
 		for(String option : basicAttributesOptions){
+			System.out.println(option);
 			HBox inputLine = new HBox();
 			Label instruction = new Label(option);
 			TextField input = new TextField();

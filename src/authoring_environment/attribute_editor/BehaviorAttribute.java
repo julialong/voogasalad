@@ -3,7 +3,11 @@ package authoring_environment.attribute_editor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
+<<<<<<< HEAD
 import javafx.scene.control.CheckBox;
+=======
+import javafx.scene.control.ComboBox;
+>>>>>>> 19aa53dd4df62d7774e09766039c0576c09dde32
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
@@ -26,6 +30,7 @@ public class BehaviorAttribute extends Attribute {
      * create the input lines for each one selected
      */
     @Override
+
     public VBox setupInputs(String attributeType) {
         VBox container = new VBox();
         List<String> behaviorAttributesOptions = super.loadAttributes(attributeType);

@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 public abstract class Attribute {
 
-    private static final String ATTRIBUTE_RESOURCES = "resources/Attributes.properties";
+    private static final String ATTRIBUTE_RESOURCES = "resources.Attribute";
 
     public abstract VBox setupInputs(String attributeType);
 
@@ -27,7 +27,7 @@ public abstract class Attribute {
         while (allOptions.hasMoreElements()) {
             String option = allOptions.nextElement();
             String type = rb.getString(option);
-            if(type == attribute){
+            if(type.equals(attribute)){
                 attributeOptions.add(option);
             }
         }
