@@ -90,6 +90,11 @@ public interface DocumentGetter {
     	return child.getAttribute(attribute);
     }
     
+    default String getPowerUp(Document doc) {
+    	Element powerUpNode = doc.getElementById("AddPowerUp");
+    	return powerUpNode.getAttribute("PowerUpType");
+    }
+    
     default List<String> getNodeNames(Document doc, String type){
     	List<String> nameList = new ArrayList<String>();
     	Element child = doc.getElementById(type);
