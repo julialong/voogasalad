@@ -125,7 +125,7 @@ public class VoogaGameView implements GameView, GameViewMenu {
 				myControls = new Controls((Player) ge);
 			}
 
-			System.out.println("imgPath: " + imgPath);
+//			System.out.println("imgPath: " + imgPath);
 			ImageView entityImage = new ImageView(
 					new Image(new File(imgPath).toURI().toString(), adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
 
