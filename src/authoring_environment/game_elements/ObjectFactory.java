@@ -61,7 +61,7 @@ public class ObjectFactory implements DocumentGetter {
             return null;
         }
         newEntity.setImagePath(path);
-        // createBehavior(behavior, newEntity);
+        makeBehaviors(newEntity, behavior);
         newEntity.setMovementType(createMovement(movement));
         makeInteractions(newEntity, interaction);
         newEntity.setSizeX(xSize * cellSize);
@@ -82,15 +82,35 @@ public class ObjectFactory implements DocumentGetter {
         }
     }
 
-    private void createBehavior(String behavior, GameEntity entity) {
+    private void makeBehaviors(GameEntity newEntity, List<String> behaviors) {
+        for (String behavior : behaviors) {
+            newEntity.addBehavior(createBehavior(behavior));
+        }
+    }
+
+    private Behavior createBehavior(String behavior) {
         try {
-            Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(GameEntity.class);
+            Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(Double.class, Double.class);
             behaviorConstructor.setAccessible(true);
-            Behavior newBehavior = (Behavior) behaviorConstructor.newInstance(entity);
-            entity.addBehavior(newBehavior);
+            return (Behavior) behaviorConstructor.newInstance();
         }
         catch (Exception e) {
-            // TODO: handle this
+            try {
+                Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(Double.class);
+                behaviorConstructor.setAccessible(true);
+                return (Behavior) behaviorConstructor.newInstance();
+            }
+            catch (Exception ee) {
+                try {
+                    Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor();
+                    behaviorConstructor.setAccessible(true);
+                    return (Behavior) behaviorConstructor.newInstance();
+                }
+                catch (Exception eee) {
+                    // TODO: handle this
+                    return null;
+                }
+            }
         }
     }
 
