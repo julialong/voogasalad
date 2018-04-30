@@ -9,13 +9,19 @@ import heads_up_display.HeadsUpDisplay;
 import heads_up_display.Hud;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
@@ -69,6 +75,7 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
 		myGP = new Pane();
+		myGP.setBackground(new Background(new BackgroundFill(Color.web(gameLevels.get(myCurrLevel).getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
 		setAdjustFactors();
 		setUpHud();
 		initDisplayMap();
@@ -165,6 +172,7 @@ public class VoogaGameView implements GameView, GameViewMenu {
 				} else {
 					myReplayList.clear();
 					initDisplayMap();
+					myGP.setBackground(new Background(new BackgroundFill(Color.web(myGameLevels.get(myCurrLevel).getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
 				}
 			}
 		}

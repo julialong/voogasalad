@@ -5,6 +5,7 @@ import authoring_environment.grid.ScrollingGrid;
 import engine.behavior.Behavior;
 import engine.entity.GameEntity;
 import engine.interaction.Interaction;
+import engine.interaction.PreventClipping;
 import engine.level.Level;
 import engine.movement.Movement;
 import engine.powerup.PowerUp;
@@ -28,6 +29,10 @@ public class AuthoredLevel implements DocumentGetter {
     private ScrollingGrid myScrollingGrid;
 
     private static final String ENTITY_PATH = "engine.entity.";
+    private static final String BEHAVIOR_PATH = "engine.behavior.";
+    private static final String INTERACTION_PATH = "engine.interaction.";
+    private static final String MOVEMENT_PATH = "engine.movement.";
+    private static final String POWERUP_PATH = "engine.powerup.";
     private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 
     /**
@@ -167,7 +172,7 @@ public class AuthoredLevel implements DocumentGetter {
 
     private void createBehavior(String behavior, GameEntity entity) {
         try {
-            Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(GameEntity.class);
+            Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH + behavior).getConstructor(GameEntity.class);
             behaviorConstructor.setAccessible(true);
             Behavior newBehavior = (Behavior) behaviorConstructor.newInstance(entity);
             entity.addBehavior(newBehavior);
@@ -179,7 +184,7 @@ public class AuthoredLevel implements DocumentGetter {
 
     private Movement createMovement(String movement) {
         try {
-            Constructor<?> movementConstructor = Class.forName(ENTITY_PATH + movement).getConstructor();
+            Constructor<?> movementConstructor = Class.forName(MOVEMENT_PATH + movement).getConstructor();
             movementConstructor.setAccessible(true);
             return (Movement) movementConstructor.newInstance();
         }
@@ -191,7 +196,7 @@ public class AuthoredLevel implements DocumentGetter {
 
     private Interaction createInteraction(String interaction) {
         try {
-            Constructor<?> interactionConstructor = Class.forName(ENTITY_PATH + interaction).getConstructor();
+            Constructor<?> interactionConstructor = Class.forName(INTERACTION_PATH + interaction).getConstructor();
             interactionConstructor.setAccessible(true);
             return (Interaction) interactionConstructor.newInstance();
         }
@@ -203,7 +208,7 @@ public class AuthoredLevel implements DocumentGetter {
 
     private PowerUp createPowerUp(String powerup) {
         try {
-            Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor();
+            Constructor<?> powerupConstructor = Class.forName(POWERUP_PATH + powerup).getConstructor();
             powerupConstructor.setAccessible(true);
             return (PowerUp) powerupConstructor.newInstance();
         }

@@ -40,11 +40,11 @@ import javafx.stage.Screen;
 public class LevelBuilder {
 
 	private static final String RESOURCE_FILE = "data.resources/gameObjects";
-	private static final String BEHAVIOR_SKIPS = "data.resources/behaviorsToSkip";
 	private static final String NAME = "name";
 	private static final String COLOR = "color";
 	private static final String WIDTH = "width";
 	private static final String HEIGHT = "height";
+	private static final int CAMERA_WIDTH = 1100;
 	private Map<String,Class<?>> objectTypes;
 	private List<String> behaviorsToSkip;
 	private Serializer deserializer; 
@@ -76,7 +76,6 @@ public class LevelBuilder {
 		deserializer = new Serializer();
 		levelFile = level;
 		
-		System.out.println("translate = " + translate);
 		this.translate = translate;
 	}
 
@@ -144,7 +143,7 @@ public class LevelBuilder {
 		levelHeight = jobject.get(HEIGHT).getAsDouble();
 		
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		int camWidth = 1100;
+		int camWidth = CAMERA_WIDTH;
 		int camHeight = (int) ((primaryScreenBounds.getHeight() / primaryScreenBounds.getWidth()) * camWidth);
 		
 		BasicLevel level = new BasicLevel((int)levelWidth, (int)levelHeight, camWidth, camHeight);
@@ -203,15 +202,10 @@ public class LevelBuilder {
 	 */
 	private void translateCoordinates(GameEntity ge)
 	{
-
-		System.out.println("levelWidth: " + levelWidth +"\nLevelHeight: "+ levelHeight);
-		System.out.println("x: "+ ge.getPosition()[0] +"\n y: "+ ge.getPosition()[1]);
-		
 		double translatedX = ge.getPosition()[0] - levelWidth/2;
 		double translatedY = (levelHeight/2) - ge.getPosition()[1];
-		System.out.println("x: "+ translatedX +"\n y: "+ translatedY);
+
 		ge.overridePosition(translatedX, translatedY);
-		System.out.println("updated: x: "+ ge.getPosition()[0] +"\n y: "+ ge.getPosition()[1]);
 	}
 
 	/**
@@ -244,19 +238,6 @@ public class LevelBuilder {
 					b = skipManager.getBehavior(b.getClass().toString().split(" ")[1],player);
 				}
 			}
-		}
-	}
-
-
-	private void buildBehaviorSkipMap()
-	{
-
-		ResourceBundle behaviors = ResourceBundle.getBundle(BEHAVIOR_SKIPS);
-		Enumeration<String> behaviorNames = behaviors.getKeys();
-		while(behaviorNames.hasMoreElements())
-		{
-			String behaviorName = behaviorNames.nextElement();
-			behaviorsToSkip.add(behaviors.getString(behaviorName));
 		}
 	}
 
