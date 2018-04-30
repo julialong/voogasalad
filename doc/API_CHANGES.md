@@ -32,12 +32,41 @@
     * Level revertChanges() returns a Level now, instead of the objects within the Level
     * new method void renameGame(String newName) renames a game folder
 
+* GAEtoJSON methods changed for final sprint:
+ 	* void updateMeta(boolean ready, String desc) throws DataFileException;
+ 	* void updateMeta(boolean ready, String desc, int levelStart) throws DataFileException;
+ 	* AuthoredLevel revertChanges(AuthoredLevel level) throws DataFileException;
+ 	* void renameGame(String newName) throws DataFileException;
+ 	* void saveData(AuthoredLevel level) throws DataFileException;
+ 	* void saveIndivLevel(AuthoredLevel level) throws DataFileException;
+
+Reasons for changing GAEtoJSON: 
+GAE implemented a new way of handling levels, separating the grid holding the level's objects from the level itself. In order to handle that, some methods had to be changed to account for the new class. Also added saving individual stray levels apart from games, updating settings file data, and renaming games.
+
+* GEtoJSON methods changed for final sprint:
+	* void saveData(String player, List<Level> levels) throws DataFileException;
+	* void saveData(Level level) throws DataFileException;
+
+Reasons for changing GEtoJSON:
+GP now has saving for players support, so have to be able to save with a player.
+
 * JSONtoGAE methods changed:
     * List<Object> loadGame(String gameName); has been updated to List<Level> loadCompleteGame(String gameName); Instead of returning a list of game objects, loading a game will return a list of Level objects
     * List<Object> loadLevel(String gameName, String levelName); has been updated to Level loadLevel(String gameName, String levelName); Instead of returning a list of objects upon loading a level, a Level object will be returned.
     * List<Object> loadSettings(String gameName); has been updated to Map<String,String> loadSettings(String gameName); where the Map will have keys be settings values like description or ready to play and keys will be the values of these settings
     * Map<String,String> getGameNames(); has been added which returns a map with keys being the names of games that are ready to be played and values being the descriptions of those games.
 
+* AFTER MIDPOINT: We made some siginificant changes to our design which called for new interfaces for convering JSON to Objects. Because of the new design, Game Authoring Environment would be working in terms of AuthoredLevel objects and Game Player would be working in terms of Level objects. This required two different interfaces for the loading of files.
+    * JSONtoGAE:
+        * List<AuthoredLevel> loadCompleteAuthoredGame(String gameName) throws DataFileException;
+        * AuthoredLevel loadAuthoredGameLevel(String gameName, String levelName) throws DataFileException;
+        * AuthoredLevel loadAuthoredLevel(String levelName) throws DataFileException;
+        * List<String> loadAuthoredLevelNames();
+        * Map<String,String> getGameNames() throws DataFileException;
+    * JSONtoGP:
+        * List<Level> loadCompleteGame(String gameName) throws DataFileException;  
+        * Level loadLevel(String gameName, String levelName) throws DataFileException;
+        * Map<String,String> getGameNames() throws DataFileException;
 
 ## Game Player
 * GameView methods changed:

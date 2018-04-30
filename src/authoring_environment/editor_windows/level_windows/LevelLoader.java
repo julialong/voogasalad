@@ -1,5 +1,6 @@
 package authoring_environment.editor_windows.level_windows;
 
+import authoring_environment.DataAlert;
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.game_elements.AuthoredLevel;
 import data.fileReading.GAEGameFileReader;
@@ -14,15 +15,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.Map;
 
-public class LevelLoader {
+/**
+ * Loads a given level to include in the current game.
+ *
+ * @author Julia Long
+ */
+public class LevelLoader implements DataAlert {
 
     private Stage myStage;
     private Pane myRoot;
-    private Scene myScene;
     private ListView<String> myView;
-    private Map<String, String> myChoices;
     private JSONtoGAE myReader;
     private CreatorView myWindow;
 
@@ -31,6 +34,10 @@ public class LevelLoader {
     private static final String CHOOSE = "Choose a level to add to your game:";
     private static final String ADD_LEVEL = "Add level to game";
 
+    /**
+     * Creates a new LevelLoader window
+     * @param window is the current editor window
+     */
     public LevelLoader(CreatorView window) {
         myWindow = window;
         setScreen();
@@ -42,7 +49,7 @@ public class LevelLoader {
     private void setScreen() {
         myStage = new Stage();
         myRoot = new VBox();
-        myScene = new Scene(myRoot);
+        Scene myScene = new Scene(myRoot);
         myScene.getStylesheets().add(CSS);
         myStage.setScene(myScene);
         myStage.setTitle(LOAD_LEVEL);
@@ -80,8 +87,7 @@ public class LevelLoader {
             myStage.close();
         }
         catch (Exception e) {
-            e.printStackTrace();
-            // TODO: pop up button
+            saveAlert(e);
         }
     }
 

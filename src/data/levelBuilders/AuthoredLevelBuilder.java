@@ -45,15 +45,15 @@ public class AuthoredLevelBuilder {
 	 */
 	public AuthoredLevel buildAuthoredLevel() throws DataFileException
 	{
-		LevelBuilder levelBuilder = new LevelBuilder(levelFile);
+		LevelBuilder levelBuilder = new LevelBuilder(levelFile, false);
 		Level levelForAuthoredLevel = levelBuilder.buildLevel();
 		
 		ScrollingGrid gridForAuthoredLevel = new ScrollingGrid();		
-		AuthoredLevel al = new AuthoredLevel(levelForAuthoredLevel, gridForAuthoredLevel);
+		AuthoredLevel authoredLevel = new AuthoredLevel(levelForAuthoredLevel, gridForAuthoredLevel);
 
-		retrieveScrollingGrid(levelFile, gridForAuthoredLevel, al);
+		retrieveScrollingGrid(levelFile, gridForAuthoredLevel, authoredLevel);
 
-		return al;
+		return authoredLevel;
 	}
 
 	/**
@@ -64,11 +64,10 @@ public class AuthoredLevelBuilder {
 	 */
 	private void retrieveScrollingGrid(File levelFile, ScrollingGrid scrollingGrid, AuthoredLevel al) throws DataFileException
 	{
-		JsonParser jsonParser = new JsonParser();
 		try 
 		{
-			JsonObject jobject;
-			jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
+			JsonParser jsonParser = new JsonParser();
+			JsonObject jobject = jsonParser.parse(new FileReader(levelFile)).getAsJsonObject();
 			JsonArray gridCells = jobject.getAsJsonArray(SCROLLING_GRID);
 			LevelSerializer ls = new LevelSerializer();
 			scrollingGrid = ls.deserialize(gridCells, scrollingGrid, al);

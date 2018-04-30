@@ -8,10 +8,7 @@ import data.gamefiles.GameFileWriter;
 import engine.behavior.MoveForward;
 import engine.controls.Controls;
 import engine.entity.*;
-import engine.interaction.DamageOnStomp;
-import engine.interaction.KnockBack;
-import engine.interaction.PreventClipping;
-import engine.interaction.Pushable;
+import engine.interaction.*;
 import engine.level.Level;
 import engine.movement.Grounded;
 import engine.level.BasicLevel;
@@ -20,7 +17,7 @@ public class TestingWriting {
 
 	public static void main(String[] args) {
 		try {
-		GameFileWriter myWriter = new GameFileWriter("Belanie", "ErrorWithEnemies");
+		GameFileWriter myWriter = new GameFileWriter("Dorian", "TestingGoal");
 
 		FileWriter fw;
 
@@ -49,8 +46,8 @@ public class TestingWriting {
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
-		player.setImageView("./game.player.styling/mario_running.gif");
-		System.out.println(player.getImageView());
+		player.setImagePath("./game.player.styling/mario_running.gif");
+		System.out.println(player.getImagePath());
 		one.addObject(player);
 
 		// big block that player stands on
@@ -71,7 +68,7 @@ public class TestingWriting {
 		one.addObject(wall);
 
 		// small block that can be pushed on the right side of the big block
-		Foes enemy = new Foes();
+		Enemy enemy = new Enemy();
 		enemy.overridePosition(30, -170);
 		enemy.setSizeX(10);
 		enemy.setSizeY(30);
@@ -82,7 +79,7 @@ public class TestingWriting {
 		one.addObject(enemy);
 
 		// small block that can be pushed on the left side of the big block
-		Foes enemy3 = new Foes();
+		Enemy enemy3 = new Enemy();
 		enemy3.overridePosition(-70, -170);
 		enemy3.setSizeX(10);
 		enemy3.setSizeY(20);
@@ -93,18 +90,26 @@ public class TestingWriting {
 		one.addObject(enemy3);
 
 		// enemy that player kills by jumping on. should chase the player
-		Foes enemy2 = new Foes();
+		Enemy enemy2 = new Enemy();
 		enemy2.overridePosition(-85, -170);
 		enemy2.setSizeX(10);
 		enemy2.setSizeY(20);
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
 		// line below causes data error
-		enemy2.addBehavior(new MoveForward(new Player()));
+		enemy2.addBehavior(new MoveForward());
 		enemy2.addInteraction(new DamageOnStomp());
 		enemy2.addInteraction(new KnockBack());
 		enemy2.setHealth(1);
 		one.addObject(enemy2);
+
+		//Testing the goal interaction
+		Block goal = new Block(200, -142);
+		goal.setSizeX(10);
+		goal.setSizeY(48);
+		goal.setHealth(1);
+		goal.addInteraction(new Goal());
+		one.addObject(goal);
 
 		return oneA;
 	}

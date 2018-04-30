@@ -12,7 +12,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -52,8 +51,7 @@ public class PickableElement extends ImageView implements DocumentGetter {
 		this.setFitHeight(REQUESTED_HEIGHT);
 		this.setFitWidth(REQUESTED_WIDTH);
 		setupDragAndDrop();
-		setupDoubleClick();
-		setupRightClick();
+		setupClicks();
 	}
 	
 	public String getType() {
@@ -71,7 +69,7 @@ public class PickableElement extends ImageView implements DocumentGetter {
 		});
 	}
 	
-	private void setupDoubleClick() {
+	private void setupClicks() {
 		this.setOnMouseClicked(e -> {
 			if (e.getClickCount() == 2) {
 				if (locked) {
@@ -82,6 +80,9 @@ public class PickableElement extends ImageView implements DocumentGetter {
 					myPicker.lockElement(myID);
 					this.getScene().setCursor(new ImageCursor(myImage));
 				}
+			} else if(e.isControlDown()) {
+				GameElement element = new GameElement(myID);
+				AttributeEditor editor = new AttributeEditor(element);
 			}
 		});
 	}
@@ -116,13 +117,4 @@ public class PickableElement extends ImageView implements DocumentGetter {
         return getDocument(ID, ELEMENT_DATA_PATH);
     }
 	
-	private void setupRightClick() {
-		this.setOnMouseClicked( e-> {
-			if(e.isControlDown()) {
-				GameElement element = new GameElement(myID);
-				AttributeEditor editor = new AttributeEditor(element);
-			}
-		}
-		);
-	}
 }

@@ -2,16 +2,19 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import engine.behavior.Behavior;
 import engine.behavior.ChasePlayer;
 import engine.behavior.JumpALot;
 import engine.behavior.JumpBetweenPoints;
 import engine.behavior.MoveBetweenThresholds;
 import engine.behavior.MoveForward;
+import engine.behavior.UseWeapon;
 import engine.controls.Controls;
 import engine.entity.Block;
-import engine.entity.Foes;
+import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.interaction.AddPowerup;
@@ -23,18 +26,27 @@ import engine.interaction.PreventClipping;
 import engine.interaction.Pushable;
 import engine.interaction.RemoveOnInteractWithPlayer;
 import engine.level.*;
+import engine.movement.Flying;
 import engine.movement.Grounded;
+import engine.movement.LinearFlying;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
-import engine.powerup.SpeedBoost;
+import engine.powerup.SpeedChange;
+import engine.weapon.AOEWeapon;
+import engine.weapon.ShootingWeapon;
+import engine.weapon.StabbingWeapon;
+import engine.weapon.SwingingWeapon;
+import engine.weapon.Weapon;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -55,7 +67,7 @@ public class EngineTestVisual extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		level = new BasicLevel(800, 400, 400, 400, 0);
+		level = new BasicLevel(800, 400, 400, 400);
 		setupLevel();
 
 		Scene scene = new Scene(root, 400, 400, Color.THISTLE);
@@ -76,9 +88,9 @@ public class EngineTestVisual extends Application{
 	private void setupLevel() {
 		//level.setSize(400, 400);
 		Player player = new Player();
-		Foes enemy = new Foes();
-		Foes enemy2 = new Foes();
-		Foes enemy3 = new Foes();
+		Enemy enemy = new Enemy();
+		Enemy enemy2 = new Enemy();
+		Enemy enemy3 = new Enemy();
 		//Block enemy = new Block();
 		//enemy.addBehavior(new MoveForward(new Player()));
 		//enemy.addInteraction(new KnockBack());
@@ -102,9 +114,13 @@ public class EngineTestVisual extends Application{
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
 		enemy2.addInteraction(new Pushable());
-		//enemy.addBehavior(new JumpALot());
+		//enemy2.setWeapon(new SwingingWeapon(enemy2, level));
+		//enemy2.setWeapon(new ShootingWeapon(enemy2, level));
+		//enemy2.addBehavior(new UseWeapon(0.5));
+		//enemy2.addBehavior(new JumpALot());
+		//enemy2.addBehavior(new ChasePlayer(player));
 		//enemy.setJumpFactor(150);
-		//enemy2.addBehavior(new MoveForward(new Player()));
+		//enemy2.addBehavior(new MoveForward());
 		//enemy2.addInteraction(new DamageOnStomp());
 		//enemy2.addInteraction(new KnockBack());
 		//enemy2.addInteraction(new PreventClipping());
@@ -124,6 +140,7 @@ public class EngineTestVisual extends Application{
 		wall.setSizeX(10);
 		wall.setSizeY(48);
 		player.setMovementType(new Grounded());
+		//player.setMovementType(new Flying());
 		//player.setScenePosition(400/2 - player.getSizeX()/2, 400/2 - player.getSizeY()/2);
 		player.overridePosition(-380, -170);
 		player.setSizeX(10);
@@ -133,6 +150,51 @@ public class EngineTestVisual extends Application{
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(150);
+		//player.setWeapon(new SwingingWeapon(player, level));
+		//player.setWeapon(new StabbingWeapon(player, level, 1));
+		//player.setWeapon(new AOEWeapon(player, level, 1));
+		player.setWeapon(new ShootingWeapon(player, level));
+
+//		List<Behavior> bulletBehaviors = new ArrayList<>();
+//		bulletBehaviors.add(new MoveForward());
+//		bulletBehaviors.add(new JumpALot());
+//		player.setWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,75,10));
+
+//		List<Behavior> bulletBehaviors = new ArrayList<>();
+//		bulletBehaviors.add(new MoveForward());
+//		bulletBehaviors.add(new JumpALot());
+//		player.setWeapon(new ShootingWeapon(player,level,new Grounded(),bulletBehaviors,1,5,5,25,10));
+		Block bullet = new Block();
+		/* Bouncy Bois */
+//		bullet.addBehavior(new MoveForward());
+//		bullet.addBehavior(new JumpALot());
+//		bullet.setMovementType(new Grounded());
+//		bullet.setSizeX(5);
+//		bullet.setSizeY(5);
+//		bullet.setMaxXVelocity(25);
+//		bullet.setMaxYVelocity(500);
+//		bullet.setJumpFactor(150);
+		
+		/* Arrow-Like Bullet */
+		bullet.addBehavior(new MoveForward());
+		bullet.setMovementType(new Grounded());
+		bullet.setSizeX(25);
+		bullet.setSizeY(5);
+		bullet.setMaxXVelocity(300);
+		bullet.setMaxYVelocity(20);
+		bullet.setJumpFactor(150);
+		
+		/* Memes */
+//		bullet.addBehavior(new MoveForward());
+//		bullet.addBehavior(new JumpALot());
+//		bullet.setMovementType(new Grounded());
+//		bullet.setSizeX(5);
+//		bullet.setSizeY(35);
+//		bullet.setMaxXVelocity(300);
+//		bullet.setMaxYVelocity(500);
+//		bullet.setJumpFactor(150);
+		
+		//player.setWeapon(new ShootingWeapon(player,level,bullet));
 		controls = new Controls(player);
 		wall.addInteraction(new PreventClipping());
 		//wall.addInteraction(new AddPowerup(new SpeedBoost(5, player)));
@@ -148,6 +210,12 @@ public class EngineTestVisual extends Application{
 		platform2.setSizeX(100);
 		platform2.setSizeY(10);
 		platform2.addInteraction(new Platform());
+		Block powerupBlock = new Block(-80, -160);
+		powerupBlock.setSizeX(5);
+		powerupBlock.setSizeY(5);
+		powerupBlock.addInteraction(new AddPowerup(new LightWeight(5, player)));
+		//powerupBlock.addInteraction(new AddPowerup(new SpeedChange(5, player)));
+		powerupBlock.addInteraction(new RemoveOnInteractWithPlayer());
 		level.addObject(block);
 		level.addObject(enemy);
 		level.addObject(wall);
@@ -155,6 +223,7 @@ public class EngineTestVisual extends Application{
 		level.addObject(enemy2);
 		level.addObject(platform);
 		level.addObject(platform2);
+		level.addObject(powerupBlock);
 		//level.addObject(enemy3);
 		for(GameEntity ge : level.getObjects()){
 			Rectangle entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
@@ -163,7 +232,7 @@ public class EngineTestVisual extends Application{
 			if(ge instanceof Player){
 				entityImage.setFill(Color.BLUE);
 			}
-			if(ge instanceof Foes){
+			if(ge instanceof Enemy){
 				entityImage.setFill(Color.RED);
 			}
 			root.getChildren().add(entityImage);
@@ -180,15 +249,29 @@ public class EngineTestVisual extends Application{
 	}
 
 	private void step(double secondDelay) {
+		Rectangle entityImage = null;
+		boolean addEntity = false;
+		for(GameEntity ge : level.getObjects()){
+			if(!geRectMap.keySet().contains(ge)){
+				entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
+				entityImage.setFill(Color.BLACK);
+				geRectMap.put(ge, entityImage);
+				addEntity = true;
+			}
+		}
 		level.update();
+		if(addEntity){
+			root.getChildren().add(entityImage);
+			addEntity = false;
+		}
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
 		for(GameEntity ge : geRectMap.keySet()){
 			if(level.getObjects().contains(ge)) {
-				//geRectMap.get(ge).setX(ge.getPosition()[0]+200);
-				//geRectMap.get(ge).setY(-ge.getPosition()[1]+200);
 				geRectMap.get(ge).setX(ge.getScenePosition()[0]);
 				geRectMap.get(ge).setY(ge.getScenePosition()[1]);
-
+				if(ge instanceof Weapon){
+					geRectMap.get(ge).setRotate(((Weapon) ge).getAngle());
+				}
 			}
 			else {
 				toRemove.add(ge);

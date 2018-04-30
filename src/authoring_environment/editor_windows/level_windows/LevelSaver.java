@@ -1,13 +1,8 @@
 package authoring_environment.editor_windows.level_windows;
 
 import authoring_environment.editor_windows.CreatorView;
-import authoring_environment.game_elements.AuthoredLevel;
-import authoring_environment.toolbars.choosers.LevelChooser;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -19,7 +14,6 @@ import javafx.stage.Stage;
  * The level saver class allows the user to save their current level.
  *
  * @author Julia Long
- * Date started
  */
 public class LevelSaver {
 
@@ -30,8 +24,8 @@ public class LevelSaver {
     private static final String CSS = "GAE.css";
     private static final String CSS_CLASS = "level-saver";
     private static final String SAVE_LEVEL = "Save Level";
-
     private static final String CHOOSE = "Save this level: ";
+    private static final int FONT_SIZE = 20;
 
     /**
      * Creates a new Level Saver window
@@ -60,7 +54,7 @@ public class LevelSaver {
         HBox nameBox = new HBox();
         nameBox.getStyleClass().add(CSS_CLASS);
         Text nameText = new Text(CHOOSE + myWindow.getGame().getCurrentLevel().getName());
-        nameText.setFont(new Font(20));
+        nameText.setFont(new Font(FONT_SIZE));
         nameBox.getChildren().add(nameText);
         myRoot.getChildren().add(nameBox);
     }

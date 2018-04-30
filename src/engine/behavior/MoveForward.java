@@ -2,28 +2,26 @@ package engine.behavior;
 
 import engine.controls.Action;
 import engine.controls.MoveLeft;
+import engine.controls.MoveRight;
 import engine.entity.GameEntity;
-import engine.entity.Player;
 
 /**
  * Behavior implementation that causes entity to move forward
+ * 
  * @author Robert Gitau and Marcus Oertle
  *
  */
 public class MoveForward implements Behavior {
-		private Action action = new MoveLeft();
-	    private Player player;
-	    
-	    public MoveForward() {
+	private Action action;
+
+	@Override
+	public void update(GameEntity entity) {
+		if (entity.getKinematics().getXVelocity() > 0) {
+			action = new MoveRight();
+		} else {
+			action = new MoveLeft();
 		}
-	    
-	    public MoveForward(Player player){
-	        this.player = player;
-	    }
-	   
-		@Override
-	    public void update(GameEntity entity) {
-	        action.execute(entity);
-	    }
-		
+		action.execute(entity);
 	}
+
+}

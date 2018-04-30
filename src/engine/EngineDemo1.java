@@ -2,8 +2,10 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import engine.behavior.Behavior;
 import engine.behavior.ChasePlayer;
 import engine.behavior.JumpALot;
 import engine.behavior.JumpBetweenPoints;
@@ -11,7 +13,7 @@ import engine.behavior.MoveBetweenThresholds;
 import engine.behavior.MoveForward;
 import engine.controls.Controls;
 import engine.entity.Block;
-import engine.entity.Foes;
+import engine.entity.Enemy;
 import engine.entity.GameEntity;
 import engine.entity.Player;
 import engine.interaction.AddPowerup;
@@ -26,7 +28,12 @@ import engine.level.*;
 import engine.movement.Grounded;
 import engine.movement.LinearGrounded;
 import engine.powerup.LightWeight;
-import engine.powerup.SpeedBoost;
+import engine.powerup.SwitchWeapon;
+import engine.weapon.AOEWeapon;
+import engine.weapon.ShootingWeapon;
+import engine.weapon.StabbingWeapon;
+import engine.weapon.SwingingWeapon;
+import engine.weapon.Weapon;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -55,7 +62,7 @@ public class EngineDemo1 extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		level = new BasicLevel(800, 400, 400, 400, 0);
+		level = new BasicLevel(800, 400, 400, 400);
 		setupLevel();
 
 		Scene scene = new Scene(root, 400, 400, Color.THISTLE);
@@ -84,14 +91,15 @@ public class EngineDemo1 extends Application{
 		// Player
 		Player player = new Player();
 		player.overridePosition(-380, -110);
-		player.setSizeX(20);
-		player.setSizeY(20);
+		player.setSizeX(10);
+		player.setSizeY(30);
 		player.setSpeedFactor(1000);
 		player.setMaxXVelocity(50);
 		player.setMaxYVelocity(500);
 		player.setFrictionConstant(200);
 		player.setJumpFactor(300);
 		controls = new Controls(player);
+		player.setWeapon(new StabbingWeapon(player, level));
 		level.addObject(player);
 		
 		// Block 1
@@ -108,15 +116,34 @@ public class EngineDemo1 extends Application{
 		block2.addInteraction(new PreventClipping());		
 		level.addObject(block2);
 		
-		// Block 3
+		// Block 3 - power up block
 		Block block3 = new Block(-300,-60);
 		block3.setSizeX(20);
 		block3.setSizeY(20);
-		block3.addInteraction(new PreventClipping());		
+		block3.addInteraction(new RemoveOnInteractWithPlayer());
+		Block bullet = new Block();
+		bullet.addBehavior(new MoveForward());
+		bullet.addBehavior(new JumpALot());
+		bullet.setMovementType(new Grounded());
+		bullet.setSizeX(5);
+		bullet.setSizeY(5);
+		bullet.setMaxXVelocity(25);
+		bullet.setMaxYVelocity(500);
+		bullet.setJumpFactor(150);
+		block3.addInteraction(new AddPowerup(new SwitchWeapon(new ShootingWeapon(player,level,bullet), player)));
 		level.addObject(block3);
 		
 		// Enemy 1
-		
+		Enemy enemy1 = new Enemy(-180, -110);
+		enemy1.setSizeX(10);
+		enemy1.setSizeY(20);
+		enemy1.setMaxXVelocity(30);
+		enemy1.setMaxYVelocity(500);
+		enemy1.addBehavior(new MoveForward());
+		//enemy1.addInteraction(new Pushable());
+		//enemy1.addInteraction(new DamageOnStomp());
+		enemy1.addInteraction(new KnockBack());
+		level.addObject(enemy1);
 		
 		for(GameEntity ge : level.getObjects()){
 			Rectangle entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
@@ -125,7 +152,7 @@ public class EngineDemo1 extends Application{
 			if(ge instanceof Player){
 				entityImage.setFill(Color.BLUE);
 			}
-			if(ge instanceof Foes){
+			if(ge instanceof Enemy){
 				entityImage.setFill(Color.RED);
 			}
 			root.getChildren().add(entityImage);
@@ -142,13 +169,29 @@ public class EngineDemo1 extends Application{
 	}
 
 	private void step(double secondDelay) {
+		Rectangle entityImage = null;
+		boolean addEntity = false;
+		for(GameEntity ge : level.getObjects()){
+			if(!geRectMap.keySet().contains(ge)){
+				entityImage = new Rectangle(ge.getPosition()[0]+200, -ge.getPosition()[1]+200, ge.getSizeX(), ge.getSizeY()); 
+				entityImage.setFill(Color.BLACK);
+				geRectMap.put(ge, entityImage);
+				addEntity = true;
+			}
+		}
 		level.update();
+		if(addEntity){
+			root.getChildren().add(entityImage);
+			addEntity = false;
+		}
 		ArrayList<GameEntity> toRemove = new ArrayList<>();
 		for(GameEntity ge : geRectMap.keySet()){
 			if(level.getObjects().contains(ge)) {
 				geRectMap.get(ge).setX(ge.getScenePosition()[0]);
 				geRectMap.get(ge).setY(ge.getScenePosition()[1]);
-
+				if(ge instanceof Weapon){
+					geRectMap.get(ge).setRotate(((Weapon) ge).getAngle());
+				}
 			}
 			else {
 				toRemove.add(ge);

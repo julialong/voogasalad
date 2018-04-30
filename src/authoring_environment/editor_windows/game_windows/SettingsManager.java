@@ -2,7 +2,6 @@ package authoring_environment.editor_windows.game_windows;
 
 
 import authoring_environment.editor_windows.CreatorView;
-import authoring_environment.editor_windows.MetaManager;
 import authoring_environment.editor_windows.buttons.SaveSettingsButton;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;

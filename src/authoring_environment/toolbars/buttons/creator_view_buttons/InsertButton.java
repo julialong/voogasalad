@@ -58,7 +58,7 @@ public class InsertButton extends MenuButton {
     private void addLevel() {
         AuthoredLevel splashScreen = new AuthoredLevel(new BasicLevel(), new ScrollingGrid());
         splashScreen.setName(SPLASH_SCREEN);
-        splashScreen.setSize(50, 25);
+        splashScreen.setSize(15, 25);
         myWindow.getGame().addLevel(splashScreen);
     }
 
