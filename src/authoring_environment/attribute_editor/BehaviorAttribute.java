@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 public class BehaviorAttribute extends Attribute {
     private static final String BEHAVIOR = "Behavior";
-    private ResourceBundle rb = ResourceBundle.getBundle("resources.Behavior");
+    private ResourceBundle rb = ResourceBundle.getBundle("resources.Behaviors");
 
     public BehaviorAttribute(Group targetLocation){
         targetLocation.getChildren().add(setupInputs(BEHAVIOR));
