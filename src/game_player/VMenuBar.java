@@ -17,17 +17,26 @@ public class VMenuBar implements MenuBar {
 		initMenuBar();
 	}
 	
+	/**
+	 * creates a new menubar and adds styling.
+	 */
 	private void initMenuBar() {
 		HBox bar = new HBox();
 		myMenuBar = bar;
 		myMenuBar.getStyleClass().add("menubar");
 	}
 
+	/**
+	 * Returns the menubar so it can be added to a scene.
+	 */
 	@Override
 	public Node getNode() {
 		return myMenuBar;
 	}
 
+	/**
+	 * Adds a button to the menubar for display.
+	 */
 	@Override
 	public void addButton(GamePlayerButton b) {
 		myMenuBar.getChildren().add((Node) b);
