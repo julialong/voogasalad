@@ -19,6 +19,11 @@ public class BehaviorAttribute extends Attribute {
 
     }
 
+    /**
+     * Creates the container for the behavior selection model
+     * and creates the listener which will automatically
+     * create the input lines for each one selected
+     */
     @Override
     public void setupInputs(Pane target, String attributeType) {
         VBox container = new VBox();
@@ -34,7 +39,6 @@ public class BehaviorAttribute extends Attribute {
             }
         });
     }
-
 
 
     private HBox getOptionContents(String option){
