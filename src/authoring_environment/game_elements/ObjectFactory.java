@@ -12,6 +12,7 @@ import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The object factory of a certain class creates the objects needed and adds it to that class
@@ -22,6 +23,7 @@ import java.util.List;
 public class ObjectFactory implements DocumentGetter {
 
     private Level myLevel;
+    private Document myDocument;
 
     private static final String ENTITY_PATH = "engine.entity.";
     private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
@@ -40,17 +42,17 @@ public class ObjectFactory implements DocumentGetter {
      */
     public GameEntity addObject(String ID, double x, double y, double cellSize) {
         GameEntity newEntity;
-        Document objectDoc = getDocument(ID, ELEMENT_DATA_PATH);
-        String path = getImagePath(objectDoc);
-        String type = objectDoc.getDocumentElement().getAttribute("GameEntity");
-        List<String> behavior = getBehaviors(objectDoc);
-        List<String> interaction = getInteractions(objectDoc);
-        String movement = getMovement(objectDoc);
+        myDocument = getDocument(ID, ELEMENT_DATA_PATH);
+        String path = getImagePath(myDocument);
+        String type = myDocument.getDocumentElement().getAttribute("GameEntity");
+        List<String> behavior = getBehaviors(myDocument);
+        List<String> interaction = getInteractions(myDocument);
+        String movement = getMovement(myDocument);
         int xSize;
         int ySize;
         try {
-            xSize = getXDimension(objectDoc);
-            ySize = getYDimension(objectDoc);
+            xSize = getXDimension(myDocument);
+            ySize = getYDimension(myDocument);
         }
         catch (Exception e) {
             xSize = 1;
@@ -89,16 +91,18 @@ public class ObjectFactory implements DocumentGetter {
     }
 
     private Behavior createBehavior(String behavior) {
+        Map<String, String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
         try {
             Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(Double.class, Double.class);
             behaviorConstructor.setAccessible(true);
-            return (Behavior) behaviorConstructor.newInstance();
+            return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get("x1")),
+                    Double.parseDouble(behaviorAttributes.get("x2")));
         }
         catch (Exception e) {
             try {
                 Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(Double.class);
                 behaviorConstructor.setAccessible(true);
-                return (Behavior) behaviorConstructor.newInstance();
+                return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get("percent")));
             }
             catch (Exception ee) {
                 try {
@@ -126,15 +130,16 @@ public class ObjectFactory implements DocumentGetter {
 
     private void makeInteractions(GameEntity newEntity, List<String> interactions) {
         for (String interaction : interactions) {
-            newEntity.addInteraction(createInteraction(interaction, null));
+            newEntity.addInteraction(createInteraction(interaction));
         }
     }
 
-    private Interaction createInteraction(String interaction, String powerup) {
+    private Interaction createInteraction(String interaction) {
+        Map<String, String> interactionMap = getInteractionAttributes(myDocument, interaction);
         try {
             Constructor<?> interactionConstructor = Class.forName(ENTITY_PATH + interaction).getConstructor(PowerUp.class);
             interactionConstructor.setAccessible(true);
-            return (Interaction) interactionConstructor.newInstance(createPowerUp(powerup));
+            return (Interaction) interactionConstructor.newInstance(createPowerUp(interactionMap.get("powerup")));
         }
         catch (Exception e) {
             try {
