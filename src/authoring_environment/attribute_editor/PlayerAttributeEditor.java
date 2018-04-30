@@ -8,4 +8,10 @@ public class PlayerAttributeEditor extends AttributeEditor {
 		
 	}
 
+	@Override
+	void saveData() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

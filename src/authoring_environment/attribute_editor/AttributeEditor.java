@@ -37,10 +37,7 @@ public abstract class AttributeEditor implements DataAlert {
 
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
-	private static final String CUSTOM_IMAGES_FOLDER = "data/authoredElementImages/";
-	private static final String  SLASH = "/";
-	private static final String DEFAULT = "1";
-	
+
 	protected VBox myAttributePane;
 	protected VBox myImagePane;
 	protected HBox myTitlePane;
@@ -54,8 +51,7 @@ public abstract class AttributeEditor implements DataAlert {
 	private Stage window;
 	private File imageFile;
 	private URI imageURI;
-	private String xDim;
-	private String yDim;
+
 
 
 	/**
@@ -63,15 +59,13 @@ public abstract class AttributeEditor implements DataAlert {
 	 */
 	public AttributeEditor() {
 		setUpEditorWindow();
-		xDim = DEFAULT;
-		yDim = DEFAULT;
 		chosenAttributes = new HashMap<>() ;
 		//gameElement= new GameElement();
 		organizeEditor();
 		
 	}
 	
-	public AttributeEditor(GameElement element) {
+	/*public AttributeEditor(GameElement element) {
 		gameElement = element;
 		elementID = gameElement.getID();
 		chosenAttributes = gameElement.getAttributes();
@@ -87,7 +81,7 @@ public abstract class AttributeEditor implements DataAlert {
 		image.setFitWidth(IMAGE_WIDTH);
 		myImagePane.getChildren().add(image);
 		
-	}
+	}*/
 
 	/**
 	 * Creates the BorderPane, Scene, and Stage and the different Boxes that go in the BorderPane
@@ -139,32 +133,10 @@ public abstract class AttributeEditor implements DataAlert {
 		
 	}
 	
-	/*/**
-	 * 
-	 * @param category
-	 * @param chosenAttribute
-	 * @throws TransformerException
-	 
-	public void updateAttribute(String category, String chosenAttribute) throws TransformerException {
-		chosenAttributes.put(category, chosenAttribute);
-	}
 	
 	/**
-	 * This method triggers the gameElement updateAttributes method which saves attributes for an element
-	 * to an XML file
+	 * This method calls the CustomElementSaver which creates an XML file out of the data
 	 */
-	/*public void saveChanges() {
-		Path source = Paths.get(imageURI);
-		Path target = Paths.get(CUSTOM_IMAGES_FOLDER + chosenAttributes.get(GAME_ENTITY) + SLASH + elementID + imageFile.getAbsolutePath().substring(imageFile.getAbsolutePath().lastIndexOf(".")));
-		try {
-			Files.copy(source, target);
-		} catch (IOException e) {
-			saveAlert(e);
-		}
-		gameElement.updateDimensions(xDim, yDim);
-		gameElement.uploadImage(target.toString());
-		gameElement.updateAttributes(chosenAttributes);
-		window.close();
-	}*/
+	abstract void saveData();
 	
 }
