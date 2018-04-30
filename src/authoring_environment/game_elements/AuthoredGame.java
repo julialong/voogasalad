@@ -236,6 +236,11 @@ public class AuthoredGame implements DataAlert {
     	            saveAlert(e);
     		 }
     }
+    
+    public String getAuthorName()
+    {
+    	return myAuthor;
+    }
 
 
 }

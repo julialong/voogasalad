@@ -38,6 +38,8 @@ public class EditorWindow implements CreatorView {
 	public EditorWindow(Stage stage, AuthoredGame game) {
 		myStage = stage;
 		myGame = game;
+		myAuthor = game.getAuthorName();
+		myGame.setAuthorName(myAuthor);
 		openNewWindow();
 	}
 
@@ -54,6 +56,7 @@ public class EditorWindow implements CreatorView {
 		myStage = stage;
 		try {
 			myGame = new AuthoredGame(gameName, gameDescription, reader.loadCompleteAuthoredGame(gameName));
+			myGame.setAuthorName(myAuthor);
 		}
 		catch (Exception e) {
 			myGame = new AuthoredGame();
