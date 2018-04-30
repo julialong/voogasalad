@@ -128,7 +128,7 @@ public class TextWriter	{
 	}
 
 	private void writeObjects(FileWriter fw, List<GameEntity> items) throws DataFileException	{
-		if (items.size() > 0)	{
+		if (!items.isEmpty())	{
 			checkWriteComma(fw, Integer.MIN_VALUE, Integer.MAX_VALUE);
 		}
 
