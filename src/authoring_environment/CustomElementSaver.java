@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
 
 /**
  * 
- * @author Judi Sanchez
+ * @author Judi Sanchez, Michael Acker
  * Date started: April 9 2018
  *
  */
@@ -40,7 +40,7 @@ public class CustomElementSaver {
 	 * @throws TransformerException
 	 */
 
-	public CustomElementSaver(GameElement gameElement, String id, Map<String, String> attributes, String imageFile, String x, String y) throws TransformerException{
+	public CustomElementSaver(GameElement gameElement, String id, TreeNode treeNode) throws TransformerException{
 		elementID= id;
 
 		try {
@@ -49,26 +49,43 @@ public class CustomElementSaver {
 			e.printStackTrace();
 		}
 		doc = docBuilder.newDocument();
-		updateAttributes(attributes, imageFile, x, y);
+		updateAttributes(treeNode);
 		
 	}
 	
-	private void updateAttributes(Map<String, String> attributes, String imageFile, String x, String y) throws TransformerException {
-		Element customElement = doc.createElement("Attributes");
-		doc.appendChild(customElement);
-		for(String attribute: attributes.keySet()) {
-			customElement.setAttribute(attribute, attributes.get(attribute));
-		}
-		customElement.setAttribute("ImageFile", imageFile);
-		customElement.setAttribute("XDimension", x);
-		customElement.setAttribute("YDimension", y);
+	private void updateAttributes(TreeNode treeNode) throws TransformerException {
+		setXMLData(treeNode);
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File("data/authoredElementData/" + elementID.toString() + ".xml"));
 		System.out.println("saved");
 		transformer.transform(source, result);
-		
 	}
+	
+	private void setXMLData(TreeNode treeNode) {
+		Element element = doc.createElement(treeNode.getInfo());
+		doc.appendChild(element);
+		for (TreeNode node : treeNode.getChildren()) {
+			traverseXMLData(node, element);
+		}
+	}
+	
+	private void traverseXMLData(TreeNode treeNode, Element element) {
+		if (!treeNode.getChildren().isEmpty()
+				&& !treeNode.getChildren().get(0).getChildren().isEmpty()) {
+			Element newElement = doc.createElement(treeNode.getInfo());
+			element.appendChild(newElement);
+			for (TreeNode node : treeNode.getChildren()) {
+				traverseXMLData(node, newElement);
+			}
+		} else {
+			for (TreeNode node : treeNode.getChildren()) {
+				element.setAttribute(treeNode.getInfo(), node.getInfo());
+			}
+		}
+	}
+	
+	
 
 }
