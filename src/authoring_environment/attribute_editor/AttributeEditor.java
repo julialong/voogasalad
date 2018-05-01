@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-/**
+/** TODO: Remove strings from methods
  * This class is the abstract class for all of the specific editors -- for
  * block, for enemy and for player It has methods for opening boxes and text
  * inputs for user manipulation, and for saving the contents of the inputs to
@@ -36,17 +36,27 @@ import javafx.stage.Stage;
  * @author Judi Sanchez Date started: April 3 2018
  *
  */
-// TODO: get rid of strings in methods
 public abstract class AttributeEditor implements DataAlert {
 
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
 	private static final String ID = "ID";
+	private static final String CUSTOM_IMAGES_FOLDER = "data/authoredElementImages/";
+	private static final String SLASH = "/";
+	private static final String IMAGE_PATH = "IMAGEPATH";
+	private static final String BASIC = "Basic";
+	private static final String STYLESHEET = "GAE.css";
+	private static final String EDITOR_STYLESHEET = "attribute-editor";
+	private static final String ATTRIBUTES = "Attributes";
+	private static final String TITLE = "Attribute Editor";
+	
+
 
 	protected VBox myAttributePane;
 	protected VBox myImagePane;
 	protected HBox myTitlePane;
 	protected List<Attribute> attributeList;
+	protected String myType;
 
 	private Stage window;
 	private String elementID;
@@ -54,11 +64,6 @@ public abstract class AttributeEditor implements DataAlert {
 	private URI imageURI;
 	private URL imageURL;
 	private ImageView image;
-
-	private static final String CUSTOM_IMAGES_FOLDER = "data/authoredElementImages/";
-	private static final String SLASH = "/";
-	private static final String IMAGE_PATH = "IMAGEPATH";
-	private static final String BASIC = "Basic";
 
 	/**
 	 * This is the constructor for opening the attribute editor for a brand new game
@@ -84,24 +89,24 @@ public abstract class AttributeEditor implements DataAlert {
 
 	/**
 	 * Creates the BorderPane, Scene, and Stage and the different Boxes that go in
-	 * the BorderPane Adds the AddImageButton to myImagePane TODO: rewrite this
+	 * the BorderPane Adds the AddImageButton to myImagePane 
 	 * method
 	 */
 	private void setUpEditorWindow() {
 		BorderPane myRoot = new BorderPane();
-		myRoot.getStyleClass().add("attribute-editor");
+		myRoot.getStyleClass().add(EDITOR_STYLESHEET);
 		myAttributePane = new VBox();
 		myImagePane = new VBox();
 		myImagePane.getChildren().add(new AddImageButton(this));
 		myTitlePane = new HBox();
 		Scene editor = new Scene(myRoot);
-		editor.getStylesheets().add("GAE.css");
+		editor.getStylesheets().add(STYLESHEET);
 		myRoot.setLeft(myAttributePane);
 		myRoot.setRight(myImagePane);
 		myRoot.setTop(myTitlePane);
 		window = new Stage();
 		window.setScene(editor);
-		window.setTitle("Attribute Editor");
+		window.setTitle(TITLE);
 		window.show();
 	}
 
@@ -118,7 +123,7 @@ public abstract class AttributeEditor implements DataAlert {
 	 * elementID and the tree to the CustomElementSaver.
 	 */
 	protected void saveData() {
-		TreeNode tree = new TreeNode("Attributes");
+		TreeNode tree = new TreeNode(ATTRIBUTES);
 		for (Attribute attribute : attributeList) {
 			TreeNode attributeBranchNode = new TreeNode(attribute.returnName());
 			tree.addChild(attributeBranchNode);
@@ -154,6 +159,7 @@ public abstract class AttributeEditor implements DataAlert {
 	 * be used as the image for a custom element
 	 * 
 	 * @throws MalformedURLException
+	 * TODO : Remove magic strings 
 	 */
 	public void openFileChooser() throws MalformedURLException {
 		myImagePane.getChildren().remove(image);
