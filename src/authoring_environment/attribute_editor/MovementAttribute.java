@@ -11,15 +11,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This subclass represents the movement attribute that game entities can have.
+ * Since a game entity may only have one movement attribute this subclass
+ * is implemented through the use of a single selection combobox.
+ *
+ * @Author Judi Sanchez, Dorian Barber
+ */
 public class MovementAttribute extends Attribute{
+
     private static final String MOVEMENT = "Movement";
     private ComboBox<String> movementChooser;
 
+    /**
+     * Creates the movement attribute which holds the options for
+     * what movement a game entity can have.
+     */
     public MovementAttribute(Group targetLocation){
         movementChooser = new ComboBox<String>();
         targetLocation.getChildren().add(setupInputs(MOVEMENT));
     }
 
+
+    /**
+     * Creates a container which actually only contains a single selection combobox.
+     * This combobox determines what movement the game entity has.
+     */
     @Override
     public VBox setupInputs(String attributeType) {
         VBox container = new VBox();
@@ -34,6 +51,7 @@ public class MovementAttribute extends Attribute{
         container.getChildren().add(inputLine);
         return container;
     }
+
 
     /**
      * Returns a map of option to a list of data fields that the user inputs.

@@ -10,8 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 
+/**
+ * This subclass represents the most basic attribute any entity can have.
+ * Here lies the some items such as the image File, x dimension, y dimension, etc.
+ * This particular subclass is implemented through labels and textfields.
+ *
+ * @Author Judi Sanchez, Dorian Barber
+ */
 public class BasicAttribute extends Attribute  {
 	
 	private static final String BASIC = "Basic";
@@ -26,6 +32,7 @@ public class BasicAttribute extends Attribute  {
 		targetLocation.getChildren().add(setupInputs(BASIC));
 	}
 
+
 	/**
 	 * Create all textfield inputs with a label that will specify the purpose of the textfield.
 	 * i.e. label = X Dimension => textfield = (some integer which will represent the x dimension)
@@ -35,7 +42,6 @@ public class BasicAttribute extends Attribute  {
 		List<String> basicAttributesOptions = super.loadAttributes(attributeType);
 		VBox container = new VBox();
 		for(String option : basicAttributesOptions){
-			System.out.println(option);
 			HBox inputLine = new HBox();
 			Label instruction = new Label(option);
 			TextField input = new TextField();
@@ -45,6 +51,7 @@ public class BasicAttribute extends Attribute  {
 		}
 		return container;
 	}
+
 
 	/**
 	 * Returns a map of option to a list of data fields that the user inputs.
@@ -60,5 +67,11 @@ public class BasicAttribute extends Attribute  {
 			contents.put(option, contentList);
 		}
 		return contents;
+	}
+
+
+	@Override
+	public String returnName() {
+		return BASIC;
 	}
 }

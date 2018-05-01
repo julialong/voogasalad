@@ -12,16 +12,31 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
 
-
+/**
+ * This subclass represents the behavior attribute that game entities may have.
+ * Since the behavior attribute vary in their arguments this subclass is designed
+ * differently. In addition to checkboxes that designate the user selecting a behavior
+ * to add, some behaviors may have textfields which require an input from the user.
+ * The resources.Behaviors resource bundle determines the number of data fields, if
+ * any, that must be entered into the attribute editor window.
+ *
+ * @Author Judi Sanchez, Dorian Barber
+ */
 public class BehaviorAttribute extends Attribute {
+
     private static final String BEHAVIOR = "Behavior";
     private ResourceBundle rb = ResourceBundle.getBundle("resources.Behaviors");
     private Map<CheckBox, List<TextField>> behaviorsContents;
 
+    /**
+     * Creates the behavior attribute container which holds all the
+     * behaviors a game entity can have.
+     */
     public BehaviorAttribute(Group targetLocation){
         behaviorsContents = new HashMap<>();
         targetLocation.getChildren().add(setupInputs(BEHAVIOR));
     }
+
 
     /**
      * Creates the container for the behavior selection model
@@ -59,6 +74,7 @@ public class BehaviorAttribute extends Attribute {
         return inputLine;
     }
 
+
     /**
      * Returns a map of option to a list of data fields that the user inputs.
      * If there are no data fields to input then it is an empty list.
@@ -82,3 +98,4 @@ public class BehaviorAttribute extends Attribute {
 		return BEHAVIOR;
 	}
 }
+

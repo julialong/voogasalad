@@ -1,9 +1,13 @@
 package authoring_environment.attribute_editor;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +19,7 @@ import authoring_environment.CustomElementSaver;
 import authoring_environment.DataAlert;
 import authoring_environment.TreeNode;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -25,8 +28,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * This class is the abstract class that all of the specific editors -- for block, for enemy and for player, 
- * inherit from 
+ * This class is the abstract class for all of the specific editors -- for
+ * block, for enemy and for player It has methods for opening boxes and text
+ * inputs for user manipulation, and for saving the contents of the inputs to
+ * XML file
  * 
  * @author Judi Sanchez Date started: April 3 2018
  *
@@ -36,22 +41,28 @@ public abstract class AttributeEditor implements DataAlert {
 
 	private static final double IMAGE_WIDTH = 200;
 	private static final double IMAGE_HEIGHT = 200;
-	public static final String ENTER_ID = "Enter ID";
+	private static final String ID = "ID";
 
 	protected VBox myAttributePane;
 	protected VBox myImagePane;
 	protected HBox myTitlePane;
-
-	private TextField idField;
 	protected List<Attribute> attributeList;
 
-	private ImageView image;
 	private Stage window;
+	private String elementID;
 	private File imageFile;
 	private URI imageURI;
+	private URL imageURL;
+	private ImageView image;
+
+	private static final String CUSTOM_IMAGES_FOLDER = "data/authoredElementImages/";
+	private static final String SLASH = "/";
+	private static final String IMAGE_PATH = "IMAGEPATH";
+	private static final String BASIC = "Basic";
 
 	/**
-	 * 
+	 * This is the constructor for opening the attribute editor for a brand new game
+	 * entity
 	 */
 	public AttributeEditor() {
 		attributeList = new ArrayList<Attribute>();
@@ -73,8 +84,8 @@ public abstract class AttributeEditor implements DataAlert {
 
 	/**
 	 * Creates the BorderPane, Scene, and Stage and the different Boxes that go in
-	 * the BorderPane Adds the AddImageButton to myImagePane
-	 * TODO: rewrite this method
+	 * the BorderPane Adds the AddImageButton to myImagePane TODO: rewrite this
+	 * method
 	 */
 	private void setUpEditorWindow() {
 		BorderPane myRoot = new BorderPane();
@@ -83,9 +94,6 @@ public abstract class AttributeEditor implements DataAlert {
 		myImagePane = new VBox();
 		myImagePane.getChildren().add(new AddImageButton(this));
 		myTitlePane = new HBox();
-		Label idInstruction = new Label(ENTER_ID);
-		idField = new TextField();
-		myTitlePane.getChildren().addAll(idInstruction, idField);
 		Scene editor = new Scene(myRoot);
 		editor.getStylesheets().add("GAE.css");
 		myRoot.setLeft(myAttributePane);
@@ -95,32 +103,6 @@ public abstract class AttributeEditor implements DataAlert {
 		window.setScene(editor);
 		window.setTitle("Attribute Editor");
 		window.show();
-	}
-
-	/**
-	 * This method opens the window that allows the user to upload an image file to
-	 * be used as the image for a custom element
-	 * 
-	 * @throws MalformedURLException
-	 */
-	public void openFileChooser() throws MalformedURLException {
-		myImagePane.getChildren().remove(image);
-		Stage fileWindow = new Stage();
-		FileChooser filechooser = new FileChooser();
-		filechooser.getExtensionFilters()
-				.add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
-		imageFile = filechooser.showOpenDialog(fileWindow);
-		imageURI = imageFile.toURI();
-		URL imageURL = imageURI.toURL();
-		image = new ImageView(imageURL.toString());
-		image.setFitHeight(IMAGE_HEIGHT);
-		image.setFitWidth(IMAGE_WIDTH);
-		myImagePane.getChildren().add(image);
-
-	}
-
-	protected String getElementID() {
-		return idField.getText();
 	}
 
 	/**
@@ -138,7 +120,7 @@ public abstract class AttributeEditor implements DataAlert {
 	protected void saveData() {
 		TreeNode tree = new TreeNode("Attributes");
 		for (Attribute attribute : attributeList) {
-			TreeNode attributeBranchNode = new TreeNode("name");
+			TreeNode attributeBranchNode = new TreeNode(attribute.returnName());
 			tree.addChild(attributeBranchNode);
 			Map<String, List<String>> attributeContentMap = attribute.getAttributeContent();
 			Set<String> options = attributeContentMap.keySet();
@@ -147,18 +129,86 @@ public abstract class AttributeEditor implements DataAlert {
 				attributeBranchNode.addChild(optionNode);
 				List<String> optionParameters = attributeContentMap.get(option);
 				for (String parameter : optionParameters) {
+					if (option.equals(ID)) {
+						elementID = parameter;
+						System.out.println(elementID);
+					}
 					TreeNode parameterNode = new TreeNode(parameter);
 					optionNode.addChild(parameterNode);
 				}
 			}
 
 		}
+		addImageToTree(tree);
 		try {
-			CustomElementSaver saver = new CustomElementSaver(getElementID(), tree);
+			CustomElementSaver saver = new CustomElementSaver(elementID, tree);
 		} catch (TransformerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		window.close();
+	}
+
+	/**
+	 * This method opens the window that allows the user to upload an image file to
+	 * be used as the image for a custom element
+	 * 
+	 * @throws MalformedURLException
+	 */
+	public void openFileChooser() throws MalformedURLException {
+		myImagePane.getChildren().remove(image);
+		Stage fileWindow = new Stage();
+		FileChooser filechooser = new FileChooser();
+		filechooser.getExtensionFilters()
+				.add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+		imageFile = filechooser.showOpenDialog(fileWindow);
+		imageURI = imageFile.toURI();
+		imageURL = imageURI.toURL();
+		image = new ImageView(imageURL.toString());
+		image.setFitHeight(IMAGE_HEIGHT);
+		image.setFitWidth(IMAGE_WIDTH);
+		myImagePane.getChildren().add(image);
+
+	}
+
+	/**
+	 * This method is used to copy the file path from the image that is uploaded
+	 * with the FileChooser to a new file path that has the same name as the ID that
+	 * was given by the user to the new game entity
+	 * 
+	 * @return the file path for the copied image
+	 */
+	private String copyImage() {
+		Path source = Paths.get(imageURI);
+		Path target = Paths.get(CUSTOM_IMAGES_FOLDER + "BLOCK" + SLASH + elementID
+				+ imageFile.getAbsolutePath().substring(imageFile.getAbsolutePath().lastIndexOf(".")));
+		try {
+			Files.copy(source, target);
+		} catch (IOException e) {
+			saveAlert(e);
+		}
+		return target.toString();
+
+	}
+
+	/**
+	 * This method is used to add the image to the tree of attributes for a game
+	 * entity
+	 * 
+	 * @param tree
+	 *            is the tree to which we are adding the file path for the image
+	 */
+	private void addImageToTree(TreeNode tree) {
+		String filePath = copyImage();
+		List<TreeNode> attributes = tree.getChildren();
+		for (TreeNode attribute : attributes) {
+			if (attribute.getInfo().equals(BASIC)) {
+				TreeNode imagePathNode = new TreeNode(IMAGE_PATH);
+				attribute.addChild(imagePathNode);
+				imagePathNode.addChild(new TreeNode(filePath));
+			}
+		}
+
 	}
 
 }
