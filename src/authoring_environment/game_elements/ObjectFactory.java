@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The object factory of a certain class creates the objects needed and adds it to that class
@@ -28,8 +29,11 @@ public class ObjectFactory implements DocumentGetter {
     private Document myDocument;
     private GameEntity newEntity;
 
+    // EDITED PATHS FOR THE STUFF BELOW
     private static final String ENTITY_PATH = "engine.entity.";
     private static final String BEHAVIOR_PATH = "engine.behavior.";
+    private static final String MOVEMENT_PATH = "engine.movement.";
+    private static final String INTERACTION_PATH = "engine.interaction.";
     
     //private static final String ELEMENT_DATA_PATH = "./data/";
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
@@ -50,11 +54,9 @@ public class ObjectFactory implements DocumentGetter {
     		System.out.println(ID);
         myDocument = getDocument(ID, ELEMENT_DATA_PATH);
         String path = getImagePath(myDocument);
+        System.out.println(path);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
         List<String> behavior = getBehaviors(myDocument);
-        for(String b : behavior) {
-        	System.out.println(b);
-        }
         List<String> interaction = getInteractions(myDocument);
         String movement = getMovement(myDocument);
         String weapon = getWeapon(myDocument);
@@ -99,22 +101,33 @@ public class ObjectFactory implements DocumentGetter {
         for (String behavior : behaviors) {
         		System.out.println("make behavior: " + behavior);
             newEntity.addBehavior(createBehavior(behavior));
+            System.out.println("succeeded");
         }
     }
 
     private Behavior createBehavior(String behavior) {
-        Map<String, String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
+        //Map<String, String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
+    		List<String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
+    		System.out.println(Double.parseDouble(behaviorAttributes.get(0)));
+    		System.out.println(Double.parseDouble(behaviorAttributes.get(1)));
+        //Set<String> keys = behaviorAttributes.keySet();
+    		// Changed the get(x1, x2, and percent) to indices 
+    		// Changed Double to double
         try {
-            Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH + behavior).getConstructor(Double.class, Double.class);
+            Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH + behavior).getConstructor(double.class, double.class);
+            System.out.println("true");
             behaviorConstructor.setAccessible(true);
-            return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get("x1")),
-                    Double.parseDouble(behaviorAttributes.get("x2")));
+            Behavior b = (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get(0)),
+                    Double.parseDouble(behaviorAttributes.get(1)));
+            System.out.println(b);
+            return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get(0)),
+                    Double.parseDouble(behaviorAttributes.get(1)));
         }
         catch (Exception e) {
             try {
-                Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH +  behavior).getConstructor(Double.class);
+                Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH +  behavior).getConstructor(double.class);
                 behaviorConstructor.setAccessible(true);
-                return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get("percent")));
+                return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get(0)));
             }
             catch (Exception ee) {
                 try {
@@ -131,7 +144,7 @@ public class ObjectFactory implements DocumentGetter {
 
     private Movement createMovement(String movement) {
         try {
-            Constructor<?> movementConstructor = Class.forName(ENTITY_PATH + movement).getConstructor();
+            Constructor<?> movementConstructor = Class.forName(MOVEMENT_PATH + movement).getConstructor();
             movementConstructor.setAccessible(true);
             return (Movement) movementConstructor.newInstance();
         }
@@ -147,15 +160,16 @@ public class ObjectFactory implements DocumentGetter {
     }
 
     private Interaction createInteraction(String interaction) {
-        Map<String, String> interactionMap = getInteractionAttributes(myDocument, interaction);
+        //Map<String, String> interactionMap = getInteractionAttributes(myDocument, interaction);
+        List<String> interactionAttributes = getInteractionAttributes(myDocument, interaction);
         try {
-            Constructor<?> interactionConstructor = Class.forName(ENTITY_PATH + interaction).getConstructor(PowerUp.class);
+            Constructor<?> interactionConstructor = Class.forName(INTERACTION_PATH + interaction).getConstructor(PowerUp.class);
             interactionConstructor.setAccessible(true);
-            return (Interaction) interactionConstructor.newInstance(createPowerUp(interactionMap.get("powerup")));
+            return (Interaction) interactionConstructor.newInstance(createPowerUp(interactionAttributes.get(0)));
         }
         catch (Exception e) {
             try {
-                Constructor<?> interactionConstructor = Class.forName(ENTITY_PATH + interaction).getConstructor();
+                Constructor<?> interactionConstructor = Class.forName(INTERACTION_PATH + interaction).getConstructor();
                 interactionConstructor.setAccessible(true);
                 return (Interaction) interactionConstructor.newInstance();
             }
@@ -166,17 +180,18 @@ public class ObjectFactory implements DocumentGetter {
     }
 
     private PowerUp createPowerUp(String powerup) {
-        Map<String, String> powerupMap = getPowerupAttributes(myDocument, powerup);
+        // Map<String, String> powerupMap = getPowerupAttributes(myDocument, powerup);
+        List<String> powerupAttributes = getPowerupAttributes(myDocument, powerup);
         try {
             Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor(Weapon.class);
             powerupConstructor.setAccessible(true);
-            return (PowerUp) powerupConstructor.newInstance(createWeapon(powerupMap.get("weapon")));
+            return (PowerUp) powerupConstructor.newInstance(createWeapon(powerupAttributes.get(0)));
         }
         catch (Exception e) {
             try {
-                Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor(Double.class);
+                Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor(double.class);
                 powerupConstructor.setAccessible(true);
-                return (PowerUp) powerupConstructor.newInstance(Double.parseDouble(powerupMap.get("time")));
+                return (PowerUp) powerupConstructor.newInstance(Double.parseDouble(powerupAttributes.get(0)));
             }
             catch (Exception ee) {
                 try {

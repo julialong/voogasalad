@@ -35,10 +35,10 @@
 "null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ],
 [
-"null","null","null","SunTest4","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
+"null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ],
 [
-"null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
+"null","null","null","null","water","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
 ],
 [
 "null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"
@@ -306,6 +306,6 @@
 ]
 ]
 ,"Block":[
-{"id":0,"kinematics":{"xCor":500.0,"yCor":150.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":200.0,"height":250.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/SunTest4.jpg","behaviorList":[null],"interactionList":[null],"interactionsMap":{},"destructible":false}
+{"id":0,"movementType":{"type":"engine.movement.Grounded","data":{"physics":{}}},"kinematics":{"xCor":550.0,"yCor":200.0,"xVel":0.0,"yVel":0.0,"xAcc":0.0,"yAcc":0.0,"gravitionalConstant":392.40000000000003,"frictionConstant":0.0},"health":1,"jumpFactor":0.0,"speedFactor":0.0,"maxVelocityX":0.0,"maxVelocityY":0.0,"width":250.0,"height":150.0,"sceneX":0.0,"sceneY":0.0,"myImagePath":"data/authoredElementImages/Block/water.gif","behaviorList":[{"type":"engine.behavior.JumpBetweenPoints","data":{"x1":1.0,"x2":200.0,"jump":{},"actionLeft":{},"actionRight":{},"moveToPoint1":true}}],"interactionList":[{"type":"engine.interaction.JumpOverObstacle","data":{}},{"type":"engine.interaction.Pushable","data":{}}],"interactionsMap":{},"destructible":false}
 ]
 }

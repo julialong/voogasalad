@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,15 +85,15 @@ public interface DocumentGetter {
     	return getNodeNames(doc, "Interaction");
     }
     
-    default Map<String, String> getBehaviorAttributes(Document doc, String behavior) {
+    default List<String> getBehaviorAttributes(Document doc, String behavior) {
     	return getAttributes(doc, behavior);
     }
     
-    default Map<String, String> getInteractionAttributes(Document doc, String interaction) {
+    default List<String> getInteractionAttributes(Document doc, String interaction) {
     	return getAttributes(doc, interaction);
     }
 
-    default Map<String, String> getPowerupAttributes(Document doc, String powerup) {
+    default List<String> getPowerupAttributes(Document doc, String powerup) {
         return getAttributes(doc, powerup);
     }
     
@@ -125,18 +126,19 @@ public interface DocumentGetter {
     	return nameList;
     }
     
-    default Map<String, String> getAttributes(Document doc, String type) {
+    default List<String> getAttributes(Document doc, String type) {
     	Map<String, String> attMap = new HashMap<String, String>();
     	NodeList typeNodes = doc.getElementsByTagName(type);
-    	NodeList children = typeNodes.item(0).getChildNodes();
-    	NamedNodeMap attributes = null;
-    	for (int k = 0; k < children.getLength(); k++) {
+    Element child = (Element) typeNodes.item(0);
+    	NamedNodeMap attributes = child.getAttributes();
+    	for (int k = 0; k < attributes.getLength(); k++) {
     		Node node = attributes.item(k);
     		String name = node.getNodeName();
     		String value = node.getNodeValue();
     		attMap.put(name, value);
     	}
-    	return attMap;
+    	List<String> values = new ArrayList<String>(attMap.values());
+    	return values;
     }
 
 
