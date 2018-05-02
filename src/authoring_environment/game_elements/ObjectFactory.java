@@ -29,7 +29,8 @@ public class ObjectFactory implements DocumentGetter {
     private GameEntity newEntity;
 
     private static final String ENTITY_PATH = "engine.entity.";
-    private static final String ELEMENT_DATA_PATH = "./data/";
+    //private static final String ELEMENT_DATA_PATH = "./data/";
+	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 
     public ObjectFactory(Level level) {
         myLevel = level;
@@ -44,6 +45,7 @@ public class ObjectFactory implements DocumentGetter {
      * @return the constructed GameEntity
      */
     public GameEntity addObject(String ID, double x, double y, double cellSize) {
+    		System.out.println(ID);
         myDocument = getDocument(ID, ELEMENT_DATA_PATH);
         String path = getImagePath(myDocument);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");

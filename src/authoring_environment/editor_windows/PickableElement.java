@@ -45,8 +45,11 @@ public class PickableElement extends ImageView implements DocumentGetter {
 		Tooltip tip = new Tooltip(myID);
 		Tooltip.install(this, tip);
 		myDataDoc = parseElementXML(myID);
-		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
+		//String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
+		// ALTERED BY JUDI ON May 1st //
+		String path = getImagePath(myDataDoc);
 		String type = myDataDoc.getDocumentElement().getAttribute("GameEntity");
+		//
 		myImage = new Image("file:" + path, REQUESTED_WIDTH, REQUESTED_HEIGHT, true, true);
 		myType = type;
 		this.setImage(myImage);

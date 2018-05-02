@@ -4,6 +4,7 @@ import engine.entity.GameEntity;
 import javafx.scene.PointLight;
 import org.w3c.dom.Document;
 
+import authoring_environment.DocumentGetter;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,7 +25,7 @@ import java.awt.*;
  *
  */
 
-public class GridCell extends HBox {
+public class GridCell extends HBox implements DocumentGetter {
 	
 	private ImageView myCellView;
 	private String myID;
@@ -109,10 +110,17 @@ public class GridCell extends HBox {
 	public void setImage(String ID) {
 		myID = ID;
 		myDataDoc = myGrid.parseElementXML(ID);
+		/*
 		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
 		myType = myDataDoc.getDocumentElement().getAttribute("GameEntity");
 		myXDim = Integer.parseInt(myDataDoc.getDocumentElement().getAttribute("XDimension"));
-		myYDim = Integer.parseInt(myDataDoc.getDocumentElement().getAttribute("YDimension"));
+		myYDim = Integer.parseInt(myDataDoc.getDocumentElement().getAttribute("YDimension"));*/
+		// MODIFIED BY JUDI MAY 1 //
+		String path = getImagePath(myDataDoc);
+		myType = myDataDoc.getDocumentElement().getAttribute("GameEntity");
+		myXDim= getXDimension(myDataDoc);
+		myYDim= getYDimension(myDataDoc);
+		/////////////////////////////////////////
 		myCellView.setImage(new Image("file:" + path));
 		//TODO: Get Dimensions from file
 		this.setSize(mySize);

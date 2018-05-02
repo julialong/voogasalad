@@ -19,7 +19,7 @@ import java.util.Map;
  * from any class. This code was appearing in several classes, and was refactored
  * to prevent code duplication.
  *
- * @author Judith Sanchez, Julia Long, Michael Acker
+ * @author Michael Acker, Judith Sanchez, Julia Long
  */
 public interface DocumentGetter {
 
@@ -57,18 +57,23 @@ public interface DocumentGetter {
     }
 
     default int getXDimension(Document doc) {
-    		Element child = doc.getElementById("Basic");
-    		return Integer.parseInt(child.getAttribute("XDimension"));
+    		//Element child = doc.getElementById("Basic");
+    		// return Integer.parseInt(child.getAttribute("XDimension"));
+    		return Integer.parseInt(getBasicAttribute(doc, "XDimension"));
     }
     
     default int getYDimension(Document doc) {
-		Element child = doc.getElementById("Basic");
-		return Integer.parseInt(child.getAttribute("YDimension"));
+		//Element child = doc.getElementById("Basic");
+		//return Integer.parseInt(child.getAttribute("YDimension"));
+    		return Integer.parseInt(getBasicAttribute(doc, "YDimension"));
     }
     
     default String getMovement(Document doc) {
-    	Element child = doc.getElementById("Movement");
-    	return child.getAttribute("MovementType");
+    		//Element child = doc.getElementById("Movement");
+    		//return child.getAttribute("MovementType");
+    		NodeList children = doc.getElementsByTagName("Movement");
+    		Element child = (Element) children.item(0);
+    		return child.getAttribute("MovementType");
     }
     
     default List<String> getBehaviors(Document doc) {
@@ -124,7 +129,7 @@ public interface DocumentGetter {
     	Map<String, String> attMap = new HashMap<String, String>();
     	NodeList typeNodes = doc.getElementsByTagName(type);
     	NodeList children = typeNodes.item(0).getChildNodes();
-    	NamedNodeMap attributes;
+    	NamedNodeMap attributes = null;
     	for (int k = 0; k < children.getLength(); k++) {
     		Node node = attributes.item(k);
     		String name = node.getNodeName();
@@ -133,4 +138,6 @@ public interface DocumentGetter {
     	}
     	return attMap;
     }
+
+
 }
