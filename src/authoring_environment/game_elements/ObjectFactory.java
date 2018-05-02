@@ -29,6 +29,8 @@ public class ObjectFactory implements DocumentGetter {
     private GameEntity newEntity;
 
     private static final String ENTITY_PATH = "engine.entity.";
+    private static final String BEHAVIOR_PATH = "engine.behavior.";
+    
     //private static final String ELEMENT_DATA_PATH = "./data/";
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 
@@ -50,6 +52,9 @@ public class ObjectFactory implements DocumentGetter {
         String path = getImagePath(myDocument);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
         List<String> behavior = getBehaviors(myDocument);
+        for(String b : behavior) {
+        	System.out.println(b);
+        }
         List<String> interaction = getInteractions(myDocument);
         String movement = getMovement(myDocument);
         String weapon = getWeapon(myDocument);
@@ -92,6 +97,7 @@ public class ObjectFactory implements DocumentGetter {
 
     private void makeBehaviors(GameEntity newEntity, List<String> behaviors) {
         for (String behavior : behaviors) {
+        		System.out.println("make behavior: " + behavior);
             newEntity.addBehavior(createBehavior(behavior));
         }
     }
@@ -99,20 +105,20 @@ public class ObjectFactory implements DocumentGetter {
     private Behavior createBehavior(String behavior) {
         Map<String, String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
         try {
-            Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(Double.class, Double.class);
+            Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH + behavior).getConstructor(Double.class, Double.class);
             behaviorConstructor.setAccessible(true);
             return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get("x1")),
                     Double.parseDouble(behaviorAttributes.get("x2")));
         }
         catch (Exception e) {
             try {
-                Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor(Double.class);
+                Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH +  behavior).getConstructor(Double.class);
                 behaviorConstructor.setAccessible(true);
                 return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get("percent")));
             }
             catch (Exception ee) {
                 try {
-                    Constructor<?> behaviorConstructor = Class.forName(ENTITY_PATH + behavior).getConstructor();
+                    Constructor<?> behaviorConstructor = Class.forName( BEHAVIOR_PATH + behavior).getConstructor();
                     behaviorConstructor.setAccessible(true);
                     return (Behavior) behaviorConstructor.newInstance();
                 }
