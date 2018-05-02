@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import data.levelBuilders.LevelBuilder;
 import data.resources.DataFileException;
 import engine.level.Level;
+import data.levelBuilders.LevelBuilder;
 /**
  *  This class holds the implementation for the methods that allow the Game Player to load games and files
  * for play.
@@ -100,7 +100,7 @@ public class GPGameFileReader extends GameFileReader implements JSONtoGP{
 	@Override
 	public Level loadLevel(String gameName, String levelName) throws DataFileException {
 		File currentLevel = getLevel(gameName, levelName);
-		LevelBuilder levelBuilder = new LevelBuilder(currentLevel);
+		LevelBuilder levelBuilder = new LevelBuilder(currentLevel, true);
 		return levelBuilder.buildLevel();
 	}
 

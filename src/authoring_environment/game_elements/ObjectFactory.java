@@ -30,6 +30,8 @@ public class ObjectFactory implements DocumentGetter {
 
     private static final String ENTITY_PATH = "engine.entity.";
     private static final String BEHAVIOR_PATH = "engine.behavior.";
+    private static final String MOVEMENT_PATH = "engine.movement.";
+    private static final String INTERACTION_PATH = "engine.interaction.";
     
     //private static final String ELEMENT_DATA_PATH = "./data/";
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
@@ -131,7 +133,7 @@ public class ObjectFactory implements DocumentGetter {
 
     private Movement createMovement(String movement) {
         try {
-            Constructor<?> movementConstructor = Class.forName(ENTITY_PATH + movement).getConstructor();
+            Constructor<?> movementConstructor = Class.forName(MOVEMENT_PATH + movement).getConstructor();
             movementConstructor.setAccessible(true);
             return (Movement) movementConstructor.newInstance();
         }
@@ -149,13 +151,13 @@ public class ObjectFactory implements DocumentGetter {
     private Interaction createInteraction(String interaction) {
         Map<String, String> interactionMap = getInteractionAttributes(myDocument, interaction);
         try {
-            Constructor<?> interactionConstructor = Class.forName(ENTITY_PATH + interaction).getConstructor(PowerUp.class);
+            Constructor<?> interactionConstructor = Class.forName(INTERACTION_PATH + interaction).getConstructor(PowerUp.class);
             interactionConstructor.setAccessible(true);
             return (Interaction) interactionConstructor.newInstance(createPowerUp(interactionMap.get("powerup")));
         }
         catch (Exception e) {
             try {
-                Constructor<?> interactionConstructor = Class.forName(ENTITY_PATH + interaction).getConstructor();
+                Constructor<?> interactionConstructor = Class.forName(INTERACTION_PATH + interaction).getConstructor();
                 interactionConstructor.setAccessible(true);
                 return (Interaction) interactionConstructor.newInstance();
             }

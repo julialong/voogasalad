@@ -16,6 +16,11 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * Loads a given level to include in the current game.
+ *
+ * @author Julia Long
+ */
 public class LevelLoader implements DataAlert {
 
     private Stage myStage;
@@ -29,6 +34,10 @@ public class LevelLoader implements DataAlert {
     private static final String CHOOSE = "Choose a level to add to your game:";
     private static final String ADD_LEVEL = "Add level to game";
 
+    /**
+     * Creates a new LevelLoader window
+     * @param window is the current editor window
+     */
     public LevelLoader(CreatorView window) {
         myWindow = window;
         setScreen();
