@@ -4,6 +4,13 @@ import javafx.scene.Group;
 
 public class PlayerAttributeEditor extends AttributeEditor {
 
+	private static final String PLAYER = "Player";
+	
+	public PlayerAttributeEditor() {
+		super();
+		myType= PLAYER;
+	}
+	
 	@Override
 	void organizeEditor() {
 		Group basic = new Group();

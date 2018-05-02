@@ -4,9 +4,11 @@ import javafx.scene.Group;
 
 public class BlockAttributeEditor extends AttributeEditor {
 	
+	private static final String BLOCK = "Block";
 	
 	public BlockAttributeEditor() {
 		super();
+		myType= BLOCK;
 	}
 
 	@Override

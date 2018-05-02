@@ -4,6 +4,13 @@ import javafx.scene.Group;
 
 public class EnemyAttributeEditor extends AttributeEditor{
 
+	private static final String ENEMY = "Enemy";
+	
+	public EnemyAttributeEditor() {
+		super();
+		myType= ENEMY;
+	}
+	
 	@Override
 	void organizeEditor() {
 		

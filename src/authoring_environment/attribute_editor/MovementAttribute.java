@@ -21,6 +21,7 @@ import java.util.Map;
 public class MovementAttribute extends Attribute{
 
     private static final String MOVEMENT = "Movement";
+    private static final String MOVEMENT_TYPE = "MovementType";
     private ComboBox<String> movementChooser;
 
     /**
@@ -61,7 +62,9 @@ public class MovementAttribute extends Attribute{
     public Map<String, List<String>> getAttributeContent() {
         Map<String, List<String>> contents = new HashMap<>();
         String pickedMovement = (String) movementChooser.getValue();
-        contents.put(pickedMovement, new ArrayList<>());
+        List<String> pickedMovementList = new ArrayList<>();
+        pickedMovementList.add(pickedMovement);
+        contents.put(MOVEMENT_TYPE, pickedMovementList);
         return contents;
     }
 

@@ -43,7 +43,7 @@ public abstract class AttributeEditor implements DataAlert {
 	private static final String ID = "ID";
 	private static final String CUSTOM_IMAGES_FOLDER = "data/authoredElementImages/";
 	private static final String SLASH = "/";
-	private static final String IMAGE_PATH = "IMAGEPATH";
+	private static final String IMAGE_PATH = "ImagePath";
 	private static final String BASIC = "Basic";
 	private static final String STYLESHEET = "GAE.css";
 	private static final String EDITOR_STYLESHEET = "attribute-editor";
@@ -140,6 +140,7 @@ public abstract class AttributeEditor implements DataAlert {
 					}
 					TreeNode parameterNode = new TreeNode(parameter);
 					optionNode.addChild(parameterNode);
+					System.out.println(parameterNode.getInfo());
 				}
 			}
 
