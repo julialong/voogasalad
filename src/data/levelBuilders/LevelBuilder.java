@@ -142,15 +142,28 @@ public class LevelBuilder {
 		levelWidth = jobject.get(WIDTH).getAsDouble();
 		levelHeight = jobject.get(HEIGHT).getAsDouble();
 		
-		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		int camWidth = CAMERA_WIDTH;
-		int camHeight = (int) ((primaryScreenBounds.getHeight() / primaryScreenBounds.getWidth()) * camWidth);
+		BasicLevel level = setUpLevel();
 		
-		BasicLevel level = new BasicLevel((int)levelWidth, (int)levelHeight, camWidth, camHeight);
 		level.setName(levelName);
 		level.setColor(color);
 		
 		return level;
+	}
+
+	/**
+	 * Sets up the level with the correct width, height, and camera dimensions.
+	 * 
+	 * @param levelWidth2
+	 * @param levelHeight2
+	 * @return
+	 */
+	private BasicLevel setUpLevel() {
+//		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		int camWidth = CAMERA_WIDTH;
+//		int camHeight = (int) ((primaryScreenBounds.getHeight() / primaryScreenBounds.getWidth()) * camWidth);
+		int camHeight = 400;
+		
+		return new BasicLevel((int)levelWidth, (int)levelHeight, camWidth, camHeight);
 	}
 
 	/**

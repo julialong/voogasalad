@@ -63,23 +63,13 @@ public class TestingGSON {
 //			e.printStackTrace();
 //		}
 		
-		Serializer ser = new Serializer();
-		
-		Enemy enemy = new Enemy();
-		UseWeapon uw = new UseWeapon(0.5);
-		MoveForward mf = new MoveForward();
-		enemy.addBehavior(uw);
-		enemy.addBehavior(mf);
-		
-		Player player = new Player();
-		
-		Invincible in = new Invincible(5.0, player);
-		
-		String json = ser.serialize(in);
-		System.out.println(json);
-		
-		Object o = ser.deserialize(json, Invincible.class);
-		System.out.println(o);
+		GAEGameFileReader gae = new GAEGameFileReader();
+		try {
+			System.out.println(gae.loadAuthoredLevel("testJBP"));
+		} catch (DataFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}

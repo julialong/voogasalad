@@ -7,9 +7,12 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import engine.behavior.Behavior;
+import engine.behavior.JumpBetweenPoints;
 import engine.entity.Player;
 
 /**
@@ -82,21 +85,34 @@ public class BehaviorSkipManager {
 	 * @param behaviorType
 	 * @return
 	 */
-	public Behavior getEmptyBehavior(String behaviorType) {
+	public Behavior getEmptyBehavior(String behaviorType, JsonElement data) {
 		try 
 		{
 			Class behaviorClass = Class.forName(behaviorType);
-			Constructor<?> c = behaviorClass.getConstructor();
-			c.setAccessible(true);
-			Object o = c.newInstance();
-			System.out.println(o);
-			return (Behavior)o;
+			return (Behavior) getObject(behaviorClass,data);
 		} 
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) 
 		{
 			throw new JsonParseException("Could not create behavior that contains a player", e);
 		}
 		
+	}
+
+	private Object getObject(Class behaviorClass, JsonElement data) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		if(behaviorClass.equals(JumpBetweenPoints.class))
+		{
+			double x1 = ((JsonObject) data).get("x1").getAsDouble();
+			double x2 = ((JsonObject) data).get("x2").getAsDouble();
+			return new JumpBetweenPoints(x1,x2);
+		}
+		else
+		{
+			Constructor<?> c = behaviorClass.getConstructor();
+			c.setAccessible(true);
+			Object o = c.newInstance();
+			System.out.println(o);
+			return (Behavior)o;	
+		}	
 	}
 
 	/**
