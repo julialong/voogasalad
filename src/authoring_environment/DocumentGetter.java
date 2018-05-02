@@ -128,9 +128,9 @@ public interface DocumentGetter {
     default Map<String, String> getAttributes(Document doc, String type) {
     	Map<String, String> attMap = new HashMap<String, String>();
     	NodeList typeNodes = doc.getElementsByTagName(type);
-    	NodeList children = typeNodes.item(0).getChildNodes();
-    	NamedNodeMap attributes = null;
-    	for (int k = 0; k < children.getLength(); k++) {
+    Element child = (Element) typeNodes.item(0).getChildNodes();
+    	NamedNodeMap attributes = child.getAttributes();
+    	for (int k = 0; k < attributes.getLength(); k++) {
     		Node node = attributes.item(k);
     		String name = node.getNodeName();
     		String value = node.getNodeValue();

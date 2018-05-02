@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The object factory of a certain class creates the objects needed and adds it to that class
@@ -56,9 +57,6 @@ public class ObjectFactory implements DocumentGetter {
         System.out.println(path);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
         List<String> behavior = getBehaviors(myDocument);
-        for(String b : behavior) {
-        	System.out.println(b);
-        }
         List<String> interaction = getInteractions(myDocument);
         String movement = getMovement(myDocument);
         String weapon = getWeapon(myDocument);
@@ -108,6 +106,11 @@ public class ObjectFactory implements DocumentGetter {
 
     private Behavior createBehavior(String behavior) {
         Map<String, String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
+        Set<String> keys = behaviorAttributes.keySet();
+        for(String key : keys) {
+        		System.out.println(key);
+        		System.out.println(behaviorAttributes.get(key));
+        }
         try {
             Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH + behavior).getConstructor(Double.class, Double.class);
             behaviorConstructor.setAccessible(true);
