@@ -28,6 +28,7 @@ public class ObjectFactory implements DocumentGetter {
     private Document myDocument;
     private GameEntity newEntity;
 
+    // EDITED PATHS FOR THE STUFF BELOW
     private static final String ENTITY_PATH = "engine.entity.";
     private static final String BEHAVIOR_PATH = "engine.behavior.";
     private static final String MOVEMENT_PATH = "engine.movement.";
