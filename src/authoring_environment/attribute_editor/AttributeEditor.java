@@ -146,6 +146,7 @@ public abstract class AttributeEditor implements DataAlert {
 
 		}
 		addImageToTree(tree);
+		addTypeToTree(tree);
 		try {
 			CustomElementSaver saver = new CustomElementSaver(elementID, tree);
 		} catch (TransformerException e) {
@@ -187,7 +188,7 @@ public abstract class AttributeEditor implements DataAlert {
 	 */
 	private String copyImage() {
 		Path source = Paths.get(imageURI);
-		Path target = Paths.get(CUSTOM_IMAGES_FOLDER + "BLOCK" + SLASH + elementID
+		Path target = Paths.get(CUSTOM_IMAGES_FOLDER + "Block" + SLASH + elementID
 				+ imageFile.getAbsolutePath().substring(imageFile.getAbsolutePath().lastIndexOf(".")));
 		try {
 			Files.copy(source, target);
@@ -216,6 +217,12 @@ public abstract class AttributeEditor implements DataAlert {
 			}
 		}
 
+	}
+	
+	private void addTypeToTree(TreeNode tree) {
+		TreeNode entityType= new TreeNode("GameEntity");
+		tree.addChild(entityType);
+		entityType.addChild(new TreeNode("Block"));
 	}
 
 }

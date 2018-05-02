@@ -52,7 +52,7 @@ public interface DocumentGetter {
     }
     
     default String getImagePath(Document doc) {
-    	return getBasicAttribute(doc, "ImagePath");
+    	return getBasicAttribute(doc, "ImageFile");
  
     }
 
@@ -98,7 +98,8 @@ public interface DocumentGetter {
     }
     
     default String getPowerUp(Document doc) {
-    	Element powerUpNode = doc.getElementById("AddPowerUp");
+    	NodeList powerUpNodes = doc.getElementsByTagName("AddPowerUp");
+    	Element powerUpNode = (Element) powerUpNodes.item(0);
     	return powerUpNode.getAttribute("PowerUpType");
     }
 
@@ -108,20 +109,23 @@ public interface DocumentGetter {
     
     default List<String> getNodeNames(Document doc, String type){
     	List<String> nameList = new ArrayList<String>();
-    	Element child = doc.getElementById(type);
-    	NodeList nodes = child.getChildNodes();
+    	NodeList children = doc.getElementsByTagName(type);
+    	NodeList nodes = children.item(0).getChildNodes();
     	for (int k = 0; k < nodes.getLength(); k++) {
     		Node node = nodes.item(k);
-    		nameList.add(node.getNodeName());
+    		if (!node.getNodeName().equals("#text")) {
+	    		nameList.add(node.getNodeName());
+    		}
     	}
     	return nameList;
     }
     
-    default Map<String, String> getAttributes(Document doc, String type){
+    default Map<String, String> getAttributes(Document doc, String type) {
     	Map<String, String> attMap = new HashMap<String, String>();
-    	Element typeNode = doc.getElementById(type);
-    	NamedNodeMap attributes = typeNode.getAttributes();
-    	for (int k = 0; k < attributes.getLength(); k++) {
+    	NodeList typeNodes = doc.getElementsByTagName(type);
+    	NodeList children = typeNodes.item(0).getChildNodes();
+    	NamedNodeMap attributes;
+    	for (int k = 0; k < children.getLength(); k++) {
     		Node node = attributes.item(k);
     		String name = node.getNodeName();
     		String value = node.getNodeValue();
