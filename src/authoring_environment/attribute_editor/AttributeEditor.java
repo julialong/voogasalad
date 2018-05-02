@@ -42,7 +42,7 @@ public abstract class AttributeEditor implements DataAlert {
 	private static final double IMAGE_HEIGHT = 200;
 	private static final String ID = "ID";
 	private static final String CUSTOM_IMAGES_FOLDER = "data/authoredElementImages/";
-	private static final String SLASH = "/";
+	private static final String SLASH = File.separator;
 	private static final String IMAGE_FILE = "ImageFile";
 	private static final String BASIC = "Basic";
 	private static final String STYLESHEET = "GAE.css";

@@ -27,8 +27,8 @@ import javafx.stage.Stage;
  */
 public class AuthorChooser {
 	
-	private static final String GAMEDATA = "data/gameData/";
-	private static final String SLASH = "/";
+	private static final String GAMEDATA = "data" + File.separator + "gameData" + File.separator;
+	private static final String SLASH = File.separator;
 	private static final int ONE = 1;
 	private static final String NEW_AUTHOR = "Create a new authoring profile";
 	private static final String NEW_AUTHOR_INST  = "Enter name of new profile: ";
