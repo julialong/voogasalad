@@ -53,7 +53,8 @@ public abstract class Attribute {
         while (allOptions.hasMoreElements()) {
             String option = allOptions.nextElement();
             String type = rb.getString(option);
-            if(type.equals(attribute)){
+            System.out.println(type);
+            if(type.contains(attribute)){
                 attributeOptions.add(option);
             }
         }
