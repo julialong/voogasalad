@@ -51,6 +51,7 @@ public class ElementPicker {
 		setElements();
 		Clipboard clipboard = Clipboard.getSystemClipboard();
 		clipboard.clear();
+		clipboard.setContent(null);
 	}
 	
 	public ScrollPane getElementPane() {

@@ -34,6 +34,7 @@ public class AuthoredLevel implements DocumentGetter {
     private static final String MOVEMENT_PATH = "engine.movement.";
     private static final String POWERUP_PATH = "engine.powerup.";
     private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
+    private ObjectFactory myObjectFactory;
 
     /**
      * Creates a new authored level
@@ -45,6 +46,7 @@ public class AuthoredLevel implements DocumentGetter {
         myScrollingGrid = scrollingGrid;
         myScrollingGrid.setMediator(this);
         myLevel.setColor(Color.WHITE);
+        myObjectFactory = new ObjectFactory(myLevel);
     }
 
     /**
@@ -118,7 +120,6 @@ public class AuthoredLevel implements DocumentGetter {
      * Adds object to Level
      * @param ID is the ID of the object to create
      */
-    // TODO: Remove Point from Scrolling Grid
     public GameEntity addObject(String ID, double x, double y, double cellSize) {
         GameEntity newEntity;
         Document objectDoc = getDocument(ID, ELEMENT_DATA_PATH);
@@ -216,6 +217,8 @@ public class AuthoredLevel implements DocumentGetter {
             // TODO: handle this
             return null;
         }
+        
+        return myObjectFactory.addObject(ID, x, y, cellSize);
     }
 
     /**

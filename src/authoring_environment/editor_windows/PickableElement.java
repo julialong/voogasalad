@@ -1,6 +1,8 @@
 package authoring_environment.editor_windows;
 
 import authoring_environment.DocumentGetter;
+import authoring_environment.attribute_editor.AttributeEditor;
+import authoring_environment.attribute_editor.BlockAttributeEditor;
 import authoring_environment.authored_elements.GameElement;
 import authoring_environment.toolbars.choosers.ElementPicker;
 
@@ -43,8 +45,11 @@ public class PickableElement extends ImageView implements DocumentGetter {
 		Tooltip tip = new Tooltip(myID);
 		Tooltip.install(this, tip);
 		myDataDoc = parseElementXML(myID);
-		String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
+		//String path = myDataDoc.getDocumentElement().getAttribute("ImageFile");
+		// ALTERED BY JUDI ON May 1st //
+		String path = getImagePath(myDataDoc);
 		String type = myDataDoc.getDocumentElement().getAttribute("GameEntity");
+		//
 		myImage = new Image("file:" + path, REQUESTED_WIDTH, REQUESTED_HEIGHT, true, true);
 		myType = type;
 		this.setImage(myImage);
@@ -82,7 +87,7 @@ public class PickableElement extends ImageView implements DocumentGetter {
 				}
 			} else if(e.isControlDown()) {
 				GameElement element = new GameElement(myID);
-				AttributeEditor editor = new AttributeEditor(element);
+				//BlockAttributeEditor editor = new BlockAttributeEditor(element);
 			}
 		});
 	}

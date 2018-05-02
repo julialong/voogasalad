@@ -1,12 +1,11 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-import authoring_environment.editor_windows.AttributeEditor;
+import authoring_environment.attribute_editor.BlockAttributeEditor;
 import authoring_environment.editor_windows.CreatorView;
 import authoring_environment.editor_windows.level_windows.LevelCreator;
 import authoring_environment.game_elements.AuthoredLevel;
 import authoring_environment.grid.ScrollingGrid;
 import engine.level.BasicLevel;
-import engine.level.Level;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
@@ -51,7 +50,7 @@ public class InsertButton extends MenuButton {
 
     private MenuItem createObject() {
         MenuItem objectItem = new MenuItem(OBJECT);
-        objectItem.setOnAction(e -> new AttributeEditor());
+        objectItem.setOnAction(e -> new BlockAttributeEditor());
         return objectItem;
     }
 
