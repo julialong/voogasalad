@@ -13,6 +13,8 @@ import com.google.gson.JsonParseException;
 
 import engine.behavior.Behavior;
 import engine.behavior.JumpBetweenPoints;
+import engine.behavior.MoveBetweenThresholds;
+import engine.behavior.UseWeapon;
 import engine.entity.Player;
 
 /**
@@ -104,6 +106,17 @@ public class BehaviorSkipManager {
 			double x1 = ((JsonObject) data).get("x1").getAsDouble();
 			double x2 = ((JsonObject) data).get("x2").getAsDouble();
 			return new JumpBetweenPoints(x1,x2);
+		}
+		else if(behaviorClass.equals(MoveBetweenThresholds.class))
+		{
+			double thresholdLeft = ((JsonObject) data).get("thresholdLeft").getAsDouble();
+			double thresholdRight = ((JsonObject) data).get("thresholdRight").getAsDouble();
+			return new MoveBetweenThresholds(thresholdLeft, thresholdRight);
+		}
+		else if(behaviorClass.equals(UseWeapon.class))
+		{
+			double percentChance = ((JsonObject) data).get("percentChance").getAsDouble();
+			return new UseWeapon(percentChance);
 		}
 		else
 		{
