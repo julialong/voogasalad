@@ -188,7 +188,7 @@ public abstract class AttributeEditor implements DataAlert {
 	 */
 	private String copyImage() {
 		Path source = Paths.get(imageURI);
-		Path target = Paths.get(CUSTOM_IMAGES_FOLDER + "Block" + SLASH + elementID
+		Path target = Paths.get(CUSTOM_IMAGES_FOLDER + myType + SLASH + elementID
 				+ imageFile.getAbsolutePath().substring(imageFile.getAbsolutePath().lastIndexOf(".")));
 		try {
 			Files.copy(source, target);

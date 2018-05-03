@@ -79,7 +79,7 @@ public class ObjectFactory implements DocumentGetter {
         makeBehaviors(newEntity, behavior);
         newEntity.setMovementType(createMovement(movement));
         makeInteractions(newEntity, interaction);
-        setWeapon(weapon);
+        //setWeapon(weapon);
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
         myLevel.addObject(newEntity);
@@ -108,8 +108,6 @@ public class ObjectFactory implements DocumentGetter {
     private Behavior createBehavior(String behavior) {
         //Map<String, String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
     		List<String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
-    		System.out.println(Double.parseDouble(behaviorAttributes.get(0)));
-    		System.out.println(Double.parseDouble(behaviorAttributes.get(1)));
         //Set<String> keys = behaviorAttributes.keySet();
     		// Changed the get(x1, x2, and percent) to indices 
     		// Changed Double to double
