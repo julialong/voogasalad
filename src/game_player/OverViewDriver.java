@@ -1,5 +1,6 @@
 package game_player;
 
+import authoring_environment.AuthorChooser;
 import authoring_environment.editor_windows.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -100,7 +101,7 @@ public class OverViewDriver extends Application {
     private void setButtonActions(HBox buttonContainer, Stage stage){
         Button gae = new Button(getResourceValue("gaeText"));
         gae.setOnAction(event -> {
-            new EditorWindow(new Stage());
+            new AuthorChooser(new Stage());
             stage.close();
         });
         Button gp = new Button(getResourceValue("gpText"));

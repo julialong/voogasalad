@@ -1,7 +1,9 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
 import authoring_environment.editor_windows.CreatorView;
+import game_player.OverViewDriver;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * Allows the user to launch the game from the authoring environment.
@@ -27,7 +29,12 @@ public class LaunchPlayerButton extends Button {
 
     private void setAction() {
         myWindow.getGame().update();
-        // TODO: launch game
+        try {
+            new OverViewDriver().start(new Stage());
+        }
+        catch (Exception e) {
+            
+        }
     }
 
 }

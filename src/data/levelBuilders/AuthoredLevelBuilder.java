@@ -15,6 +15,11 @@ import authoring_environment.grid.ScrollingGrid;
 import data.resources.DataFileException;
 import data.serialization.LevelSerializer;
 import engine.level.Level;
+import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 /**
  * 
  * Creates authored levels to return to the Game Authoring Environment when a 
@@ -46,12 +51,15 @@ public class AuthoredLevelBuilder {
 	public AuthoredLevel buildAuthoredLevel() throws DataFileException
 	{
 		LevelBuilder levelBuilder = new LevelBuilder(levelFile, false);
-		Level levelForAuthoredLevel = levelBuilder.buildLevel();
+		Level levelForAuthoredLevel = levelBuilder.buildLevel(false);
 		
 		ScrollingGrid gridForAuthoredLevel = new ScrollingGrid();		
 		AuthoredLevel authoredLevel = new AuthoredLevel(levelForAuthoredLevel, gridForAuthoredLevel);
 
+		System.out.println("BEFORE RETRIEVE " + levelForAuthoredLevel.getColor());
 		retrieveScrollingGrid(levelFile, gridForAuthoredLevel, authoredLevel);
+		System.out.println("Color " + levelForAuthoredLevel.getColor());
+		authoredLevel.getScrollingGrid().setBackground(new Background(new BackgroundFill(Color.web(authoredLevel.getLevel().getColor()),CornerRadii.EMPTY, Insets.EMPTY)));
 
 		return authoredLevel;
 	}

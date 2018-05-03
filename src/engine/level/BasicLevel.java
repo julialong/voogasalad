@@ -53,6 +53,7 @@ public class BasicLevel implements Level {
         myObjects = new ArrayList<>();
         myName = DEFAULT;
         camera = new Camera(myXSize, myYSize, sceneX, sceneY);
+        myColor = Color.WHITE.toString();
         
     }
 
