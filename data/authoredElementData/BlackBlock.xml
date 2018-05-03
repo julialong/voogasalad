@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="BlackBlock" ImageFile="data/authoredElementImages/Block/BlackBlock.png" Speed="0" XDimension="2" YDimension="2"/><Behavior/><Interaction><PreventClipping/></Interaction><Movement MovementType="Grounded"/></Attributes>

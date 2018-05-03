@@ -50,7 +50,7 @@ public class InsertButton extends MenuButton {
 
     private MenuItem createObject() {
         MenuItem objectItem = new MenuItem(OBJECT);
-        objectItem.setOnAction(e -> new BlockAttributeEditor());
+        objectItem.setOnAction(e -> new AddElementButton());
         return objectItem;
     }
 
