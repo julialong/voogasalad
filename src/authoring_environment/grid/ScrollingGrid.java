@@ -161,6 +161,16 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 	 * @param ID is the ID of the new state
 	 */
 	public void setCellElement(GridCell cell, String ID) {
+		setCellElement(cell, ID, true);
+	}
+
+	/**
+	 * Sets the given cell's state
+	 * @param cell is the cell to modify
+	 * @param ID is the ID of the new state
+	 * @param fromFile checks whether grid is being made in GUI or if being read from file, which determines if cell contents need to call addObject()
+	 */
+	public void setCellElement(GridCell cell, String ID, boolean fromFile) {
 		if (cell.isSelected()) {
 			checkMultipleCells(ID);
 		} else {
@@ -168,7 +178,7 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 			GridPane.setRowSpan(cell, cell.getYDim());
 			GridPane.setColumnSpan(cell, cell.getXDim());
 		}
-		cell.setObject(myLevel.addObject(ID, cell.getPosition().getX(), cell.getPosition().getY(), cellSize));
+		cell.setObject(myLevel.addObject(ID, cell.getPosition().getX(), cell.getPosition().getY(), cellSize, fromFile));
 	}
 
 	private void checkMultipleCells(String ID) {
