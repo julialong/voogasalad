@@ -95,11 +95,11 @@ public class ObjectFactory implements DocumentGetter {
         //setWeapon(weapon);
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
-        
-        if(addToGame)    {
-            myLevel.addObject(newEntity);
-        }
-
+        // debug friction and jump factor //////////////////
+        newEntity.setFrictionConstant(Double.parseDouble(getBasicAttribute(myDocument, "Friction")));
+        newEntity.setJumpFactor(Double.parseDouble(getBasicAttribute(myDocument, "JumpFactor")));
+        ///////////////////////////
+        myLevel.addObject(newEntity);
         return newEntity;
     }
 
