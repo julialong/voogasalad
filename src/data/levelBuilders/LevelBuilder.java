@@ -156,6 +156,7 @@ public class LevelBuilder {
 		String levelName = jobject.get(NAME).getAsString();
 
 		Color color = Color.web(jobject.get(COLOR).getAsString());
+		System.out.println("CORRECT COLOR " + color);
 		levelWidth = jobject.get(WIDTH).getAsDouble();
 		levelHeight = jobject.get(HEIGHT).getAsDouble();
 		
@@ -166,6 +167,7 @@ public class LevelBuilder {
 		BasicLevel level = new BasicLevel((int)levelWidth, (int)levelHeight, camWidth, camHeight);
 		level.setName(levelName);
 		level.setColor(color);
+		System.out.println("GETTING THE COLOR? " + level.getColor());
 		
 		return level;
 	}

@@ -185,6 +185,7 @@ public abstract class GameFileReader {
 	{
 		Map<String,Integer> levelOrder = new HashMap<>();
 		String gameDirectory = getCurrentGamePath(gameName);
+		System.out.println(gameDirectory + NEST + LEVEL_ORDER + JSON_EXTENSION);
 		File levelOrderFile = new File(gameDirectory + NEST + LEVEL_ORDER + JSON_EXTENSION);
 		try 
 		{
