@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Enemy"><Basic ID="bug2" ImageFile="data\authoredElementImages\Enemy\bug2.png" Speed="75" XDimension="1" YDimension="1"/><Behavior><MoveForward/></Behavior><Interaction><RemoveOnInteractWithPlayer/></Interaction><Movement MovementType="Flying"/></Attributes>
