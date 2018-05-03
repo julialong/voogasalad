@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="water2" ImageFile="data/authoredElementImages/Block/water2.gif" Speed="1" XDimension="3" YDimension="3"/><Behavior><MoveForward/></Behavior><Interaction><RemoveOnInteractWithPlayer/></Interaction><Movement MovementType="Grounded"/></Attributes>

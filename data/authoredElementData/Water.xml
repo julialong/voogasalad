@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="water" ImageFile="data/authoredElementImages/Block/water.gif" Speed="1" XDimension="5" YDimension="3"/><Behavior><JumpBetweenPoints Point1="1" Point2="200"/></Behavior><Interaction><JumpOverObstacle/><Pushable/></Interaction><Movement MovementType="Grounded"/></Attributes>
