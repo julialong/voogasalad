@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Player"><Basic ID="kamek" ImageFile="data\authoredElementImages\Player\kamek.png" Speed="250" XDimension="1" YDimension="1"/><Movement MovementType="Grounded"/></Attributes>
