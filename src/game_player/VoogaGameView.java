@@ -21,10 +21,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Screen;
 import javafx.util.Duration;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +60,6 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	private Controls myControls;
 	private HeadsUpDisplay hud;
 	private Point2D timer = new Point2D(0, 0);
-	
 	private double myXFactor;
 	private double myYFactor;
 
@@ -94,19 +91,17 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	 * @return
 	 */
 	private double adjustXCord(double x) {
-		// TODO: adjust this factor based on sensitivity
 		return x * (myWidth / myXFactor);
 	}
 
 	/**
-	 * Calibrates y coordinates to be at thecenter of the screen and multiples by a
+	 * Calibrates y coordinates to be at the center of the screen and multiples by a
 	 * factor to make the difference between them larger.
 	 * 
 	 * @param y
 	 * @return
 	 */
 	private double adjustYCord(double y) {
-		// TODO: adjust this factor based on sensitivity
 		return y * (myHeight / myYFactor);
 	}
 
@@ -124,19 +119,13 @@ public class VoogaGameView implements GameView, GameViewMenu {
 			if (ge instanceof Player) {
 				myControls = new Controls((Player) ge);
 			}
-
-			System.out.println("imgPath: " + imgPath);
 			ImageView entityImage = new ImageView(
 					new Image(new File(imgPath).toURI().toString(), adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
-
 			ImageView entityImageCopy = new ImageView(
 					new Image(new File(imgPath).toURI().toString(), adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
-
 			myIVCopyMap.put(entityImage, entityImageCopy);
-
 			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
 			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
-
 			myDispMap.put(ge, entityImage);
 			myGEtoString.put(entityImage, imgPath);
 			myGP.getChildren().add(myDispMap.get(ge));
