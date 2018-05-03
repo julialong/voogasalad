@@ -27,8 +27,8 @@
 }
 
 .attribute-editor{
-	-fx-background-color: #000000;
-	-fx-min-width: 500;
+	-fx-background-color: #ffffff;
+	-fx-min-width: 750;
 	-fx-min-height: 750;
 	}
 	
@@ -156,4 +156,13 @@
 
 .description-field{
 	 -fx-min-height: 100;
+}
+
+.author-chooser {
+	-fx-background-color: #ffffff;
+	-fx-padding: 30;
+	-fx-margin: 20px;
+	-fx-alignment: top-center;
+	-fx-pref-height: 600;
+	-fx-pref-width: 600;
 }

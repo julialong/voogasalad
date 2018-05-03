@@ -31,6 +31,7 @@ public class AuthoredGame implements DataAlert {
     private AuthoredLevel currentLevel;
     private GAEtoJSON myGameWriter;
     private boolean isReady;
+    private String myAuthor;
 
     private static final String DEFAULT_NAME = "Untitled_Game";
     private static final String DEFAULT_DESCRIPTION = "A basic game.";
@@ -40,17 +41,12 @@ public class AuthoredGame implements DataAlert {
      * @param gameName is the name of the game
      */
     public AuthoredGame(String gameName) {
-        try {
             myName = gameName;
             myDescription = DEFAULT_DESCRIPTION;
             myLevels = FXCollections.observableArrayList();
             currentLevel = new AuthoredLevel(new BasicLevel(0), new ScrollingGrid());
-            myGameWriter = new GameFileWriter("User2", myName);
             isReady = false;
-        }
-        catch (DataFileException e) {
-            saveAlert(e);
-        }
+ 
     }
 
     /**
@@ -229,6 +225,16 @@ public class AuthoredGame implements DataAlert {
             alert.setContentText(e.getMessage());
             alert.show();
         }
+    }
+    
+    public void setAuthorName(String author) {
+    		myAuthor = author;
+    		try {
+    		myGameWriter = new GameFileWriter(myAuthor, myName);
+    		}
+    		 catch (DataFileException e) {
+    	            saveAlert(e);
+    		 }
     }
 
 

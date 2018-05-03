@@ -1,5 +1,11 @@
 package authoring_environment.toolbars;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import authoring_environment.attribute_editor.CreateBlockButton;
+import authoring_environment.attribute_editor.CreateEnemyButton;
+import authoring_environment.attribute_editor.CreatePlayerButton;
 import authoring_environment.editor_windows.EditorWindow;
 import authoring_environment.grid.ScrollingGrid;
 import authoring_environment.toolbars.choosers.ElementPicker;
@@ -63,10 +69,14 @@ public class RightBar extends VBox{
     }
 
     private void addButtons() {
-        Button elementButton = new AddElementButton();
+    	//edited 
+        List<Button> elementButtons = new ArrayList<Button>();
+        elementButtons.add(new CreateBlockButton());
+        elementButtons.add(new CreateEnemyButton());
+        elementButtons.add(new CreatePlayerButton());
         myDeleteButton = new DeleteGridCellButton(myWindow);
         myTypeBox = new ElementTypeBox(this);
-        elementPane.getChildren().add(elementButton);
+        elementPane.getChildren().addAll(elementButtons);
         elementPane.getChildren().add(myTypeBox);
         elementPane.getChildren().add(myDeleteButton);
         Button levelButton = new AddLevelButton(myWindow);

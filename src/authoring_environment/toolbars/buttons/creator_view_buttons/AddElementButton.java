@@ -1,6 +1,6 @@
 package authoring_environment.toolbars.buttons.creator_view_buttons;
 
-import authoring_environment.editor_windows.AttributeEditor;
+import authoring_environment.attribute_editor.BlockAttributeEditor;
 import javafx.scene.control.Button;
 
 /**
@@ -19,7 +19,7 @@ public class AddElementButton extends Button {
      */
     public AddElementButton() {
         super(ADD_ELEMENT);
-        this.setOnAction(e -> new AttributeEditor());
+        this.setOnAction(e -> new BlockAttributeEditor());
 
     }
 
