@@ -74,8 +74,8 @@ public class VoogaGameView implements GameView, GameViewMenu {
 		myGP = new Pane();
 		myGP.setBackground(new Background(new BackgroundFill(Color.web(gameLevels.get(myCurrLevel).getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
 		setAdjustFactors();
-		setUpHud();
 		initDisplayMap();
+		setUpHud();
 	}
 
 	private void setAdjustFactors() {
