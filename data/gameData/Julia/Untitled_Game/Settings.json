@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
 "description":"no description",
 "readyToPlay":true
+=======
+"description":"A basic game.",
+"readyToPlay":false
+>>>>>>> 12dd543f2517b85ef15376f7a2851cf2d50693b5
 }

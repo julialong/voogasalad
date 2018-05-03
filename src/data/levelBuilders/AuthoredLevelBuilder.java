@@ -51,9 +51,8 @@ public class AuthoredLevelBuilder {
 	public AuthoredLevel buildAuthoredLevel() throws DataFileException
 	{
 		LevelBuilder levelBuilder = new LevelBuilder(levelFile, false);
-		Level levelForAuthoredLevel = levelBuilder.buildLevel();
-		System.out.println("IS THIS ALSO THE WRONG COLOR?? " + levelForAuthoredLevel.getColor());
-		
+		Level levelForAuthoredLevel = levelBuilder.buildLevel(false);
+
 		ScrollingGrid gridForAuthoredLevel = new ScrollingGrid();		
 		AuthoredLevel authoredLevel = new AuthoredLevel(levelForAuthoredLevel, gridForAuthoredLevel);
 
