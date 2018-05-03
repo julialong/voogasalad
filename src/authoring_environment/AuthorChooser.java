@@ -26,7 +26,6 @@ import javafx.stage.Stage;
  *
  */
 public class AuthorChooser {
-	
 	private static final String GAMEDATA = "data" + File.separator + "gameData" + File.separator;
 	private static final String SLASH = File.separator;
 	private static final int ONE = 1;
