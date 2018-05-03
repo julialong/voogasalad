@@ -42,11 +42,6 @@ public class ObjectFactory implements DocumentGetter {
     public ObjectFactory(Level level) {
         myLevel = level;
     }
-
-    public GameEntity addObject(String ID, double x, double y, double cellSize) {
-        return addObject(ID, x, y, cellSize, true);
-    }
-
     /**
      * Adds constructed GameEntity to Level
      * @param ID is the String ID of the new object
@@ -55,7 +50,7 @@ public class ObjectFactory implements DocumentGetter {
      * @param cellSize is the size of the gridcell
      * @return the constructed GameEntity
      */
-    public GameEntity addObject(String ID, double x, double y, double cellSize, boolean addToGame) {
+    public GameEntity addObject(String ID, double x, double y, double cellSize) {
     		System.out.println(ID);
         myDocument = getDocument(ID, ELEMENT_DATA_PATH);
         String path = getImagePath(myDocument);
@@ -95,10 +90,7 @@ public class ObjectFactory implements DocumentGetter {
         //setWeapon(weapon);
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
-        
-        if(addToGame)    {
-            myLevel.addObject(newEntity);
-        }
+        myLevel.addObject(newEntity);
 
         return newEntity;
     }

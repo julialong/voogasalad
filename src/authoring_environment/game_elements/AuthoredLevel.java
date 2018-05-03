@@ -113,15 +113,7 @@ public class AuthoredLevel implements DocumentGetter {
      * @param ID is the ID of the object to create
      */
     public GameEntity addObject(String ID, double x, double y, double cellSize) {
-        return addObject(ID, x, y, cellSize, true);
-    }
-
-    /**
-     * Adds object to Level
-     * @param ID is the ID of the object to create
-     */
-    public GameEntity addObject(String ID, double x, double y, double cellSize, boolean addToGame) {
-        return myObjectFactory.addObject(ID, x, y, cellSize, addToGame);
+        return myObjectFactory.addObject(ID, x, y, cellSize);
     }
 
     /**
@@ -129,6 +121,6 @@ public class AuthoredLevel implements DocumentGetter {
      * @param object is the object to remove
      */
     public void removeObject(GameEntity object){
-        myLevel.getObjects().remove(object);
+        myLevel.getObjects().remove(myLevel.getObjects().indexOf(object));
     }
 }
