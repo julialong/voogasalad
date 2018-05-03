@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="remove" ImageFile="data/authoredElementImages/Block/remove.jpg" Speed="" XDimension="5" YDimension="1"/><Behavior/><Interaction><RemoveOnInteractWithPlayer/></Interaction><Movement MovementType="Grounded"/></Attributes>

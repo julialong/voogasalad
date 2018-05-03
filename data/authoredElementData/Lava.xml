@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="Lava" ImageFile="data/authoredElementImages/Block/Lava.png" Speed="0" XDimension="3" YDimension="1"/><Behavior/><Interaction><PreventClipping/><DamageOnStomp/></Interaction><Movement MovementType="LinearGrounded"/></Attributes>

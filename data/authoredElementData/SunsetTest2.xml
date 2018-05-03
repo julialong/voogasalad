@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="SunsetTest2" ImageFile="data/authoredElementImages/Block/SunsetTest2.jpg" Speed="" XDimension="5" YDimension="7"/><Behavior/><Interaction><DamageOnStomp/><Pushable/></Interaction><Movement MovementType="LinearGrounded"/></Attributes>

@@ -16,6 +16,7 @@ import authoring_environment.toolbars.buttons.creator_view_buttons.DeleteGridCel
 import authoring_environment.toolbars.choosers.LevelChooser;
 import authoring_environment.toolbars.labels.SideLabel;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.*;
@@ -70,13 +71,10 @@ public class RightBar extends VBox{
 
     private void addButtons() {
     	//edited 
-        List<Button> elementButtons = new ArrayList<Button>();
-        elementButtons.add(new CreateBlockButton());
-        elementButtons.add(new CreateEnemyButton());
-        elementButtons.add(new CreatePlayerButton());
+        AddElementButton elementButton = new AddElementButton();
         myDeleteButton = new DeleteGridCellButton(myWindow);
         myTypeBox = new ElementTypeBox(this);
-        elementPane.getChildren().addAll(elementButtons);
+        elementPane.getChildren().add(elementButton);
         elementPane.getChildren().add(myTypeBox);
         elementPane.getChildren().add(myDeleteButton);
         Button levelButton = new AddLevelButton(myWindow);

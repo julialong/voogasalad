@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes Behavior="NoBehavior" GameEntity="Player" Interaction="NoInteraction" PowerUp="SpeedBoost" Projectile="Bullet" Weapon="ShootingWeapon">
-	<Basic ImageFile="data/authoredElementImages/Player/myPlayer.png" XDimension="1" YDimension="1"></Basic>
-	<Movement MovementType="Grounded"></Movement>
-	<Behavior></Behavior>
-	<Interaction></Interaction></Attributes>
