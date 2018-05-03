@@ -93,7 +93,7 @@ public class LevelSerializer	{
 
 			for (int j = 0; j < jsonGrid.get(i).getAsJsonArray().size(); j ++)	{
 				if (!row.get(j).getAsString().equals("null"))	{
-					grid.setCellElement(grid.getCellArray()[i][j], row.get(j).getAsString());
+					grid.setCellElement(grid.getCellArray()[i][j], row.get(j).getAsString(), false);
 				}
 			}
 		}
