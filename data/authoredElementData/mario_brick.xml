@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="mario_brick" ImageFile="data\authoredElementImages\Block\mario_brick.png" Speed="0" XDimension="1" YDimension="1"/><Behavior/><Interaction><PreventClipping/></Interaction><Movement MovementType="Flying"/></Attributes>
