@@ -54,6 +54,7 @@ public class PlayerView extends BorderPane {
 	public void resetGame() {
 		this.getChildren().clear();
 		resetGView();
+		createMenuBar();
 		setMiddle();
 		setViewTop();
 	}
