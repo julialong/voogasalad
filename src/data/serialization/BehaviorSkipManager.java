@@ -65,6 +65,7 @@ public class BehaviorSkipManager {
 			Class behaviorClass = Class.forName(behaviorType);
 			Constructor<?> c = behaviorClass.getConstructor(Player.class);
 			c.setAccessible(true);
+			System.out.println("Creating the new instance of the chase player " + player);
 			Object o = c.newInstance(player);
 			System.out.println(o);
 			return (Behavior)o;

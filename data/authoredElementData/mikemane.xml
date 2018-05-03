@@ -1,1 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Player"><Basic Friction="200" ID="mikemane" ImageFile="data\authoredElementImages\Player\mikemane.png" JumpFactor="200" Speed="300" XDimension="1" YDimension="1"/><Movement MovementType="Grounded"/></Attributes>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Attributes GameEntity="Player">
+	<Basic Friction="200" ID="mikemane"
+		ImageFile="data\authoredElementImages\Player\mikemane.png" JumpFactor="300"
+		Speed="300" XDimension="1" YDimension="1" />
+	<Movement MovementType="Grounded" />
+</Attributes>

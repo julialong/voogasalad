@@ -120,6 +120,7 @@ public class LevelBuilder {
 			JsonObject jobject = jelement.getAsJsonObject();
 			BasicLevel level = addMetaData(jobject);
 			addGameObjects(level,jobject);
+			System.out.println("buidl level player; " + player);
 			return level;
 		}
 		catch(JsonIOException | JsonSyntaxException | FileNotFoundException e)
@@ -169,6 +170,9 @@ public class LevelBuilder {
 			{
 				gameObjects.addAll(retrieveObjectsOfType(jobject, objectType));
 			}
+		};
+		for(GameEntity go : gameObjects) {
+			checkFoe(go);
 		}
 		level.setObjects(gameObjects);
 	}
@@ -187,7 +191,7 @@ public class LevelBuilder {
 		{
 			GameEntity ge = (GameEntity) convertToObject(jarray.get(i).getAsJsonObject(), objectType);
 			checkPlayer(ge);
-			checkFoe(ge);
+			//checkFoe(ge);
 			if(translate) {translateCoordinates(ge);}
 			newObjectsOfType.add(ge);
 		}
@@ -218,6 +222,7 @@ public class LevelBuilder {
 		if(ge.getClass().equals(Player.class))
 		{
 			player = (Player) ge;
+			System.out.println("found a player " + player);
 		}
 	}
 	
@@ -235,6 +240,7 @@ public class LevelBuilder {
 			{
 				if(behaviorsToSkip.contains(b.getClass().toString().split(" ")[1]))
 				{
+					System.out.println("plyaer: " + player);
 					b = skipManager.getBehavior(b.getClass().toString().split(" ")[1],player);
 				}
 			}
