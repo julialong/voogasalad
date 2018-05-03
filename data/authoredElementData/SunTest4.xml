@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="SunTest4" ImageFile="data/authoredElementImages/Block/SunTest4.jpg" Speed="0" XDimension="4" YDimension="5"/><Behavior><JumpALot/></Behavior><Interaction><DamageOnStomp/></Interaction><Movement MovementType="Grounded"/></Attributes>

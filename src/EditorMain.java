@@ -1,3 +1,4 @@
+import authoring_environment.AuthorChooser;
 import authoring_environment.editor_windows.EditorWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ public class EditorMain extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new EditorWindow(primaryStage);
+        new AuthorChooser(primaryStage);
     }
 
     /**
