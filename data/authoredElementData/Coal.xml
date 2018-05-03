@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes>
+	<Behavior>
+		<Jump Height="20" Point=""></Jump></Behavior>
+	<Interaction>
+		<PowerUp></PowerUp></Interaction>
+	<XDimension></XDimension>
+	<YDimension></YDimension>
+	<ImageFile></ImageFile>
+	<Speed></Speed></Attributes>

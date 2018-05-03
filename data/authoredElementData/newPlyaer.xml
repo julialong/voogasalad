@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="newPlyaer" ImageFile="data/authoredElementImages/Player/newPlyaer.png" Speed="30" XDimension="3" YDimension="3"/><Movement MovementType="Grounded"/></Attributes>

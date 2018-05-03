@@ -10,7 +10,6 @@ import javax.xml.transform.TransformerException;
 import org.w3c.dom.Document;
 
 import authoring_environment.Attribute;
-import authoring_environment.AttributeGetter;
 import authoring_environment.CustomElementSaver;
 import authoring_environment.DocumentGetter;
 import authoring_environment.authored_elements.AuthoredElement;
@@ -24,7 +23,7 @@ import authoring_environment.authored_elements.AuthoredElement;
  * custom image, and update its location on the grid
  *
  */
-public class GameElement implements AuthoredElement, DocumentGetter, AttributeGetter{
+public class GameElement implements AuthoredElement, DocumentGetter{
 	
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 	private static final String IMAGE_FILE = "ImageFile";
@@ -53,7 +52,7 @@ public class GameElement implements AuthoredElement, DocumentGetter, AttributeGe
 	public GameElement(String idName) {
 		attributes = new HashMap<>();	
 		elementID = idName;
-		setAttributesFromFile(idName);	
+		//setAttributesFromFile(idName);	
 	}
 
 	@Override
@@ -66,7 +65,7 @@ public class GameElement implements AuthoredElement, DocumentGetter, AttributeGe
 	 * 
 	 * @param newAttributes
 	 */
-	public void updateAttributes(Map<String, String> newAttributes) {
+	/*public void updateAttributes(Map<String, String> newAttributes) {
 		attributes = newAttributes;
 		try {
 			CustomElementSaver saver = new CustomElementSaver(this, elementID, newAttributes, imageFile, xDimension, yDimension);
@@ -74,7 +73,7 @@ public class GameElement implements AuthoredElement, DocumentGetter, AttributeGe
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 
 	@Override
 	public void uploadImage(String fileName) {
@@ -110,19 +109,8 @@ public class GameElement implements AuthoredElement, DocumentGetter, AttributeGe
 		return elementID; 
 	}
 	
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	public void updateDimensions(String x, String y) {
-		xDimension = x;
-		yDimension = y;
-	}
-	
-	private void setAttributesFromFile(String idName) {
+	/*private void setAttributesFromFile(String idName) {
 		Document dataDoc = getDocument(idName, ELEMENT_DATA_PATH);
-		Map<String, List<String>> availableAttributes = loadAttributes();
 		for(String key : availableAttributes.keySet()) {
 			if(dataDoc.getDocumentElement().hasAttribute(key)) {
 				attributes.put(key, dataDoc.getDocumentElement().getAttribute(key));
@@ -131,21 +119,7 @@ public class GameElement implements AuthoredElement, DocumentGetter, AttributeGe
 		imageFile = dataDoc.getDocumentElement().getAttribute(IMAGE_FILE);
 		xDimension = dataDoc.getDocumentElement().getAttribute(XDIMENSION);
 		yDimension = dataDoc.getDocumentElement().getAttribute(YDIMENSION);
-	}
+	}*/
 	
-	public Map<String, String> getAttributes(){
-		return attributes;
-	}
-	
-	public List<String> getDimensions(){
-		List<String> dimensions = new ArrayList<String>();
-		dimensions.add(xDimension);
-		dimensions.add(yDimension);
-		return dimensions;
-	}
-	
-	public String getImagePath() {
-		return imageFile;
-	}
-	
+
 }
