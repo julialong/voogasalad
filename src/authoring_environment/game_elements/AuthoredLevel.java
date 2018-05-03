@@ -113,7 +113,15 @@ public class AuthoredLevel implements DocumentGetter {
      * @param ID is the ID of the object to create
      */
     public GameEntity addObject(String ID, double x, double y, double cellSize) {
-        return myObjectFactory.addObject(ID, x, y, cellSize);
+        return addObject(ID, x, y, cellSize, true);
+    }
+
+    /**
+     * Adds object to Level
+     * @param ID is the ID of the object to create
+     */
+    public GameEntity addObject(String ID, double x, double y, double cellSize, boolean addToGame) {
+        return myObjectFactory.addObject(ID, x, y, cellSize, addToGame);
     }
 
     /**
