@@ -2,18 +2,14 @@ package game_player;
 
 import java.util.List;
 import java.util.Map;
-
-import engine.entity.GameEntity;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -31,7 +27,7 @@ public class ReplayScreen {
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private Stage myStage = new Stage();
 	private Pane myScreen = new Pane();
-	private VBox myView = new VBox();
+	private BorderPane myView = new BorderPane();
 	private Map<ImageView, List<Point2D>> myReplayMap;
 	private boolean myReplayStatus = true;
 	private int myFrameIndex = 0;
@@ -82,8 +78,8 @@ public class ReplayScreen {
 	 * adds menubar and replay screen to the view
 	 */
 	private void addToView() {
-		myView.getChildren().add(myMenuBar.getNode());
-		myView.getChildren().add(myScreen);
+		myView.setCenter(myScreen);
+		myView.setTop(myMenuBar.getNode());
 	}
 
 	/**
