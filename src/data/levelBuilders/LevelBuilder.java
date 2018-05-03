@@ -113,7 +113,7 @@ public class LevelBuilder {
 	 */
 	public Level buildLevel() throws DataFileException
 	{
-		buildLevel(true);
+		return buildLevel(true);
 	}
 
 	/**
