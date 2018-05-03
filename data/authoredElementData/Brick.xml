@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="Brick" ImageFile="data/authoredElementImages/Block/Brick.png" Speed="2" XDimension="2" YDimension="2"/><Behavior><MoveBetweenThresholds Point1="2" Point2="500"/></Behavior><Interaction/><Movement MovementType="Flying"/></Attributes>
