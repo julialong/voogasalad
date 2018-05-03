@@ -13,6 +13,7 @@ import engine.weapon.Weapon;
 import org.w3c.dom.Document;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,12 +57,12 @@ public class ObjectFactory implements DocumentGetter {
         String path = getImagePath(myDocument);
         System.out.println(path);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
+        List<String> behavior = new ArrayList<String>();
+		List<String> interaction = new ArrayList<String>();
         if(! (type.equals("Player"))) {
         		System.out.println(type);
-        		List<String> behavior = getBehaviors(myDocument);
-        		List<String> interaction = getInteractions(myDocument);
-        		makeBehaviors(newEntity, behavior);
-        		makeInteractions(newEntity, interaction);
+        		behavior = getBehaviors(myDocument);
+        		interaction = getInteractions(myDocument);
         		
         }
         String movement = getMovement(myDocument);
@@ -83,6 +84,8 @@ public class ObjectFactory implements DocumentGetter {
         }
         newEntity.setImagePath(path);
         newEntity.setMovementType(createMovement(movement));
+        makeBehaviors(newEntity, behavior);
+		makeInteractions(newEntity, interaction);
 
         //setWeapon(weapon);
         newEntity.setSizeX(xSize * cellSize);
