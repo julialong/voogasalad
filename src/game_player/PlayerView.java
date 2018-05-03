@@ -5,6 +5,7 @@ import game_player_api.GameViewMenu;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import java.util.List;
 import data.fileReading.GPGameFileReader;
@@ -19,7 +20,7 @@ import data.resources.DataFileException;
  *
  * @Author Dorian Barber, Kelley Scroggs
  */
-public class PlayerView extends VBox {
+public class PlayerView extends BorderPane {
 	private List<Level> gameMaterial;
 	private VMenuBar myMenuBar;
 	private VoogaGameView myGameView;
@@ -42,17 +43,19 @@ public class PlayerView extends VBox {
 		myDescription = description;
 		createGView();
 		createMenuBar();
-		setViewTop();
 		setMiddle();
+		setViewTop();
+
 	}
 
 	/**
 	 * Resets the game
 	 */
 	public void resetGame() {
-		this.getChildren().remove(myGameView.getNode());
+		this.getChildren().clear();
 		resetGView();
 		setMiddle();
+		setViewTop();
 	}
 
 	/**
@@ -96,14 +99,16 @@ public class PlayerView extends VBox {
 	 * Adds the menubar to the top of the game player UI.
 	 */
 	private void setViewTop() {
-		this.getChildren().add(myMenuBar.getNode());
+		//this.getChildren().add(myMenuBar.getNode());
+		this.setTop(myMenuBar.getNode());
 	}
 
 	/**
 	 * Adds the game image to the middle of the game player UI.
 	 */
 	private void setMiddle() {
-		this.getChildren().add(myGameView.getNode());
+		//this.getChildren().add(myGameView.getNode());
+		this.setCenter(myGameView.getNode());
 		myGameView.startGame();
 	}
 
