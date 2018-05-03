@@ -222,7 +222,7 @@ public abstract class AttributeEditor implements DataAlert {
 	private void addTypeToTree(TreeNode tree) {
 		TreeNode entityType= new TreeNode("GameEntity");
 		tree.addChild(entityType);
-		entityType.addChild(new TreeNode("Block"));
+		entityType.addChild(new TreeNode(myType));
 	}
 
 }

@@ -57,6 +57,7 @@ public class ObjectFactory implements DocumentGetter {
         System.out.println(path);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
         if(! (type.equals("Player"))) {
+        		System.out.println(type);
         		List<String> behavior = getBehaviors(myDocument);
         		List<String> interaction = getInteractions(myDocument);
         		makeBehaviors(newEntity, behavior);
