@@ -56,8 +56,13 @@ public class ObjectFactory implements DocumentGetter {
         String path = getImagePath(myDocument);
         System.out.println(path);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
-        List<String> behavior = getBehaviors(myDocument);
-        List<String> interaction = getInteractions(myDocument);
+        if(! (type.equals("Player"))) {
+        		List<String> behavior = getBehaviors(myDocument);
+        		List<String> interaction = getInteractions(myDocument);
+        		makeBehaviors(newEntity, behavior);
+        		makeInteractions(newEntity, interaction);
+        		
+        }
         String movement = getMovement(myDocument);
         String weapon = getWeapon(myDocument);
         int xSize;
@@ -76,9 +81,8 @@ public class ObjectFactory implements DocumentGetter {
             return null;
         }
         newEntity.setImagePath(path);
-        makeBehaviors(newEntity, behavior);
         newEntity.setMovementType(createMovement(movement));
-        makeInteractions(newEntity, interaction);
+
         //setWeapon(weapon);
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
