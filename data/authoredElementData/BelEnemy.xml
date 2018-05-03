@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Enemy"><Basic ID="BelEnemy" ImageFile="data/authoredElementImages/Enemy/BelEnemy.JPG" Speed="" XDimension="1" YDimension="1"/><Behavior><JumpALot/></Behavior><Interaction/><Movement MovementType="Grounded"/></Attributes>

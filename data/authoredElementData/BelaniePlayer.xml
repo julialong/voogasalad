@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Player" ImageFile="data/authoredElementImages/Player/BelaniePlayer.jpg" XDimension="1" YDimension="1"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Player"><Basic Friction="200" ID="BelaniePlayer" ImageFile="data/authoredElementImages/Player/BelaniePlayer.JPG" JumpFactor="215" Speed="0" XDimension="1" YDimension="1"/><Movement MovementType="Grounded"/></Attributes>

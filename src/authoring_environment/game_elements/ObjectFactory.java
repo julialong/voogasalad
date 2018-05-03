@@ -96,6 +96,7 @@ public class ObjectFactory implements DocumentGetter {
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
         // debug friction and jump factor //////////////////
+        
         newEntity.setFrictionConstant(Double.parseDouble(getBasicAttribute(myDocument, "Friction")));
         newEntity.setJumpFactor(Double.parseDouble(getBasicAttribute(myDocument, "JumpFactor")));
         ///////////////////////////
