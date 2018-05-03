@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic ID="pushableBlock" ImageFile="data/authoredElementImages/Block/pushableBlock.png" Speed="" XDimension="4" YDimension="4"/><Behavior/><Interaction><PreventClipping/><Pushable/></Interaction><Movement MovementType="LinearGrounded"/></Attributes>
