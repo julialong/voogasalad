@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic Friction="50" ID="JUMPFIRE" ImageFile="data/authoredElementImages/Block/JUMPFIRE.png" JumpFactor="10" Speed="50" XDimension="1" YDimension="1"/><Behavior><JumpALot/></Behavior><Interaction/><Movement MovementType="Grounded"/></Attributes>

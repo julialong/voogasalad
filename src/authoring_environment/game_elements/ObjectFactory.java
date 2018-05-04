@@ -30,13 +30,10 @@ public class ObjectFactory implements DocumentGetter {
     private Document myDocument;
     private GameEntity newEntity;
 
-    // EDITED PATHS FOR THE STUFF BELOW
     private static final String ENTITY_PATH = "engine.entity.";
     private static final String BEHAVIOR_PATH = "engine.behavior.";
     private static final String MOVEMENT_PATH = "engine.movement.";
     private static final String INTERACTION_PATH = "engine.interaction.";
-    
-    //private static final String ELEMENT_DATA_PATH = "./data/";
 	private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
 
     public ObjectFactory(Level level) {
@@ -63,7 +60,6 @@ public class ObjectFactory implements DocumentGetter {
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
         List<String> behavior = new ArrayList<String>();
 		List<String> interaction = new ArrayList<String>();
-		// Edited if statement 
         if(! (type.equals("Player"))) {
         		System.out.println(type);
         		behavior = getBehaviors(myDocument);
@@ -95,10 +91,8 @@ public class ObjectFactory implements DocumentGetter {
         //setWeapon(weapon);
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
-        
         newEntity.setFrictionConstant(Double.parseDouble(getBasicAttribute(myDocument, "Friction")));
         newEntity.setJumpFactor(Double.parseDouble(getBasicAttribute(myDocument, "JumpFactor")));
-        ///////////////////////////
         myLevel.addObject(newEntity);
         return newEntity;
     }
@@ -123,11 +117,7 @@ public class ObjectFactory implements DocumentGetter {
     }
 
     private Behavior createBehavior(String behavior) {
-        //Map<String, String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
     		List<String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
-        //Set<String> keys = behaviorAttributes.keySet();
-    		// Changed the get(x1, x2, and percent) to indices 
-    		// Changed Double to double
         try {
             Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH + behavior).getConstructor(double.class, double.class);
             System.out.println("true");
@@ -175,7 +165,6 @@ public class ObjectFactory implements DocumentGetter {
     }
 
     private Interaction createInteraction(String interaction) {
-        //Map<String, String> interactionMap = getInteractionAttributes(myDocument, interaction);
         List<String> interactionAttributes = getInteractionAttributes(myDocument, interaction);
         try {
             Constructor<?> interactionConstructor = Class.forName(INTERACTION_PATH + interaction).getConstructor(PowerUp.class);
@@ -195,7 +184,6 @@ public class ObjectFactory implements DocumentGetter {
     }
 
     private PowerUp createPowerUp(String powerup) {
-        // Map<String, String> powerupMap = getPowerupAttributes(myDocument, powerup);
         List<String> powerupAttributes = getPowerupAttributes(myDocument, powerup);
         try {
             Constructor<?> powerupConstructor = Class.forName(ENTITY_PATH + powerup).getConstructor(Weapon.class);
