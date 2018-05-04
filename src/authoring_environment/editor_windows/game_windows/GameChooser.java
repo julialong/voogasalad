@@ -85,7 +85,6 @@ public class GameChooser implements DataAlert {
         try {
             String chosenGame = myView.getSelectionModel().getSelectedItem();
             List<AuthoredLevel> loadLevels = myReader.loadCompleteAuthoredGame(chosenGame);
-            System.out.println(chosenGame + ": " + loadLevels.size());
             new EditorWindow(new Stage(), new AuthoredGame(chosenGame, myChoices.get(chosenGame), loadLevels));
             myStage.close();
         }
