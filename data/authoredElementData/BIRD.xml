@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Enemy"><Basic Friction="0" ID="BIRD" ImageFile="data/authoredElementImages/Enemy/BIRD.png" JumpFactor="0" Speed="50" XDimension="2" YDimension="2"/><Behavior><JumpALot/><MoveForward/></Behavior><Interaction/><Movement MovementType="LinearFlying"/></Attributes>

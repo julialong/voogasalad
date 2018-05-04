@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Player"><Basic Friction="50" ID="FAST" ImageFile="data/authoredElementImages/Player/FAST.png" JumpFactor="400" Speed="500" XDimension="2" YDimension="2"/><Movement MovementType="Grounded"/></Attributes>

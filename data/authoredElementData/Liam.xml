@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic Friction="200" ID="Liam" ImageFile="data/authoredElementImages/Block/Liam.jpeg" JumpFactor="0" Speed="0" XDimension="1" YDimension="1"/><Behavior/><Interaction><PreventClipping/><KnockBack/></Interaction><Movement MovementType="Flying"/></Attributes>

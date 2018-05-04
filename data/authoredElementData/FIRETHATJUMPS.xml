@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Enemy"><Basic Friction="0" ID="FIRETHATJUMPS" ImageFile="data/authoredElementImages/Enemy/FIRETHATJUMPS.png" JumpFactor="10" Speed="50" XDimension="1" YDimension="1"/><Behavior><JumpBetweenPoints Point1="" Point2=""/></Behavior><Interaction/><Movement MovementType="Grounded"/></Attributes>

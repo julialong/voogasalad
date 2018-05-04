@@ -77,16 +77,6 @@ public abstract class AttributeEditor implements DataAlert {
 
 	}
 
-	/*
-	 * public AttributeEditor(GameElement element) { setUpEditorWindow();
-	 * organizeEditor(); imageFile = new File("file:" + imagePath); imageURI =
-	 * imageFile.toURI(); image = new ImageView("file:" + imagePath);
-	 * image.setFitHeight(IMAGE_HEIGHT); image.setFitWidth(IMAGE_WIDTH);
-	 * myImagePane.getChildren().add(image);
-	 * 
-	 * }
-	 */
-
 	/**
 	 * Creates the BorderPane, Scene, and Stage and the different Boxes that go in
 	 * the BorderPane Adds the AddImageButton to myImagePane 
