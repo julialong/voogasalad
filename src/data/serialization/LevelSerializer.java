@@ -87,7 +87,7 @@ public class LevelSerializer	{
 	 */
 	public ScrollingGrid deserialize(JsonArray jsonGrid, ScrollingGrid grid, AuthoredLevel al)	{
 		grid.setMediator(al);
-
+		grid.resize(jsonGrid.get(0).getAsJsonArray().size(),jsonGrid.size());
 		for (int i = 0; i < jsonGrid.size(); i++)	{
 			JsonArray row = jsonGrid.get(i).getAsJsonArray();
 
