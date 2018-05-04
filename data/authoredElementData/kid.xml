@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Player"><Basic Friction="200" ID="kid" ImageFile="data/authoredElementImages/Player/kid.png" JumpFactor="200" Speed="1" XDimension="1" YDimension="1"/><Movement MovementType="Grounded"/></Attributes>

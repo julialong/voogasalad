@@ -25,7 +25,7 @@ public class Player extends GameObject{
         kinematics = new Kinematics(x,y,0,0,0,0);
         movementType = new Grounded();
         speedFactor = 1000; //arbitrary for now, might need to be MUCH higher
-        jumpFactor = 350; // arbitrary for now
+        jumpFactor = 215; // arbitrary for now
         maxVelocityX = 50; // arbitrary for now
         maxVelocityY = 500; // arbitrary for now
         destructible = true;

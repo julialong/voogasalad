@@ -87,13 +87,13 @@ public class LevelSerializer	{
 	 */
 	public ScrollingGrid deserialize(JsonArray jsonGrid, ScrollingGrid grid, AuthoredLevel al)	{
 		grid.setMediator(al);
-
+		grid.resize(jsonGrid.get(0).getAsJsonArray().size(), jsonGrid.size());
 		for (int i = 0; i < jsonGrid.size(); i++)	{
 			JsonArray row = jsonGrid.get(i).getAsJsonArray();
 
 			for (int j = 0; j < jsonGrid.get(i).getAsJsonArray().size(); j ++)	{
 				if (!row.get(j).getAsString().equals("null"))	{
-					grid.setCellElement(grid.getCellArray()[i][j], row.get(j).getAsString());
+					grid.setCellElement(grid.getCellArray()[i][j], row.get(j).getAsString(), false);
 				}
 			}
 		}

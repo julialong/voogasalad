@@ -82,10 +82,10 @@ public class LevelEditor extends LevelModifications{
     }
 
     private void createSizeChooser(Pane pane) {
-        Text xField = new Text("X size: ");
+        Text xField = new Text("Y size: ");
         xSizeInput = new TextField(Integer.toString(myLevel.getGridSize()[1]));
         HBox x = new HBox(xField, xSizeInput);
-        Text yField = new Text("Y size: ");
+        Text yField = new Text("X size: ");
         ySizeInput = new TextField(Integer.toString(myLevel.getGridSize()[0]));
         HBox y = new HBox(yField, ySizeInput);
         Text setSize = new Text(SET_SIZE);

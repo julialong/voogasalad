@@ -43,6 +43,10 @@ public class ObjectFactory implements DocumentGetter {
         myLevel = level;
     }
 
+    public GameEntity addObject(String ID, double x, double y, double cellSize) {
+        return addObject(ID, x, y, cellSize, true);
+    }
+
     /**
      * Adds constructed GameEntity to Level
      * @param ID is the String ID of the new object
@@ -51,7 +55,7 @@ public class ObjectFactory implements DocumentGetter {
      * @param cellSize is the size of the gridcell
      * @return the constructed GameEntity
      */
-    public GameEntity addObject(String ID, double x, double y, double cellSize) {
+    public GameEntity addObject(String ID, double x, double y, double cellSize, boolean addToGame) {
     		System.out.println(ID);
         myDocument = getDocument(ID, ELEMENT_DATA_PATH);
         String path = getImagePath(myDocument);
@@ -92,6 +96,7 @@ public class ObjectFactory implements DocumentGetter {
         newEntity.setSizeX(xSize * cellSize);
         newEntity.setSizeY(ySize * cellSize);
         // debug friction and jump factor //////////////////
+        
         newEntity.setFrictionConstant(Double.parseDouble(getBasicAttribute(myDocument, "Friction")));
         newEntity.setJumpFactor(Double.parseDouble(getBasicAttribute(myDocument, "JumpFactor")));
         ///////////////////////////
