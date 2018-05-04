@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic Friction="0" ID="sideways pipe" ImageFile="data\authoredElementImages\Block\sideways pipe.png" JumpFactor="0" Speed="0" XDimension="8" YDimension="1"/><Behavior/><Interaction><Goal/></Interaction><Movement MovementType="Flying"/></Attributes>
