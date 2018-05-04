@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Enemy"><Basic Friction="200" ID="virus4" ImageFile="data\authoredElementImages\Enemy\virus4.png" JumpFactor="0" Speed="200" XDimension="1" YDimension="1"/><Behavior><MoveForward/></Behavior><Interaction><PreventClipping/></Interaction><Movement MovementType="Flying"/></Attributes>

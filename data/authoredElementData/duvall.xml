@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Attributes GameEntity="Player">
+    <Basic Friction="100" ID="duvall" ImageFile="data\authoredElementImages\Player\duvall.jpg" JumpFactor="300"
+           Speed="800" XDimension="1" YDimension="1"/>
+    <Movement MovementType="Grounded"/>
+</Attributes>
