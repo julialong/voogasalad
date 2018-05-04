@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Player"><Basic Friction="200" ID="kamek_updated" ImageFile="data\authoredElementImages\Player\kamek_updated.png" JumpFactor="330" Speed="250" XDimension="1" YDimension="1"/><Movement MovementType="Grounded"/></Attributes>

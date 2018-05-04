@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic Friction="0" ID="pushable block" ImageFile="data\authoredElementImages\Block\pushable block.png" JumpFactor="0" Speed="500" XDimension="1" YDimension="1"/><Behavior/><Interaction><Pushable/></Interaction><Movement MovementType="Grounded"/></Attributes>
