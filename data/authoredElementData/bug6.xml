@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Enemy"><Basic Friction="300" ID="bug6" ImageFile="data\authoredElementImages\Enemy\bug6.png" JumpFactor="0" Speed="5" XDimension="1" YDimension="1"/><Behavior><MoveForward/></Behavior><Interaction><RemoveOnInteractWithPlayer/></Interaction><Movement MovementType="Grounded"/></Attributes>
