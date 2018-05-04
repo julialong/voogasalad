@@ -39,11 +39,6 @@ public class ObjectFactory implements DocumentGetter {
     public ObjectFactory(Level level) {
         myLevel = level;
     }
-
-    public GameEntity addObject(String ID, double x, double y, double cellSize) {
-        return addObject(ID, x, y, cellSize, true);
-    }
-
     /**
      * Adds constructed GameEntity to Level
      * @param ID is the String ID of the new object
@@ -52,16 +47,13 @@ public class ObjectFactory implements DocumentGetter {
      * @param cellSize is the size of the gridcell
      * @return the constructed GameEntity
      */
-    public GameEntity addObject(String ID, double x, double y, double cellSize, boolean addToGame) {
-    		System.out.println(ID);
+    public GameEntity addObject(String ID, double x, double y, double cellSize) {
         myDocument = getDocument(ID, ELEMENT_DATA_PATH);
         String path = getImagePath(myDocument);
-        System.out.println(path);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
         List<String> behavior = new ArrayList<String>();
 		List<String> interaction = new ArrayList<String>();
         if(! (type.equals("Player"))) {
-        		System.out.println(type);
         		behavior = getBehaviors(myDocument);
         		interaction = getInteractions(myDocument);
         		
@@ -110,9 +102,7 @@ public class ObjectFactory implements DocumentGetter {
 
     private void makeBehaviors(GameEntity newEntity, List<String> behaviors) {
         for (String behavior : behaviors) {
-        		System.out.println("make behavior: " + behavior);
             newEntity.addBehavior(createBehavior(behavior));
-            System.out.println("succeeded");
         }
     }
 
@@ -120,11 +110,9 @@ public class ObjectFactory implements DocumentGetter {
     		List<String> behaviorAttributes = getBehaviorAttributes(myDocument, behavior);
         try {
             Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH + behavior).getConstructor(double.class, double.class);
-            System.out.println("true");
             behaviorConstructor.setAccessible(true);
             Behavior b = (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get(0)),
                     Double.parseDouble(behaviorAttributes.get(1)));
-            System.out.println(b);
             return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get(0)),
                     Double.parseDouble(behaviorAttributes.get(1)));
         }

@@ -55,9 +55,7 @@ public class AuthoredLevelBuilder {
 		ScrollingGrid gridForAuthoredLevel = new ScrollingGrid();		
 		AuthoredLevel authoredLevel = new AuthoredLevel(levelForAuthoredLevel, gridForAuthoredLevel);
 
-		System.out.println("BEFORE RETRIEVE " + levelForAuthoredLevel.getColor());
 		retrieveScrollingGrid(levelFile, gridForAuthoredLevel, authoredLevel);
-		System.out.println("Color " + levelForAuthoredLevel.getColor());
 		authoredLevel.getScrollingGrid().setBackground(new Background(new BackgroundFill(Color.web(authoredLevel.getLevel().getColor()),CornerRadii.EMPTY, Insets.EMPTY)));
 
 		return authoredLevel;

@@ -126,11 +126,9 @@ public abstract class AttributeEditor implements DataAlert {
 				for (String parameter : optionParameters) {
 					if (option.equals(ID)) {
 						elementID = parameter;
-						System.out.println(elementID);
 					}
 					TreeNode parameterNode = new TreeNode(parameter);
 					optionNode.addChild(parameterNode);
-					System.out.println(parameterNode.getInfo());
 				}
 			}
 
