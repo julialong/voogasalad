@@ -178,7 +178,6 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 			GridPane.setRowSpan(cell, cell.getYDim());
 			GridPane.setColumnSpan(cell, cell.getXDim());
 		}
-
 		cell.setObject(myLevel.addObject(ID, cell.getPosition().getX(), cell.getPosition().getY(), cellSize, fromFile));
 	}
 
