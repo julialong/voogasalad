@@ -67,7 +67,7 @@ public class AuthoredGame implements DataAlert {
             else {
                 currentLevel = new AuthoredLevel(new BasicLevel(), new ScrollingGrid());
             }
-            myGameWriter = new GameFileWriter("Maya", myName);
+            myGameWriter = new GameFileWriter("FinalDemo", myName);
             isReady = true;
         }
         catch (Exception e) {
