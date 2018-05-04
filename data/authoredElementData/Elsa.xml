@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Player"><Basic Friction="50" ID="Elsa" ImageFile="data/authoredElementImages/Player/Elsa.png" JumpFactor="290" Speed="300" XDimension="1" YDimension="2"/><Movement MovementType="Grounded"/></Attributes>
