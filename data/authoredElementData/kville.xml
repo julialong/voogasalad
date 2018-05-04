@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Enemy"><Basic Friction="200" ID="kville" ImageFile="data/authoredElementImages/Enemy/kville.JPG" JumpFactor="0" Speed="400" XDimension="2" YDimension="2"/><Behavior><MoveForward/></Behavior><Interaction><DamageOnStomp/></Interaction><Movement MovementType="Grounded"/></Attributes>
