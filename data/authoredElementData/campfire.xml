@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic Friction="200" ID="campfire" ImageFile="data/authoredElementImages/Block/campfire.png" JumpFactor="0" Speed="0" XDimension="2" YDimension="2"/><Behavior/><Interaction><Goal/><PreventClipping/></Interaction><Movement MovementType=""/></Attributes>
