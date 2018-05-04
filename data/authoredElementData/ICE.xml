@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic Friction="0" ID="ICE" ImageFile="data/authoredElementImages/Block/ICE.png" JumpFactor="0" Speed="0" XDimension="2" YDimension="1"/><Behavior/><Interaction/><Movement MovementType="Flying"/></Attributes>
