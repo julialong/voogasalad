@@ -217,7 +217,6 @@ public class AuthoredGame implements DataAlert {
         try {
             myGameWriter.update(myLevels);
             myGameWriter.updateMeta(isReady, myDescription);
-            System.out.println("level saved");
         }
         catch (DataFileException e)    {
             Alert alert = new Alert(AlertType.INFORMATION);

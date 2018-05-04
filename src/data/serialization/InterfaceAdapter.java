@@ -46,7 +46,6 @@ public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<
 		BehaviorSkipManager skippedBehaviors = new BehaviorSkipManager();
 		List<String> behaviorsToSkip = skippedBehaviors.getBehaviorsToSkip();
 		JsonObject wrapper = (JsonObject) arg0;
-		System.out.println(wrapper);
 		JsonElement typeName = get(wrapper, "type");
 		if(behaviorsToSkip.contains(typeName.getAsString()))
 		{

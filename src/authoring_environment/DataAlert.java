@@ -14,7 +14,6 @@ public interface DataAlert {
      * @param e is the exception thrown
      */
     default void saveAlert(Exception e) {
-        e.printStackTrace();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alert");
         alert.setContentText("Bad");

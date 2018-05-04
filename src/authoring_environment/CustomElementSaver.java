@@ -23,7 +23,7 @@ import org.w3c.dom.Element;
  * @author Judi Sanchez, Michael Acker Date started: April 9 2018
  *
  */
-public class CustomElementSaver {
+public class CustomElementSaver implements DataAlert {
 
 	private static final String ELEMENT_RESOURCES = "resources.Elements";
 	private static final int INCREMENT = 1;
@@ -52,7 +52,7 @@ public class CustomElementSaver {
 		try {
 			docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			saveAlert(e);
 		}
 		doc = docBuilder.newDocument();
 		updateAttributes(treeNode);
@@ -65,7 +65,6 @@ public class CustomElementSaver {
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File("data/authoredElementData/" + elementID.toString() + ".xml"));
-		System.out.println("saved");
 		transformer.transform(source, result);
 	}
 
