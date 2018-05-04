@@ -113,13 +113,30 @@ public class LevelBuilder {
 	 */
 	public Level buildLevel() throws DataFileException
 	{
+		return buildLevel(true);
+	}
+
+	/**
+	 * Returns a new BasicLevel with the appropriate data and
+	 * game objects.
+	 *
+	 * @param toAdd		if should add object to level
+	 * @return
+	 * @throws DataFileException
+	 */
+	public Level buildLevel(boolean toAdd) throws DataFileException
+	{
 		try 
 		{
 			JsonParser jsonParser = new JsonParser();
 			JsonElement jelement = jsonParser.parse(new FileReader(levelFile));
 			JsonObject jobject = jelement.getAsJsonObject();
 			BasicLevel level = addMetaData(jobject);
-			addGameObjects(level,jobject);
+
+			if (toAdd)	{
+				addGameObjects(level,jobject);
+			}
+
 			return level;
 		}
 		catch(JsonIOException | JsonSyntaxException | FileNotFoundException e)

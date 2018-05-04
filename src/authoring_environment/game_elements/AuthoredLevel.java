@@ -5,7 +5,6 @@ import authoring_environment.grid.ScrollingGrid;
 import engine.behavior.Behavior;
 import engine.entity.GameEntity;
 import engine.interaction.Interaction;
-import engine.interaction.PreventClipping;
 import engine.level.Level;
 import engine.movement.Movement;
 import engine.powerup.PowerUp;
@@ -27,13 +26,7 @@ public class AuthoredLevel implements DocumentGetter {
 
     private Level myLevel;
     private ScrollingGrid myScrollingGrid;
-
-    private static final String ENTITY_PATH = "engine.entity.";
-    private static final String BEHAVIOR_PATH = "engine.behavior.";
-    private static final String INTERACTION_PATH = "engine.interaction.";
-    private static final String MOVEMENT_PATH = "engine.movement.";
-    private static final String POWERUP_PATH = "engine.powerup.";
-    private static final String ELEMENT_DATA_PATH = "./data/authoredElementData/";
+    private ObjectFactory myObjectFactory;
 
     /**
      * Creates a new authored level
@@ -45,6 +38,7 @@ public class AuthoredLevel implements DocumentGetter {
         myScrollingGrid = scrollingGrid;
         myScrollingGrid.setMediator(this);
         myLevel.setColor(Color.WHITE);
+        myObjectFactory = new ObjectFactory(myLevel);
     }
 
     /**
@@ -118,7 +112,6 @@ public class AuthoredLevel implements DocumentGetter {
      * Adds object to Level
      * @param ID is the ID of the object to create
      */
-    // TODO: Remove Point from Scrolling Grid
     public GameEntity addObject(String ID, double x, double y, double cellSize) {
       return  addObject(ID, x, y, cellSize, true);
     }
