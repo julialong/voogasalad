@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Attributes GameEntity="Enemy">
+	<Basic Friction="0" ID="0" 
+		ImageFile="data\authoredElementImages\Enemy\0.png"
+		JumpFactor="0" Speed="50" XDimension="1" YDimension="2" />
+	<Behavior>
+		<MoveForward />
+	</Behavior>
+	<Interaction>
+		<DamageOnStomp />
+		<KnockBack />
+	</Interaction>
+	<Movement MovementType="Grounded" />
+</Attributes>

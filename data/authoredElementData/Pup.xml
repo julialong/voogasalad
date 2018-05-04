@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Player"><Basic Friction="75" ID="Pup" ImageFile="data/authoredElementImages/Player/Pup.png" JumpFactor="250" Speed="1000" XDimension="2" YDimension="1"/><Movement MovementType="Grounded"/></Attributes>

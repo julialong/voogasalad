@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic Friction="0" ID="Toy1" ImageFile="data/authoredElementImages/Block/Toy1.png" JumpFactor="2" Speed="0" XDimension="1" YDimension="1"/><Behavior><JumpALot/></Behavior><Interaction><DamageOnStomp/></Interaction><Movement MovementType="Grounded"/></Attributes>

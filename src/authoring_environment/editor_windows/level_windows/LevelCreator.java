@@ -104,10 +104,10 @@ public class LevelCreator extends LevelModifications{
     }
 
     private void createSizeChooser(Pane pane) {
-        Text xField = new Text("X size: ");
+        Text xField = new Text("Y size: ");
         xSizeInput = new TextField("50");
         HBox x = new HBox(xField, xSizeInput);
-        Text yField = new Text("Y size: ");
+        Text yField = new Text("X size: ");
         ySizeInput = new TextField("100");
         HBox y = new HBox(yField, ySizeInput);
         Text setSize = new Text(SET_SIZE);
