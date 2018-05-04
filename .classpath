@@ -6,6 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Marcus/Documents/CS308/Workspace/voogasalad_supersaladsquad/gson/gson-2.8.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
