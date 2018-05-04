@@ -66,7 +66,6 @@ public class BehaviorSkipManager {
 			Constructor<?> c = behaviorClass.getConstructor(Player.class);
 			c.setAccessible(true);
 			Object o = c.newInstance(player);
-			System.out.println(o);
 			return (Behavior)o;
 		} 
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) 
@@ -89,7 +88,6 @@ public class BehaviorSkipManager {
 			Constructor<?> c = behaviorClass.getConstructor();
 			c.setAccessible(true);
 			Object o = c.newInstance();
-			System.out.println(o);
 			return (Behavior)o;
 		} 
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) 

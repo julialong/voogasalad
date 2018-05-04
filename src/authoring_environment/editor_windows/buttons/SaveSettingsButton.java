@@ -28,8 +28,6 @@ public class SaveSettingsButton extends Button{
         String description = descriptionField.getText();
     		myWindow.getGame().rename(gameName);
     		myWindow.getGame().setDescription(description);
-    		System.out.println(myWindow.getGame().getName());
-    		System.out.println(myWindow.getGame().getDescription());
     		stage.close();
     	
     }

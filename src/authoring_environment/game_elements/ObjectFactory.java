@@ -51,16 +51,13 @@ public class ObjectFactory implements DocumentGetter {
      * @return the constructed GameEntity
      */
     public GameEntity addObject(String ID, double x, double y, double cellSize) {
-    		System.out.println(ID);
         myDocument = getDocument(ID, ELEMENT_DATA_PATH);
         String path = getImagePath(myDocument);
-        System.out.println(path);
         String type = myDocument.getDocumentElement().getAttribute("GameEntity");
         List<String> behavior = new ArrayList<String>();
 		List<String> interaction = new ArrayList<String>();
 		// Edited if statement 
         if(! (type.equals("Player"))) {
-        		System.out.println(type);
         		behavior = getBehaviors(myDocument);
         		interaction = getInteractions(myDocument);
         		
@@ -111,9 +108,7 @@ public class ObjectFactory implements DocumentGetter {
 
     private void makeBehaviors(GameEntity newEntity, List<String> behaviors) {
         for (String behavior : behaviors) {
-        		System.out.println("make behavior: " + behavior);
             newEntity.addBehavior(createBehavior(behavior));
-            System.out.println("succeeded");
         }
     }
 
@@ -125,11 +120,9 @@ public class ObjectFactory implements DocumentGetter {
     		// Changed Double to double
         try {
             Constructor<?> behaviorConstructor = Class.forName(BEHAVIOR_PATH + behavior).getConstructor(double.class, double.class);
-            System.out.println("true");
             behaviorConstructor.setAccessible(true);
             Behavior b = (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get(0)),
                     Double.parseDouble(behaviorAttributes.get(1)));
-            System.out.println(b);
             return (Behavior) behaviorConstructor.newInstance(Double.parseDouble(behaviorAttributes.get(0)),
                     Double.parseDouble(behaviorAttributes.get(1)));
         }

@@ -144,7 +144,6 @@ public class ScrollingGrid extends GridPane implements DocumentGetter{
 				GridCell cell = cellArray[i][j];
 				if (cell.isSelected()) {
 					if (cell.getObject() != null) {
-						System.out.println("item removed: " + cell.getObject().getClass());
 						myLevel.removeObject(cell.getObject());
 					}
 					cell.reset();

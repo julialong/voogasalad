@@ -121,10 +121,6 @@ public class AuthoredLevel implements DocumentGetter {
      * @param object is the object to remove
      */
     public void removeObject(GameEntity object){
-<<<<<<< HEAD
-=======
-        //myLevel.getObjects().remove(object);
->>>>>>> 807f326fb78c042bda52f164b1272fb852a157af
         myLevel.getObjects().remove(myLevel.getObjects().indexOf(object));
     }
 }

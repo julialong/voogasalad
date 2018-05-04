@@ -58,7 +58,6 @@ public class GameFileWriter implements GAEtoJSON, GEtoJSON	{
 		for (AuthoredLevel aLevel:changes)	{
 			levelChanges.add(aLevel.getLevel());
 			saveData(aLevel);
-			System.out.println("saved " + aLevel.toString());
 		}
 
 		new TextWriter(new File(gameDirectory + NEST + ORDERS + EXTENSION), levelChanges);
