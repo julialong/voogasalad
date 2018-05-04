@@ -6,7 +6,7 @@ import engine.entity.Enemy;
 import engine.entity.GameEntity;
 
 /**
- * An implementation that allows Enemies to use the weapon they have equipped,
+ * An implementation that allows Enemy to use the weapon they have equipped,
  * given a certain percentage chance
  * 
  * @author Marcus Oertle
