@@ -56,10 +56,12 @@ public class Pushable implements Interaction {
 			boolean push = true;
 			for (GameEntity ge : source.getInteractionMap().keySet()) {
 				if (source.getInteractionMap().get(ge).equals("right")) {
+					System.out.println(ge.getClass().getSimpleName() + " colliding with " + source.getClass().getSimpleName());
 					for (Interaction i : ge.getInteractions()) {
 						if (i instanceof PreventClipping) {
+							System.out.println("rubbing");
 							push = false;
-							target.setX(source.getPosition()[0] - source.getSizeX());
+							target.setX(source.getPosition()[0] - target.getSizeX());
 						}
 					}
 				}
@@ -81,7 +83,7 @@ public class Pushable implements Interaction {
 				}
 			}
 			if (push) {
-				source.setX(target.getPosition()[0] - target.getSizeX());
+				source.setX(target.getPosition()[0] - source.getSizeX());
 			}
 		}
 	}

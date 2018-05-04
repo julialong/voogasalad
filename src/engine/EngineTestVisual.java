@@ -88,16 +88,16 @@ public class EngineTestVisual extends Application{
 	private void setupLevel() {
 		//level.setSize(400, 400);
 		Player player = new Player();
-		Enemy enemy = new Enemy();
-		Enemy enemy2 = new Enemy();
+		//Enemy enemy = new Enemy();
+		Block enemy2 = new Block();
 		Enemy enemy3 = new Enemy();
-		//Block enemy = new Block();
+		Block enemy = new Block();
 		//enemy.addBehavior(new MoveForward(new Player()));
 		//enemy.addInteraction(new KnockBack());
 		//enemy.addInteraction(new PreventClipping());
 		//enemy.addInteraction(new DamageOnStomp());
 		enemy.overridePosition(30, -170);
-		enemy.setSizeX(10);
+		enemy.setSizeX(20);
 		enemy.setSizeY(20);
 		enemy.setMaxXVelocity(30);
 		enemy.setMaxYVelocity(500);
@@ -109,7 +109,7 @@ public class EngineTestVisual extends Application{
 		enemy3.setMaxYVelocity(500);
 		//enemy3.addInteraction(new Pushable());
 		enemy2.overridePosition(-85, -170);
-		enemy2.setSizeX(10);
+		enemy2.setSizeX(20);
 		enemy2.setSizeY(20);
 		enemy2.setMaxXVelocity(30);
 		enemy2.setMaxYVelocity(500);
@@ -217,8 +217,8 @@ public class EngineTestVisual extends Application{
 		//powerupBlock.addInteraction(new AddPowerup(new SpeedChange(5, player)));
 		powerupBlock.addInteraction(new RemoveOnInteractWithPlayer());
 		level.addObject(block);
-		level.addObject(enemy);
 		level.addObject(wall);
+		level.addObject(enemy);
 		level.addObject(player);
 		level.addObject(enemy2);
 		level.addObject(platform);
