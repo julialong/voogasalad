@@ -5,63 +5,34 @@ import engine.controls.Controls;
 import engine.level.Level;
 import game_player_api.GameView;
 import game_player_api.GameViewMenu;
-import heads_up_display.HeadsUpDisplay;
-import heads_up_display.Hud;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.util.Duration;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import engine.entity.GameEntity;
-import engine.entity.Player;
 
 /**
- * Class to run the game loop and check for user commands
- * 
- * @author Kelley Scroggs
- *
+ * Class to run the game loop and check for user commands. I think this code
+ * shows good design because I was able to refactor the original version to
+ * separate out all of the display and control features. This is initially how we
+ * designed the gameview, but as the development progressed, this class began to
+ * take on the dual purpose of displaying and controlling the game. This
+ * exemplifies the first principle of SOLID design: single purpose.
  */
 public class VoogaGameView implements GameView, GameViewMenu {
-	// constants
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-	private final double myHeight = Screen.getPrimary().getVisualBounds().getHeight();
-	private final double myWidth = Screen.getPrimary().getVisualBounds().getWidth();
-	private static final int SECONDS_PER_MINUTE = 60;
-	// variables
-	private boolean myGameStatus = false;
+	private boolean myGameStatus = true;
 	private boolean myGameNotOver = true;
 	private int myCurrLevel = 0;
 	private List<Level> myGameLevels;
-	private Map<GameEntity, ImageView> myDispMap = new HashMap<>();
-	private Map<ImageView, String> myGEtoString = new HashMap<>();
-	private Map<ImageView, ImageView> myIVCopyMap = new HashMap<>();
 	private List<ScoreItem> newScores = new ArrayList<>();
-	private Map<ImageView, List<Point2D>> myReplayList = new HashMap<>();
-	// parts
-	private Pane myGP;
+	private GameDisplay myGD;
 	private Controls myControls;
-	private HeadsUpDisplay hud;
-	private Point2D timer = new Point2D(0, 0);
-	private double myXFactor;
-	private double myYFactor;
 
 	/**
 	 * Creates a grid pane. initializes event listeners
@@ -71,72 +42,14 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	 */
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
-		myGP = new Pane();
-		myGP.setBackground(new Background(new BackgroundFill(Color.web(gameLevels.get(myCurrLevel).getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
-		setAdjustFactors();
-		initDisplayMap();
-		setUpHud();
-	}
-
-	private void setAdjustFactors() {
-		myXFactor = myGameLevels.get(myCurrLevel).getCamSize()[0];
-		myYFactor = myGameLevels.get(myCurrLevel).getCamSize()[1];
-	}
-
-	/**
-	 * Calibrates x coordinates to be at the center of the screen and multiplies by
-	 * factor to make them bigger.
-	 * 
-	 * @param x
-	 * @return
-	 */
-	private double adjustXCord(double x) {
-		return x * (myWidth / myXFactor);
-	}
-
-	/**
-	 * Calibrates y coordinates to be at the center of the screen and multiples by a
-	 * factor to make the difference between them larger.
-	 * 
-	 * @param y
-	 * @return
-	 */
-	private double adjustYCord(double y) {
-		return y * (myHeight / myYFactor);
-	}
-
-	/**
-	 * Adds all of the levels objects to a map that maps them to a position
-	 */
-	private void initDisplayMap() {
-		for (GameEntity ge : myGameLevels.get(myCurrLevel).getObjects()) {
-			String imgPath;
-			if (ge.getImagePath() == null || ge.getImagePath() == "") {
-				imgPath = "./game_player/brick.png";
-			} else {
-				imgPath = ge.getImagePath();
-			}
-			if (ge instanceof Player) {
-				myControls = new Controls((Player) ge);
-			}
-			ImageView entityImage = new ImageView(
-					new Image(new File(imgPath).toURI().toString(), adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
-			ImageView entityImageCopy = new ImageView(
-					new Image(new File(imgPath).toURI().toString(), adjustXCord(ge.getSizeX()), adjustYCord(ge.getSizeY()), false, false));
-			myIVCopyMap.put(entityImage, entityImageCopy);
-			entityImage.setX(adjustXCord(ge.getScenePosition()[0]));
-			entityImage.setY(adjustYCord(ge.getScenePosition()[1]));
-			myDispMap.put(ge, entityImage);
-			myGEtoString.put(entityImage, imgPath);
-			myGP.getChildren().add(myDispMap.get(ge));
-		}
+		myGD = new GameDisplay(myGameLevels.get(0));
+		myControls = myGD.findControlsObj();
 	}
 
 	/**
 	 * initializes the game loop.
 	 */
 	public void startGame() {
-		myGameStatus = true;
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
@@ -152,16 +65,14 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	private void step(double elapsedTime) {
 		if (myGameStatus && myGameNotOver) {
 			myGameLevels.get(myCurrLevel).update();
-			displayObjects();
-			updateHud(elapsedTime);
+			myGD.displayObjects();
 			if (myGameLevels.get(myCurrLevel).getLevelComplete()) {
 				myCurrLevel++;
 				if (myCurrLevel >= myGameLevels.size()) {
 					endGame();
 				} else {
-					myReplayList.clear();
-					initDisplayMap();
-					myGP.setBackground(new Background(new BackgroundFill(Color.web(myGameLevels.get(myCurrLevel).getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+					myGD = new GameDisplay(myGameLevels.get(myCurrLevel));
+					myControls = myGD.findControlsObj();
 				}
 			}
 		}
@@ -176,48 +87,7 @@ public class VoogaGameView implements GameView, GameViewMenu {
 		myGameNotOver = false;
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setContentText("YOU'VE REACHED THE END!");
-		alert.setTitle("CONGRADULATIONS");
 		alert.show();
-		ScoreItem si = new ScoreItem("Kelley5", 100 - (int) timer.getX());
-		newScores.add(si);
-	}
-
-	/**
-	 * Displays the already updated objects that have been determined to be in
-	 * bounds. Removes the objects that have been destroyed after the level is
-	 * updated.
-	 */
-	private void displayObjects() {
-		Level level = myGameLevels.get(myCurrLevel);
-		ArrayList<GameEntity> toRemove = new ArrayList<>();
-		ArrayList<ImageView> toRemoveImageView = new ArrayList<>();
-		for (GameEntity ge : myDispMap.keySet()) {
-			if (level.getObjects().contains(ge)) {
-				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
-				myDispMap.get(ge).setY(adjustYCord(ge.getScenePosition()[1]));
-				//System.out.println("XCOR:  " + adjustXCord(ge.getScenePosition()[0]) + "\nYCOR: " + adjustYCord(ge.getScenePosition()[1]));
-			} else {
-				toRemove.add(ge);
-				toRemoveImageView.add(myDispMap.get(ge));
-				myGP.getChildren().remove(myDispMap.get(ge));
-			}
-		}
-		for (GameEntity ge : toRemove) {
-			myGP.getChildren().remove(myDispMap.get(ge));
-			myDispMap.remove(ge);
-		}
-		for (ImageView val : myDispMap.values()) {
-			List<Point2D> ivPointsList;
-			if (myReplayList.containsKey(myIVCopyMap.get(val))) {
-				ivPointsList = myReplayList.get(myIVCopyMap.get(val));
-			} else {
-				ivPointsList = new ArrayList<>();
-			}
-			if (!toRemoveImageView.contains(val)) {
-				ivPointsList.add(new Point2D(val.getX(), val.getY()));
-			}
-			myReplayList.put(myIVCopyMap.get(val), ivPointsList);
-		}
 	}
 
 	/**
@@ -241,7 +111,7 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	 */
 	@Override
 	public Node getNode() {
-		return myGP;
+		return myGD.getPane();
 	}
 
 	/**
@@ -284,43 +154,10 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	}
 
 	/**
-	 * Sets up the heads up display for the game view multiple components can be
-	 * added
-	 */
-	private void setUpHud() {
-		hud = new Hud();
-		timer = new Point2D(0, hud.addComponent(Double.toString(timer.getX())));
-		myGP.getChildren().add(hud.getHUD());
-	}
-
-	/**
-	 * Updates the heads up display during every step to make sure important
-	 * information is kept accurate.
-	 */
-	private void updateHud(Double elapsedTime) {
-		timer = timer.add(elapsedTime, 0);
-		int minutes = (int) timer.getX() / SECONDS_PER_MINUTE;
-		double seconds = timer.getX() % SECONDS_PER_MINUTE;
-		String output = String.format("%d:%.1f", minutes, seconds);
-		hud.updateComponent((int) timer.getY(), output);
-	}
-
-	/**
-	 * Returns an object to make replaying a game possible.
-	 * 
-	 * @return myReplayList, a list of Maps of gameEntitys to their imageView
-	 */
-	@Override
-	public Map<ImageView, List<Point2D>> getReplayList() {
-		return myReplayList;
-	}
-
-	/**
 	 * Returns the new scores that have been created during the current run of the
-	 * program, because they wont be read from the properties file until the
-	 * application is launched again.
+	 * program.
 	 * 
-	 * @return
+	 * @return list of new scores
 	 */
 	@Override
 	public List<ScoreItem> getNewScores() {
@@ -339,5 +176,4 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	public void clearNewScores() {
 		newScores.clear();
 	}
-
 }

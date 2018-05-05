@@ -1,1 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Attributes GameEntity="Block"><Basic Friction="0" ID="codebreak" ImageFile="data\authoredElementImages\Block\codebreak.png" JumpFactor="0" Speed="0" XDimension="1" YDimension="1"/><Behavior/><Interaction><DamageOnStomp/></Interaction><Movement MovementType="Flying"/></Attributes>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Attributes GameEntity="Block">
+	<Basic Friction="0" ID="codebreak"
+		ImageFile="data\authoredElementImages\Block\codebreak.png" JumpFactor="0"
+		Speed="0" XDimension="1" YDimension="1" />
+	<Behavior />
+	<Interaction>
+		<DamageOnStomp />
+	</Interaction>
+	<Movement MovementType="Flying" />
+</Attributes>

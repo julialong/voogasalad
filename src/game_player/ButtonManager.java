@@ -75,12 +75,12 @@ public class ButtonManager {
 		resetButton.setOnMouseClicked(e -> playerView.resetGame());
 		myMenuBar.addButton(resetButton);
 
-		VButton replayButton = new VButton("Replay");
-		replayButton.setOnAction(e -> {
-			myGameView.pauseGame();
-			new ReplayScreen(myGameView.getReplayList());
-		});
-		myMenuBar.addButton(replayButton);
+//		VButton replayButton = new VButton("Replay");
+//		replayButton.setOnAction(e -> {
+//			myGameView.pauseGame();
+//			new ReplayScreen(myGameView.getReplayList());
+//		});
+//		myMenuBar.addButton(replayButton);
 	}
 
 	/**

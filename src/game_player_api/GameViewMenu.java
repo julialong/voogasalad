@@ -50,6 +50,6 @@ public interface GameViewMenu {
 	 * Passes the information required for a game replay to be displayed.
 	 * @return
 	 */
-	public Map<ImageView, List<Point2D>> getReplayList();
+//	public Map<ImageView, List<Point2D>> getReplayList();
 
 }
