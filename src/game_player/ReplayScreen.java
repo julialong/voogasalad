@@ -2,6 +2,9 @@ package game_player;
 
 import java.util.List;
 import java.util.Map;
+
+import game_player.buttons.VButton;
+import game_player.buttons.VMenuBar;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Point2D;

@@ -1,7 +1,11 @@
-package game_player;
+package game_player.buttons;
 
 import game_player_api.GamePlayerButton;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+
+import java.lang.reflect.Method;
 
 /**
  * Class that represents the buttons that are entered into the menubar
@@ -13,24 +17,12 @@ public class VButton extends Button implements GamePlayerButton {
 	private String myCommand;
 
 	/**
-	 * construct a game button using the default button constructor.
-	 * 
-	 * @param s
+	 * construct a game button using the default button constructor
 	 */
 	public VButton(String s) {
 		super(s);
 		myCommand = s;
-		setButtonAction();
 		this.getStyleClass().add("Button");
-	}
-
-	/**
-	 * makes button print name when pressed.
-	 */
-	private void setButtonAction() {
-		this.setOnMouseClicked(event -> {
-			System.out.println(myCommand);
-		});
 	}
 
 	/**

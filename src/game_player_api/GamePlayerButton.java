@@ -1,5 +1,11 @@
 package game_player_api;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+import java.lang.reflect.Method;
+
+
 /**
  * Defines the GamePlayerButton, a GUI object that is part of the menubar that
  * the user can manipulate with while playing the game
@@ -19,5 +25,4 @@ public interface GamePlayerButton {
 	 * controller.
 	 */
 	public void clearButton();
-
 }

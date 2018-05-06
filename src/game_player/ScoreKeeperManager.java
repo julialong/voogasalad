@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import game_player.buttons.VButton;
 import game_player_api.GameViewMenu;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

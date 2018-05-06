@@ -67,7 +67,6 @@ public class VoogaGameView implements GameView, GameViewMenu {
 	 * Creates a grid pane. initializes event listeners
 	 * 
 	 * @param gameLevels
-	 * @param myHighScores
 	 */
 	public VoogaGameView(List<Level> gameLevels) {
 		myGameLevels = gameLevels;
@@ -195,7 +194,6 @@ public class VoogaGameView implements GameView, GameViewMenu {
 			if (level.getObjects().contains(ge)) {
 				myDispMap.get(ge).setX(adjustXCord(ge.getScenePosition()[0]));
 				myDispMap.get(ge).setY(adjustYCord(ge.getScenePosition()[1]));
-				//System.out.println("XCOR:  " + adjustXCord(ge.getScenePosition()[0]) + "\nYCOR: " + adjustYCord(ge.getScenePosition()[1]));
 			} else {
 				toRemove.add(ge);
 				toRemoveImageView.add(myDispMap.get(ge));

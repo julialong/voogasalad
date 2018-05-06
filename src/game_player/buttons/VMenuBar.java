@@ -1,4 +1,4 @@
-package game_player;
+package game_player.buttons;
 import game_player_api.GamePlayerButton;
 import game_player_api.MenuBar;
 import javafx.scene.Node;

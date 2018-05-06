@@ -1,12 +1,14 @@
 package game_player;
 
 import engine.level.Level;
+import game_player.buttons.ButtonBuilder;
+import game_player.buttons.VMenuBar;
 import game_player_api.GameViewMenu;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+
 import java.util.List;
 import data.fileReading.GPGameFileReader;
 import data.fileReading.JSONtoGP;
@@ -93,7 +95,7 @@ public class PlayerView extends BorderPane {
 	 * add buttons to my menubar
 	 */
 	private void addButtons() {
-		new ButtonManager(this, myMenuBar, (GameViewMenu) myGameView, myName, myDescription, gameMaterial);
+		new ButtonBuilder(this, myMenuBar, (GameViewMenu) myGameView, myName, myDescription, gameMaterial);
 	}
 
 	/**
