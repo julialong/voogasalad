@@ -96,8 +96,8 @@ Marcus Oertle (mlo11)
         * loading a replay of the game that can be played fast/slow/start/stop
     * Displaying the game screen
     * Calling backend, displaying objects
- 
- 
+
+
 #### Game Data
 
 * Belanie Nagiel
@@ -113,7 +113,7 @@ Marcus Oertle (mlo11)
         * LevelSerializer
     * file writing of games (folder), game settings, and levels
     * worked on attempted Firebase connection
- 
+
 #### Game Engine
 * Marcus Oertle and Robert Gitau worked on everything in the engine together.
 
@@ -157,6 +157,7 @@ Marcus Oertle (mlo11)
 * [Firebase DatabaseReference](https://firebase.google.com/docs/reference/js/firebase.database.Reference)
 * [Json Primitive](https://google.github.io/gson/apidocs/com/google/gson/JsonPrimitive.html)
 * Human Resources: UTA Lasia Lo and his friend who knows about Firebase
+
 #### Game Player
 * [Managing multiple scenes](https://community.oracle.com/thread/2335204?start=0)
 * [Styling](https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html)
@@ -167,6 +168,7 @@ Marcus Oertle (mlo11)
 * [Alert](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.html)
 * [ListView]
 * [Screen bounds]
+
 #### Engine
 * [Collision Detection](https://stackoverflow.com/questions/5062833/detecting-the-direction-of-a-collision)
 
@@ -187,6 +189,7 @@ To start the project, the OverviewDriver must be run. This class allows the user
     *  Demo
     *  TestImage
     *  TestGoal
+
 ##### Engine
 * Initial testing:
     * Used "EngineTest.java" to test math of the physics engine and then also to test entity movement and basic collisions.
