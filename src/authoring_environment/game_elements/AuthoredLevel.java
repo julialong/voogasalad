@@ -1,23 +1,25 @@
 package authoring_environment.game_elements;
 
 import authoring_environment.DocumentGetter;
+import authoring_environment.game_elements.factories.ObjectFactory;
+import authoring_environment.game_elements.factories.PlatformObjectFactory;
 import authoring_environment.grid.ScrollingGrid;
-import engine.behavior.Behavior;
 import engine.entity.GameEntity;
-import engine.interaction.Interaction;
 import engine.level.Level;
-import engine.movement.Movement;
-import engine.powerup.PowerUp;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
-import org.w3c.dom.Document;
-
-import java.lang.reflect.Constructor;
 
 
 /**
- * The AuthoredLevel class is a mediator between the Level and ScrollingGrid
- * class
+ * The AuthoredLevel class is a mediator between the Level and ScrollingGrid.
+ * This class takes in a Level and a ScrollingGrid and handles the interaction between
+ * the two objects, keeping the frontend components of the ScrollingGrid separate from
+ * the backend components of the Engine's Level class, while keeping them both up-to-date.
+ * This class was written based on the Mediator design pattern, which allows communication
+ * between two classes through some intermediate component.
+ * This design allows the flexibility of using different Level and ScrollingGrid classes as
+ * desired, as well as using different PlatformObjectFactory classes to create custom game elements
+ * as desired.
  *
  * @author Julia Long
  * Date started: April 15 18
@@ -38,7 +40,7 @@ public class AuthoredLevel implements DocumentGetter {
         myScrollingGrid = scrollingGrid;
         myScrollingGrid.setMediator(this);
         myLevel.setColor(Color.web(level.getColor()));
-        myObjectFactory = new ObjectFactory(myLevel);
+        myObjectFactory = new PlatformObjectFactory(myLevel);
     }
 
     /**
@@ -49,6 +51,10 @@ public class AuthoredLevel implements DocumentGetter {
         myLevel.setName(name);
     }
 
+    /**
+     * Gets the name of the Level object
+     * @return the name of the Level
+     */
     public String getName() {
         return myLevel.getName();
     }
@@ -79,13 +85,22 @@ public class AuthoredLevel implements DocumentGetter {
         myLevel.setSize(myScrollingGrid.getCellSize() * x, myScrollingGrid.getCellSize() * y);
     }
 
+    /**
+     * Gets the size of the level
+     * @return a double array where the first value is the width of the level, and the second
+     * is the height
+     */
     public double[] getSize() {
         return myLevel.getSize();
     }
 
+    /**
+     * Gets the size of the grid
+     * @return an int array where the first value is the number of gridcells across the width of ScrollingGrid,
+     * and the second is the number of gridcells across the height
+     */
     public int[] getGridSize() {
-        int[] lengthArray = {myScrollingGrid.getCellArray().length, myScrollingGrid.getCellArray()[0].length};
-        return lengthArray;
+        return new int[]{myScrollingGrid.getCellArray().length, myScrollingGrid.getCellArray()[0].length};
     }
 
     /**
@@ -117,7 +132,6 @@ public class AuthoredLevel implements DocumentGetter {
      * @param object is the object to remove
      */
     public void removeObject(GameEntity object){
-        //myLevel.getObjects().remove(object);
-        myLevel.getObjects().remove(myLevel.getObjects().indexOf(object));
+        myLevel.getObjects().remove(object);
     }
 }
