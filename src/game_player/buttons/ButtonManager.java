@@ -2,6 +2,7 @@ package game_player.buttons;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -16,7 +17,10 @@ import game_player.KeyBindingWindow;
 import game_player.ReplayScreen;
 import game_player_api.GamePlayerButton;
 import game_player_api.GameViewMenu;
-import javafx.scene.control.Button;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
@@ -32,9 +36,9 @@ import javafx.stage.Stage;
  * to the exact method name. If the user makes an error in typing then the button
  * does nothing, making this code easy to misuse.
  */
-public class ButtonManager {
+public class ButtonManager implements Manager{
     private PlayerView myPlayer;
-    private VMenuBar myMenuBa;
+    private VMenuBar myMenuBar;
     private GameViewMenu myGameView;
     private String myName;
     private String myDescription;
@@ -44,7 +48,7 @@ public class ButtonManager {
     public ButtonManager(PlayerView playerView, VMenuBar menuBar, GameViewMenu gameView, String name,
                          String description, List<Level> gameMaterial) {
         myPlayer = playerView;
-        myMenuBa = menuBar;
+        myMenuBar = menuBar;
         myGameView = gameView;
         myName = name;
         myDescription = description;
@@ -59,11 +63,12 @@ public class ButtonManager {
      * two exception are caught the button simply does nothing.
      */
     private void createButtons() {
-        List<String> buttonNames = (List<String>) rb.getKeys();
-        for(String buttonName : buttonNames){
-            Button button = new VButton(buttonName);
+        Enumeration<String> buttonNames = rb.getKeys();
+        while(buttonNames.hasMoreElements()){
+            String buttonName = buttonNames.nextElement();
+            GamePlayerButton button = new VButton(buttonName);
             Method buttonFunction = getButtonMethod(getResourceValue(buttonName));
-            button.setOnAction(event -> {
+            button.setAction(event -> {
                 try {
                     myGameView.pauseGame();
                     buttonFunction.invoke(this);
@@ -71,7 +76,7 @@ public class ButtonManager {
                     //The button does nothing
                 }
             });
-            myMenuBa.addButton((GamePlayerButton)button);
+            myMenuBar.addButton(button);
         }
     }
 
@@ -84,12 +89,15 @@ public class ButtonManager {
      */
     private Method getButtonMethod(String methodName){
         try {
-            return this.getClass().getMethod(methodName);
+            return this.getClass().getMethod(methodName, null);
         } catch (NoSuchMethodException e) {
             Method nullMethod = null;
             try {
-                nullMethod = this.getClass().getMethod("nullMethod");
-            } catch (NoSuchMethodException e1) { }
+                nullMethod = this.getClass().getMethod("nullMethod", null);
+            } catch (NoSuchMethodException e1) {
+                System.out.println(methodName);
+                e1.printStackTrace();
+            }
             return nullMethod;
         }
     }
@@ -98,12 +106,14 @@ public class ButtonManager {
     /**
      * Launches a new homescreen
      */
-    private void goHome() {
+    public void goHome() {
         OverViewDriver relaunch = new OverViewDriver();
         try {
             relaunch.start(new Stage());
         } catch (Exception e) {
-            System.out.println("Failed to relaunch");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Relaunch failed, aborting!");
+            alert.showAndWait();
         }
     }
 
@@ -112,7 +122,7 @@ public class ButtonManager {
      * Sends the user to the save screen where they can
      * save the current state of the game
      */
-    private void saveGame(){
+    public void saveGame(){
         new SaveScreen(myGameLevels, myName);
     }
 
@@ -121,7 +131,7 @@ public class ButtonManager {
      * Sends the user to an interface where they
      * can keep track of their score
      */
-    private void setScore(){
+    public void setScore(){
         new ScoreKeeperManager(myGameView);
     }
 
@@ -130,7 +140,7 @@ public class ButtonManager {
      * Allows the user to resume the game if it is
      * paused
      */
-    private void resumeGame(){
+    public void resumeGame(){
         myGameView.resumeGame();
     }
 
@@ -138,7 +148,7 @@ public class ButtonManager {
     /**
      * Pauses the game
      */
-    private void pauseGame(){
+    public void pauseGame(){
         myGameView.pauseGame();
     }
 
@@ -148,7 +158,7 @@ public class ButtonManager {
      * change the keybindings that represent
      * the control for the game
      */
-    private void changeBindings(){
+    public void changeBindings(){
         new KeyBindingWindow(myGameView);
     }
 
@@ -157,7 +167,7 @@ public class ButtonManager {
      * Opens the game authoring environment interface
      * to allow the user to edit the game they are playing
      */
-    private void editGame(){
+    public void editGame(){
         Stage stage = new Stage();
         new EditorWindow(stage, myName, myDescription);
     }
@@ -167,7 +177,7 @@ public class ButtonManager {
      * Resets the game to the original starting location
      * of the first level
      */
-    private void resetGame(){
+    public void resetGame(){
         myPlayer.resetGame();
     }
 
@@ -176,7 +186,7 @@ public class ButtonManager {
      * Opens an interface which show the replay of the user
      * playing the level
      */
-    private void replayGame(){
+    public void replayGame(){
         new ReplayScreen(myGameView.getReplayList());
     }
 
@@ -186,7 +196,7 @@ public class ButtonManager {
      * when the method name within the resource file does not match
      * the method name in this program
      */
-    private void nullMethod(){}
+    public void nullMethod(){}
 
 
     /**
@@ -203,5 +213,17 @@ public class ButtonManager {
         catch (NullPointerException|MissingResourceException |ClassCastException e){
             return "nullMethod";
         }
+    }
+
+
+    /**
+     * Adds a button with a specified button name and some sort of
+     * function that will occur on the click of the button
+     */
+    @Override
+    public void addButton(String name, EventHandler<ActionEvent> event){
+        GamePlayerButton button = new VButton(name);
+        button.setAction(event);
+        myMenuBar.addButton(button);
     }
 }

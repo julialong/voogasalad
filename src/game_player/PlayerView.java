@@ -1,7 +1,7 @@
 package game_player;
 
 import engine.level.Level;
-import game_player.buttons.ButtonBuilder;
+import game_player.buttons.ButtonManager;
 import game_player.buttons.VMenuBar;
 import game_player_api.GameViewMenu;
 import javafx.scene.control.Alert;
@@ -95,7 +95,7 @@ public class PlayerView extends BorderPane {
 	 * add buttons to my menubar
 	 */
 	private void addButtons() {
-		new ButtonBuilder(this, myMenuBar, (GameViewMenu) myGameView, myName, myDescription, gameMaterial);
+		ButtonManager blah = new ButtonManager(this, myMenuBar, (GameViewMenu) myGameView, myName, myDescription, gameMaterial);
 	}
 
 	/**

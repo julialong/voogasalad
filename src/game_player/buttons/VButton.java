@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 /**
  * Class that represents the buttons that are entered into the menubar
  *
- * @Author Kelley Scroggs
+ * @Author Dorian Barber, Kelley Scroggs
  */
 public class VButton extends Button implements GamePlayerButton {
 
@@ -39,5 +39,13 @@ public class VButton extends Button implements GamePlayerButton {
 	@Override
 	public void clearButton() {
 		myCommand = null;
+	}
+
+	/**
+	 * Sets the action of the button
+	 */
+	@Override
+	public void setAction(EventHandler<ActionEvent> event){
+		this.setOnAction(event);
 	}
 }
